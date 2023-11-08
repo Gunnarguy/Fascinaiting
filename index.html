@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Title One</title>
+    <title>Test</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Include Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
@@ -11,36 +11,35 @@
 <body>
     <header>
         <h1>Test</h1>
-    </header>
-    <nav class="clearfix">
-        <a href="#">Home</a> |
-        <a href="#">About</a> |
-        <a href="#">Articles</a>
-    </nav>
-    <div class="container clearfix">
-        <article>
-            <h2>Test</h2>
-            <p>Date: <time datetime="2023-11-04">Testvember, 2023</time></p>
-            <p>
-                This is where the content for Post Titl One will go. You can insert text, images, videos, and other media to enhance your articles. Each blog post can be styled individually with CSS or using inline styles if specific to a single post.
-            </p>
-        </article>
-        <aside>
-            <h3>Why does this exist?</h3>
-            <p>Gunzino is a man who needs to write a bio.</p>
-            <h3>Test 1</h3>
+        <nav class="navigation">
             <ul>
-                <li><a href="test.html">Test 1</a></li>
-                <li><a href="post2.html">Test 2</a></li>
-                <li><a href="post3.html">Test 3</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="articles/article1.html" class="article-link">Article 1</a></li>
+                <li><a href="articles/article2.html" class="article-link">Article 2</a></li>
+                <li><a href="articles/article3.html" class="article-link">Article 3</a></li>
+                <!-- Add more articles as needed with the appropriate href -->
             </ul>
-            <!-- Add an icon -->
-            <i class="icon fas fa-heart"></i>
-        </aside>
-    </div>
+        </nav>
+    </header>
+    <main>
+        <section class="featured-article" id="featured-article">
+            <article>
+                <h2>Featured Article</h2>
+                <p>This is a placeholder for the featured article.</p>
+                <a href="#" class="read-more">Read More</a>
+            </article>
+        </section>
+        <section class="articles-list" id="articles-list">
+            <article>
+                <h3>Article Title</h3>
+                <p>This is a placeholder for an article summary.</p>
+                <a href="#" class="read-more">Read More</a>
+            </article>
+            <!-- Add more articles here -->
+        </section>
+    </main>
     <footer>
-        <p>Copyright &copy; 2023 Fascinaiting</p>
+        <p>&copy; {(datetime.now()).year} AI + Healthcare Blog. All rights reserved.</p>
     </footer>
-    <script src="script.js"></script>
 </body>
 </html>
