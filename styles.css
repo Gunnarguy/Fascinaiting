@@ -46,10 +46,12 @@ nav a {
     color: #ffffff;
     text-decoration: none;
     padding: 0 15px;
+    transition: background-color 0.3s ease;
 }
 
 nav a:hover {
-    background: #2980b9;
+    background-color: #ffff99;
+    color: #2c3e50;
 }
 
 /* Article styles */
@@ -155,4 +157,38 @@ footer {
     margin-top: 20px;
     font-size: 0.8rem;
     color: #666666;
+}
+/* Add a nice highlight effect on hover */
+a:hover {
+    background-color: #ffff99;
+}
+article {
+    padding: 20px;
+    background-color: #f7cac9; /* updated color */
+    margin-top: 20px;
+    width: 100%; /* added width */
+}
+
+article h2 {
+    color: #6d4c41; /* updated color */
+}
+
+article p, article time {
+    color: #4e342e; /* updated color */
+    line-height: 1.5;
+}
+article {
+    padding: 20px;
+    background-color: #ccc; /* updated color */
+    margin-top: 20px;
+    width: 100%;
+}
+
+article h2 {
+    color: #333333;
+}
+
+article p, article time {
+    color: #666666;
+    line-height: 1.5;
 }
