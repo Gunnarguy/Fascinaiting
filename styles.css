@@ -54,9 +54,7 @@ nav a:hover {
 
 /* Article styles */
 article {
-    float: left;
     padding: 20px;
-    width: 70%;
     background-color: #ffffff;
     margin-top: 20px;
 }
@@ -72,8 +70,7 @@ article p, article time {
 
 /* Aside styles */
 aside {
-    float: right;
-    width: 30%;
+    width: 100%;
     background-color: #2980b9;
     padding: 20px;
     margin-top: 20px;
@@ -121,19 +118,41 @@ footer {
 }
 
 /* Media Queries for responsiveness */
-@media (max-width: 768px) {
+@media (min-width: 768px) {
     .container {
         max-width: 100%;
         padding: 0 20px;
     }
 
     article {
-        width: 100%;
-        float: none;
+        width: 70%;
+        float: left;
     }
 
     aside {
-        width: 100%;
-        float: none;
+        width: 30%;
+        float: right;
     }
+}
+/* Copyright */
+.twitter {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.twitter a {
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.twitter a:hover {
+    text-decoration: underline;
+}
+
+.copy {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #666666;
 }
