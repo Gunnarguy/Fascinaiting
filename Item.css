@@ -1,51 +1,68 @@
-/* Assuming .card represents an article or a featured item on your website */
+/* item.css - Styling for individual items such as cards */
+
+:root {
+    --primary-color: #0056b3; /* Replace with your primary color */
+    --hover-color: #003d82;   /* Replace with your hover state color */
+    --text-color: #333333;
+    --subtext-color: #666666;
+    --background-color: #ffffff;
+    --border-radius: 8px;
+    --box-shadow-color: rgba(0, 0, 0, 0.1);
+    --box-shadow-hover-color: rgba(0, 0, 0, 0.2);
+    --transition-speed: 0.3s;
+}
 
 .card {
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px var(--box-shadow-color);
     overflow: hidden;
     margin: 16px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
 
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px var(--box-shadow-hover-color);
 }
 
 .card img {
     width: 100%;
     height: auto;
     display: block;
+    border-bottom: 1px solid #eee; /* subtle separation from content */
 }
 
 .card-content {
     padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* ensures that button aligns to the bottom */
 }
 
 .card-content h3 {
     margin-top: 0;
-    color: #333333;
+    color: var(--text-color);
     font-size: 1.5em;
 }
 
 .card-content p {
-    color: #666666;
+    color: var(--subtext-color);
     line-height: 1.6;
     margin: 8px 0 16px;
 }
 
 .card-content .btn {
-    background-color: #0056b3;
-    color: #ffffff;
+    background-color: var(--primary-color);
+    color: var(--background-color);
     text-decoration: none;
     padding: 10px 20px;
     display: inline-block;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed) ease;
+    align-self: flex-start; /* aligns button to the left */
 }
 
 .card-content .btn:hover {
-    background-color: #003d82;
+    background-color: var(--hover-color);
 }
