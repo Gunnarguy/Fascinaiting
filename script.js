@@ -1,7 +1,5 @@
-// Select the icon
-const icon = document.querySelector('.icon');
+// Hero slider functionality
+// Initialize your slider library or write your own logic
 
-// Add event listener
-icon.addEventListener('click', () => {
-    icon.classList.toggle('clicked');
-});
+// Contact form validation
+// Add form validation logic

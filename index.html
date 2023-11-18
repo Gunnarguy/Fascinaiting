@@ -3,58 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FascinAIting</title>
+    <title>Enhanced Website</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Include Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 </head>
 <body>
-    <header>
-        <h1>Placeholder</h1>
-        <nav class="navigation">
-            <ul>
-                <li><a href="index.html">Artificial Intelligence in:</a></li>
-                <li><a href="articles/article1.html" class="article-link">Operating Room</a></li>
-                <li><a href="articles/article2.html" class="article-link">Animal Behavior + Psychology</a></li>
-                <li><a href="articles/article3.html" class="article-link">Prosthetics</a></li>
-                <li><a href="articles/article4.html" class="article-link">Nutrition</a></li>
-                <!-- Add more articles as needed with the appropriate href -->
-            </ul>
-        </nav>
+    <header class="site-header">
+        <div class="wrapper">
+            <h1 class="logo">Brand</h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#articles">Articles</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main>
-        <section class="featured-article" id="featured-article">
-            <article>
-                <h3>Operating Room</h3>
-                <p>Medical Devices</p>
-                <a href="articles/article1.html" class="read-more">Read More</a>
-            </article>
+        <section class="hero" id="hero">
+            <!-- Hero slider -->
+            <div class="hero-slider">
+                <div class="slide" style="background-image: url('your-image-1.jpg');">
+                    <div class="slide-content">
+                        <h2>Slide One</h2>
+                        <p>Description for slide one.</p>
+                    </div>
+                </div>
+                <div class="slide" style="background-image: url('your-image-2.jpg');">
+                    <div class="slide-content">
+                        <h2>Slide Two</h2>
+                        <p>Description for slide two.</p>
+                    </div>
+                </div>
+                <!-- Add more slides as needed -->
+            </div>
         </section>
-        <section class="articles-list" id="articles-list">
-            <article>
-                <h3>Animal Behavior + Psychology</h3>
-                <p>Placeholder</p>
-                <a href="articles/article2.html" class="read-more">Read More</a>
+        <section class="articles" id="articles">
+            <!-- Article cards -->
+            <!-- Use a loop to generate these in your actual project -->
+            <article class="card">
+                <img src="article-image-1.jpg" alt="Article Image">
+                <div class="card-content">
+                    <h3>Article Title One</h3>
+                    <p>Description for article one.</p>
+                    <a href="#" class="btn">Read More</a>
+                </div>
             </article>
-            <article>
-                <h3>Prosthetics</h3>
-                <p>Placeholder</p>
-                <a href="articles/article3.html" class="read-more">Read More</a>
-            </article>
-            <article>
-                <h3>Nutrition</h3>
-                <p>Placeholder</p>
-                <a href="articles/article4.html" class="read-more">Read More</a>
-            </article>
-            <!-- Add more articles here -->
+            <!-- Repeat for more articles -->
         </section>
-        <section class="twitter-link" id="twitter-link">
-            <p>Follow me on:</p> 
-                <a href="https://twitter.com/your-twitter-link">Twitter/X</a></p>
+        <section class="contact" id="contact">
+            <!-- Contact form -->
+            <form>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
         </section>
     </main>
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> FascinAIting. All rights reserved.</p>
+    <footer class="site-footer">
+        <p>&copy; 2023 Enhanced Website. All rights reserved.</p>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
