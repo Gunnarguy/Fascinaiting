@@ -1,0 +1,51 @@
+/* Assuming .card represents an article or a featured item on your website */
+
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.card-content {
+    padding: 16px;
+}
+
+.card-content h3 {
+    margin-top: 0;
+    color: #333333;
+    font-size: 1.5em;
+}
+
+.card-content p {
+    color: #666666;
+    line-height: 1.6;
+    margin: 8px 0 16px;
+}
+
+.card-content .btn {
+    background-color: #0056b3;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.card-content .btn:hover {
+    background-color: #003d82;
+}
