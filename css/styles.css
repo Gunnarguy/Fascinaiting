@@ -50,7 +50,8 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #ffff99;
+  color: blue;
+  transition: color 0.3s ease;
   color: #2c3e50;
 }
 
@@ -160,7 +161,8 @@ footer {
 }
 /* Add a nice highlight effect on hover */
 a:hover {
-  background-color: #ffff99;
+  color: blue;
+  transition: color 0.3s ease;
 }
 article {
   padding: 20px;
