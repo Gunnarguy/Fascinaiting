@@ -1,16 +1,12 @@
 from openai import OpenAI
+client = OpenAI(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)
 
-client = OpenAI(
-    # defaults to os.environ.get("OPENAI_API_KEY")
-    api_key="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",
+completion = client.chat.completions.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
+    {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
+  ]
 )
 
-chat_completion = client.chat.completions.create(
-    messages=[
-        {
-            "role": "user",
-            "content": "Say this is a test",
-        }
-    ],
-    model="gpt-4-1106-preview",
-)
+print(completion.choices[0].message)
