@@ -192,3 +192,21 @@ article p, article time {
   color: #666666;
   line-height: 1.5;
 }
+
+body {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.center {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
