@@ -11,10 +11,10 @@
 <body>
 <div class="center">
     <header>
-<form id="search-form">
-<input type="search" id="search-input" placeholder="Search...">
-<button type="submit">Search</button>
-</form>
+        <form id="search-form">
+            <input type="search" id="search-input" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
         <h1>Placeholder</h1>
         <nav class="navigation">
             <ul>
@@ -55,65 +55,63 @@
         </section>
         <section class="twitter-link" id="twitter-link">
             <p>Follow me on:</p> 
-                <a href="https://www.twitter.com/gunzino">Twitter/X</a></p>
+            <a href="https://www.twitter.com/gunzino">Twitter/X</a></p>
         </section>
-    <section id="newsletter">
-<h2>Subscribe to our newsletter</h2>
-<form id="newsletter-form">
-<input type="email" id="newsletter-input" placeholder="Enter your email...">
-<button type="submit">Subscribe</button>
-</form>
-</section>
-</main>
+        <section id="newsletter">
+            <h2>Subscribe to our newsletter</h2>
+            <form id="newsletter-form">
+                <input type="email" id="newsletter-input" placeholder="Enter your email...">
+                <button type="submit">Subscribe</button>
+            </form>
+        </section>
+    </main>
     <footer>
         <p>&copy; <?php echo date("Y"); ?> FascinAIting. All rights reserved.</p>
     </footer>
-<script>
-// Get the newsletter form and input elements
-const newsletterForm = document.getElementById('newsletter-form');
-const newsletterInput = document.getElementById('newsletter-input');
+    <script>
+        // Get the newsletter form and input elements
+        const newsletterForm = document.getElementById('newsletter-form');
+        const newsletterInput = document.getElementById('newsletter-input');
 
-// Listen for the newsletter form submission
-newsletterForm.addEventListener('submit', function(event) {
-    // Prevent the form from being submitted
-    event.preventDefault();
+        // Listen for the newsletter form submission
+        newsletterForm.addEventListener('submit', function(event) {
+            // Prevent the form from being submitted
+            event.preventDefault();
 
-    // Get the email address
-    const email = newsletterInput.value;
+            // Get the email address
+            const email = newsletterInput.value;
 
-    // Here you would send the email address to your server or a third-party service
-    // For now, we'll just log it to the console
-    console.log('Newsletter subscription:', email);
-});
+            // Here you would send the email address to your server or a third-party service
+            // For now, we'll just log it to the console
+            console.log('Newsletter subscription:', email);
+        });
 
+        // Get the search form and input elements
+        const searchForm = document.getElementById('search-form');
+        const searchInput = document.getElementById('search-input');
 
-<script>
-// Get the search form and input elements
-const searchForm = document.getElementById('search-form');
-const searchInput = document.getElementById('search-input');
+        // Listen for the search form submission
+        searchForm.addEventListener('submit', function(event) {
+            // Prevent the form from being submitted
+            event.preventDefault();
 
-// Listen for the search form submission
-searchForm.addEventListener('submit', function(event) {
-    // Prevent the form from being submitted
-    event.preventDefault();
+            // Get the search query
+            const query = searchInput.value.toLowerCase();
 
-    // Get the search query
-    const query = searchInput.value.toLowerCase();
+            // Get all the articles
+            const articles = document.querySelectorAll('article');
 
-    // Get all the articles
-    const articles = document.querySelectorAll('article');
-
-    // Filter the articles based on the search query
-    articles.forEach(function(article) {
-        const title = article.querySelector('h3').textContent.toLowerCase();
-        if (title.includes(query)) {
-            article.style.display = 'block';
-        } else {
-            article.style.display = 'none';
-        }
-    });
-});
-</script>
+            // Filter the articles based on the search query
+            articles.forEach(function(article) {
+                const title = article.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </div>
 </body>
 </html>
