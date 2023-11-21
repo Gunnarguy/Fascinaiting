@@ -1,1 +1,10 @@
 .env
+
+# Node modules
+node_modules/
+
+# Temporary files
+temp
+
+# Environment variables
+.env
