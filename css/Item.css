@@ -1,14 +1,14 @@
 /* item.css - Styling for individual items such as cards */
 
 :root {
-    --primary-color: #0056b3; /* Replace with your primary color */
-    --hover-color: #003d82;   /* Replace with your hover state color */
-    --text-color: #333333;
-    --subtext-color: #666666;
-    --background-color: #ffffff;
+    --primary-color: #2980b9; /* Replace with your primary color */
+    --hover-color: red;   /* Replace with your hover state color */
+    --text-color: #333;
+    --subtext-color: #666;
+    --background-color: #f4f4f4;
     --border-radius: 8px;
-    --box-shadow-color: rgba(0, 0, 0, 0.1);
-    --box-shadow-hover-color: rgba(0, 0, 0, 0.2);
+    --box-shadow-color: #ccc;
+    --box-shadow-hover-color: #333;
     --transition-speed: 0.3s;
 }
 
