@@ -372,315 +372,38 @@
                 </form>
             </section>
         </main>
-        <footer>
-            <p>&copy; <?php echo date("Y"); ?> FascinAIting. All rights reserved.</p>
-        </footer>
-        <script>
-            // Get the newsletter form and input elements
-            const newsletterForm = document.getElementById('newsletter-form');
-            const newsletterInput = document.getElementById('newsletter-input');
-    
-            // Listen for the newsletter form submission
-            newsletterForm.addEventListener('submit', function(event) {
-                // Prevent the form from being submitted
-                event.preventDefault();
-    
-                // Get the email address
-                const email = newsletterInput.value;
-    
-                // Here you would send the email address to your server or a third-party service
-                // For now, we'll just log it to the console
-                console.log('Newsletter subscription:', email);
-            });
-    
-            // Get the search form and input elements
-            const searchForm = document.getElementById('search-form');
-            const searchInput = document.getElementById('search-input');
-    
-            // Listen for the search form submission
-            searchForm.addEventListener('submit', function(event) {
-                // Prevent the form from being submitted
-                event.preventDefault();
-    
-                // Get the search query
-                const query = searchInput.value.toLowerCase();
-    
-                // Get all the articles
-                const articles = document.querySelectorAll('article');
-    
-                // Filter the articles based on the search query
-                articles.forEach(function(article) {
-                    const title = article.querySelector('h3').textContent.toLowerCase();
-                    if (title.includes(query)) {
-                        article.style.display = 'block';
-                    } else {
-                        article.style.display = 'none';
-                    }
-                });
-            });
-        </script>
+<footer class="bg-gray-800 text-white p-4">
+    <div class="container mx-auto text-center">
+        <div class="flex justify-center items-center space-x-4 mb-4">
+            <div>
+                <button id="footerDropdownButton1" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Click for Dropdown 1
+                </button>
+                <div id="footerDropdownContent1" class="dropdown-content hidden">
+                    <!-- Content for the first dropdown -->
+                </div>
+            </div>
+            <div>
+                <button id="footerDropdownButton2" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Click for Dropdown 2
+                </button>
+                <div id="footerDropdownContent2" class="dropdown-content hidden">
+                    <!-- Content for the second dropdown -->
+                </div>
+            </div>
+        </div>
+        <p>&copy; <?php echo date("Y"); ?> FascinAIting. All rights reserved.</p>
     </div>
-    </body>
-    </html>
-    
-    
-    
-    
-    <style>
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      grid-gap: 20px;
-      padding: 20px;
-    }
-    
-    .card img {
-      max-width: 100%;
-      height: auto;
-    }
-    
-    .card-content h3 {
-      font-size: 1.2em;
-      margin: 0.5em 0;
-    }
-    
-    .card-content p {
-      font-size: 1em;
-      line-height: 1.4;
-    }
-    
-    .btn {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 10px 15px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-    
-    .btn:hover {
-      background-color: var(--hover-color);
-    }
-    
-    @media (max-width: 768px) {
-      .card-container {
-        grid-template-columns: 1fr;
-      }
-    }
-    </style>
-    
-    
-    <section class='about-section'>
-      <h2>About FascinAIting</h2>
-      <p>This section can describe the purpose of the web app, its features, and how it integrates with Twitter. Include engaging images or icons to illustrate the points.</p>
-    </section>
-    <section class='testimonials-section'>
-      <h2>User Testimonials</h2>
-      <div class='testimonial'>
-        <blockquote>
-          'This web app has transformed the way I interact with Twitter and manage my content. Highly recommended!'
-        </blockquote>
-        <p>- Jane Doe, Influencer</p>
-      </div>
-      <div class='testimonial'>
-        <blockquote>
-          'A seamless experience that integrates perfectly with my social media workflow.'
-        </blockquote>
-        <p>- John Smith, Social Media Manager</p>
-      </div>
-      <!-- Add more testimonials as needed -->
-    </section>
-    
-    
-    
-    <nav class='main-nav'>
-      <div class='logo'>FascinAIting</div>
-      <ul class='nav-links'>
-        <li><a href='#home'>Home</a></li>
-        <li><a href='#about'>About</a></li>
-        <li><a href='#testimonials'>Testimonials</a></li>
-        <li><a href='#gallery'>Gallery</a></li>
-        <li><a href='#contact'>Contact</a></li>
-      </ul>
-      <div class='menu-toggle'>☰</div>
-    </nav>
-    
-    
-    <style>
-    .main-nav {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .logo {
-      font-size: 1.5em;
-      font-weight: bold;
-    color: black; }
-    
-    .nav-links {
-      list-style: none;
-      display: flex;
-    }
-    
-    .nav-links li {
-      padding: 0 15px;
-    }
-    
-    .nav-links a {
-      color: black;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
+</footer>
 
-    
-    .nav-links a:hover {
-      color: var(--hover-color);
-    }
-    
-    .menu-toggle {
-      font-size: 2em;
-      display: none;
-    }
-    
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-      .menu-toggle {
-        display: block;
-      }
-    }
-    </style>
-    
-    
-    <footer class='site-footer'>
-      <div class='footer-content'>
-        <div class='footer-section'>
-          <h3>Contact Us</h3>
-          <p>If you have any questions, please feel free to reach out to us at contact@fascinaiting.com.</p>
-        </div>
-        <div class='footer-section'>
-          <h3>Follow Us</h3>
-          <p>Stay connected with us on social media:</p>
-          <ul class='social-links'>
-            <li><a href='#'>Twitter</a></li>
-            <li><a href='#'>Facebook</a></li>
-            <li><a href='#'>Instagram</a></li>
-          </ul>
-        </div>
-        <div class='footer-section'>
-          <h3>Site Map</h3>
-          <ul class='site-map'>
-            <li><a href='#home'>Home</a></li>
-            <li><a href='#about'>About</a></li>
-            <li><a href='#testimonials'>Testimonials</a></li>
-            <li><a href='#gallery'>Gallery</a></li>
-            <li><a href='#contact'>Contact</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class='footer-bottom'>
-        <p>&copy; <?php echo date(Y); ?> FascinAIting. All rights reserved.</p>
-      </div>
-    </footer>
-    
-    
-    <style>
-    .site-footer {
-      background-color: var(--primary-color);
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    
-    .footer-content {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-    }
-    
-    .footer-section h3 {
-      margin-bottom: 10px;
-    }
-    
-    .social-links, .site-map {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .social-links li, .site-map li {
-      margin-bottom: 5px;
-    }
-    
-    .social-links a, .site-map a {
-      color: white;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    
-    .social-links a:hover, .site-map a:hover {
-      color: var(--hover-color);
-    }
-    
-    .footer-bottom {
-      margin-top: 20px;
-    }
-    
-    @media (max-width: 768px) {
-      .footer-content {
-        flex-direction: column;
-      }
-    }
-    </style>
-    
-    
-    <script>
-    // Update alt text for images
-    document.querySelectorAll('img').forEach(function(img) {
-      if (!img.getAttribute('alt')) {
-        img.setAttribute('alt', 'Descriptive text here');
-      }
+<script>
+    // JavaScript for Dropdown functionality
+    document.getElementById('footerDropdownButton').addEventListener('click', function() {
+        var content = document.getElementById('footerDropdownContent');
+        if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+        } else {
+            content.classList.add('hidden');
+        }
     });
-    
-    // Check color contrast and update if necessary (placeholder for actual contrast checking and updates)
-    
-    // Ensure semantic HTML is used
-    // This is a placeholder for actual semantic HTML updates, which would be done manually by reviewing and updating the HTML structure
-    </script>
-    
-    
-    <style>
-    /* Ensure the header stretches across the entire screen */
-    header {
-      background-color: #f4f4f4; /* Grey background */
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    </style>
-    
-    
-    <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      /* This ensures that there's no horizontal scroll */
-    }
-    
-    header, .main-nav {
-      background-color: #f4f4f4; /* Grey background */
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      /* Remove any default margins and padding */
-    }
-    </style>
-    
-    
+</script>
