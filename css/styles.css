@@ -410,3 +410,9 @@ body {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #f1f1f1}
+
+/* This class is used to hide elements */
+.hidden {
+  display: none !important;
+}
+
