@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Fascinating World of [Subject]</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Article 2</title>
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto p-4">
-        <h1 class="text-4xl font-bold text-center my-6">The Fascinating World of [Subject]</h1>
-        <img src="path_to_image.jpg" alt="Descriptive Alt Text" class="w-full h-auto my-4">
-        <p class="text-lg my-4">[Introduction content goes here...]</p>
-        <h2 class="text-2xl font-semibold my-3">Subheading 1</h2>
-        <p>[Content for subheading 1...]</p>
-        <h2 class="text-2xl font-semibold my-3">Subheading 2</h2>
-        <p>[Content for subheading 2...]</p>
-        <h2 class="text-2xl font-semibold my-3">Subheading 3</h2>
-        <p>[Content for subheading 3...]</p>
-        <h3 class="text-xl font-semibold my-3">Conclusion</h3>
-        <p>[Conclusion content goes here...]</p>
-    </div>
+<body>
+    <h1>Article 2</h1>
+
+    <div id="tweetData"></div>
+    <div id="tweetEmbed"></div>
+
+    <script>
+        // FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/html/articles/article2.html
+
+        fetch('/Users/gunzino/Documents/GitHub/Fascinaiting/html/articles/tweet_data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Process the data from tweet_data.json
+                console.log(data);
+
+                // Call a function to integrate the data
+                integrateTweetData(data);
+            })
+            .catch(error => {
+                console.error('Error fetching tweet_data.json:', error);
+            });
+
+        function integrateTweetData(data) {
+            // Perform integration logic here
+            // Example: Update HTML elements with the data
+            document.getElementById('tweetData').innerHTML = JSON.stringify(data);
+        }
+
+        fetch('/Users/gunzino/Documents/GitHub/Fascinaiting/html/articles/tweet_embed.json')
+            .then(response => response.json())
+            .then(data => {
+                // Process the data from tweet_embed.json
+                console.log(data);
+
+                // Call a function to integrate the data
+                integrateTweetEmbed(data);
+            })
+            .catch(error => {
+                console.error('Error fetching tweet_embed.json:', error);
+            });
+
+        function integrateTweetEmbed(data) {
+            // Perform integration logic here
+            // Example: Update HTML elements with the data
+            document.getElementById('tweetEmbed').innerHTML = JSON.stringify(data);
+        }
+    </script>
 </body>
 </html>
