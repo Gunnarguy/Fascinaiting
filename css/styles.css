@@ -248,3 +248,24 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+#footerDropdownButton1, #footerDropdownButton2, #footerDropdownContent1, #footerDropdownContent2 {
+    position: static;
+    top: 0;
+    z-index: 1000; /* Ensure dropdowns stay on top of other content */
+}
+
+/* Hamburger Icon Style */
+#footerDropdownButton1 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  display: block;
+  width: 40px;
+  height: 30px;
+  margin: 10px;
+  background: url('hamburger-icon.png') no-repeat center center;
+  background-size: contain;
+}
+

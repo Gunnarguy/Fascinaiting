@@ -371,7 +371,26 @@
                     <!-- Add more articles as needed with the appropriate href -->
                 </ul>
             </nav>
-        </header>
+        <footer class="bg-gray-800 text-white p-4">
+    <div class="container mx-auto text-center">
+        <div class="flex justify-center items-center space-x-4 mb-4">
+            <div>
+                <button id="footerDropdownButton1" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Click for Dropdown 1
+                </button>
+                <div id="footerDropdownContent1" class="dropdown-content hidden">
+                    <!-- Content for the first dropdown -->
+                </div>
+            </div>
+            <div>
+                </button>
+                    <!-- Content for the second dropdown -->
+                </div>
+            </div>
+        </div>
+        <p>&copy; <?php echo date("Y"); ?> FascinAIting. All rights reserved.</p>
+    </div>
+</footer></header>
         <main>
             <section class="featured-article" id="featured-article">
                 <article>
@@ -429,38 +448,22 @@
                 </form>
             </section>
         </main>
-<footer class="bg-gray-800 text-white p-4">
-    <div class="container mx-auto text-center">
-        <div class="flex justify-center items-center space-x-4 mb-4">
-            <div>
-                <button id="footerDropdownButton1" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Click for Dropdown 1
-                </button>
-                <div id="footerDropdownContent1" class="dropdown-content hidden">
-                    <!-- Content for the first dropdown -->
-                </div>
-            </div>
-            <div>
-                <button id="footerDropdownButton2" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Click for Dropdown 2
-                </button>
-                <div id="footerDropdownContent2" class="dropdown-content hidden">
-                    <!-- Content for the second dropdown -->
-                </div>
-            </div>
-        </div>
-        <p>&copy; <?php echo date("Y"); ?> FascinAIting. All rights reserved.</p>
-    </div>
-</footer>
+
 
 <script>
     // JavaScript for Dropdown functionality
-    document.getElementById('footerDropdownButton').addEventListener('click', function() {
-        var content = document.getElementById('footerDropdownContent');
+    document.getElementById('headerDropdownButton1').addEventListener('click', function() {
+        var content = document.getElementById('headerDropdownContent1');
         if (content.classList.contains('hidden')) {
             content.classList.remove('hidden');
         } else {
             content.classList.add('hidden');
         }
     });
+        var content = document.getElementById('headerDropdownContent2');
+        if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+        } else {
+            content.classList.add('hidden');
+        }
 </script>
