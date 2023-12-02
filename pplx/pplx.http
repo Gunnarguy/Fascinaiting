@@ -1,8 +1,0 @@
-POST /chat/completions HTTP/1.1
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer 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
-Host: api.perplexity.ai
-Content-Length: 161
-
-{"model":"pplx-7b-online","messages":[{"role":"system","content":"Be precise and concise."},{"role":"user","content":"How many stars are there in our galaxy?"}]}

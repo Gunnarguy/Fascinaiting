@@ -14,7 +14,7 @@ def chat_with_pplx(user_input, previous_messages):
     headers = {
         "accept": "application/json",
         "content-type": "application/json",
-        "authorization": "Bearer <YOUR_AUTHORIZATION_TOKEN>"
+        "authorization": "Bearer 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"
     }
     response = requests.post(url, json=payload, headers=headers)
     return response.json()
