@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     var dropdowns = document.querySelectorAll('.dropdown');
     dropdowns.forEach(function(dropdown) {
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Close the dropdown if the user clicks outside of it
-    window.addEventListener('click', function() {
+    window.addEventListener('click', function(event) {
         dropdowns.forEach(function(dropdown) {
             var content = dropdown.querySelector('.dropdown-content');
             if (!content.classList.contains('hidden')) {
