@@ -22,3 +22,12 @@
     </div>
 </body>
 </html>
+<div id='article-content'></div>
+<script>
+fetch('article1.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('article-content').innerHTML = data;
+  })
+  .catch(error => console.error('Error loading article:', error));
+</script>
