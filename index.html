@@ -156,15 +156,22 @@
       <body>
       <div class="center">
         <header>
+          
           <form id="search-form" action="search.php" method="GET">
             <input type="search" id="search-input" name="query" placeholder="Search...">
             <button type="submit" name="search" value="Search">Search</button>
           </form>
+          <div>
+            <button id="headerDropdown" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Menu
+            </button>
+            <div id="headerDropdown" class="dropdown-content">
+              <!-- Content for the first dropdown -->
+            </div>
           <h1>FascinAIting</h1>
           <nav class="navigation">
             <ul>
-              <li>Artificial Intelligence</li>
-              </li>in:</li>
+              <li>AI in:</li>
               <!-- Add more articles as needed with the appropriate href -->
             </ul>
           </nav>
@@ -234,13 +241,6 @@
         <footer class="bg-gray-800 text-white p-4">
           <div class="container mx-auto text-center">
             <div class="flex justify-center items-center space-x-4 mb-4">
-              <div>
-                <button id="footerDropdownButton1" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Menu
-                </button>
-                <div id="footerDropdownContent1" class="dropdown-content hidden">
-                  <!-- Content for the first dropdown -->
-                </div>
               </div>
               <div>
                 <!-- Content for the second dropdown -->
