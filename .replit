@@ -185,4 +185,4 @@ requiredFiles = [".replit", "replit.nix", ".config"]
 
 [deployment]
 publicDir = "/"
-deploymentTarget = "static"
+deploymentTarget = "static"# Add your secrets like OPENAI_API_KEY through the Replit web interface under the 'Secrets' tab
