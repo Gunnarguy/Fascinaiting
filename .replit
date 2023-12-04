@@ -1,5 +1,8 @@
 hidden=[".config"]
 
+language = "nodejs"
+run = "npm install && npm start"
+
 # hosting is currently hardcoded for this language
 # [hosting]
 # route = "/"
