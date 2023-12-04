@@ -416,3 +416,58 @@ body {
   display: none !important;
 }
 
+
+/* Reset some basic elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Set up some styling for the body */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  font-size: 1rem;
+  background-color: #f4f4f4;
+  color: #333;
+}
+.flex {
+  display: flex;
+}
+.justify-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
+}
+.space-x-4 {
+  gap: 1rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.bg-blue-600 {
+  background-color: #3182ce;
+}
+.hover\:bg-blue-700:hover {
+  background-color: #2c5282;
+}
+.text-white {
+  color: #ffffff;
+}
+
+:root {
+    --primary: #DD946F;
+    --secondary: #261E5A;
+}
+/* ... (include all the CSS rules from the style.css file provided earlier) ... */
+.articles article img {
+    max-width: 100%;
+    transform-origin: center;
+    transition: transform 0.4s ease-in-out;
+}
+.article-preview {
+    padding: 24px;
+    background: white;
+}
+/* ... (continue including the rest of the CSS rules) ... */
