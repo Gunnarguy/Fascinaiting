@@ -298,16 +298,6 @@ article p, article time {
 }
 
 body {
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-.center {
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -348,39 +338,18 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
-
-#footerDropdownButton1, #footerDropdownButton2, #footerDropdownContent1, #footerDropdownContent2 {
-    position: static;
-    top: 0;
-    z-index: 1000; /* Ensure dropdowns stay on top of other content */
-}
-
-/* Hamburger Icon Style */
-#footerDropdownButton1 {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 999;
-  display: block;
-  width: 40px;
-  height: 30px;
-  margin: 10px;
-  background: url('hamburger-icon.png') no-repeat center center;
-  background-size: contain;
-}
-
 /* Dropdown Button */
 .dropbtn {
   background-color: #3b96aa;
   color: white;
-  padding: 16px;
-  font-size: 16px;
+  padding: 8px;
+  font-size: 12px;
   border: none;
   cursor: pointer;
 }
 
 /* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
+.dropbtn.dropbtn:hover, .dropbtn:focus {
   background-color: #3e8e41;
 }
 
