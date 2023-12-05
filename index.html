@@ -11,17 +11,20 @@
             <button type="submit" name="search" value="Search">Search</button>
           </form>
           <div>
-            <button id="headerDropdown" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Menu
-            </button>
-            <div id="headerDropdown" class="dropdown-content">
-              <!-- Content for the first dropdown -->
+            <div>
+              <button id="headerDropdown" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Menu
+              </button>
+              <div id="headerDropdownContent" class="hidden absolute bg-white shadow-md mt-1">
+                <a href="/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Home</a>
+                <a href="/option1" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
+                <a href="/option2" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
+              </div>
             </div>
-          <h1>FascinAIting</h1>
+            <h1>FascinAIting</h1>
           <nav class="navigation">
             <ul>
               <li>AI in:</li>
-              <!-- Add more articles as needed with the appropriate href -->
             </ul>
           </nav>
         </header>
@@ -84,4 +87,24 @@
           <section class="card-container">
             <div class="card">
               <div class="card-content">
-                <p>&copy; <?php echo date("Y"); ?> FascinAIting. All rights reserved.</p>How to add a Tweet button to your website
+<script>
+  // Get the dropdown button and content
+  var dropdown = document.getElementById("headerDropdown");
+  var dropdownContent = document.getElementById("headerDropdownContent");
+
+  // Toggle the dropdown content when clicking the dropdown button
+  dropdown.onclick = function(event) {
+    event.stopPropagation();
+    dropdownContent.classList.toggle("hidden");
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches("#headerDropdown")) {
+      if (!dropdownContent.classList.contains("hidden")) {
+        dropdownContent.classList.add("hidden");
+      }
+    }
+  }
+</script>
+
