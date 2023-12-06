@@ -1,5 +1,7 @@
 /* item.css - Styling for individual items such as cards */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 :root {
     --primary-color: #2980b9; /* Replace with your primary color */
     --hover-color: red;   /* Replace with your hover state color */
@@ -44,6 +46,7 @@
     margin-top: 0;
     color: var(--text-color);
     font-size: 1.5em;
+    font-family: 'Roboto', sans-serif;
 }
 
 .card-content p {

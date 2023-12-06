@@ -1,4 +1,14 @@
-import React from 'react';\n\nconst Header = () => (\n  <header>\n    <h1>Fascinaiting</h1>\n    <nav>\n      // eslint-disable-next-line                          
-   jsx-a11y/anchor-is-valid\n      <a href='javascript:void(0)'>Home</a>\n      // eslint-disable-next-line jsx-a11y/anchor-is-valid\n      <a                              
-   href='javascript:void(0)'>About</a>\n      // eslint-disable-next-line jsx-a11y/anchor-is-valid\n      <a href='javascript:void(0)'>Contact</a>\n    </nav>\n            
-   </header>\n);\n\nexport default Header;
+import React from 'react';
+
+const Header = () => (
+   <header>
+      <h1>Fascinating</h1>
+      <nav>
+         <a href='#'>Home</a>
+         <a href='#'>About</a>
+         <a href='#'>Contact</a>
+      </nav>
+   </header>
+);
+
+export default Header;
