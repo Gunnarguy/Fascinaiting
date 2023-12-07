@@ -1,0 +1,63 @@
+:root {
+    --background: #2C2C2C;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Mulish';
+    font-size: 16px;
+}
+
+.background {
+    background-color: var(--background);
+    place-items: center;
+    height: 100vh;
+}
+
+.button {
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.8rem;
+    line-height: 2rem;
+    max-width: 160px;
+    width: 100%;
+    letter-spacing: 0.1rem;
+    font-weight: 100;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 1s ease-in;
+}
+
+.button svg {
+    height: 18px;
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.button rect {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-dasharray: 450, 0;
+    transition: all 0.5s linear;
+}
+
+.button:hover rect {
+    stroke-width: 5;
+    stroke-dasharray: 20, 300;
+    stroke-dashoffset: 48;
+    stroke: #50e5ff;
+    transition: all 2s cubic-bezier(0.22, 1, 0.25, 1);
+    -webkit-transition: all 2s cubic-bezier(0.22, 1, 0.25, 1);
+    -moz-transition: all 2s cubic-bezier(0.22, 1, 0.25, 1);
+    -ms-transition: all 2s cubic-bezier(0.22, 1, 0.25, 1);
+    -o-transition: all 2s cubic-bezier(0.22, 1, 0.25, 1);
+}

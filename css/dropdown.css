@@ -16,6 +16,8 @@
   background-color: #f9f9f9;
   min-width: 140px;
   z-index: 10;
+  top: 0; /* Add this line to position the dropdown content at the top */
+  right: 100%; /* Add this line to position the dropdown content to the left */
 }
 
 /* Change color of dropdown links on hover */
@@ -61,4 +63,19 @@
 /* Change color of dropdown links on hover */
 .dropdown .dropdown-content a:hover {
   background-color: #f1f1f1;
+}
+
+/* Full width container */
+.full-width-container {
+  width: 100%;
+  position: relative;
+  display: flex; /* Add this line to enable flexbox */
+  align-items: center; /* Add this line to vertically align items */
+}
+
+/* Dropdown Button */
+.dropdown {
+  position: absolute;
+  top: 50;
+  right: 20;
 }
