@@ -1,5 +1,3 @@
-/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/dropdown.css */
-
 /* Dropdown Button */
 .dropdown .dropdown-button {
   background-color: #2980b9;
@@ -41,7 +39,8 @@
 }
 
 /* Dropdown button on hover & focus */
-.dropdown .dropbtn:hover, .dropdown .dropbtn:focus {
+.dropdown .dropbtn:hover,
+.dropdown .dropbtn:focus {
   background-color: #3e8e43;
 }
 

@@ -1,7 +1,14 @@
+/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/body.css */
+
+/* Body Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.5;
-    font-size: .9rem;
+    font-size: 0.9rem;
     background-color: #f4f4f4;
     color: #333;
-  }
+}
+/* Added Identifiers */
+body {
+    /* Add your custom styles here */
+}
