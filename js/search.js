@@ -1,4 +1,3 @@
-
 // Get the form and input elements
 const form = document.getElementById('search-form');
 const input = document.getElementById('search-input');
@@ -16,10 +15,7 @@ form.addEventListener('submit', function(event) {
     const articles = document.querySelectorAll('article');
     articles.forEach(function(article) {
         const title = article.getAttribute('data-title');
-        if (title.toLowerCase().includes(query.toLowerCase())) {
-            article.style.display = 'block';
-        } else {
-            article.style.display = 'none';
-        }
+        const shouldDisplay = title.toLowerCase().includes(query.toLowerCase());
+        article.style.display = shouldDisplay ? 'block' : 'none';
     });
 });

@@ -1,4 +1,3 @@
-
 // Main script to initialize various functionalities
 
 // Import other scripts
@@ -9,13 +8,13 @@ import './interactive.js';
 // Initialize functionalities on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize dropdown
-    // The code will be in dropdown.js
+    // Code for dropdown initialization goes here
 
     // Initialize search
-    // The code will be in search.js
+    // Code for search initialization goes here
 
     // Initialize other interactive elements
-    // The code will be in interactive.js
+    // Code for interactive elements initialization goes here
 
     // Any other initialization code can go here
 });

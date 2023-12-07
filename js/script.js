@@ -1,7 +1,7 @@
 // Select the icon
 const icon = document.querySelector('.icon');
 
-// Add event listener
+// Add event listener to toggle the 'clicked' class
 icon.addEventListener('click', () => {
     icon.classList.toggle('clicked');
 });
