@@ -1,38 +1,37 @@
-.dropdown .dropdown-button {
-    background-color: #2980b9;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-}
+/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/dropdown.css */
 
-.dropdown .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown .dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 /* Dropdown Button */
-.dropbtn {
+.dropdown .dropdown-button {
+  background-color: #2980b9;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 140px;
+  z-index: 10;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown .dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show dropdown content on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Dropdown Button */
+.dropdown .dropbtn {
   background-color: #3b96aa;
   color: white;
   padding: 8px;
@@ -42,8 +41,8 @@
 }
 
 /* Dropdown button on hover & focus */
-.dropbtn.dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
+.dropdown .dropbtn:hover, .dropdown .dropbtn:focus {
+  background-color: #3e8e43;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -52,73 +51,15 @@
   display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
 /* Links inside the dropdown */
-.dropdown-content a {
+.dropdown .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 10px 10px;
   text-decoration: none;
   display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-/* This class is used to hide elements */
-.hidden {
-  display: none !important;
-}
-
-
-/* Reset some basic elements */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-/* Set up some styling for the body */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  font-size: 1rem;
-  background-color: #f4f4f4;
-  color: #333;
-}
-.flex {
-  display: flex;
-}
-.justify-center {
-  justify-content: center;
-}
-.items-center {
-  align-items: center;
-}
-.space-x-4 {
-  gap: 1rem;
-}
-.mb-4 {
-  margin-bottom: 1rem;
-}
-.bg-blue-600 {
-  background-color: #3182ce;
-}
-.hover\:bg-blue-700:hover {
-  background-color: #2c5282;
-}
-.text-white {
-  color: #ffffff;
-}
-
-:root {
-    --primary: #DD946F;
-    --secondary: #261E5A;
+.dropdown .dropdown-content a:hover {
+  background-color: #f1f1f1;
 }

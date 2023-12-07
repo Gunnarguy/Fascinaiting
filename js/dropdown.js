@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Close the dropdown if the user clicks outside of it
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function() {
         dropdowns.forEach(function(dropdown) {
             var content = dropdown.querySelector('.dropdown-content');
             if (!content.classList.contains('hidden')) {
@@ -25,4 +25,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+        });

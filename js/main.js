@@ -1,25 +1,21 @@
 
-// Get the form and input elements
-const form = document.getElementById('search-form');
-const input = document.getElementById('search-input');
+// Main script to initialize various functionalities
 
-// Listen for the form submission
-form.addEventListener('submit', function(event) {
-    // Prevent the form from being submitted
-    event.preventDefault();
+// Import other scripts
+import './dropdown.js';
+import './search.js';
+import './interactive.js';
 
-    // Get the search query
-    const query = input.value;
+// Initialize functionalities on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize dropdown
+    // The code will be in dropdown.js
 
-    // Filter the articles based on the query
-    // This will require modifying the HTML of your articles to include a data attribute with the article title or keywords
-    const articles = document.querySelectorAll('article');
-    articles.forEach(function(article) {
-        const title = article.getAttribute('data-title');
-        if (title.toLowerCase().includes(query.toLowerCase())) {
-            article.style.display = 'block';
-        } else {
-            article.style.display = 'none';
-        }
-    });
+    // Initialize search
+    // The code will be in search.js
+
+    // Initialize other interactive elements
+    // The code will be in interactive.js
+
+    // Any other initialization code can go here
 });
