@@ -61,3 +61,5 @@ html {
     -ms-transition: all 2s cubic-bezier(0.22, 1, 0.25, 1);
     -o-transition: all 2s cubic-bezier(0.22, 1, 0.25, 1);
 }
+p { text-align: center; }
+
