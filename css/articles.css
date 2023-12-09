@@ -1,5 +1,3 @@
-/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/articles.css */
-
 /* Article styles */
 /* BEGIN: Article styles */
 article {
@@ -7,4 +5,11 @@ article {
   background-color: #ffffff;
   margin-top: 20px;
 }
+
+/* Add hover effect to links */
+/* BEGIN: Add hover effect to links */
+article a:hover {
+  color: rgb(0, 255, 225);
+}
+/* END: Add hover effect to links */
 /* END: Article styles */

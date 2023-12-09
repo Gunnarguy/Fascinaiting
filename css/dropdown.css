@@ -20,13 +20,13 @@
   right: 100%; /* Add this line to position the dropdown content to the left */
 }
 
-/* Change color of dropdown links on hover */
-.dropdown .dropdown-content a:hover {
+/* Change color of dropdown links on click */
+.dropdown .dropdown-content a:active {
   background-color: #ddd;
 }
 
-/* Show dropdown content on hover */
-.dropdown:hover .dropdown-content {
+/* Show dropdown content on click */
+.dropdown:active .dropdown-content {
   display: block;
 }
 
@@ -40,8 +40,8 @@
   cursor: pointer;
 }
 
-/* Dropdown button on hover & focus */
-.dropdown .dropbtn:hover,
+/* Dropdown button on click & focus */
+.dropdown .dropbtn:active,
 .dropdown .dropbtn:focus {
   background-color: #3e8e43;
 }
@@ -60,8 +60,8 @@
   display: block;
 }
 
-/* Change color of dropdown links on hover */
-.dropdown .dropdown-content a:hover {
+/* Change color of dropdown links on click */
+.dropdown .dropdown-content a:active {
   background-color: #f1f1f1;
 }
 
