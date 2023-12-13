@@ -16,8 +16,8 @@
   background-color: #f9f9f9;
   min-width: 140px;
   z-index: 10;
-  top: 0; /* Add this line to position the dropdown content at the top */
-  right: 100%; /* Add this line to position the dropdown content to the left */
+  top: 0; /* Change this line to position the dropdown content above the button */
+  left: 100%; /* Change this line to position the dropdown content to the right */
 }
 
 /* Change color of dropdown links on click */
@@ -26,7 +26,7 @@
 }
 
 /* Show dropdown content on click */
-.dropdown:active .dropdown-content {
+.dropdown.active .dropdown-content {
   display: block;
 }
 
@@ -73,9 +73,7 @@
   align-items: center; /* Add this line to vertically align items */
 }
 
-/* Dropdown Button */
-.dropdown {
-  position: absolute;
-  top: 0;
-  right: 0;
+/* Show dropdown content on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
 }

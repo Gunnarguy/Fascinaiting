@@ -1,6 +1,6 @@
-/* item.css - Styling for individual items such as cards */
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* item.css - Styling for individual items such as cards */
 
 :root {
     --primary-color: #2980b9; /* Replace with your primary color */

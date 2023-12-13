@@ -21,10 +21,11 @@
     }
 
     canvas {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
-      pointer-events: none; /* Added this line */
+      pointer-events: none;
+      z-index: -1; /* Added this line */
     }
   </style>
 </head>
@@ -47,8 +48,8 @@
       <div>
         <div>
           <div class="dropdown">
-            <button class="dropbtn">Menu</button>
-            <div class="dropdown-content">
+            <button id="headerDropdown" class="dropbtn">Menu</button>
+            <div id="headerDropdownContent" class="dropdown-content">
               <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Home</a>
               <a href="html/articles/article1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Article Directory</a>
               <a href="/option2" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Automation</a>

@@ -1,3 +1,10 @@
 /* Footer centering styles */
-footer { display: flex; justify-content: center; align-items: center; }
-p { text-align: center; }
+footer { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; /* Added to center the content horizontally */
+}
+p { 
+    text-align: center; /* Added to center the content horizontally */
+}
