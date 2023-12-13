@@ -1,38 +1,48 @@
-<!-- FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/index.html -->
-<link rel="stylesheet" href="css/articles.css">
-<link rel="stylesheet" href="css/body.css">
-<link rel="stylesheet" href="css/borders.css">
-<link rel="stylesheet" href="css/cards.css">
-<link rel="stylesheet" href="css/dropdown.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/style.css">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FascinAIting</title>
+  <link rel="stylesheet" href="css/articles.css">
+  <link rel="stylesheet" href="css/body.css">
+  <link rel="stylesheet" href="css/borders.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/dropdown.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none; /* Added this line */
+    }
+  </style>
+</head>
 
 <body>
-<div id="root"></div>
+  <div id="root"></div>
   <div class="center">
     <header>
       <form id="search-form" action="search.php" method="GET">
         <input type="search" id="search-input" name="query" placeholder="Search...">
-      <body>
-<div id="root"></div>
-          <span class="background">
-              <a
-                  href="https://learning.atheros.ai"
-                  class='button'
-              >
-                  <svg>
-                      <rect
-                          x="0" y="0" 
-                          fill="none"
-                          width="100%"
-                          height="100%"
-                      />
-                  </svg>
-                  Search
-              </a>            
-          </span>
-      <script src="./fascinaiting-react/build/static/js/main.js"></script>
-</body>
+        <span class="background">
+          <a href="https://learning.atheros.ai" class='button'>
+            <svg>
+              <rect x="0" y="0" fill="none" width="100%" height="100%" />
+            </svg>
+            Search
+          </a>
+        </span>
       </form>
       <div>
         <div>
@@ -140,14 +150,79 @@
       </main>
     </div>
   </div>
-<script src="./fascinaiting-react/build/static/js/main.js"></script>
+  <canvas id="networkCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById('networkCanvas');
+    const context = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let particles = [];
+    const numParticles = 100;
+    const maxDistance = 150;
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.velX = (Math.random() - 0.5) * 2;
+        this.velY = (Math.random() - 0.5) * 2;
+      }
+
+      update() {
+        this.x += this.velX;
+        this.y += this.velY;
+        if (this.x < 0 || this.x > width) this.velX *= -1;
+        if (this.y < 0 || this.y > height) this.velY *= -1;
+      }
+
+      draw() {
+        context.beginPath();
+        context.arc(this.x, this.y, 3, 0, Math.PI * 2);
+        context.fill();
+      }
+    }
+
+    for (let i = 0; i < numParticles; i++) {
+      particles.push(new Particle(Math.random() * width, Math.random() * height));
+    }
+
+    function connectParticles() {
+      particles.forEach((particle, index) => {
+        for (let i = index + 1; i < particles.length; i++) {
+          const dist = Math.hypot(particles[i].x - particle.x, particles[i].y - particle.y);
+          if (dist < maxDistance) {
+            context.beginPath();
+            context.strokeStyle = `rgba(255,255,255,${1 - dist / maxDistance})`;
+            context.lineWidth = 1;
+            context.moveTo(particle.x, particle.y);
+            context.lineTo(particles[i].x, particles[i].y);
+            context.stroke();
+          }
+        }
+      });
+    }
+
+    function animate() {
+      context.clearRect(0, 0, width, height);
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    animate();
+  </script>
+  <footer class="bg-gray-200 text-center py-4 mt-8 flex justify-center items-center">
+    <p class="text-gray-700">&copy; FascinAIting. All rights reserved.</p>
+  </footer>
 </body>
 
-<!-- Footer Section -->
-<footer class="bg-gray-200 text-center py-4 mt-8 flex justify-center items-center">
-  <p class="text-gray-700">&copy; FascinAIting. All rights reserved.</p>
-</footer>
-<!-- End of Footer Section -->
-
-
-<link rel="stylesheet" href="css/footer.css">
+</html>

@@ -76,6 +76,6 @@
 /* Dropdown Button */
 .dropdown {
   position: absolute;
-  top: 50;
-  right: 20;
+  top: 0;
+  right: 0;
 }
