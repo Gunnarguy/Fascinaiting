@@ -10,7 +10,7 @@
 /* Reset Styles */
 * {
   margin: flex; /* Resetting margin */
-  padding: flex; /* Resetting padding */
+  padding: 0; /* Resetting padding */
   box-sizing: border-box; /* Setting box-sizing to border-box */
 }
 
