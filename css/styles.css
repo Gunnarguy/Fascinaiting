@@ -141,14 +141,6 @@ body {
   background-color: rgb(184, 184, 184); /* Setting background color */
 }
 
-/* Footer centering styles */
-footer {
-  display: flex; /* Setting display to flex */
-  justify-content: center; /* Centering content horizontally */
-  align-items: center; /* Centering content vertically */
-  text-align: center; /* Setting text alignment */
-}
-
 /* Footer styles */
 footer {
   background-color: #2c3e50;

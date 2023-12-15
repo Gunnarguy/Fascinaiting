@@ -1,72 +1,62 @@
+header {
+    background-color: #2c3e50;
+    color: #ffffff;
+    padding: 40px 50px;
+    margin-top: 30px;
+    border-radius: 12px;
+    border: 12px solid #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header title */
+header h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    line-height: 5rem;
+    font-size: 5rem;
+    text-align: center;
+    margin: 0;
+    color: #ffffff;
+    background-color: #0a3968;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+}
+
 /* Header styles */
-h1 {
-    font-family: 'Roboto', sans-serif; /* Setting font-family */
-    font-weight: bold; /* Setting font weight */
-    text-transform: uppercase; /* Setting text transform to uppercase */
-    letter-spacing: 2px; /* Setting letter spacing */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
-    line-height: 2rem; /* Setting line height */
-    font-size: 4rem; /* Setting font size */
-  }
-  /* Header styles */
-  h2 {
-    font-family: 'Roboto', sans-serif; /* Setting font-family */
-    font-weight: bold; /* Setting font weight */
-    text-transform: uppercase; /* Setting text transform to uppercase */
-    letter-spacing: 2px; /* Setting letter spacing */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
-    line-height: 2rem; /* Setting line height */
-    font-size: 2.5rem; /* Setting font size */
-  }
-  /* Header styles */
-  h3 {
-    font-family: 'Roboto', sans-serif; /* Setting font-family */
-    font-weight: bold; /* Setting font weight */
-    text-transform: uppercase; /* Setting text transform to uppercase */
-    letter-spacing: 2px; /* Setting letter spacing */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
-    line-height: 2rem; /* Setting line height */
-    font-size: 2rem; /* Setting font size */
-  }
-  /* Header styles */
-  h4 {
-    font-family: 'Roboto', sans-serif; /* Setting font-family */
-    font-weight: bold; /* Setting font weight */
-    text-transform: uppercase; /* Setting text transform to uppercase */
-    letter-spacing: 2px; /* Setting letter spacing */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
-    line-height: 2rem; /* Setting line height */
-    font-size: 1.5rem; /* Setting font size */
-  }
-  /* Header styles */
-  h5 {
-    font-family: 'Roboto', sans-serif; /* Setting font-family */
-    font-weight: bold; /* Setting font weight */
-    text-transform: uppercase; /* Setting text transform to uppercase */
-    letter-spacing: 2px; /* Setting letter spacing */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
-    line-height: 2rem; /* Setting line height */
-    font-size: 1rem; /* Setting font size */
-  }
-  /* Header styles */
-  h6 {
-    font-family: 'Roboto', sans-serif; /* Setting font-family */
-    font-weight: bold; /* Setting font weight */
-    text-transform: uppercase; /* Setting text transform to uppercase */
-    letter-spacing: 2px; /* Setting letter spacing */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
-    line-height: 2rem; /* Setting line height */
-    font-size: .75rem; /* Setting font size */
-  }
-  header {
-    border: #ffffff 12px solid; /* Setting border */
-    background-color: #0a3968; /* Setting background color */
-    color: #ffffff; /* Setting text color */
-    padding: 40px 50px; /* Setting padding */
-  }
-  /* Header title */
-  header h1 {
-    text-align: center; /* Setting text alignment */
-    margin: 0; /* Resetting margin */
-    padding-bottom: 30px; /* Setting padding bottom */
-  }
+header h2,
+header h3,
+header h4,
+header h5,
+header h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    line-height: 2rem;
+    text-align: center;
+    margin: 0;
+}
+
+header h2 {
+    font-size: 2.5rem;
+}
+
+header h3 {
+    font-size: 2rem;
+}
+
+header h4 {
+    font-size: 1.5rem;
+}
+
+header h5 {
+    font-size: 1rem;
+}
+
+header h6 {
+    font-size: 0.75rem;
+}
