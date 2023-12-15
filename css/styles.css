@@ -1,147 +1,152 @@
 /* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap'); /* Importing Google Fonts */
 
 /* Variables */
 :root {
-  --background: #2C2C2C;
+  --background: #2C2C2C; /* Defines the background color */
 }
 
 /* Reset Styles */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0; /* Resetting margin */
+  padding: 0; /* Resetting padding */
+  box-sizing: border-box; /* Setting box-sizing to border-box */
 }
 
 /* Global Styles */
 html {
-  font-family: 'Mulish', sans-serif;
-  font-size: 16px;
+  font-family: 'Mulish', sans-serif; /* Setting font-family */
+  font-size: 16px; /* Setting font size */
 }
 
 /* Background Styles */
 .background {
-  background-color: var(--background);
-  place-items: center;
-  height: 100vh;
+  background-color: var(--background); /* Setting background color using variable */
+  place-items: center; /* Centering items */
+  height: 100vh; /* Setting height to 100vh */
 }
 
 /* Button Styles */
 .button {
-  color: #fff;
-  cursor: pointer;
-  font-size: 0.8rem;
-  line-height: 2rem;
-  max-width: 160px;
-  width: 100%;
-  letter-spacing: 0.1rem;
-  font-weight: 100;
-  position: relative;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: all 1s ease-in;
+  color: #fff; /* Setting text color */
+  cursor: pointer; /* Setting cursor to pointer */
+  font-size: 0.8rem; /* Setting font size */
+  line-height: 2rem; /* Setting line height */
+  max-width: 160px; /* Setting max width */
+  width: 100%; /* Setting width to 100% */
+  letter-spacing: 0.1rem; /* Setting letter spacing */
+  font-weight: 100; /* Setting font weight */
+  position: relative; /* Setting position to relative */
+  text-decoration: none; /* Removing text decoration */
+  text-transform: uppercase; /* Setting text transform to uppercase */
+  transition: all 1s ease-in; /* Adding transition effect */
 }
 
 .button svg {
-  height: 18px;
-  left: 0;
-  top: 0;
-  position: absolute;
-  width: 100%;
+  height: 18px; /* Setting height */
+  left: 0; /* Setting left position */
+  top: 0; /* Setting top position */
+  position: absolute; /* Setting position to absolute */
+  width: 100%; /* Setting width to 100% */
 }
 
 .button rect {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 2;
-  stroke-dasharray: 450, 0;
-  transition: all 0.5s linear;
+  fill: none; /* Removing fill */
+  stroke: #fff; /* Setting stroke color */
+  stroke-width: 2; /* Setting stroke width */
+  stroke-dasharray: 450, 0; /* Setting stroke dasharray */
+  transition: all 0.5s linear; /* Adding transition effect */
 }
 
 .button:hover rect {
-  stroke-width: 3;
-  stroke-dasharray: 20, 300;
-  stroke-dashoffset: 48;
-  stroke: #50e5ff;
-  transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-  -webkit-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-  -moz-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-  -ms-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-  -o-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
+  stroke-width: 3; /* Setting stroke width on hover */
+  stroke-dasharray: 20, 300; /* Setting stroke dasharray on hover */
+  stroke-dashoffset: 48; /* Setting stroke dashoffset on hover */
+  stroke: #50e5ff; /* Setting stroke color on hover */
+  transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding transition effect on hover */
+  -webkit-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding vendor-specific transition effect on hover */
+  -moz-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding vendor-specific transition effect on hover */
+  -ms-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding vendor-specific transition effect on hover */
+  -o-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding vendor-specific transition effect on hover */
 }
 
 /* Header styles */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  line-height: 2rem;
+  font-family: 'Roboto', sans-serif; /* Setting font-family */
+  font-weight: bold; /* Setting font weight */
+  text-transform: uppercase; /* Setting text transform to uppercase */
+  letter-spacing: 2px; /* Setting letter spacing */
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
+  line-height: 2rem; /* Setting line height */
 }
 
 header {
-  border: #ffffff 12px solid;
-  background-color: #2c3e50;
-  color: #ffffff;
-  padding: 40px 50px;
+  border: #ffffff 12px solid; /* Setting border */
+  background-color: #2c3e50; /* Setting background color */
+  color: #ffffff; /* Setting text color */
+  padding: 40px 50px; /* Setting padding */
 }
 
 /* Header title */
 header h1 {
-  text-align: center;
-  margin: 0;
-  padding-bottom: 30px;
+  text-align: center; /* Setting text alignment */
+  margin: 0; /* Resetting margin */
+  padding-bottom: 30px; /* Setting padding bottom */
 }
 
 /* Article styles */
 article {
-  padding: 5px;
-  background-color: #ffffff;
-  margin-top: 30px;
+  padding: 5px; /* Setting padding */
+  background-color: #ffffff; /* Setting background color */
+  margin-top: 30px; /* Setting margin top */
 }
 
 /* Add hover effect to links */
 article a:hover {
-  color: rgba(111, 0, 255, 0.763);
+  color: rgba(111, 0, 255, 0.763); /* Setting text color on hover */
 }
 
 /* Paragraph Styles */
 p {
-  text-align: center;
+  text-align: center; /* Setting text alignment */
 }
 
 /* Body Styles */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-weight: bold;
-  text-transform: none;
-  letter-spacing: 2px;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  line-height: 2rem;
-  font-size: 1rem;
-  background-color: rgb(184, 184, 184);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Setting font-family */
+  font-weight: bold; /* Setting font weight */
+  text-transform: none; /* Resetting text transform */
+  letter-spacing: 2px; /* Setting letter spacing */
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
+  line-height: 2rem; /* Setting line height */
+  font-size: 1rem; /* Setting font size */
+  background-color: rgb(184, 184, 184); /* Setting background color */
 }
 
 /* Footer centering styles */
 footer { 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  text-align: center; /* Added to center the content horizontally */
+  display: flex; /* Setting display to flex */
+  justify-content: center; /* Centering content horizontally */
+  align-items: center; /* Centering content vertically */
+  text-align: center; /* Setting text alignment */
 }
 
 /* Footer styles */
 footer { 
-  background-color: #2c3e50; 
-  color: #ffffff; 
-  padding: 40px 50px; /* Added 'px' unit to the padding value */ 
+  background-color: #2c3e50; /* Setting background color */
+  color: #ffffff; /* Setting text color */
+  padding: 40px 50px; /* Setting padding */
 }
 
 /* Footer styles */
 footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  display: flex; /* Setting display to flex */
+  justify-content: center; /* Centering content horizontally */
+  align-items: center; /* Centering content vertically */
+  text-align: center; /* Setting text alignment */
+}
+
+/* Box Shadow Hover Color */
+:root {
+  --box-shadow-hover-color: #333; /* Defines the box shadow hover color used in the card */
 }

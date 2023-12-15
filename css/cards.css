@@ -1,77 +1,82 @@
+/* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+/* Variables */
 :root {
-    --primary-color: #2980b9;
-    --hover-color: rgba(137, 47, 255, 0.763);
-    --text-color: #333;
-    --subtext-color: #666;
-    --background-color: #f4f4f4;
-    --border-radius: 30px;
-    --box-shadow-color: #ccc;
-    --box-shadow-hover-color: #333;
-    --transition-speed: 0.3s;
+    --primary-color: #2980b9; /* Defines the primary color used in the card */
+    --hover-color: rgba(137, 47, 255, 0.763); /* Defines the hover color used in the card */
+    --text-color: #333; /* Defines the text color used in the card */
+    --subtext-color: #666; /* Defines the subtext color used in the card */
+    --background-color: #f4f4f4; /* Defines the background color used in the card */
+    --border-radius: 30px; /* Defines the border radius used in the card */
+    --box-shadow-color: #ccc; /* Defines the box shadow color used in the card */
+    --box-shadow-hover-color: #333; /* Defines the box shadow hover color used in the card */
+    --transition-speed: 0.3s; /* Defines the transition speed used in the card */
 }
 
+/* Card Styles */
 .card {
-    background: var(--background-color);
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px var(--box-shadow-color);
-    overflow: auto;
-    margin: 25px;
-    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    background: var(--background-color); /* Sets the background color of the card */
+    border-radius: var(--border-radius); /* Sets the border radius of the card */
+    box-shadow: 0 4px 8px var(--box-shadow-color); /* Sets the box shadow of the card */
+    overflow: auto; /* Enables scrolling if content overflows */
+    margin: 25px; /* Sets the margin around the card */
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; /* Defines the transition effect for transform and box-shadow properties */
 }
 
 .card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 6px 10px var(--box-shadow-hover-color);
+    transform: translateY(-12px); /* Applies a translateY transformation on hover */
+    box-shadow: 0 6px 10px var(--box-shadow-hover-color); /* Changes the box shadow on hover */
 }
 
 .card img {
-    width: 100%;
-    display: block;
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
+    width: 100%; /* Sets the width of the image inside the card to 100% */
+    display: block; /* Displays the image as a block element */
+    border-top-left-radius: var(--border-radius); /* Sets the border radius of the top left corner of the image */
+    border-top-right-radius: var(--border-radius); /* Sets the border radius of the top right corner of the image */
 }
 
+/* Card Content */
 .card-content {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 16px; /* Sets the padding inside the card content */
+    display: flex; /* Displays the card content as a flex container */
+    flex-direction: column; /* Sets the flex direction to column */
+    justify-content: space-between; /* Aligns the content vertically with space between */
 }
 
 .card-content h3 {
-    margin-top: 0;
-    color: var(--text-color);
-    font-size: 1.4em;
-    font-family: 'Roboto', sans-serif;
+    margin-top: 0; /* Removes the top margin of the heading */
+    color: var(--text-color); /* Sets the color of the heading */
+    font-size: 1.4em; /* Sets the font size of the heading */
+    font-family: 'Roboto', sans-serif; /* Sets the font family of the heading */
 }
 
 .card-content p {
-    color: var(--subtext-color);
-    line-height: 1.6;
-    margin: 8px 0 16px;
+    color: var(--subtext-color); /* Sets the color of the paragraph */
+    line-height: 1.6; /* Sets the line height of the paragraph */
+    margin: 8px 0 16px; /* Sets the margin of the paragraph */
 }
 
 .card-content .btn {
-    background-color: var(--primary-color);
-    color: var(--background-color);
-    text-decoration: none;
-    padding: 10px 10px;
-    display: flex;
-    border-radius: 15px;
-    transition: background-color var(--transition-speed) ease;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+    background-color: var(--primary-color); /* Sets the background color of the button */
+    color: var(--background-color); /* Sets the text color of the button */
+    text-decoration: none; /* Removes the default text decoration */
+    padding: 10px 10px; /* Sets the padding of the button */
+    display: flex; /* Displays the button as a flex container */
+    border-radius: 15px; /* Sets the border radius of the button */
+    transition: background-color var(--transition-speed) ease; /* Defines the transition effect for the background color */
+    width: 100%; /* Sets the width of the button to 100% */
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Centers the content vertically */
 }
 
 .card-content .btn:hover {
-    background-color: var(--hover-color);
+    background-color: var(--hover-color); /* Changes the background color of the button on hover */
 }
 
+/* Card Container */
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: flex; /* Displays the card container as a flex container */
+    flex-wrap: wrap; /* Allows the cards to wrap to the next line */
+    justify-content: center; /* Centers the cards horizontally */
 }

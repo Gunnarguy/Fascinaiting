@@ -1,55 +1,57 @@
+/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/dropdown.css */
+
 /* Dropdown Button */
 .dropdown .dropdown-button {
-  background-color: #2980b9;
-  color: white;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
+  background-color: #2980b9; /* Sets the background color of the dropdown button */
+  color: white; /* Sets the text color of the dropdown button */
+  padding: 10px; /* Adds padding around the dropdown button */
+  border: none; /* Removes the border of the dropdown button */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the dropdown button */
+  width: 100%; /* Sets the width of the dropdown button to 100% */
+  text-align: left; /* Aligns the text inside the dropdown button to the left */
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 140px;
-  z-index: 10;
-  top: 0;
-  left: 100%;
+  display: none; /* Hides the dropdown content by default */
+  position: absolute; /* Positions the dropdown content absolutely */
+  background-color: #f9f9f9; /* Sets the background color of the dropdown content */
+  min-width: 140px; /* Sets the minimum width of the dropdown content */
+  z-index: 10; /* Sets the stacking order of the dropdown content */
+  top: 0; /* Positions the dropdown content at the top */
+  left: 100%; /* Positions the dropdown content to the right of the dropdown button */
 }
 
 /* Show dropdown content on click */
 .dropdown.active .dropdown-content {
-  display: block;
+  display: block; /* Displays the dropdown content when the dropdown is active */
 }
 
 /* Dropdown Button */
 .dropdown .dropbtn {
-  background-color: #3b96aa;
-  color: white;
-  padding: 8px;
-  font-size: 12px;
-  border: none;
-  cursor: pointer;
+  background-color: #3b96aa; /* Sets the background color of the dropdown button */
+  color: white; /* Sets the text color of the dropdown button */
+  padding: 8px; /* Adds padding around the dropdown button */
+  font-size: 12px; /* Sets the font size of the dropdown button */
+  border: none; /* Removes the border of the dropdown button */
+  cursor: pointer; /* Changes the cursor to a pointer when hovering over the dropdown button */
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
-  position: relative;
-  display: inline-block;
+  position: relative; /* Positions the dropdown container relative to its normal position */
+  display: inline-block; /* Displays the dropdown container as an inline block */
 }
 
 /* Links inside the dropdown */
 .dropdown .dropdown-content a {
-  color: black;
-  padding: 10px;
-  text-decoration: none;
-  display: block;
+  color: black; /* Sets the text color of the links inside the dropdown content */
+  padding: 10px; /* Adds padding around the links inside the dropdown content */
+  text-decoration: none; /* Removes the underline decoration from the links inside the dropdown content */
+  display: block; /* Displays the links inside the dropdown content as block elements */
 }
 
 /* Show dropdown content on hover */
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: block; /* Displays the dropdown content when hovering over the dropdown */
 }
