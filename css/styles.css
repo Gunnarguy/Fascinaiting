@@ -103,7 +103,7 @@ article {
 
 /* Add hover effect to links */
 article a:hover {
-  color: rgba(111, 0, 255, 0.763); /* Setting text color on hover */
+  color: rgba(0, 200, 255, 0.763); /* Setting text color on hover */
 }
 
 /* Paragraph Styles */
@@ -114,7 +114,8 @@ p {
 /* Body Styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Setting font-family */
-  font-weight: bold; /* Setting font weight */
+  font-size: 16px; /* Setting font size */
+  color: #333; /* Setting text color */
   text-transform: none; /* Resetting text transform */
   letter-spacing: 2px; /* Setting letter spacing */
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Adding text shadow */
