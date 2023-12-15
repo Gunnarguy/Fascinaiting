@@ -4,7 +4,7 @@
 
 :root {
     --primary-color: #2980b9; /* Replace with your primary color */
-    --hover-color: red;   /* Replace with your hover state color */
+    --hover-color: rgba(111, 0, 255, 0.763);   /* Replace with your hover state color */
     --text-color: #333;
     --subtext-color: #666;
     --background-color: #f4f4f4;
@@ -59,11 +59,22 @@
     background-color: var(--primary-color);
     color: var(--background-color);
     text-decoration: none;
-    padding: 10px 20px;
-    display: inline-block;
-    border-radius: 4px;
+    padding: 10px 10px;
+    display: flex;
+    border-radius: 15px;
     transition: background-color var(--transition-speed) ease;
-    align-self: flex-start; /* aligns button to the left */
+    align-self: auto;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    -webkit-transition: background-color var(--transition-speed) ease;
+    -moz-transition: background-color var(--transition-speed) ease;
+    -ms-transition: background-color var(--transition-speed) ease;
+    -o-transition: background-color var(--transition-speed) ease;
 }
 
 .card-content .btn:hover {
@@ -72,5 +83,5 @@
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }

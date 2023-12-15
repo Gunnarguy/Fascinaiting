@@ -9,7 +9,7 @@ article {
 /* Add hover effect to links */
 /* BEGIN: Add hover effect to links */
 article a:hover {
-  color: rgb(0, 230, 203);
+  color: rgba(111, 0, 255, 0.763)
 }
 /* END: Add hover effect to links */
 /* END: Article styles */

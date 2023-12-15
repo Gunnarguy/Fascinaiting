@@ -1,11 +1,14 @@
 /* Body Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.5;
-    font-size: 0.9rem;
-    background-color: #f4f4f4;
-    color: #333;
+    font-weight: bold;
+    text-transform: none;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    line-height: 2rem;
+    font-size: 1rem;
+    background-color: rgb(223, 223, 223);
+    color: #000000;
 }
 
 /* Added Identifiers */
-/* Add your custom styles here */
