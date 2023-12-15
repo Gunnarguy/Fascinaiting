@@ -13,7 +13,7 @@
 .dropdown {
   position: relative; /* Positions the dropdown container relative to its normal position */
   display: inline-block; /* Displays the dropdown container as an inline block */
-  margin: 0px; /* Adds margin around the dropdown container */
+  margin: 0; /* Removes margin around the dropdown container */
 }
 
 /* Links inside the dropdown */
@@ -43,18 +43,18 @@
 
 /* Dropdown Button */
 .dropdown .dropbtn {
-  background-color: #0c84c1; /* Sets the background color of the dropdown button */
-  color: white; /* Sets the text color of the dropdown button */
-  padding: 8px; /* Adds padding around the dropdown button */
-  font-size: 12px; /* Sets the font size of the dropdown button */
-  border: none; /* Removes the border of the dropdown button */
-  cursor: pointer; /* Changes the cursor to a pointer when hovering over the dropdown button */
-  border-radius: 5px; /* Adds a rounded border to the dropdown button */
-  margin: 0px; /* Adds margin around the dropdown button */
-  display: flex; /* Displays the dropdown button as a flex container */
-  justify-content: center; /* Centers the content horizontally */
-  align-items: center; /* Centers the content vertically */
-  width: 100%; /* Sets the width of the dropdown button to 100% */
-  height: 100%; /* Sets the height of the dropdown button to 100% */
-  transition: background-color 0.5s ease; /* Adds transition effect to the background color */
+  background-color: #0c84c1;
+  color: white;
+  padding: 8px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.5s ease;
 }

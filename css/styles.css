@@ -9,7 +9,7 @@
 
 /* Reset Styles */
 * {
-  margin: flex; /* Resetting margin */
+  margin: 0; /* Resetting margin */
   padding: 0; /* Resetting padding */
   box-sizing: border-box; /* Setting box-sizing to border-box */
 }
@@ -34,32 +34,23 @@ html {
   border: 1px solid #ccc;
   border-radius: 12px;
   font-size: 10px;
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  -ms-border-radius: 12px;
-  -o-border-radius: 12px;
 }
 
 /* Button Styles */
 .button {
   display: inline-block; /* Displaying as inline-block */
-  padding: flex;
+  padding: 0;
   background-color: #007bff;
   color: #fff;
   border-radius: 5px;
   text-decoration: none;
   transition: background-color 0.3s ease;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
 }
 
 .button:hover {
   background-color: #0056b3;
 }
 
-/* Button Styles */
 .button {
   color: #fff; /* Setting text color */
   cursor: pointer; /* Setting cursor to pointer */
@@ -67,7 +58,7 @@ html {
   line-height: 1rem; /* Setting line height */
   max-width: 50px; /* Setting max width */
   width: 100%; /* Setting width to 100% */
-  letter-spacing: flex; /* Setting letter spacing */
+  letter-spacing: 0; /* Setting letter spacing */
   position: relative; /* Setting position to relative */
   text-decoration: none; /* Removing text decoration */
   text-transform: uppercase; /* Setting text transform to uppercase */
@@ -88,10 +79,6 @@ html {
   stroke-width: 2; /* Setting stroke width */
   stroke-dasharray: 450, 0; /* Setting stroke dasharray */
   transition: all 0.5s linear; /* Adding transition effect */
-  -webkit-transition: all 0.5s linear;
-  -moz-transition: all 0.5s linear;
-  -ms-transition: all 0.5s linear;
-  -o-transition: all 0.5s linear;
 }
 
 .button:hover rect {
@@ -100,10 +87,6 @@ html {
   stroke-dashoffset: 48; /* Setting stroke dashoffset on hover */
   stroke: rgba(0, 200, 255, 0.763); /* Setting stroke color on hover */
   transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding transition effect on hover */
-  -webkit-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding vendor-specific transition effect on hover */
-  -moz-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding vendor-specific transition effect on hover */
-  -ms-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding vendor-specific transition effect on hover */
-  -o-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1); /* Adding vendor-specific transition effect on hover */
 }
 
 /* Article styles */
@@ -113,10 +96,6 @@ article {
   margin-top: 30px;
   border-radius: 25px;
   box-shadow: 0 4px 8px #ccc;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  -ms-border-radius: 25px;
-  -o-border-radius: 25px;
 }
 
 /* Add hover effect to links */
@@ -137,7 +116,6 @@ body {
   text-transform: none; /* Resetting text transform */
   letter-spacing: 2px; /* Setting letter spacing */
   line-height: 2rem; /* Setting line height */
-  font-size: 1rem; /* Setting font size */
   background-color: rgb(184, 184, 184); /* Setting background color */
 }
 
@@ -149,8 +127,4 @@ footer {
   margin-top: 30px;
   border-radius: 12px;
   font-size: 18px;
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  -ms-border-radius: 12px;
-  -o-border-radius: 12px;
 }
