@@ -20,11 +20,6 @@
   left: 100%;
 }
 
-/* Change color of dropdown links on click */
-.dropdown .dropdown-content a:active {
-  background-color: #ddd;
-}
-
 /* Show dropdown content on click */
 .dropdown.active .dropdown-content {
   display: block;
@@ -52,14 +47,6 @@
   padding: 10px;
   text-decoration: none;
   display: block;
-}
-
-/* Full width container */
-.full-width-container {
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
 }
 
 /* Show dropdown content on hover */

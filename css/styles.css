@@ -1,0 +1,147 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+/* Variables */
+:root {
+  --background: #2C2C2C;
+}
+
+/* Reset Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global Styles */
+html {
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+}
+
+/* Background Styles */
+.background {
+  background-color: var(--background);
+  place-items: center;
+  height: 100vh;
+}
+
+/* Button Styles */
+.button {
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 2rem;
+  max-width: 160px;
+  width: 100%;
+  letter-spacing: 0.1rem;
+  font-weight: 100;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 1s ease-in;
+}
+
+.button svg {
+  height: 18px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.button rect {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-dasharray: 450, 0;
+  transition: all 0.5s linear;
+}
+
+.button:hover rect {
+  stroke-width: 3;
+  stroke-dasharray: 20, 300;
+  stroke-dashoffset: 48;
+  stroke: #50e5ff;
+  transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
+  -webkit-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
+  -moz-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
+  -ms-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
+  -o-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
+}
+
+/* Header styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  line-height: 2rem;
+}
+
+header {
+  border: #ffffff 12px solid;
+  background-color: #2c3e50;
+  color: #ffffff;
+  padding: 40px 50px;
+}
+
+/* Header title */
+header h1 {
+  text-align: center;
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+/* Article styles */
+article {
+  padding: 5px;
+  background-color: #ffffff;
+  margin-top: 30px;
+}
+
+/* Add hover effect to links */
+article a:hover {
+  color: rgba(111, 0, 255, 0.763);
+}
+
+/* Paragraph Styles */
+p {
+  text-align: center;
+}
+
+/* Body Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  text-transform: none;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  line-height: 2rem;
+  font-size: 1rem;
+  background-color: rgb(184, 184, 184);
+}
+
+/* Footer centering styles */
+footer { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  text-align: center; /* Added to center the content horizontally */
+}
+
+/* Footer styles */
+footer { 
+  background-color: #2c3e50; 
+  color: #ffffff; 
+  padding: 40px 50px; /* Added 'px' unit to the padding value */ 
+}
+
+/* Footer styles */
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
