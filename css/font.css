@@ -1,8 +1,8 @@
 /* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap'); /* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 
 /* Global Styles */
 html {
     font-family: 'Mulish', sans-serif;
-    font-size: 1vw; /* Adapt font size to screen resolution */
-  }
+    font-size: 1vw;
+}

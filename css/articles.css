@@ -1,20 +1,24 @@
 /* Article styles */
 article {
-    padding: 2vw; /* Adapt padding to screen resolution */
+    padding: 2vw;
     background-color: #ffffff;
-    margin-top: 2vw; /* Adapt margin to screen resolution */
-    border-radius: 3vw; /* Adapt border radius to screen resolution */
-    box-shadow: 0 0.5vw 1vw #ccc; /* Adapt box shadow to screen resolution */
-    transition: all 0.5s ease-in-out; /* Added a smooth transition effect */
-  }
+    margin-top: 2vw;
+    border-radius: 3vw;
+    box-shadow: 0 0.5vw 1vw #ccc;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+}
 
-  article:hover {
-    transform: translateY(-0.5vw); /* Added a slight upward movement on hover */
-    box-shadow: 0 1vw 2vw #ccc; /* Adapt box shadow to screen resolution */
-  }
+article:hover {
+    transform: translateY(-0.5vw);
+    box-shadow: 0 1vw 2vw #ccc;
+}
 
-  /* Add hover effect to links */
-  article a:hover {
+/* Add hover effect to links */
+article a:hover {
     color: rgba(0, 200, 255, 0.763);
-    text-decoration: underline; /* Added an underline effect on hover */
-  }
+    text-decoration: underline;
+}

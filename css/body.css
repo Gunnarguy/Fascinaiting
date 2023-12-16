@@ -1,16 +1,15 @@
 /* Body Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.5vw; /* Adapt font size to screen resolution */
+    font-size: 1.5vw;
     color: #333;
     text-transform: none;
-    letter-spacing: 0.125vw; /* Adapt letter spacing to screen resolution */
-    line-height: 3vw; /* Adapt line height to screen resolution */
+    letter-spacing: 0.125vw;
+    line-height: 3vw;
     background-color: rgb(184, 184, 184);
-  }
-  body,
+}
 
-  html {
-    margin: 0; /* Removed the 'flex' value */
-    padding: 0; /* Removed the 'flex' value */
-  }
+html, body {
+    margin: 0;
+    padding: 0;
+}

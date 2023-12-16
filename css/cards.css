@@ -3,62 +3,62 @@
 
 /* Variables */
 :root {
-    --primary-color: #2980b9; /* Defines the primary color used in the card */
-    --hover-color: rgba(137, 47, 255, 0.763); /* Defines the hover color used in the card */
-    --text-color: #333; /* Defines the text color used in the card */
-    --subtext-color: #666; /* Defines the subtext color used in the card */
-    --background-color: #f4f4f4; /* Defines the background color used in the card */
-    --border-radius: 5vw; /* Defines the border radius used in the card */
-    --box-shadow-color: #ccc; /* Defines the box shadow color used in the card */
-    --box-shadow-hover-color: #333; /* Defines the box shadow hover color used in the card */
-    --transition-speed: 0.3s; /* Defines the transition speed used in the card */
-    --font-size: 1.4vw; /* Defines the base font size used in the card */
+    --primary-color: #2980b9;
+    --hover-color: rgba(137, 47, 255, 0.763);
+    --text-color: #333;
+    --subtext-color: #666;
+    --background-color: #f4f4f4;
+    --border-radius: 5vw;
+    --box-shadow-color: #ccc;
+    --box-shadow-hover-color: #333;
+    --transition-speed: 0.3s;
+    --font-size: 1.4vw;
 }
 
 /* Card Styles */
 .card {
-    background: var(--background-color); /* Sets the background color of the card */
-    border-radius: var(--border-radius); /* Sets the border radius of the card */
-    box-shadow: 0 4px 8px var(--box-shadow-color); /* Sets the box shadow of the card */
-    overflow: auto; /* Enables scrolling if content overflows */
-    margin: 1vw; /* Sets the margin around the card */
-    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; /* Defines the transition effect for transform and box-shadow properties */
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px var(--box-shadow-color);
+    overflow: auto;
+    margin: 1vw;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
 
 .card:hover {
-    transform: translateY(-1vw); /* Applies a translateY transformation on hover */
-    box-shadow: 0 6px 10px var(--box-shadow-hover-color); /* Changes the box shadow on hover */
+    transform: translateY(-1vw);
+    box-shadow: 0 6px 10px var(--box-shadow-hover-color);
 }
 
 .card img {
-    width: 100%; /* Sets the width of the image inside the card to 100% */
-    display: block; /* Displays the image as a block element */
-    border-top-left-radius: var(--border-radius); /* Sets the border radius of the top left corner of the image */
-    border-top-right-radius: var(--border-radius); /* Sets the border radius of the top right corner of the image */
+    width: 100%;
+    display: block;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
 }
 
 /* Card Content */
 .card-content {
-    padding: 1.6vw; /* Sets the padding inside the card content */
-    display: flex; /* Displays the card content as a flex container */
-    flex-direction: column; /* Sets the flex direction to column */
-    justify-content: space-between; /* Aligns the content vertically with space between */
+    padding: 1.6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-content h3 {
-    margin-top: 0; /* Removes the top margin of the heading */
-    color: var(--text-color); /* Sets the color of the heading */
-    font-size: calc(var(--font-size) * 1.4); /* Sets the font size of the heading relative to the base font size */
-    font-family: 'Roboto', sans-serif; /* Sets the font family of the heading */
-    line-height: 1.6; /* Sets the line height of the heading */
+    margin-top: 0;
+    color: var(--text-color);
+    font-size: calc(var(--font-size) * 1.4);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
 }
 
 .card-content p {
-    color: var(--subtext-color); /* Sets the color of the paragraph */
-    line-height: 1.6; /* Sets the line height of the paragraph */
-    margin: 0.8vw 0 1.6vw; /* Sets the margin of the paragraph */
-    font-size: var(--font-size); /* Sets the font size of the paragraph relative to the base font size */
-    font-family: 'Roboto', sans-serif; /* Sets the font family of the paragraph */
+    color: var(--subtext-color);
+    line-height: 1.6;
+    margin: 0.8vw 0 1.6vw;
+    font-size: var(--font-size);
+    font-family: 'Roboto', sans-serif;
 }
 
 .card-content .btn {
@@ -78,29 +78,24 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    -webkit-border-radius: 1.5vw;
-    -moz-border-radius: 1.5vw;
-    -ms-border-radius: 1.5vw;
-    -o-border-radius: 1.5vw;
-    -webkit-border-radius: 1.5vw;
 }
 
 .card-content .btn:hover {
-    background-color: var(--hover-color); /* Changes the background color of the button on hover */
+    background-color: var(--hover-color);
 }
 
 /* Card Container */
 .card-container {
-    display: flex; /* Displays the card container as a flex container */
-    flex-wrap: wrap; /* Allows the cards to wrap to the next line */
-    justify-content: center; /* Centers the cards horizontally */
-    align-items: center; /* Centers the cards vertically */
-    margin: 0 auto; /* Centers the card container */
-    max-width: 100%; /* Sets the maximum width of the card container */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    max-width: 100%;
 }
 
 .card {
-    width: flex; /* Adjust the width as per your requirement */
-    height: flex; /* Adjust the height as per your requirement */
+    width: flex;
+    height: flex;
     /* Add any other styles you want for the cards */
 }
