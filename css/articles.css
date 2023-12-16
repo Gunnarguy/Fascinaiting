@@ -1,0 +1,20 @@
+/* Article styles */
+article {
+    padding: 2vw; /* Adapt padding to screen resolution */
+    background-color: #ffffff;
+    margin-top: 2vw; /* Adapt margin to screen resolution */
+    border-radius: 3vw; /* Adapt border radius to screen resolution */
+    box-shadow: 0 0.5vw 1vw #ccc; /* Adapt box shadow to screen resolution */
+    transition: all 0.5s ease-in-out; /* Added a smooth transition effect */
+  }
+
+  article:hover {
+    transform: translateY(-0.5vw); /* Added a slight upward movement on hover */
+    box-shadow: 0 1vw 2vw #ccc; /* Adapt box shadow to screen resolution */
+  }
+
+  /* Add hover effect to links */
+  article a:hover {
+    color: rgba(0, 200, 255, 0.763);
+    text-decoration: underline; /* Added an underline effect on hover */
+  }

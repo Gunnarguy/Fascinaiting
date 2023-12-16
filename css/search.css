@@ -1,0 +1,15 @@
+/* Search Styles */
+#search-input {
+    width: 30vw; /* Adapt width to screen resolution */
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1.5vw; /* Adapt font size to screen resolution */
+  }
+
+  /* Background Styles */
+.background {
+    background-color: var(--background);
+    place-items: center;
+    height: 100vh;
+  }

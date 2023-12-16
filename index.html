@@ -5,11 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FascinAIting</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/cards.css">
-  <link rel="stylesheet" href="css/dropdown.css">
+  <link rel="stylesheet" href="css/search.css">
   <link rel="stylesheet" href="css/headers.css">
-  <link rel="stylesheet" href="css/body-script.css">
+  <link rel="stylesheet" href="css/dropdown.css">
+  <link rel="stylesheet" href="css/articles.css">
+  <link rel="stylesheet" href="css/body.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/canvas.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/font.css">
+  <link rel="stylesheet" href="css/buttons.css">
 </head>
 
 <body>
@@ -113,3 +118,113 @@
 </body>
 
 </html>
+  </footer>
+</body>
+
+</html>
+<style>
+  .card {
+    width: flex; /* Adjust the width as per your requirement */
+    height: flex; /* Adjust the height as per your requirement */
+    /* Add any other styles you want for the cards */
+    box-shadow: 0 0 5px var(--box-shadow-hover-color); /* Applies box shadow with hover color */
+  }
+
+  @media screen and (max-width: 480px) {
+    /* Adjust the styles for smaller screens */
+    .card {
+      width: 100%; /* Set the width to 100% for smaller screens */
+      height: auto; /* Set the height to auto for smaller screens */
+      /* Add any other styles you want for smaller screens */
+    }
+  }
+</style>
+<script>
+  // Get the dropdown button and content
+  var dropdown = document.getElementById("headerDropdown");
+  var dropdownContent = document.getElementById("headerDropdownContent");
+
+  // Toggle the dropdown content when clicking the dropdown button
+  dropdown.onclick = function (event) {
+    event.stopPropagation();
+    dropdownContent.classList.toggle("hidden");
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function (event) {
+    if (!event.target.matches("#headerDropdown")) {
+      if (!dropdownContent.classList.contains("hidden")) {
+        dropdownContent.classList.add("hidden");
+      }
+    }
+  }
+</script>
+<script>
+  const canvas = document.getElementById('networkCanvas');
+  const context = canvas.getContext('2d');
+
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+  let particles = [];
+  const numParticles = 100;
+  const maxDistance = 150;
+
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.velX = (Math.random() - 0.5) * 2;
+      this.velY = (Math.random() - 0.5) * 2;
+    }
+
+    update() {
+      this.x += this.velX;
+      this.y += this.velY;
+      if (this.x < 0 || this.x > width) this.velX *= -1;
+      if (this.y < 0 || this.y > height) this.velY *= -1;
+    }
+
+    draw() {
+      context.beginPath();
+      context.arc(this.x, this.y, 3, 0, Math.PI * 2);
+      context.fill();
+    }
+  }
+
+  for (let i = 0; i < numParticles; i++) {
+    particles.push(new Particle(Math.random() * width, Math.random() * height));
+  }
+
+  function connectParticles() {
+    particles.forEach((particle, index) => {
+      for (let i = index + 1; i < particles.length; i++) {
+        const dist = Math.hypot(particles[i].x - particle.x, particles[i].y - particle.y);
+        if (dist < maxDistance) {
+          context.beginPath();
+          context.strokeStyle = `rgba(255,255,255,${1 - dist / maxDistance})`;
+          context.lineWidth = 1;
+          context.moveTo(particle.x, particle.y);
+          context.lineTo(particles[i].x, particles[i].y);
+          context.stroke();
+        }
+      }
+    });
+  }
+
+  function animate() {
+    context.clearRect(0, 0, width, height);
+    particles.forEach(particle => {
+      particle.update();
+      particle.draw();
+    });
+    connectParticles();
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  animate();
+</script>
