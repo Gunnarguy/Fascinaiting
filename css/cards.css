@@ -22,7 +22,12 @@
     box-shadow: 0 4px 8px var(--box-shadow-color);
     overflow: auto;
     margin: 1vw;
+    transition: all 1s ease-in-out;
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
 }
 
 .card:hover {

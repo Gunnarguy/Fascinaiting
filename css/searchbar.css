@@ -1,14 +1,68 @@
 /* Search Styles */
 #search-input {
-    width: 20vw;
+    position: absolute;
+    top: 6%;
+    left: 2%;
+    width: 20%;
+    height: 2.5vw;
     padding: 3px;
     border: 1px solid #ccc;
     border-radius: 10px;
+    transition: all 0.5s ease-in-out;
     font-size: 1.5vw;
+}
 
-    /* Positioning */
+/* Button Styles */
+.button {
     position: absolute;
-    top: 5%;
-    left: 12.5%;
-    transform: translate(-50%, -50%);
+    top: 6%;
+    left: 22%;
+    width: 2.75vw;
+    height: 2.5vw;
+    display: inline-block;
+    padding: 0.5vw;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10%;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    font-size: 1.3vw;
+    line-height: 1.5rem;
+    max-width: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+    outline: none;
+    border: none;
+    z-index: 1;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: scale(1.01);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.button svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.button rect {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-dasharray: 450, 0;
+    transition: all 0.5s linear;
+}
+
+.button:hover rect {
+    stroke-width: 5px;
+    stroke-dasharray: 20, 300;
+    stroke-dashoffset: 48;
+    stroke: rgba(0, 200, 255, 0.763);
+    transition: all 1.5s cubic-bezier(0.22, 1, 0.25, 1);
 }
