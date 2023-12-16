@@ -4,15 +4,11 @@ const input = document.getElementById('search-input');
 
 // Listen for the form submission
 form.addEventListener('submit', function(event) {
-    // Prevent the form from being submitted
-    event.preventDefault();
+    event.preventDefault(); // Prevent the form from being submitted
 
-    // Get the search query
-    const query = input.value;
+    const query = input.value; // Get the search query
 
-    // Filter the articles based on the query
-    // This will require modifying the HTML of your articles to include a data attribute with the article title or keywords
-    const articles = document.querySelectorAll('article');
+    const articles = document.querySelectorAll('article'); // Filter the articles based on the query
     articles.forEach(function(article) {
         const title = article.getAttribute('data-title');
         const shouldDisplay = title.toLowerCase().includes(query.toLowerCase());

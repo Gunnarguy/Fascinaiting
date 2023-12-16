@@ -1,0 +1,14 @@
+/* Search Styles */
+#search-input {
+    width: 20vw;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1.5vw;
+
+    /* Positioning */
+    position: absolute;
+    top: 5%;
+    left: 12.5%;
+    transform: translate(-50%, -50%);
+}
