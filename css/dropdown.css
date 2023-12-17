@@ -4,21 +4,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 5.25%;
+  top: 2.5%;
   right: 2.5%;
   z-index: 10;
-  transition: all 0.1vw ease-in-out;
+  transition: all 0.1s ease-in-out;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  -ms-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
 }
 
 /* Dropdown button */
 .dropdown .dropbtn {
   background-color: #0c84c1;
   color: white;
-  padding: 4px;
-  font-size: 0.8em;
+  padding: .75vw .7vw;
+  font-size: 1.25vw;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.5s ease, all 0.5vw ease-in-out;
+  transition: background-color 0.1s ease, all 0.1s ease-in-out;
+  -webkit-transition: background-color 0.1s ease, all 0.1s ease-in-out;
+  -moz-transition: background-color 0.1s ease, all 0.1s ease-in-out;
+  -ms-transition: background-color 0.1s ease, all 0.1s ease-in-out;
+  -o-transition: background-color 0.1s ease, all 0.1s ease-in-out;
 }
 
 /* Dropdown content */
@@ -43,7 +51,11 @@
   font-size: 1em;
   text-align: left;
   border-radius: 5px;
-  transition: background-color 0.5s ease, all 0.5vw ease-in-out;
+  transition: background-color 0.1s ease, all 0.1s ease-in-out;
+  -webkit-transition: background-color 0.1s ease, all 0.1s ease-in-out;
+  -moz-transition: background-color 0.1s ease, all 0.1s ease-in-out;
+  -ms-transition: background-color 0.1s ease, all 0.1s ease-in-out;
+  -o-transition: background-color 0.1s ease, all 0.1s ease-in-out;
 }
 
 /* Show dropdown content on click */

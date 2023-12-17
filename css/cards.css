@@ -4,7 +4,7 @@
 /* Variables */
 :root {
     --primary-color: #2980b9;
-    --hover-color: rgba(137, 47, 255, 0.763);
+    --hover-color: rgba(47, 217, 255, 0.763);
     --text-color: #333;
     --subtext-color: #666;
     --background-color: #f4f4f4;
@@ -22,17 +22,21 @@
     box-shadow: 0 4px 8px var(--box-shadow-color);
     overflow: auto;
     margin: 1vw;
-    transition: all 1s ease-in-out;
+    transition: all .5s ease-in-out;
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -ms-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
 }
 
 .card:hover {
-    transform: translateY(-1vw);
+    transform: translateY(-1.5vw);
     box-shadow: 0 6px 10px var(--box-shadow-hover-color);
+    -webkit-transform: translateY(-1.5vw);
+    -moz-transform: translateY(-1.5vw);
+    -ms-transform: translateY(-1.5vw);
+    -o-transform: translateY(-1.5vw);
 }
 
 .card img {
@@ -55,12 +59,12 @@
     color: var(--text-color);
     font-size: calc(var(--font-size) * 1.4);
     font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
+    line-height: 1.6vw;
 }
 
 .card-content p {
     color: var(--subtext-color);
-    line-height: 1.6;
+    line-height: 1.6vw;
     margin: 0.8vw 0 1.6vw;
     font-size: var(--font-size);
     font-family: 'Roboto', sans-serif;
@@ -75,8 +79,8 @@
     font-size: var(--font-size);
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.1vw;
-    line-height: 1.6;
+    letter-spacing: 0.125vw;
+    line-height: 3vw;
     text-align: center;
     display: flex;
     border-radius: 1.5vw;

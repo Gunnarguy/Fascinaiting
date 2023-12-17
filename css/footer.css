@@ -7,4 +7,5 @@ footer {
     border-radius: 0.75vw; /* Adapt border radius to screen resolution */
     font-size: 2vw; /* Adapt font size to screen resolution */
     text-align: center;
+    transition: all 0.1s ease-in-out;
 }

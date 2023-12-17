@@ -5,4 +5,9 @@
 html {
     font-family: 'Mulish', sans-serif;
     font-size: 1vw;
+    color: #333;
+    text-transform: none;
+    letter-spacing: 0.125vw;
+    line-height: 1.5vw;
+    transition: all 0.1s ease-in-out;
 }
