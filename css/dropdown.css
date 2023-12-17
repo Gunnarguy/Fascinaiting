@@ -1,5 +1,11 @@
 /* Dropdown container */
 .dropdown {
+  --dropdown-bg-color: #0c84c1;
+  --dropdown-hover-bg-color: #0a6a9e;
+  --dropdown-content-bg-color: #f9f9f9;
+  --dropdown-link-hover-bg-color: #c3e0ff;
+  --transition-speed: 0.1s;
+
   position: absolute;
   display: flex;
   justify-content: center;
@@ -8,10 +14,6 @@
   right: 2.5%;
   z-index: 10;
   transition: all 0.1s ease-in-out;
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  -ms-transition: all 0.1s ease-in-out;
-  -o-transition: all 0.1s ease-in-out;
 }
 
 /* Dropdown button */
@@ -23,10 +25,6 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.1s ease, all 0.1s ease-in-out;
-  -webkit-transition: background-color 0.1s ease, all 0.1s ease-in-out;
-  -moz-transition: background-color 0.1s ease, all 0.1s ease-in-out;
-  -ms-transition: background-color 0.1s ease, all 0.1s ease-in-out;
-  -o-transition: background-color 0.1s ease, all 0.1s ease-in-out;
 }
 
 /* Dropdown content */

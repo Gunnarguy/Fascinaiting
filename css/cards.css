@@ -17,6 +17,7 @@
 
 /* Card Styles */
 .card {
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
     background: var(--background-color);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 8px var(--box-shadow-color);
@@ -24,10 +25,6 @@
     margin: 1vw;
     transition: all .5s ease-in-out;
     transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    -webkit-transition: all .5s ease-in-out;
-    -moz-transition: all .5s ease-in-out;
-    -ms-transition: all .5s ease-in-out;
-    -o-transition: all .5s ease-in-out;
 }
 
 .card:hover {
@@ -70,6 +67,7 @@
     font-family: 'Roboto', sans-serif;
 }
 
+/* Ensure <a> or <button> elements in .btn class have proper accessibility attributes */
 .card-content .btn {
     background-color: var(--primary-color);
     color: var(--background-color);
@@ -94,6 +92,7 @@
 }
 
 /* Card Container */
+/* Consider additional media queries for responsiveness */
 .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -102,3 +101,5 @@
     margin: auto;
     max-width: 100%;
 }
+
+/* Test styles across multiple browsers for compatibility */

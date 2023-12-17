@@ -1,4 +1,41 @@
-/* Header styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+:root {
+  --header-bg-color: #2c3e50;
+  --header-text-color: #ffffff;
+  --header-text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.5);
+  --header-font-family: 'Roboto', sans-serif;
+}
+
+header.header {
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+  padding: 1em;
+  margin-top: 1rem;
+  border: 8px solid var(--header-text-color);
+  border-radius: 14px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  /* Removed transform and transition properties */
+}
+
+header.header h1 {
+  font-family: var(--header-font-family);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-shadow: var(--header-text-shadow);
+  line-height: normal;
+  text-align: center;
+  margin: 1vw auto;
+  color: var(--header-text-color);
+  background-color: #0a3968;
+  border: 0.27vw solid var(--header-text-color);
+  border-radius: 12px;
+  font-size: clamp(1.5rem, 8vw, 3rem);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Removed invalid scale transform */
+}
+
 header {
     background-color: #2c3e50;
     color: #ffffff;
@@ -10,7 +47,6 @@ header {
     transition: all 0.1s ease-in-out;
     transform-origin: center;
     transform: scale(absolute);
-    
 }
 
 /* Header title */
@@ -38,38 +74,3 @@ header h1 {
     -o-transform: scale(absolute);
 }
 
-/* Header styles */
-header h2,
-header h3,
-header h4,
-header h5,
-header h6 {
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.5);
-    line-height: 2vw;
-    text-align: center;
-    margin: 0;
-}
-
-header h2 {
-    font-size: 2.5vw;
-}
-
-header h3 {
-    font-size: 2vw;
-}
-
-header h4 {
-    font-size: 1.5vw;
-}
-
-header h5 {
-    font-size: 1vw;
-}
-
-header h6 {
-    font-size: 0.75vw;
-}
