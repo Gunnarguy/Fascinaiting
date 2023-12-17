@@ -1,10 +1,10 @@
 /* Body Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.5vw;
+    font-size: 1.6rem;
     color: #333;
     text-transform: none;
     letter-spacing: 0.125vw;
-    line-height: 3vw;
+    line-height: 2vw;
     background-color: rgb(184, 184, 184);
 }
