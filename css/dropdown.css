@@ -5,13 +5,12 @@
   --dropdown-content-bg-color: #f9f9f9;
   --dropdown-link-hover-bg-color: #c3e0ff;
   --transition-speed: 0.1s;
-
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 2.5%;
-  right: 2.5%;
+  top: 3.5%;
+  right: 3%;
   z-index: 10;
   transition: all 0.1s ease-in-out;
 }
@@ -20,8 +19,8 @@
 .dropdown .dropbtn {
   background-color: #0c84c1;
   color: white;
-  padding: .75vw .7vw;
-  font-size: 1.25vw;
+  padding: 1.5vw 1.4vw;
+  font-size: 1.5vw;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.1s ease, all 0.1s ease-in-out;
@@ -43,7 +42,7 @@
 /* Dropdown links */
 .dropdown .dropdown-content a {
   color: black;
-  padding: 3px;
+  padding: 0.3em;
   text-decoration: none;
   display: block;
   font-size: 1em;
@@ -56,25 +55,21 @@
   -o-transition: background-color 0.1s ease, all 0.1s ease-in-out;
 }
 
+/* Add hover effect to dropdown button */
+.dropdown .dropbtn:hover {
+  background-color: #0a6a9e;
+  transform: scale(1.075);
+}
+
 /* Show dropdown content on click */
 .dropdown.active .dropdown-content,
 .dropdown .dropbtn:focus + .dropdown-content {
   display: block;
 }
 
-/* Show dropdown content on hover */
-.dropdown.active:hover .dropdown-content,
-.dropdown .dropbtn:focus + .dropdown-content:hover {
-  display: block;
-}
+/* Hide dropdown content on click */
 
 /* Add hover effect to dropdown links */
 .dropdown:hover .dropdown-content a:hover {
   background-color: #c3e0ff;
-}
-
-/* Add hover effect to dropdown button */
-.dropdown .dropbtn:hover {
-  background-color: #0a6a9e;
-  transform: scale(1.075);
 }
