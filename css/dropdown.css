@@ -19,6 +19,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+  font-family: 'Quicksand', sans-serif; /* Added font-family */
 }
 
 /* Dropdown content */
@@ -44,6 +45,7 @@
   text-align: left;
   border-radius: 5px;
   transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+  font-family: 'Quicksand', sans-serif; /* Added font-family */
 }
 
 /* Show dropdown content on click */

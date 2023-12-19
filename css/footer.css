@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
 :root {
   --footer-bg-color: #2c3e50;
   --footer-text-color: #ffffff;
@@ -5,6 +7,7 @@
   --footer-margin-top: 1rem;
   --footer-border-radius: 0.5rem;
   --footer-font-size: clamp(0.875rem, 2vw, 1.125rem);
+  --footer-font-family: 'Quicksand', sans-serif;
 }
 
 footer {
@@ -14,6 +17,7 @@ footer {
   margin-top: var(--footer-margin-top);
   border-radius: var(--footer-border-radius);
   font-size: var(--footer-font-size);
+  font-family: var(--footer-font-family);
   text-align: center;
 }
 

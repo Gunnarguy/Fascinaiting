@@ -1,5 +1,5 @@
 :root {
-    --body-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --body-font-family: 'Quicksand', sans-serif;
     --body-font-size: 2vw; /* Consider replacing with clamp for responsiveness */
     --body-color: #333;
     --body-background-color: rgb(184, 184, 184);

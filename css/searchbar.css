@@ -11,6 +11,7 @@
     transition: all 0.1s ease-in-out;
     font-size: 1.5vw;
     outline: none;
+    font-family: 'Quicksand', sans-serif; /* Added font-family */
 }
 
 /* Button Styles */

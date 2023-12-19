@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'Mulish';
-  src: url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+  font-family: 'Quicksand';
+  src: url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 }
 
 :root {
-  --font-family: 'Mulish', sans-serif;
+  --font-family: 'Quicksand', sans-serif;
   --font-size: 1rem; /* Updated for better responsiveness */
   --text-color: #333;
   --letter-spacing: 0.025rem;
