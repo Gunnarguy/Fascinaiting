@@ -1,15 +1,8 @@
-/* BEGIN: Font */
+/* Font */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
-/* END: Font */
 
 :root {
   --body-font-family: 'Quicksand', sans-serif;
-  font-family: var(--body-font-family);
-
-}
-
-/* BEGIN: Body */
-:root {
   --body-font-size: 2vw; /* Consider replacing with clamp for responsiveness */
   --body-color: #333;
   --body-background-color: rgb(215, 215, 215);
@@ -19,21 +12,11 @@
 }
 
 body {
-  /* Typography */
   font-family: var(--body-font-family);
   font-size: var(--body-font-size);
+  background-color: var(--body-background-color);
   color: var(--body-color);
-  text-transform: none;
   letter-spacing: var(--body-letter-spacing);
   line-height: var(--body-line-height);
-
-  /* Background */
-  background-color: var(--body-background-color);
-  /* Consider adding background-image for additional visual appeal */
-  /* background-image: url('path/to/pattern.png'); */
-
-  /* Transition */
-  transition: all var(--body-transition-speed) ease-in-out;
+  transition: color var(--body-transition-speed);
 }
-
-/* END: Body */

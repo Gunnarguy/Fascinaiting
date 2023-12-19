@@ -8,10 +8,8 @@ canvas {
     top: 0;
     left: 0;
     z-index: -1;
-    animation:
-        var(--canvas-animation-name) var(--canvas-animation-duration) infinite;
-    -webkit-animation:
-        var(--canvas-animation-name) var(--canvas-animation-duration) infinite;
+    animation: var(--canvas-animation-name) var(--canvas-animation-duration) infinite;
+    -webkit-animation: var(--canvas-animation-name) var(--canvas-animation-duration) infinite;
     /* Consider any other vendor prefixes if necessary */
     /* Be mindful of animation performance and accessibility */
 }

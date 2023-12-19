@@ -14,14 +14,8 @@ footer {
   margin-top: var(--footer-margin-top);
   border-radius: var(--footer-border-radius);
   font-size: var(--footer-font-size);
-  font-family: var(--footer-font-family);
   text-align: center;
-  opacity: .95;
+  opacity: 0.95;
   z-index: 1;
+  transition: none; /* Removed transition for all properties */
 }
-
-/* BEGIN: Removed transition for all properties */
-footer {
-  transition: none;
-}
-/* END: Removed transition for all properties */
