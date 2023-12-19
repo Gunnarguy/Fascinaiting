@@ -11,12 +11,15 @@
 
 /* Article styles */
 article {
-  padding: var(--article-padding);
   background-color: var(--article-background-color);
-  margin-top: var(--article-margin-top);
   border-radius: var(--article-border-radius);
   box-shadow: var(--article-box-shadow);
   transition: all var(--transition-speed) ease-in-out;
+}
+
+article {
+  padding: var(--article-padding);
+  margin-top: var(--article-margin-top);
 }
 
 /* Add hover effect to links */

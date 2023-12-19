@@ -73,7 +73,7 @@
 /* Ensure <a> or <button> elements in .btn class have proper accessibility attributes */
 .card-content .btn {
     width: 100%;
-    padding: .25vw;
+    padding: 0.25vw;
     margin: 0.8vw 0 1.6vw;
     background-color: var(--primary-color);
     color: var(--background-color);
@@ -102,10 +102,9 @@
 /* Consider additional media queries for responsiveness */
 .card-container {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     margin: 0 auto;
     max-width: 100%;
 }

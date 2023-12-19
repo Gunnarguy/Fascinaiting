@@ -11,7 +11,7 @@
 body {
     /* Typography */
     font-family: var(--body-font-family);
-    font-size: clamp(1rem, 2vw, 1.5rem); /* Responsive font size */
+    font-size: var(--body-font-size);
     color: var(--body-color);
     text-transform: none;
     letter-spacing: var(--body-letter-spacing);
