@@ -1,10 +1,5 @@
 /* Dropdown container */
 .dropdown {
-  --dropdown-hover-bg-color: #0056b3;
-  --dropdown-content-bg-color: #f9f9f9;
-  --dropdown-link-hover-bg-color: #c3e0ff;
-  --transition-speed: 0.1s;
-
   position: absolute;
   display: flex;
   justify-content: center;
@@ -13,6 +8,10 @@
   right: 2vw;
   z-index: 10;
   transition: all 0.1s ease-in-out;
+  --dropdown-hover-bg-color: #0056b3;
+  --dropdown-content-bg-color: #f9f9f9;
+  --dropdown-link-hover-bg-color: #c3e0ff;
+  --transition-speed: 0.1s;
 }
 
 /* Dropdown button */

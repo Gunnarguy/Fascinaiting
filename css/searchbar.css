@@ -17,7 +17,7 @@
 .button {
     position: absolute;
     top: 2.8vw;
-    left: 32vw;
+    left: calc(1.5vw + 30vw + 1vw);
     width: 3vw;
     height: 2.75vw;
     display: inline-block;

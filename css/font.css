@@ -2,6 +2,7 @@
   font-family: 'Mulish';
   src: url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 }
+
 :root {
   --font-family: 'Mulish', sans-serif;
   --font-size: 1rem; /* Updated for better responsiveness */
@@ -9,6 +10,7 @@
   --letter-spacing: 0.025rem;
   --line-height: 1.5; /* Adjusted for better readability */
 }
+
 html {
   font-family: var(--font-family);
   font-size: var(--font-size);
@@ -16,14 +18,11 @@ html {
   text-transform: none;
   letter-spacing: var(--letter-spacing);
   line-height: var(--line-height);
+  transition: all 0.1s ease-in-out;
 }
 
 html {
-    font-family: 'Mulish', sans-serif;
-    font-size: 1vw;
-    color: #333;
-    text-transform: none;
-    letter-spacing: 0.125vw;
-    line-height: 1.5vw;
-    transition: all 0.1s ease-in-out;
+  font-size: 1.5vw;
+  letter-spacing: 0.125vw;
+  line-height: 1.5vw;
 }
