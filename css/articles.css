@@ -18,10 +18,7 @@ article {
   box-shadow: var(--article-box-shadow);
   transition: all var(--transition-speed) ease-in-out;
 }
-article:hover {
-  transform: translateY(-0.5vw);
-  box-shadow: var(--article-box-shadow-hover);
-}
+
 /* Add hover effect to links */
 article a:hover {
   color: var(--link-hover-color);
