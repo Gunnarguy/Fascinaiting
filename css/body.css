@@ -1,27 +1,11 @@
-:root {
-    --body-font-family: 'Quicksand', sans-serif;
-    --body-font-size: 2vw; /* Consider replacing with clamp for responsiveness */
-    --body-color: #333;
-    --body-background-color: rgb(184, 184, 184);
-    --body-letter-spacing: 0.125vw;
-    --body-line-height: 3vw;
-    --body-transition-speed: 0.1s;
-}
+/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/styles.css */
 
-body {
-    /* Typography */
-    font-family: var(--body-font-family);
-    font-size: var(--body-font-size);
-    color: var(--body-color);
-    text-transform: none;
-    letter-spacing: var(--body-letter-spacing);
-    line-height: var(--body-line-height);
-
-    /* Background */
-    background-color: var(--body-background-color);
-    /* Consider adding background-image for additional visual appeal */
-    /* background-image: url('path/to/pattern.png'); */
-
-    /* Transition */
-    transition: all var(--body-transition-speed) ease-in-out;
-}
+/* Reset Styles */
+/* BEGIN: Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-bo;
+  }
+  /* END: Reset Styles */
+  

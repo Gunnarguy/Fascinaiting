@@ -5,17 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FascinAIting</title>
-  <link rel="stylesheet" href="css/searchbar.css">
-  <link rel="stylesheet" href="css/headers.css">
-  <link rel="stylesheet" href="css/dropdown.css">
+
   <link rel="stylesheet" href="css/articles.css">
   <link rel="stylesheet" href="css/body.css">
   <link rel="stylesheet" href="css/cards.css">
   <link rel="stylesheet" href="css/canvas.css">
-  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/dropdown.css">
   <link rel="stylesheet" href="css/font.css">
-  <link rel="stylesheet" href="css/buttons.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/searchbar.css">
 </head>
 <body>
   <div id="root"></div>
@@ -39,8 +38,7 @@
             <div id="headerDropdownContent" class="dropdown-content">
               <a href="" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Home</a>
               <a href="html/articles/article1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Index</a>
-              <a href="/option2" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">About the Author</a>
-              <a href="/option2" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Products</a>
+              <a href="/option2" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Author</a>
             </div>
           </div>
           <h6>Isn't it just...</h6>
@@ -139,15 +137,15 @@
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
     let particles = [];
-    const numParticles = 100;
-    const maxDistance = 150;
+    const numParticles = 300;
+    const maxDistance = 50;
 
     class Particle {
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.velX = (Math.random() - 0.5) * 2;
-        this.velY = (Math.random() - 0.5) * 2;
+        this.velX = (Math.random() - 1) * 1;
+        this.velY = (Math.random() - 1) * 1;
       }
 
       update() {
@@ -159,7 +157,7 @@
 
       draw() {
         context.beginPath();
-        context.arc(this.x, this.y, 3, 0, Math.PI * 2);
+        context.arc(this.x, this.y, 1, 1, Math.PI * 2);
         context.fill();
       }
     }
@@ -174,8 +172,8 @@
           const dist = Math.hypot(particles[i].x - particle.x, particles[i].y - particle.y);
           if (dist < maxDistance) {
             context.beginPath();
-            context.strokeStyle = `rgba(255,255,255,${1 - dist / maxDistance})`;
-            context.lineWidth = 1;
+            context.strokeStyle = `rgba(0, 51, 102, ${1 - dist / maxDistance})`;
+            context.lineWidth = .75;
             context.moveTo(particle.x, particle.y);
             context.lineTo(particles[i].x, particles[i].y);
             context.stroke();

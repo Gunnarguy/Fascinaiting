@@ -1,6 +1,3 @@
-/* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
-
 /* Variables */
 :root {
     --primary-color: #2980b9;
@@ -48,7 +45,7 @@
 
 /* Card Content */
 .card-content {
-    padding: 1.6%;
+    padding: 1.6vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -58,7 +55,6 @@
     margin-top: 0;
     color: var(--text-color);
     font-size: calc(var(--font-size) * 1.4);
-    font-family: 'Quicksand', sans-serif;
     line-height: 1.6vw;
 }
 
@@ -66,7 +62,6 @@
     margin: 0.8vw 0 1.6vw;
     color: var(--subtext-color);
     font-size: var(--font-size);
-    font-family: 'Quicksand', sans-serif;
     line-height: 1.6vw;
 }
 
@@ -79,7 +74,6 @@
     color: var(--background-color);
     text-decoration: none;
     font-size: var(--font-size);
-    font-family: 'Quicksand', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.125vw;
     line-height: 3vw;
@@ -99,6 +93,7 @@
 }
 
 /* Card Container */
+
 /* Consider additional media queries for responsiveness */
 .card-container {
     display: flex;

@@ -1,28 +1,39 @@
-@font-face {
-  font-family: 'Quicksand';
-  src: url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-}
+/* BEGIN: Font */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+/* END: Font */
 
 :root {
-  --font-family: 'Quicksand', sans-serif;
-  --font-size: 1rem; /* Updated for better responsiveness */
-  --text-color: #333;
-  --letter-spacing: 0.025rem;
-  --line-height: 1.5; /* Adjusted for better readability */
+  --body-font-family: 'Quicksand', sans-serif;
+  font-family: var(--body-font-family);
+
 }
 
-html {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  color: var(--text-color);
+/* BEGIN: Body */
+:root {
+  --body-font-size: 2vw; /* Consider replacing with clamp for responsiveness */
+  --body-color: #333;
+  --body-background-color: rgb(215, 215, 215);
+  --body-letter-spacing: 0.125vw;
+  --body-line-height: 3vw;
+  --body-transition-speed: 0.1s;
+}
+
+body {
+  /* Typography */
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+  color: var(--body-color);
   text-transform: none;
-  letter-spacing: var(--letter-spacing);
-  line-height: var(--line-height);
-  transition: all 0.1s ease-in-out;
+  letter-spacing: var(--body-letter-spacing);
+  line-height: var(--body-line-height);
+
+  /* Background */
+  background-color: var(--body-background-color);
+  /* Consider adding background-image for additional visual appeal */
+  /* background-image: url('path/to/pattern.png'); */
+
+  /* Transition */
+  transition: all var(--body-transition-speed) ease-in-out;
 }
 
-html {
-  font-size: 1.5vw;
-  letter-spacing: 0.125vw;
-  line-height: 1.5vw;
-}
+/* END: Body */

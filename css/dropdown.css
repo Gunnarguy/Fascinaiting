@@ -4,69 +4,98 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 3vw;
-  right: 2vw;
-  z-index: 10;
+  top: .5vw;
+  right: .75vw;
+  z-index: 2;
   transition: all var(--transition-speed) ease-in-out;
+  -webkit-transition: all var(--transition-speed) ease-in-out;
+  -moz-transition: all var(--transition-speed) ease-in-out;
+  -ms-transition: all var(--transition-speed) ease-in-out;
+  -o-transition: all var(--transition-speed) ease-in-out;
 }
 
 /* Dropdown button */
 .dropdown .dropbtn {
   background-color: #007bff;
   color: white;
+  border: none;
   padding: 0.75vw 0.7vw;
   font-size: 1.25vw;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  font-family: 'Quicksand', sans-serif; /* Added font-family */
+  -webkit-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+  -moz-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+  -ms-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+  -o-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+}
+
+/* Dropdown button on hover & focus */
+.dropdown .dropbtn:hover,
+.dropdown .dropbtn:focus {
+  background-color: #0056b3;
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
 }
 
 /* Dropdown content */
 .dropdown .dropdown-content {
+  color: black;
+  padding: 0.5vw 0.5vw;
+  text-decoration: none;
   display: none;
   position: absolute;
-  background-color: var(--dropdown-content-bg-color);
-  min-width: 100%;
-  z-index: 10;
+  z-index: 0;
   top: 0;
-  right: calc(100% + 2vw);
+  right: calc(100% + .5vw);
   border-radius: 5px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  background-color: #ffffff;
+  transition: opacity var(--transition-speed) ease-in-out;
+  -webkit-transition: opacity var(--transition-speed) ease-in-out;
+  -moz-transition: opacity var(--transition-speed) ease-in-out;
+  -ms-transition: opacity var(--transition-speed) ease-in-out;
+  -o-transition: opacity var(--transition-speed) ease-in-out;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 /* Dropdown links */
 .dropdown .dropdown-content a {
   color: black;
   padding: 3px;
+  z-index: 2;
   text-decoration: none;
   display: block;
-  font-size: 1em;
-  text-align: left;
+  font-size: .75em;
+  text-align: center;
   border-radius: 5px;
   transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  font-family: 'Quicksand', sans-serif; /* Added font-family */
+  -webkit-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+  -moz-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+  -ms-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+  -o-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
 }
 
 /* Show dropdown content on click */
 .dropdown.active .dropdown-content,
 .dropdown .dropbtn:focus + .dropdown-content {
   display: block;
+  opacity: .95;
 }
 
-/* Show dropdown content on hover */
-.dropdown.active:hover .dropdown-content,
-.dropdown .dropbtn:focus + .dropdown-content:hover {
-  display: block;
-}
-
-/* Add hover effect to dropdown links */
-.dropdown:hover .dropdown-content a:hover {
-  background-color: var(--dropdown-link-hover-bg-color);
-}
-
-/* Add hover effect to dropdown button */
-.dropdown .dropbtn:hover {
-  background-color: var(--dropdown-hover-bg-color);
+/* Highlight dropdown links on hover */
+.dropdown .dropdown-content a:hover {
+  background-color: #87eaf3;
   transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
 }
+
