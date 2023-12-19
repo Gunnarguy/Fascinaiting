@@ -1,7 +1,6 @@
 /* Dropdown container */
 .dropdown {
-  --dropdown-bg-color: #0c84c1;
-  --dropdown-hover-bg-color: #0a6a9e;
+  --dropdown-hover-bg-color: #0056b3;
   --dropdown-content-bg-color: #f9f9f9;
   --dropdown-link-hover-bg-color: #c3e0ff;
   --transition-speed: 0.1s;
@@ -10,15 +9,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 3.5%;
-  right: 3%;
+  top: 3vw;
+  right: 2vw;
   z-index: 10;
   transition: all 0.1s ease-in-out;
 }
 
 /* Dropdown button */
 .dropdown .dropbtn {
-  background-color: #0c84c1;
+  background-color: #007bff;
   color: white;
   padding: .75vw .7vw;
   font-size: 1.25vw;
@@ -75,6 +74,10 @@
 
 /* Add hover effect to dropdown button */
 .dropdown .dropbtn:hover {
-  background-color: #0a6a9e;
-  transform: scale(1.075);
+  background-color: #0056b3;
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
 }
