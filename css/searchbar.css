@@ -49,7 +49,7 @@
 .button:hover {
     background-color: #0056b3;
     transform: scale(1.01);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .button svg {
@@ -60,29 +60,10 @@
     height: 100%;
 }
 
-.button rect {
-    fill: none;
-    stroke-width: 2;
-    stroke-dasharray: 450, 0;
-    transition: all 0.1s linear;
-}
-
-.button:hover rect {
-    stroke-width: 7px;
-    stroke-dasharray: 20, 300;
-    stroke-dashoffset: 48;
-    stroke: rgba(0, 200, 255, 0.763);
-    transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-    -webkit-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-    -moz-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-    -ms-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-    -o-transition: all 1s cubic-bezier(0.22, 1, 0.25, 1);
-}
-
 /* Additional Styles */
 #search-input:focus {
     border-color: #007bff;
-    box-shadow: 0 0 10px 0 rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 5x 0 rgba(0, 123, 255, 0.5);
 }
 
 .button:active {
@@ -92,3 +73,15 @@
 
 /* New Styles */
 /* Add your new styles here */
+/* Vendor Prefixes */
+#search-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

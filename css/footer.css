@@ -18,4 +18,10 @@ footer {
   opacity: 0.95;
   z-index: 1;
   transition: none; /* Removed transition for all properties */
+
+  /* Vendor prefixes for browser compatibility */
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
 }

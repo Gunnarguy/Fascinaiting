@@ -8,10 +8,6 @@
   right: .75vw;
   z-index: 2;
   transition: all var(--transition-speed) ease-in-out;
-  -webkit-transition: all var(--transition-speed) ease-in-out;
-  -moz-transition: all var(--transition-speed) ease-in-out;
-  -ms-transition: all var(--transition-speed) ease-in-out;
-  -o-transition: all var(--transition-speed) ease-in-out;
 }
 
 /* Dropdown button */
@@ -24,10 +20,6 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  -webkit-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  -moz-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  -ms-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  -o-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
 }
 
 /* Dropdown button on hover & focus */
@@ -35,10 +27,6 @@
 .dropdown .dropbtn:focus {
   background-color: #0056b3;
   transform: scale(1.05);
-  -webkit-transform: scale(1.05);
-  -moz-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  -o-transform: scale(1.05);
 }
 
 /* Dropdown content */
@@ -55,14 +43,6 @@
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   background-color: #ffffff;
   transition: opacity var(--transition-speed) ease-in-out;
-  -webkit-transition: opacity var(--transition-speed) ease-in-out;
-  -moz-transition: opacity var(--transition-speed) ease-in-out;
-  -ms-transition: opacity var(--transition-speed) ease-in-out;
-  -o-transition: opacity var(--transition-speed) ease-in-out;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
 }
 
 /* Dropdown links */
@@ -76,10 +56,6 @@
   text-align: center;
   border-radius: 5px;
   transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  -webkit-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  -moz-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  -ms-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
-  -o-transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
 }
 
 /* Show dropdown content on click */
@@ -93,8 +69,4 @@
 .dropdown .dropdown-content a:hover {
   background-color: #87eaf3;
   transform: scale(1.05);
-  -webkit-transform: scale(1.05);
-  -moz-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  -o-transform: scale(1.05);
 }
