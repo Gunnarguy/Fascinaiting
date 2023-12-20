@@ -28,7 +28,8 @@ header h6 {
   letter-spacing: 0.1em;
   line-height: 100%;
   text-align: center;
-  padding: 5vw;
+  padding: 5<meta name="viewport" content="width=device-width, initial-scale=1.0">
+vw;
 }
 
 header h2,
@@ -36,7 +37,6 @@ header h4,
 header h5,
 header h6 {
   font-size: 4vw;
-  margin-bottom: -4.1vw;
 }
 
 header h3 {
