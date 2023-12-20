@@ -17,7 +17,6 @@ article {
   box-shadow: var(--article-box-shadow);
   padding: var(--article-padding);
   margin-top: var(--article-margin-top);
-  transition: all var(--transition-speed) ease-in-out;
 
   /* Vendor prefixes for compatibility */
   -webkit-border-radius: var(--article-border-radius);
@@ -155,10 +154,9 @@ article {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: .5vw;
-  right: .75vw;
+  top: 4vw;
+  right: 1.5vw;
   z-index: 2;
-  transition: all var(--transition-speed) ease-in-out;
   }
 
   /* Dropdown button */
@@ -170,7 +168,6 @@ article {
   font-size: 1.25vw;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
   }
 
   /* Dropdown button on hover & focus */
@@ -295,33 +292,22 @@ article {
   text-transform: none;
   letter-spacing: 0.1em;
   line-height: 100%;
-  text-align: center;
-  padding: 5;
-  }
-
-  header h2,
-  header h4,
-  header h5,
-  header h6 {
+  text-align: left;
+  padding: 4vw;
+  margin-bottom: -21px;
   font-size: 4vw;
-  }
-
-  header h3 {
-  font-size: 6vw;
-  margin-bottom: -4.1vw;
   }
 
   /* Search Styles */
   #search-input {
   position: absolute;
-  top: 1vw;
-  left: .75vw;
+  top: .75vw;
+  left: 64.75vw;
   width: 30vw;
   height: 2.5vw;
   padding: 0.5vw;
   border: 1px solid #ccc;
   border-radius: 10px;
-  transition: all 0.1s ease-in-out;
   font-size: 1.5vw;
   outline: none;
   }
@@ -329,8 +315,8 @@ article {
   /* Button Styles */
   .button {
   position: absolute;
-  top: 1vw;
-  left: 31vw;
+  top: .65vw;
+  left: 95vw;
   width: 2.5vw;
   height: 2.5vw;
   background-color: #007bff;
@@ -340,7 +326,6 @@ article {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.1s ease-in-out;
   font-size: 1.3vw;
   line-height: 2vw;
   z-index: 10;
