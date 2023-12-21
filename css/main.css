@@ -68,8 +68,8 @@ canvas {
 
 /* Card Styles */
 .card {
-  width: 30%;
-  margin: 1%;
+  width: 30vw;
+  margin: 1vw;
   background: var(--background-color);
   border-radius: var(--border-radius);
   box-shadow: 0 4px 8px var(--box-shadow-color);
@@ -291,7 +291,6 @@ header h6 {
   line-height: 100%;
   text-align: left;
   padding: 4vw;
-  margin-bottom: -21px;
   font-size: 4vw;
 }
 
