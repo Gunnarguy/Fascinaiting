@@ -269,7 +269,8 @@ header h1 {
   text-transform: uppercase;
   text-shadow: .75vw .75vw .75vw rgba(0, 0, 0, 0.5);
   line-height: 150%;
-  font-size: 11vw;
+  font-size: 10vw;
+  margin-top: 6vw;
   text-align: center;
   letter-spacing: 1vw;
   background-color: #0a3968;
@@ -287,37 +288,22 @@ header h1 {
   -webkit-animation: fadeIn 1.6s ease-in-out forwards;
 }
 
-/* Header Title Styles for 2-6 */
-header h2,
-header h3,
-header h4,
-header h5,
-header h6 {
-  font-weight: bold;
-  text-transform: none;
-  letter-spacing: 0.1vw;
-  line-height: 100%;
-  text-align: left;
-  padding: 6vw;
-  margin-bottom: -5vw;
-  font-size: 7vw;
-  animation: fadeIn 2s ease-in-out forwards;
-  -webkit-animation: fadeIn 1.4s ease-in-out forwards;
-}
-
 /* Search Styles */
 #search-input {
   position: absolute;
   top: 1vw;
   left: 1vw;
   width: 30vw;
-  height: 2.5vw;
-  padding: 0.5vw;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 1.5vw;
+  height: 4vw;
+  border: .1vw solid #ccc;
+  border-radius: 1vw;
+  font-size: 2vw;
   animation: fadeIn 1.3s ease-in-out forwards;
   -webkit-animation: fadeIn 1.3s ease-in-out forwards;
+  -webkit-border-radius: 1vw;
+  -moz-border-radius: 1vw;
+  -ms-border-radius: 1vw;
+  -o-border-radius: 1vw;
 }
 
 /* Button Styles */
@@ -325,20 +311,23 @@ header h6 {
   position: absolute;
   top: 1vw;
   left: 31vw;
-  width: 2.5vw;
-  height: 2.5vw;
+  width: 4vw;
+  height: 4vw;
   background-color: #007bff;
   color: #fff;
-  border-radius:10px;
+  border-radius:2vw;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.3vw;
+  font-size: 2vw;
   line-height: 2vw;
-  z-index: 10;
   animation: fadeIn 1.3s ease-in-out forwards;
   -webkit-animation: fadeIn 1.3s ease-in-out forwards;
+  -webkit-border-radius:2vw;
+  -moz-border-radius:2vw;
+  -ms-border-radius:2vw;
+  -o-border-radius:2vw;
 }
 
 .button:hover {
