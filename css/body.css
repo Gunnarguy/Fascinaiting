@@ -1,11 +1,14 @@
-/* Body Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 2vw; /* Use vw unit for font size */
-    color: #333;
-    text-transform: none;
-    letter-spacing: 0.125vw;
-    line-height: 3vw;
-    background-color: rgb(184, 184, 184);
-    transition: all 0.1s ease-in-out;
-}
+/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/styles.css */
+
+/* Reset Styles */
+/* BEGIN: Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit browsers */
+    -moz-box-sizing: border-box; /* Firefox */
+    -ms-box-sizing: border-box; /* Internet Explorer */
+    -o-box-sizing: border-box; /* Opera */
+  }
+  /* END: Reset Styles */

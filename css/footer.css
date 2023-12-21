@@ -1,11 +1,27 @@
-/* Footer styles */
+:root {
+  --footer-bg-color: #2c3e50;
+  --footer-text-color: #ffffff;
+  --footer-padding: 1em;
+  --footer-margin-top: 1rem;
+  --footer-border-radius: 0.5rem;
+  --footer-font-size: clamp(0.875rem, 2vw, 1.125rem);
+}
+
 footer {
-    background-color: #2c3e50;
-    color: #ffffff;
-    padding: 0.625vw 1.875vw; /* Adapt padding to screen resolution */
-    margin-top: 2vw; /* Adapt margin to screen resolution */
-    border-radius: 0.75vw; /* Adapt border radius to screen resolution */
-    font-size: 2vw; /* Adapt font size to screen resolution */
-    text-align: center;
-    transition: all 0.1s ease-in-out;
+  background-color: var(--footer-bg-color);
+  color: var(--footer-text-color);
+  padding: var(--footer-padding);
+  margin-top: var(--footer-margin-top);
+  border-radius: var(--footer-border-radius);
+  font-size: var(--footer-font-size);
+  text-align: center;
+  opacity: 0.95;
+  z-index: 1;
+  transition: none; /* Removed transition for all properties */
+
+  /* Vendor prefixes for browser compatibility */
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
 }

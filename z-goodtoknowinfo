@@ -1,3 +1,0 @@
-Ensure that the form in the header (<form id="search-form">) has a valid action attribute pointing to the correct PHP file for handling the search functionality.
-
-Confirm that the canvas element (<canvas id="networkCanvas"></canvas>) is being used correctly and that the JavaScript code related to it is functioning as intended.

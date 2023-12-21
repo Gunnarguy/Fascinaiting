@@ -1,24 +1,36 @@
-/* Article styles */
-article {
-    padding: 2vw;
-    background-color: #ffffff;
-    margin-top: 2vw;
-    border-radius: 3vw;
-    box-shadow: 0 0.5vw 1vw #ccc;
-    transition: all 0.1s ease-in-out;
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition: all 0.1s ease-in-out;
-    -ms-transition: all 0.1s ease-in-out;
-    -o-transition: all 0.1s ease-in-out;
+:root {
+  --article-background-color: #ffffff;
+  --article-padding: 2vw;
+  --article-margin-top: 2vw;
+  --article-border-radius: 3vw;
+  --article-box-shadow: 0 0.5vw 1vw #ccc;
+  --article-box-shadow-hover: 0 1vw 2vw #ccc;
+  --link-hover-color: rgba(0, 200, 255, 0.763);
+  --transition-speed: 0.1s;
 }
 
-article:hover {
-    transform: translateY(-0.5vw);
-    box-shadow: 0 1vw 2vw #ccc;
+/* Article styles */
+article {
+  background-color: var(--article-background-color);
+  border-radius: var(--article-border-radius);
+  box-shadow: var(--article-box-shadow);
+  padding: var(--article-padding);
+  margin-top: var(--article-margin-top);
+  transition: all var(--transition-speed) ease-in-out;
+  
+  /* Vendor prefixes for compatibility */
+  -webkit-border-radius: var(--article-border-radius);
+  -moz-border-radius: var(--article-border-radius);
+  -ms-border-radius: var(--article-border-radius);
+  -o-border-radius: var(--article-border-radius);
+  -webkit-box-shadow: var(--article-box-shadow);
+  -moz-box-shadow: var(--article-box-shadow);
+  -ms-box-shadow: var(--article-box-shadow);
+  -o-box-shadow: var(--article-box-shadow);
 }
 
 /* Add hover effect to links */
 article a:hover {
-    color: rgba(0, 200, 255, 0.763);
-    text-decoration: underline;
+  color: var(--link-hover-color);
+  text-decoration: underline;
 }
