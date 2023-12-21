@@ -3,7 +3,7 @@
 
 :root {
   --body-font-family: 'Quicksand', sans-serif;
-  --body-font-size: 2vw; /* Consider replacing with clamp for responsiveness */
+  --body-font-size: 2vw;
   --body-color: #333;
   --body-background-color: rgb(215, 215, 215);
   --body-letter-spacing: 0.125vw;
@@ -19,10 +19,4 @@ body {
   letter-spacing: var(--body-letter-spacing);
   line-height: var(--body-line-height);
   transition: color var(--body-transition-speed);
-  
-  /* Vendor prefixes for browser compatibility */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
 }

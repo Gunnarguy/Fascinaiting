@@ -1,12 +1,37 @@
+/* FILEPATH: /Users/gunzino/Documents/Fascinaiting/css/main.css */
 :root {
   --article-background-color: #ffffff;
-  --article-padding: 2vw;
+  --article-padding: 3vw;
   --article-margin-top: 2vw;
   --article-border-radius: 3vw;
   --article-box-shadow: 0 0.5vw 1vw #ccc;
   --article-box-shadow-hover: 0 1vw 2vw #ccc;
   --link-hover-color: rgba(0, 200, 255, 0.763);
   --transition-speed: 0.1s;
+  --canvas-animation-name: particles;
+  --canvas-animation-duration: 5s;
+  --primary-color: #2980b9;
+  --hover-color: rgba(47, 217, 255, 0.763);
+  --text-color: #333;
+  --subtext-color: #666;
+  --background-color: #f4f4f4;
+  --border-radius: 5vw;
+  --box-shadow-color: #ccc;
+  --box-shadow-hover-color: #333;
+  --font-size: 1.4vw;
+  --body-font-family: 'Quicksand', sans-serif;
+  --body-font-size: 2.5vw;
+  --body-color: #333;
+  --body-background-color: rgb(215, 215, 215);
+  --body-letter-spacing: 0.125vw;
+  --body-line-height: 3vw;
+  --body-transition-speed: 0.1s;
+  --footer-bg-color: #2c3e50;
+  --footer-text-color: #ffffff;
+  --footer-padding: 1em;
+  --footer-margin-top: 1rem;
+  --footer-border-radius: 0.5rem;
+  --footer-font-size: clamp(0.875rem, 2vw, 1.125rem);
 }
 
 /* Article styles */
@@ -16,6 +41,7 @@ article {
   box-shadow: var(--article-box-shadow);
   padding: var(--article-padding);
   margin-top: var(--article-margin-top);
+  line-height: 5vw;
 
   /* Vendor prefixes for compatibility */
   -webkit-border-radius: var(--article-border-radius);
@@ -28,8 +54,6 @@ article a:hover {
   text-decoration: underline;
 }
 
-/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/styles.css */
-
 /* Reset Styles */
 /* BEGIN: Reset Styles */
 * {
@@ -38,32 +62,12 @@ article a:hover {
   box-sizing: border-box;
 }
 
-/* END: Reset Styles */
-:root {
-  --canvas-animation-name: particles;
-  --canvas-animation-duration: 5s;
-}
-
 canvas {
   position: fixed;
   top: 0;
   left: 0;
   z-index: -1;
   animation: var(--canvas-animation-name) var(--canvas-animation-duration) infinite;
-}
-
-/* Variables */
-:root {
-  --primary-color: #2980b9;
-  --hover-color: rgba(47, 217, 255, 0.763);
-  --text-color: #333;
-  --subtext-color: #666;
-  --background-color: #f4f4f4;
-  --border-radius: 5vw;
-  --box-shadow-color: #ccc;
-  --box-shadow-hover-color: #333;
-  --transition-speed: 0.3s;
-  --font-size: 1.4vw;
 }
 
 /* Card Styles */
@@ -216,19 +220,6 @@ canvas {
   transform: scale(1.05);
 }
 
-/* Font */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
-
-:root {
-  --body-font-family: 'Quicksand', sans-serif;
-  --body-font-size: 2vw;
-  --body-color: #333;
-  --body-background-color: rgb(215, 215, 215);
-  --body-letter-spacing: 0.125vw;
-  --body-line-height: 3vw;
-  --body-transition-speed: 0.1s;
-}
-
 body {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size);
@@ -237,15 +228,6 @@ body {
   letter-spacing: var(--body-letter-spacing);
   line-height: var(--body-line-height);
   transition: color var(--body-transition-speed);
-}
-
-:root {
-  --footer-bg-color: #2c3e50;
-  --footer-text-color: #ffffff;
-  --footer-padding: 1em;
-  --footer-margin-top: 1rem;
-  --footer-border-radius: 0.5rem;
-  --footer-font-size: clamp(0.875rem, 2vw, 1.125rem);
 }
 
 footer {
@@ -351,6 +333,3 @@ header h6 {
   transform: scale(0.99);
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
-
-/* New Styles */
-/* Add your new styles here */
