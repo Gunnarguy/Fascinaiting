@@ -1,13 +1,13 @@
 /* FILEPATH: /Users/gunzino/Documents/Fascinaiting/css/main.css */
 :root {
   --article-background-color: #ffffff;
-  --article-padding: 3vw;
+  --article-padding: 1vw;
   --article-margin-top: 2vw;
   --article-border-radius: 3vw;
   --article-box-shadow: 0 0.5vw 1vw #ccc;
   --article-box-shadow-hover: 0 1vw 2vw #ccc;
   --link-hover-color: rgba(0, 200, 255, 0.763);
-  --transition-speed: 0.1s;
+  --transition-speed: 0.3s;
   --canvas-animation-name: particles;
   --canvas-animation-duration: 5s;
   --primary-color: #2980b9;
@@ -28,10 +28,10 @@
   --body-transition-speed: 0.1s;
   --footer-bg-color: #2c3e50;
   --footer-text-color: #ffffff;
-  --footer-padding: 1em;
-  --footer-margin-top: 1rem;
-  --footer-border-radius: 0.5rem;
-  --footer-font-size: clamp(0.875rem, 2vw, 1.125rem);
+  --footer-padding: 1vw;
+  --footer-margin-top: 1vw;
+  --footer-border-radius: 0.5vw;
+  --footer-font-size: clamp(2.5vw, 2vw, 1.125vw);
 }
 
 /* Article styles */
@@ -165,10 +165,14 @@ canvas {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 0.75vw 0.7vw;
-  font-size: 1.25vw;
+  padding: 1vw 1vw;
+  font-size: 2vw;
   border-radius: 5px;
   cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 /* Dropdown button on hover & focus */
@@ -201,7 +205,7 @@ canvas {
   z-index: 2;
   text-decoration: none;
   display: block;
-  font-size: .75em;
+  font-size: 2vw;
   text-align: center;
   border-radius: 5px;
   transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
@@ -246,19 +250,22 @@ footer {
 header h1 {
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  text-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.5);
-  line-height: 100%;
-  font-size: 10vw;
+  text-shadow: .75vw .75vw .75vw rgba(0, 0, 0, 0.5);
+  line-height: 150%;
+  font-size: 11vw;
   text-align: center;
+  letter-spacing: 1vw;
   background-color: #0a3968;
   color: #ffffff;
-  padding: 2vw;
   border: 0.27vw solid #ffffff;
   border-radius: 14px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   opacity: 0.95;
   z-index: 1;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  -ms-border-radius: 14px;
+  -o-border-radius: 14px;
 }
 
 /* Header Title Styles for 2-6 */
@@ -269,7 +276,7 @@ header h5,
 header h6 {
   font-weight: bold;
   text-transform: none;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.1vw;
   line-height: 100%;
   text-align: left;
   padding: 4vw;
