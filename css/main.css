@@ -43,24 +43,6 @@ article {
   line-height: 5vw;
   -webkit-border-radius: var(--article-border-radius);
   -webkit-box-shadow: var(--article-box-shadow);
-  opacity: 0;
-  animation: fadeIn 1.8s ease-in-out forwards;
-  -webkit-animation: fadeIn 1.8s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(10vw);
-    -webkit-transform: translateY(10vw);
-    -moz-transform: translateY(10vw);
-    -ms-transform: translateY(10vw);
-    -o-transform: translateY(10vw);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Add hover effect to links */
@@ -93,9 +75,6 @@ canvas {
   box-shadow: 0 4px 8px var(--box-shadow-color);
   overflow: auto;
   margin-top: 2vw;
-  opacity: 0;
-  animation: fadeIn 2.1s ease-in-out forwards;
-  -webkit-animation: fadeIn 2.1s ease-in-out forwards;
 }
 
 .card:hover {
@@ -188,8 +167,6 @@ canvas {
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
-  animation: fadeIn 1.3s ease-in-out forwards;
-  -webkit-animation: fadeIn 1.3s ease-in-out forwards;
 }
 
 /* Dropdown button on hover & focus */
@@ -212,7 +189,6 @@ canvas {
   border-radius: 5px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
-  animation: fadeIn 0.75s ease-in-out forwards;
 }
 
 /* Dropdown links */
@@ -260,7 +236,6 @@ footer {
   text-align: center;
   opacity: 0.95;
   z-index: 1;
-  animation: fadeIn 1s ease-in-out forwards;
 }
 
 /* Header Title Styles */
@@ -284,8 +259,6 @@ header h1 {
   -moz-border-radius: 14px;
   -ms-border-radius: 14px;
   -o-border-radius: 14px;
-  animation: fadeIn 1.6s ease-in-out forwards;
-  -webkit-animation: fadeIn 1.6s ease-in-out forwards;
 }
 
 /* Search Styles */
@@ -298,8 +271,6 @@ header h1 {
   border: .1vw solid #ccc;
   border-radius: 1vw;
   font-size: 2vw;
-  animation: fadeIn 1.3s ease-in-out forwards;
-  -webkit-animation: fadeIn 1.3s ease-in-out forwards;
   -webkit-border-radius: 1vw;
   -moz-border-radius: 1vw;
   -ms-border-radius: 1vw;
@@ -322,8 +293,6 @@ header h1 {
   align-items: center;
   font-size: 2vw;
   line-height: 2vw;
-  animation: fadeIn 1.3s ease-in-out forwards;
-  -webkit-animation: fadeIn 1.3s ease-in-out forwards;
   -webkit-border-radius: 2vw;
   -moz-border-radius: 2vw;
   -ms-border-radius: 2vw;
@@ -348,12 +317,9 @@ header h1 {
 #search-input:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px 0 rgba(0, 123, 255, 0.5);
-  animation: fadeIn 1s ease-in-out forwards;
 }
 
 .twitter-link a {
   text-decoration: none;
   color: #007bff;
-  animation: fadeIn 1s ease-in-out forwards;
-  -webkit-animation: fadeIn 1s ease-in-out forwards;
 }
