@@ -1,3 +1,10 @@
 {
-    "editor.linkedEditing": true
+    "editor.linkedEditing": true,
+    "vsintellicode.features.python.deepLearning": "enabled",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.defaultInterpreterPath": "python3",
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.analysis.inlayHints.callArgumentNames": "all"
 }
