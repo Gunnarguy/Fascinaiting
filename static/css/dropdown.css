@@ -1,0 +1,72 @@
+/* Dropdown container */
+.dropdown {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: .5vw;
+  right: .75vw;
+  z-index: 2;
+  transition: all var(--transition-speed) ease-in-out;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75vw 0.7vw;
+  font-size: 1.25vw;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+}
+
+/* Dropdown button on hover & focus */
+.dropdown .dropbtn:hover,
+.dropdown .dropbtn:focus {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Dropdown content */
+.dropdown .dropdown-content {
+  color: black;
+  padding: 0.5vw 0.5vw;
+  text-decoration: none;
+  display: none;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: calc(100% + .5vw);
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  background-color: #ffffff;
+  transition: opacity var(--transition-speed) ease-in-out;
+}
+
+/* Dropdown links */
+.dropdown .dropdown-content a {
+  color: black;
+  padding: 3px;
+  z-index: 2;
+  text-decoration: none;
+  display: block;
+  font-size: .75em;
+  text-align: center;
+  border-radius: 5px;
+  transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+}
+
+/* Show dropdown content on click */
+.dropdown.active .dropdown-content,
+.dropdown .dropbtn:focus + .dropdown-content {
+  display: block;
+  opacity: .95;
+}
+
+/* Highlight dropdown links on hover */
+.dropdown .dropdown-content a:hover {
+  background-color: #87eaf3;
+  transform: scale(1.05);
+}

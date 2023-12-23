@@ -1,0 +1,14 @@
+/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/styles.css */
+
+/* Reset Styles */
+/* BEGIN: Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit browsers */
+    -moz-box-sizing: border-box; /* Firefox */
+    -ms-box-sizing: border-box; /* Internet Explorer */
+    -o-box-sizing: border-box; /* Opera */
+  }
+  /* END: Reset Styles */
