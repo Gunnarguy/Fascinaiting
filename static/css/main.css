@@ -33,7 +33,6 @@
   --footer-font-size: clamp(2.5vw, 2vw, 1.125vw);
 }
 
-/* Article styles */
 article {
   background-color: var(--article-background-color);
   border-radius: var(--article-border-radius);
@@ -41,17 +40,13 @@ article {
   padding: var(--article-padding);
   margin-top: var(--article-margin-top);
   line-height: 5vw;
-  -webkit-border-radius: var(--article-border-radius);
-  -webkit-box-shadow: var(--article-box-shadow);
 }
 
-/* Add hover effect to links */
 article a:hover {
   color: var(--link-hover-color);
   text-decoration: underline;
 }
 
-/* Reset Styles */
 * {
   margin: 0;
   padding: 0;
@@ -66,7 +61,6 @@ canvas {
   animation: var(--canvas-animation-name) var(--canvas-animation-duration) infinite;
 }
 
-/* Card Styles */
 .card {
   width: 44vw;
   margin: 1vw;
@@ -88,7 +82,6 @@ canvas {
   border-top-right-radius: var(--border-radius);
 }
 
-/* Card Content */
 .card-content {
   padding: 1.6vw;
   display: flex;
@@ -110,7 +103,6 @@ canvas {
   line-height: 1.6vw;
 }
 
-/* Ensure <a> or <button> elements in .btn class have proper accessibility attributes */
 .card-content .btn {
   width: 100%;
   padding: 0.25vw;
@@ -133,7 +125,6 @@ canvas {
   background-color: var(--hover-color);
 }
 
-/* Card Container */
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -143,7 +134,6 @@ canvas {
   max-width: 100%;
 }
 
-/* Dropdown container */
 .dropdown {
   position: absolute;
   display: flex;
@@ -154,7 +144,6 @@ canvas {
   z-index: 2;
 }
 
-/* Dropdown button */
 .dropdown .dropbtn {
   background-color: #007bff;
   color: white;
@@ -163,20 +152,14 @@ canvas {
   font-size: 2vw;
   border-radius: 5px;
   cursor: pointer;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
 }
 
-/* Dropdown button on hover & focus */
 .dropdown .dropbtn:hover,
 .dropdown .dropbtn:focus {
   background-color: #0056b3;
   transform: scale(1.05);
 }
 
-/* Dropdown content */
 .dropdown .dropdown-content {
   color: black;
   padding: 0.5vw 0.5vw;
@@ -191,7 +174,6 @@ canvas {
   background-color: #ffffff;
 }
 
-/* Dropdown links */
 .dropdown .dropdown-content a {
   color: black;
   padding: 3px;
@@ -203,14 +185,12 @@ canvas {
   border-radius: 5px;
 }
 
-/* Show dropdown content on click */
 .dropdown.active .dropdown-content,
 .dropdown .dropbtn:focus + .dropdown-content {
   display: block;
   opacity: 0.95;
 }
 
-/* Highlight dropdown links on hover */
 .dropdown .dropdown-content a:hover {
   background-color: #87eaf3;
   transform: scale(1.05);
@@ -238,7 +218,6 @@ footer {
   z-index: 1;
 }
 
-/* Header Title Styles */
 header h1 {
   font-weight: bold;
   text-transform: uppercase;
@@ -255,13 +234,8 @@ header h1 {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   opacity: 0.95;
   z-index: 1;
-  -webkit-border-radius: 14px;
-  -moz-border-radius: 14px;
-  -ms-border-radius: 14px;
-  -o-border-radius: 14px;
 }
 
-/* Search Styles */
 #search-input {
   position: absolute;
   top: 1vw;
@@ -271,13 +245,8 @@ header h1 {
   border: .1vw solid #ccc;
   border-radius: 1vw;
   font-size: 2vw;
-  -webkit-border-radius: 1vw;
-  -moz-border-radius: 1vw;
-  -ms-border-radius: 1vw;
-  -o-border-radius: 1vw;
 }
 
-/* Button Styles */
 .button {
   position: absolute;
   top: 1vw;
@@ -293,10 +262,6 @@ header h1 {
   align-items: center;
   font-size: 2vw;
   line-height: 2vw;
-  -webkit-border-radius: 2vw;
-  -moz-border-radius: 2vw;
-  -ms-border-radius: 2vw;
-  -o-border-radius: 2vw;
 }
 
 .button:hover {
@@ -313,7 +278,6 @@ header h1 {
   height: 100%;
 }
 
-/* Additional Styles */
 #search-input:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px 0 rgba(0, 123, 255, 0.5);
