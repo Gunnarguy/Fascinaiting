@@ -1,7 +1,8 @@
+import fetch from 'node-fetch';
+
 const options = {
     method: 'POST',
     headers: {
-      accept: 'application/json',
       'content-type': 'application/json',
       authorization: 'Bearer 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'
     },
