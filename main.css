@@ -1,0 +1,357 @@
+:root {
+  --article-background-color: #ffffff;
+  --article-padding: 2vw;
+  --article-margin-top: 2vw;
+  --article-border-radius: 3vw;
+  --article-box-shadow: 0 0.5vw 1vw #ccc;
+  --article-box-shadow-hover: 0 1vw 2vw #ccc;
+  --link-hover-color: rgba(0, 200, 255, 0.763);
+  --transition-speed: 0.1s;
+}
+
+/* Article styles */
+article {
+  background-color: var(--article-background-color);
+  border-radius: var(--article-border-radius);
+  box-shadow: var(--article-box-shadow);
+  padding: var(--article-padding);
+  margin-top: var(--article-margin-top);
+
+  /* Vendor prefixes for compatibility */
+  -webkit-border-radius: var(--article-border-radius);
+  -webkit-box-shadow: var(--article-box-shadow);
+}
+
+/* Add hover effect to links */
+article a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* FILEPATH: /Users/gunzino/Documents/GitHub/Fascinaiting/css/styles.css */
+
+/* Reset Styles */
+/* BEGIN: Reset Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* END: Reset Styles */
+:root {
+  --canvas-animation-name: particles;
+  --canvas-animation-duration: 5s;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  animation: var(--canvas-animation-name) var(--canvas-animation-duration) infinite;
+}
+
+/* Variables */
+:root {
+  --primary-color: #2980b9;
+  --hover-color: rgba(47, 217, 255, 0.763);
+  --text-color: #333;
+  --subtext-color: #666;
+  --background-color: #f4f4f4;
+  --border-radius: 5vw;
+  --box-shadow-color: #ccc;
+  --box-shadow-hover-color: #333;
+  --transition-speed: 0.3s;
+  --font-size: 1.4vw;
+}
+
+/* Card Styles */
+.card {
+  width: 30%;
+  margin: 1%;
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px var(--box-shadow-color);
+  overflow: auto;
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.card:hover {
+  transform: translateY(-1.5%);
+  box-shadow: 0 6px 10px var(--box-shadow-hover-color);
+}
+
+.card img {
+  width: 100%;
+  display: block;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+/* Card Content */
+.card-content {
+  padding: 1.6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content h3 {
+  margin-top: 0;
+  color: var(--text-color);
+  font-size: calc(var(--font-size) * 1.4);
+  line-height: 1.6vw;
+}
+
+.card-content p {
+  margin: 0.8vw 0 1.6vw;
+  color: var(--subtext-color);
+  font-size: var(--font-size);
+  line-height: 1.6vw;
+}
+
+/* Ensure <a> or <button> elements in .btn class have proper accessibility attributes */
+.card-content .btn {
+  width: 100%;
+  padding: 0.25vw;
+  margin: 0.8vw 0 1.6vw;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  text-decoration: none;
+  font-size: var(--font-size);
+  text-transform: uppercase;
+  letter-spacing: 0.125vw;
+  line-height: 3vw;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5vw;
+}
+
+.card-content .btn:hover {
+  background-color: var(--hover-color);
+}
+
+/* Card Container */
+
+/* Consider additional media queries for responsiveness */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 100%;
+}
+/* Dropdown container */
+.dropdown {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 4vw;
+  right: 1.5vw;
+  z-index: 2;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75vw 0.7vw;
+  font-size: 1.25vw;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropdown .dropbtn:hover,
+.dropdown .dropbtn:focus {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Dropdown content */
+.dropdown .dropdown-content {
+  color: black;
+  padding: 0.5vw 0.5vw;
+  text-decoration: none;
+  display: none;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: calc(100% + .5vw);
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  background-color: #ffffff;
+  transition: opacity var(--transition-speed) ease-in-out;
+}
+
+/* Dropdown links */
+.dropdown .dropdown-content a {
+  color: black;
+  padding: .75vw;
+  z-index: 2;
+  text-decoration: none;
+  display: block;
+  font-size: 1.5vw;
+  text-align: center;
+  border-radius: 5px;
+  transition: background-color var(--transition-speed) ease, all var(--transition-speed) ease-in-out;
+}
+
+/* Show dropdown content on click */
+.dropdown.active .dropdown-content,
+.dropdown .dropbtn:focus + .dropdown-content {
+  display: block;
+  opacity: .95;
+}
+
+/* Highlight dropdown links on hover */
+.dropdown .dropdown-content a:hover {
+  background-color: #87eaf3;
+  transform: scale(1.05);
+}
+
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+:root {
+  --body-font-family: 'Quicksand', sans-serif;
+  --body-font-size: 2vw;
+  --body-color: #333;
+  --body-background-color: rgb(215, 215, 215);
+  --body-letter-spacing: 0.125vw;
+  --body-line-height: 3vw;
+  --body-transition-speed: 0.1s;
+}
+
+body {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+  background-color: var(--body-background-color);
+  color: var(--body-color);
+  letter-spacing: var(--body-letter-spacing);
+  line-height: var(--body-line-height);
+  transition: color var(--body-transition-speed);
+}
+
+:root {
+  --footer-bg-color: #2c3e50;
+  --footer-text-color: #ffffff;
+  --footer-padding: 1em;
+  --footer-margin-top: 1rem;
+  --footer-border-radius: 0.5rem;
+  --footer-font-size: clamp(0.875rem, 2vw, 1.125rem);
+}
+
+footer {
+  background-color: var(--footer-bg-color);
+  color: var(--footer-text-color);
+  padding: var(--footer-padding);
+  margin-top: var(--footer-margin-top);
+  border-radius: var(--footer-border-radius);
+  font-size: var(--footer-font-size);
+  text-align: center;
+  opacity: 0.95;
+  z-index: 1;
+}
+
+/* Header Title Styles */
+header h1 {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.5);
+  line-height: 100%;
+  font-size: 10vw;
+  text-align: center;
+  background-color: #0a3968;
+  color: #ffffff;
+  padding: 2vw;
+  border: 0.27vw solid #ffffff;
+  border-radius: 14px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0.95;
+  z-index: 1;
+}
+
+/* Header Title Styles for 2-6 */
+header h2,
+header h3,
+header h4,
+header h5,
+header h6 {
+  font-weight: bold;
+  text-transform: none;
+  letter-spacing: 0.1em;
+  line-height: 100%;
+  text-align: left;
+  padding: 4vw;
+  margin-bottom: 0vw;
+  font-size: 4vw;
+}
+
+/* Search Styles */
+#search-input {
+  position: absolute;
+  top: .75vw;
+  left: 2.5vw;
+  width: 30vw;
+  height: 2.5vw;
+  padding: 0.5vw;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1.5vw;
+  outline: none;
+}
+
+/* Button Styles */
+.button {
+  position: absolute;
+  top: .65vw;
+  left: 95vw;
+  width: 2.5vw;
+  height: 2.5vw;
+  background-color: #007bff;
+  color: #fff;
+  border-radius:10px;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3vw;
+  line-height: 2vw;
+  z-index: 10;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  transform: scale(1.01);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+.button svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Additional Styles */
+#search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5x 0 rgba(0, 123, 255, 0.5);
+}
+
+.button:active {
+  transform: scale(0.99);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* New Styles */
+/* Add your new styles here */

@@ -11,6 +11,8 @@
   <script src="app.js"></script>
   <script src="static/js/backend.js"></script>
   <script src="static/js/frontend.js"></script>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
 </head>
 <body>
   <div id="root"></div>
@@ -81,7 +83,7 @@
                 var messageNode = document.createElement('p');
                 messageNode.textContent = userInput;
                 document.getElementById('ai-chat-window').appendChild(messageNode);
-                document.getElementById('user-message').value = ''; // Clear the input field
+                document.getElementById('user-message').value = ' '; // Clear the input field
               }
             });
           </script>
