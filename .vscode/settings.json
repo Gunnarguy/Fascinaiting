@@ -4,8 +4,8 @@
     "python.analysis.inlayHints.functionReturnTypes": true,
     "python.analysis.inlayHints.pytestParameters": true,
     "python.analysis.inlayHints.variableTypes": true,
-    "python.defaultInterpreterPath": "python",
+    "python.defaultInterpreterPath": "python3",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.analysis.inlayHints.callArgumentNames": "all",
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5500
 }
