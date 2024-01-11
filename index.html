@@ -1,141 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta content="yes" name="apple-mobile-web-app-capable"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore the world of AI with FascinAIting.">
+  <meta name="keywords" content="AI, Technology, Innovation, Articles">
   <title>FascinAIting</title>
-  <link href="static/css/main.css" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="static/js/canvas.js"></script>
-  <script src="app.cjs"></script>
-  <script src="static/js/backend.js"></script>
-  <script src="static/js/frontend.js"></script>
-  <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css">
+  <link rel="stylesheet" href="css/homepage.css">
+  <style>
+    /* Custom styles will be added here */ 
+  </style>
 </head>
 <body>
-  <div id="root"></div>
-  <div class="center">
-    <header>
-      <form action="search.php" id="search-form" method="GET">
-        <input id="search-input" name="query" placeholder="Search..." type="search"/>
-        <span class="background">
-          <a class="button" href="https://learning.atheros.ai">
-            <svg>
-              <rect fill="none" height="100%" width="100%" x="0" y="0"></rect>
-            </svg>
-            Go
-          </a>
-        </span>
-      </form>
-      <div>
-        <div class="dropdown">
-          <button class="dropbtn" id="headerDropdown">Menu</button>
-          <div class="dropdown-content" id="headerDropdownContent">
-            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="">Home</a>
-            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="html/articles/article1.html">Index</a>
-            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="/option2">Author</a>
-          </div>
-        </div>
-        <h1>Fascin<span style="color: #FFD700;">AI</span>ting</h1>
+  <header>
+    <h5><span style="color: #006875;">Fascin</span>AI<span style="color: #006875;">ting</span></h5>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Articles</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="header">
+      <div class="header-content">
+        <h1>Welcome</h1>
       </div>
-    </header>
-  </div>
-  
-  <div style="text-align: center;">
-    <main>
-      <section class="featured-article" id="featured-article">
+      <div>
+        <h6>Take a dive into how AI is impacting the fields below:</h6>
+      </div>
+    </section>
+
+    <section class="featured-article">
+      <div class="container">
+        <h3>Most Recent Post:</h3>
         <article>
-          <h3>Medical Devices</h3>
-          <p>Operating Room</p>
-          <a class="read-more" href="html/articles/article1.html">Read More</a>
+          <p>[Placeholder]</p>
+          <a href="#" class="read-more">Read More</a>
         </article>
-      </section>
-      <section class="articles-list" id="articles-list">
+      </div>
+    </section>
+
+    <section class="articles">
+      <div class="container">
+        <h4>Medical Field</h4>
+        <p>Explore how AI is evolving the medical field.</p>
+        <a href="article1.html" class="read-more">Read More</a>
+      </div>
+    </section>
+
+    <section class="articles">
+      <div class="container">
         <article>
-          <h3>Canine</h3>
-          <p>Behavior &amp; Psychology</p>
-          <a class="read-more" href="html/articles/article2.html">Read More</a>
+          <h4>Nutrition</h4>
+          <p>Get insights into how AI can be used to solve our nation's health concerns.</p>
+          <a href="article2.html" class="read-more">Read More</a>
         </article>
+      </div>
+    </section>
+
+    <section class="articles">
+      <div class="container">
         <article>
-          <h3>Video Games</h3>
-          <p>Video Game Stuff</p>
-          <a class="read-more" href="html/articles/article3.html">Read More</a>
+          <h4>Video Games</h4>
+          <p>Discover how AI is being used in video games.</p>
+          <a href="article3.html" class="read-more">Read More</a>
         </article>
-        <article>
-          <h3>Nutrition</h3>
-          <p>Placeholder</p>
-          <a class="read-more" href="html/articles/article3.html">Read More</a>
-        </article>
-      </section>
-      <section class="ai-chat">
-        <article>
-          <div id="ai-chat-window" class="max-w-lg mx-auto my-10 p-6 bg-white rounded-lg border shadow-md space-y-2" style="height: 300px; overflow-y: auto;"></div>
-          <form id="message-input" class="max-w-lg mx-auto my-4 flex">
-            <input type="text" id="user-message" class="flex-1 p-2 rounded-l-lg border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white" placeholder="Type your message..."/>
-            <button type="submit" class="px-8 rounded-r-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r">Send</button>
-          </form>
-          <script>
-            document.getElementById('message-input').addEventListener('submit', function(event) {
-              event.preventDefault();
-              var userInput = document.getElementById('user-message').value;
-              if(userInput.trim() !== '') {
-                var messageNode = document.createElement('p');
-                messageNode.textContent = userInput;
-                document.getElementById('ai-chat-window').appendChild(messageNode);
-                document.getElementById('user-message').value = ' '; // Clear the input field
-              }
-            });
-          </script>
-        </article>
-      </section>
-      <section class="card-container">
-        <div class="card">
-          <img alt="Placeholder Image" src="https://via.placeholder.com/300"/>
+      </div>
+    </section>
+
+    <section class="articles">
+      <div class="container">
+        <h4>Canine</h4>
+        <p>Learn about how AI is impacting the world of canine behavior and psychology.</p>
+        <a href="article4.html" class="read-more">Read More</a>
+      </div>
+    </section>
+
+    <section class="card-container">
+      <div class="container">
+        <h3>Featured Cards</h3>
+        <section class="card">
+          <img src="https://via.placeholder.com/300" alt="Placeholder Image">
           <div class="card-content">
-            <h3>Card Title 1</h3>
+            <h4>Card Title 1</h4>
             <p>This is a reference to article1.html</p>
-            <a class="btn" href="html/articles/card-title-1.html">Read More</a>
+            <a href="card1.html" class="btn">Read More</a>
           </div>
-        </div>
-        <div class="card">
-          <img alt="Placeholder Image" src="https://via.placeholder.com/300"/>
+        </section>
+        <section class="card">
+          <img src="https://via.placeholder.com/300" alt="Placeholder Image">
           <div class="card-content">
-            <h3>Card Title 2</h3>
+            <h4>Card Title 2</h4>
             <p>This is a reference to article2.html</p>
-            <a class="btn" href="html/articles/card-title-2.html">Read More</a>
+            <a href="card2.html" class="btn">Read More</a>
           </div>
-        </div>
-      </section>
-      <section class="twitter-link" id="twitter-link">
-        <p>Follow me on:</p>
-        <a href="https://twitter.com/gunzeroni">
-          <svg fill="currentColor" height="24" ViewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M22.46 5.5c-.81.36-1.68.6-2.6.71.94-.56 1.66-1.45 2-2.51-.88.52-1.86.9-2.9 1.1-.83-.88-2.02-1.43-3.34-1.43-2.53 0-4.58 2.05-4.58 4.58 0 .36.04.72.13 1.06C6.1 9.2 3.3 7.4 1.34 4.77c-.4.68-.63 1.47-.63 2.32 0 1.6.82 3.02 2.06 3.85-.76-.02-1.47-.23-2.1-.58v.06c0 2.23 1.58 4.08 3.68 4.5-.38.1-.78.15-1.2.15-.3 0-.6-.03-.9-.08.6 1.8 2.3 3.1 4.32 3.14-1.58 1.24-3.57 1.98-5.73 1.98-.37 0-.73-.02-1.1-.07 2.04 1.3 4.46 2.06 7.07 2.06 8.48 0 13.1-7 13.1-13v-.59c.9-.64 1.68-1.44 2.3-2.35z"></path>
-          </svg>
-        </a>
-        <a href="https://twitter.com/gunzeroni">
-          <svg fill="currentColor" height="24" ViewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path>
-          </svg>
-        </a>
-      </section>
-      <section id="newsletter">
-        <h4>Subscribe to my newsletter</h4>
-        <form id="newsletter-form">
-          <input id="newsletter-input" placeholder="Enter your email..." type="email"/>
+        </section>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="container">
+        <h3>Subscribe to Our Newsletter</h3>
+        <form id="newsletter-form" aria-label="Subscribe to newsletter">
+          <input type="email" id="newsletter-email" placeholder="Enter your email..." aria-label="Enter your email">
           <button type="submit">Subscribe</button>
-          <p>Get the latest updates on my blog posts and more!</p>
         </form>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
+
+  <div class="social-links">
+    <a href="https://twitter.com/gunzeroni" aria-label="Twitter">
+      <img href="https://commons.wikimedia.org/wiki/File:Logo_of_Twitter" alt="Logo of Twitter" width="42" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/256px-Logo_of_Twitter.svg.png">
+    </a>
   </div>
-  <canvas id="networkCanvas"></canvas>
-  <footer class="bg-gray-200 text-center py-4 mt-8 flex justify-center items-center">
-    <p class="text-gray-700">© Fascin<span style="color: #FFD700;">AI</span>ting - All rights reserved.</p>
+
+  <footer>
+    <div class="container">
+      <p>&copy; FascinAIting - All rights reserved.</p>
+    </div>
   </footer>
 </body>
 
