@@ -22,6 +22,31 @@
     --secondary-background-color: var(--secondary-color);
 }
 
+nav {
+    display: flex;
+    font-size: 3vw;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.nav-links a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #83ebe4;
+}
+
 body {
     font-family: var(--font-family);
     color: var(--text-color);
@@ -82,26 +107,15 @@ header {
     margin: 4vw;
 }
 
-.socials
-{
-    text-align: center;
-}
-
-.socials ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.socials li {
-    margin-right: 1vw;
+.socials {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }
 
 .socials a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-size: 2.5vw;
+    display: inline-block;
+    margin-left: 10px;
 }
 
 .socials a:hover {
