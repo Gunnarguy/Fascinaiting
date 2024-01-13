@@ -183,3 +183,7 @@ requiredFiles = [".replit", "replit.nix", ".config"]
 [deployment]
 publicDir = "/"
 deploymentTarget = "static"
+
+[auth]
+pageEnabled = false
+buttonEnabled = false
