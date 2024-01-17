@@ -115,7 +115,7 @@ nav {
     padding: var(--base-spacing);
     border-radius: var(--base-border-radius);
     box-shadow: 1vw 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 8vw;
+    font-size: 7vw;
 }
 
 .header-content {
@@ -123,20 +123,38 @@ nav {
 }
 
 h3,
-h5,
+h5 {
+    font-size: 5vw;
+    text-align: left;
+    margin: 2vw;
+}
+
 h6 {
-    margin-bottom: var(--base-spacing);
+    font-size: 4vw;
     text-align: center;
     margin: 4vw;
 }
 
-h5 {
-    text-align: left;
-}
-
-.social-links {
+.social-link1 {
     position: fixed;
     bottom: 20px;
+    right: 20px;
+}
+.social-link2 {
+    position: fixed;
+    bottom: 125px;
+    right: 20px;
+}
+
+.social-link3 {
+    position: fixed;
+    bottom: 20px;
+    right: 72.5px;
+}
+
+.social-link4 {
+    position: fixed;
+    bottom: 72.5px;
     right: 20px;
 }
 
@@ -144,6 +162,7 @@ h5 {
     display: inline-block;
     margin-left: 10px;
 }
+
 
 footer {
     background-color: var(--secondary-background-color);
