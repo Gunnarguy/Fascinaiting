@@ -1,172 +1,171 @@
 /* Colors */
 :root {
-    --text-color: #333;
-    --font-family: 'Roboto', sans-serif;
-    --background-color: #f5f5f5;
-    --primary-color: #006775;
-    --secondary-color: #006775;
-    --main-text-color: var(--text-color);
-    --primary-background-color: var(--primary-color);
-    --secondary-background-color: var(--secondary-color);
+  --text-color: #333;
+  --font-family: "Roboto", sans-serif;
+  --background-color: #f5f5f5;
+  --primary-color: #006775;
+  --secondary-color: #006775;
+  --main-text-color: var(--text-color);
+  --primary-background-color: var(--primary-color);
+  --secondary-background-color: var(--secondary-color);
 }
 
 /* Sizing */
 :root {
-    --base-font-size: 1vw;
-    --base-spacing: 0.5vw;
-    --base-border-radius: 1.5rem;
+  --base-font-size: 1vw;
+  --base-spacing: 0.5vw;
+  --base-border-radius: 1.5rem;
 }
 
 /* Responsive Sizing */
 :root {
-    --responsive-font-size: calc(var(--base-font-size) + 0.5vw);
-    --responsive-spacing: calc(var(--base-spacing) + 0.5vw);
-    --responsive-border-radius: calc(var(--base-border-radius) + 0.5vw);
+  --responsive-font-size: calc(var(--base-font-size) + 0.5vw);
+  --responsive-spacing: calc(var(--base-spacing) + 0.5vw);
+  --responsive-border-radius: calc(var(--base-border-radius) + 0.5vw);
 }
 
 body {
-    font-family: var(--font-family);
-    color: var(--text-color);
-    background-color: var(--background-color);
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 nav {
-    display: flex;
-    font-size: 3vw;
-    align-items: center;
-    padding: 0 20px;
+  display: flex;
+  font-size: 3vw;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 12px;
-    margin-left: auto;
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
 }
 
 .nav-links a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: #83ebe4;
+  color: #83ebe4;
 }
 
 .featured-article {
-    align-items: left;
-    padding: 2vw;
-    width: 92%;
-    margin: auto;
-    margin-bottom: var(--base-spacing);
+  align-items: left;
+  padding: 2vw;
+  width: 92%;
+  margin: auto;
+  margin-bottom: var(--base-spacing);
 }
 
 .articles,
 .card {
-    display: block;
-    margin: auto;
-    width: 85%;
-    border: 1px solid #ddd;
-    box-shadow: 0.5vw 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: var(--base-border-radius);
-    margin-bottom: var(--base-spacing);
+  display: block;
+  margin: auto;
+  width: 85%;
+  border: 1px solid #ddd;
+  box-shadow: 0.5vw 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: var(--base-border-radius);
+  margin-bottom: var(--base-spacing);
 }
 
 .card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: var(--base-border-radius);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--base-border-radius);
 }
 
 .card-content {
-    padding: var(--base-spacing);
+  padding: var(--base-spacing);
 }
 
 .btn,
 .read-more,
 .newsletter button[type="submit"] {
-    display: inline-block;
-    background-color: var(--secondary-background-color);
-    color: white;
-    padding: .75vw 1.5vw;
-    text-decoration: none;
-    box-shadow: 0.6vw 1vw 2px rgba(0, 0, 0, 0.1);
-    border-radius: var(--base-border-radius);
-    transition: background-color 0.3s ease;
+  display: inline-block;
+  background-color: var(--secondary-background-color);
+  color: white;
+  padding: 0.75vw 1.5vw;
+  text-decoration: none;
+  box-shadow: 0.6vw 1vw 2px rgba(0, 0, 0, 0.1);
+  border-radius: var(--base-border-radius);
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover,
 .read-more:hover,
 .newsletter button[type="submit"]:hover {
-    background-color: darken(var(--secondary-background-color), 10%);
+  background-color: darken(var(--secondary-background-color), 10%);
 }
 
 .header {
-    background-color: var(--primary-background-color);
-    color: white;
-    letter-spacing: 0.20vw;
-    padding: var(--base-spacing);
-    border-radius: var(--base-border-radius);
-    box-shadow: 1vw 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 7vw;
+  background-color: var(--primary-background-color);
+  color: white;
+  letter-spacing: 0.2vw;
+  padding: var(--base-spacing);
+  border-radius: var(--base-border-radius);
+  box-shadow: 1vw 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 7vw;
 }
 
 .header-content {
-    text-align: center;
+  text-align: center;
 }
 
 h3,
 h5 {
-    font-size: 5vw;
-    text-align: left;
-    margin: 2vw;
+  font-size: 5vw;
+  text-align: left;
+  margin: 2vw;
 }
 
 h6 {
-    font-size: 4vw;
-    text-align: center;
-    margin: 4vw;
+  font-size: 4vw;
+  text-align: center;
+  margin: 4vw;
 }
 
 .social-link1 {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
 .social-link2 {
-    position: fixed;
-    bottom: 125px;
-    right: 20px;
+  position: fixed;
+  bottom: 125px;
+  right: 20px;
 }
 
 .social-link3 {
-    position: fixed;
-    bottom: 20px;
-    right: 72.5px;
+  position: fixed;
+  bottom: 20px;
+  right: 72.5px;
 }
 
 .social-link4 {
-    position: fixed;
-    bottom: 72.5px;
-    right: 20px;
+  position: fixed;
+  bottom: 72.5px;
+  right: 20px;
 }
 
 .social-links a {
-    display: inline-block;
-    margin-left: 10px;
+  display: inline-block;
+  margin-left: 10px;
 }
 
-
 footer {
-    background-color: var(--secondary-background-color);
-    color: white;
-    padding: var(--base-spacing);
-    text-align: center;
+  background-color: var(--secondary-background-color);
+  color: white;
+  padding: var(--base-spacing);
+  text-align: center;
 }
