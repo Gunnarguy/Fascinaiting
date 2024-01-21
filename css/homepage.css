@@ -5,6 +5,13 @@
   --brand-color: #006775;
   --brand-highlight-color: #83ebe4;
   --font-family: "Roboto", sans-serif;
+  --border-radius: 1.5rem;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+  --box-shadow-hover-color: rgba(0, 0, 0, 0.2);
+  --font-size: 1rem;
+  --subtext-color: #666;
+  --primary-color: var(--brand-color);
+  --hover-color: var(--brand-highlight-color);
 }
 
 body {
@@ -69,17 +76,17 @@ nav {
   color: white;
   letter-spacing: 0.2vw;
   padding: 1em;
-  border-radius: 1.5rem;
-  box-shadow: 1vw 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: 1vw 2px 4px var(--box-shadow-color);
   text-align: center;
 }
 
 .featured-article,
 .articles {
   margin: auto;
-  box-shadow: 0.5vw 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.5vw 2px 4px var(--box-shadow-color);
   padding: 20px;
-  border-radius: 1.5rem;
+  border-radius: var(--border-radius);
   margin-bottom: 1em;
 }
 
@@ -89,37 +96,73 @@ nav {
 }
 
 .articles {
-  display: block;
   width: 85%;
   border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin-bottom: 1em;
+  box-shadow: 0.5vw 2px 4px var(--box-shadow-color);
 }
 
 /* Card Styles */
-.card-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
+.card {
+  display: inline-block; /* Change to inline-block */
+  background-color: var(--background-color);
+  width: 42vw;
+  margin: 1vw;
+  border: 1px solid #ddd;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px var(--box-shadow-color);
+  margin-top: 2vw;
 }
 
-.card {
-  box-shadow: 0.5vw 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 1.5rem;
-  margin-bottom: 1em;
-  border: 1px solid #ddd;
-  width: calc(100% - 40px); /* Adjust width for full width on mobile */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Change to flex-start */
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px var(--box-shadow-hover-color);
 }
 
 .card img {
   width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 1.5rem;
+  display: block;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }
 
 .card-content {
-  padding: 1em;
+  padding: 1.6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content .btn {
+  width: 50%;
+  margin: 0.8vw 0 1.6vw;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  text-decoration: none;
+  font-size: var(--font-size);
+  text-transform: uppercase;
+  letter-spacing: 0.125vw;
+  line-height: 3vw;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 1.5vw;
+}
+
+.card-content .btn:hover {
+  background-color: var(--hover-color);
 }
 
 /* Buttons and Links */
@@ -131,15 +174,16 @@ nav {
   color: white;
   padding: 0.75em 1.5em;
   text-decoration: none;
-  border-radius: 1.5rem;
-  box-shadow: 0.6vw 1vw 2px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: 0.6vw 1vw 2px var(--box-shadow-color);
   transition: background-color 0.3s ease;
 }
 
 .btn:hover,
 .read-more:hover,
 .newsletter button[type="submit"]:hover {
-  background-color: darken(var(--brand-color), 10%);
+  background-color: var(--brand-color);
+  filter: brightness(90%);
 }
 
 /* Newsletter Styles */
@@ -147,7 +191,7 @@ nav {
   padding: 0.75em;
   margin-right: 0.5em;
   border: 1px solid #ccc;
-  border-radius: 1.5rem;
+  border-radius: var(--border-radius);
 }
 
 /* Footer */
@@ -170,29 +214,7 @@ footer {
   right: 20px;
 }
 
-/* Responsive Styles */
-@media (min-width: 768px) {
-  :root {
-    --font-size: calc(1em + 0.5vw);
-  }
-
-  .header,
-  .btn,
-  .read-more,
-  .newsletter button[type="submit"] {
-    border-radius: calc(1.5rem + 0.5vw);
-  }
-
-  /* Card */
-  .card {
-    width: calc(50% - 10px); /* Adjust width for 2 cards in a row, considering the gap */
-    margin-bottom: 20px; /* Optional: for spacing between rows of cards */
-  }
-
-  /* Responsive Card Styles */
-  @media (min-width: 1024px) {
-    .card {
-      width: calc(33.333% - 13.333px); /* Adjust width for 3 cards in a row on larger screens */
-    }
-  }
+/* Custom Styles */
+.brand-color {
+  color: #006875;
 }
