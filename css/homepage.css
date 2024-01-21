@@ -105,27 +105,17 @@ nav {
 }
 
 /* Card Styles */
-.card {
-  display: inline-block; /* Change to inline-block */
-  background-color: var(--background-color);
-  width: 42vw;
-  margin: 1vw;
-  border: 1px solid #ddd;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 8px var(--box-shadow-color);
-  margin-top: 2vw;
-}
 
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start; /* Change to flex-start */
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
+
+
+
+
+
+
+
+
+
+
 
 .card:hover {
   box-shadow: 0 8px 16px var(--box-shadow-hover-color);
@@ -219,13 +209,9 @@ footer {
   color: #006875;
 }/* Media Queries for Responsiveness */
 @media only screen and (max-width: 600px) {
-  .card-container {
-    justify-content: center;
-  }
+  
 
-  .card {
-    width: 90vw;
-  }
+  
 
   .featured-article, .articles {
     width: 90%;
@@ -238,7 +224,45 @@ footer {
 }
 
 @media only screen and (max-width: 768px) {
-  .card {
-    width: 80vw;
-  }
+  
 } 
+
+.header-content {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container {
+  padding: 15px;
+  margin: auto;
+  max-width: 1200px;
+}
+
+#newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+  margin: 20px auto;
+}
+
+#newsletter-email {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Space out the cards evenly */
+}
+
+.card {
+    flex: 0 1 calc(50% - 20px); /* Flex basis of 50% minus margin, allow shrinking but not growing */
+    margin: 10px; /* Spacing between cards */
+    box-sizing: border-box; /* Padding and border included in width */
+}
