@@ -217,4 +217,28 @@ footer {
 /* Custom Styles */
 .brand-color {
   color: #006875;
+}/* Media Queries for Responsiveness */
+@media only screen and (max-width: 600px) {
+  .card-container {
+    justify-content: center;
+  }
+
+  .card {
+    width: 90vw;
+  }
+
+  .featured-article, .articles {
+    width: 90%;
+  }
+
+  .newsletter input[type=email], .newsletter button[type=submit] {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
 }
+
+@media only screen and (max-width: 768px) {
+  .card {
+    width: 80vw;
+  }
+} 
