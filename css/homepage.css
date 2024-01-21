@@ -105,20 +105,14 @@ nav {
 }
 
 /* Card Styles */
-
-
-
-
-
-
-
-
-
-
-
-
-.card:hover {
-  box-shadow: 0 8px 16px var(--box-shadow-hover-color);
+.card {
+  display: inline-block;
+  width: 48%;
+  margin: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0.5vw 2px 4px var(--box-shadow-color);
+  overflow: hidden;
+  background-color: var(--background-color);
 }
 
 .card img {
@@ -131,12 +125,12 @@ nav {
 .card-content {
   padding: 1.6vw;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .card-content .btn {
-  width: 50%;
   margin: 0.8vw 0 1.6vw;
   background-color: var(--primary-color);
   color: var(--background-color);
@@ -172,8 +166,11 @@ nav {
 .btn:hover,
 .read-more:hover,
 .newsletter button[type="submit"]:hover {
-  background-color: var(--brand-color);
-  filter: brightness(90%);
+  background-color: var(--hover-color);
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px var(--box-shadow-hover-color);
 }
 
 /* Newsletter Styles */
@@ -207,25 +204,21 @@ footer {
 /* Custom Styles */
 .brand-color {
   color: #006875;
-}/* Media Queries for Responsiveness */
+}
+
+/* Media Queries for Responsiveness */
 @media only screen and (max-width: 600px) {
-  
-
-  
-
-  .featured-article, .articles {
+  .featured-article,
+  .articles {
     width: 90%;
   }
 
-  .newsletter input[type=email], .newsletter button[type=submit] {
+  .newsletter input[type=email],
+  .newsletter button[type=submit] {
     width: 100%;
     margin-bottom: 1rem;
   }
 }
-
-@media only screen and (max-width: 768px) {
-  
-} 
 
 .header-content {
   font-size: 24px;
@@ -256,13 +249,8 @@ footer {
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around; /* Space out the cards evenly */
-}
-
-.card {
-    flex: 0 1 calc(50% - 20px); /* Flex basis of 50% minus margin, allow shrinking but not growing */
-    margin: 10px; /* Spacing between cards */
-    box-sizing: border-box; /* Padding and border included in width */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* Space out the cards evenly */
 }
