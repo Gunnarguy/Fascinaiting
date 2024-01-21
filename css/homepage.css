@@ -17,14 +17,24 @@ body {
 }
 
 /* Typography */
-h3, h5 {
-  font-size: 5vw;
+h1, h3, h4, h5, h6 {
   margin: 2vw;
 }
 
-h6 {
+h1 {
+  font-size: 7vw;
+}
+
+h3, h5 {
+  font-size: 5vw;
+}
+
+h4 {
   font-size: 4vw;
-  margin: 4vw;
+}
+
+h6 {
+  font-size: 3vw;
 }
 
 /* Navigation */
@@ -61,16 +71,11 @@ nav {
   padding: 1em;
   border-radius: 1.5rem;
   box-shadow: 1vw 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 7vw;
-}
-
-.header-content {
   text-align: center;
 }
 
 .featured-article,
-.articles,
-.card {
+.articles {
   margin: auto;
   box-shadow: 0.5vw 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -83,11 +88,27 @@ nav {
   width: 92%;
 }
 
-.articles,
-.card {
+.articles {
   display: block;
   width: 85%;
   border: 1px solid #ddd;
+}
+
+/* Card Styles */
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  box-shadow: 0.5vw 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 1.5rem;
+  margin-bottom: 1em;
+  border: 1px solid #ddd;
+  width: calc(100% - 40px); /* Adjust width for full width on mobile */
 }
 
 .card img {
@@ -121,6 +142,14 @@ nav {
   background-color: darken(var(--brand-color), 10%);
 }
 
+/* Newsletter Styles */
+.newsletter input[type="email"] {
+  padding: 0.75em;
+  margin-right: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 1.5rem;
+}
+
 /* Footer */
 footer {
   background-color: var(--brand-color);
@@ -152,5 +181,18 @@ footer {
   .read-more,
   .newsletter button[type="submit"] {
     border-radius: calc(1.5rem + 0.5vw);
+  }
+
+  /* Card */
+  .card {
+    width: calc(50% - 10px); /* Adjust width for 2 cards in a row, considering the gap */
+    margin-bottom: 20px; /* Optional: for spacing between rows of cards */
+  }
+
+  /* Responsive Card Styles */
+  @media (min-width: 1024px) {
+    .card {
+      width: calc(33.333% - 13.333px); /* Adjust width for 3 cards in a row on larger screens */
+    }
   }
 }
