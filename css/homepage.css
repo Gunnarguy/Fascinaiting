@@ -46,16 +46,24 @@ h6 {
 
 /* Navigation */
 nav {
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  padding: 1rem;
   display: flex;
-  font-size: 3vw;
   align-items: center;
-  padding: 0 20px;
+}
+
+nav h5 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-color);
 }
 
 .nav-links {
   list-style: none;
+  padding: 0;
   display: flex;
-  gap: 12px;
+  gap: 1rem;
   margin-left: auto;
 }
 

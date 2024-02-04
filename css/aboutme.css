@@ -4,11 +4,12 @@
 :root {
   --text-color: #333;
   --background-color: #f5f5f5;
-  --brand-color: #006875;
+  --brand-color: #006775;
   --brand-highlight-color: #83ebe4;
   --font-family: 'Roboto', sans-serif;
-  --border-radius: 0.5rem;
-  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --border-radius: 1.5rem;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+  --box-shadow-hover-color: rgba(0, 0, 0, 0.2);
   --font-size: 1rem;
   --subtext-color: #666;
   --primary-color: var(--brand-color);
@@ -104,7 +105,6 @@ footer p {
   font-size: var(--font-size);
 }
 
-/* Social Links */
 .social-links {
   display: flex;
   justify-content: center;
@@ -114,3 +114,44 @@ footer p {
   display: inline-flex;
 }
 
+/* Media Queries for Responsiveness */
+@media only screen and (max-width: 600px) {
+  .featured-article,
+  .articles {
+    width: 90%;
+  }
+
+  .newsletter input[type=email],
+  .newsletter button[type=submit] {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+.container {
+  padding: 15px;
+  margin: auto;
+  max-width: 1200px;
+}
+
+#newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+  margin: 20px auto;
+}
+
+#newsletter-email {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* Space out the cards evenly */
+}
