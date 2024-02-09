@@ -120,7 +120,17 @@ nav h5 {
   margin-bottom: 1em;
   box-shadow: 0.5vw 2px 4px var(--box-shadow-color);
 }
+.twitter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.twitter-container > div {
+  transform: scale(0.8);
+  transform-origin: top left;
+  margin: 10px;
+}
 /* Card Styles */
 .card {
   display: inline-block;

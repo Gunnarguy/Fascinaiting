@@ -8,92 +8,73 @@
   <meta name="keywords" content="AI, Technology, Innovation, Articles">
   <title>FascinAIting</title>
   <link rel="stylesheet" href="css/homepage.css">
-  <style>
-    .brand-color {
-      color: #006875;
-    }
-  </style>
+  <style>.brand-color { color: #006875; }</style>
 </head>
 
 <body>
-  <header>
-    <nav>
-      <h5><span class="brand-color">Fascin</span>AI<span class="brand-color">ting</span></h5>
+  <header class="site-header">
+    <nav class="site-nav">
+      <h5 class="logo"><span class="brand-color">Fascin</span>AI<span class="brand-color">ting</span></h5>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="aboutme.html">About</a></li>
-        <li><a href="more.html">Contact</a></li>
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="aboutme.html" class="nav-link">About</a></li>
       </ul>
     </nav>
   </header>
 
-  <main>
+  <main class="site-content">
     <section class="header">
       <div class="header-content">
         <h1>Welcome</h1>
       </div>
-      <div>
-        <h6>Take a dive into how AI is impacting the fields below:</h6>
-      </div>
-    </section>
-
-    <section class="featured-article">
-      <div class="container">
-        <h3>Most Recent Post:</h3>
-        <article>
-          <p>[-------------------]</p>
-          <a href="#" class="read-more">Read More</a>
-        </article>
-      </div>
+      <p class="tagline">Take a dive into how AI is impacting the fields below:</p>
     </section>
 
     <section class="articles">
-      <div class="container">
+      <article class="article" data-topic="Medical Industry">
         <h4>Medical Industry</h4>
         <p>Explore how AI is evolving the medical field.</p>
-        <a href="article1.html" class="read-more">Read More</a>
-      </div>
-    </section>
-
-    <section class="articles">
-      <div class="container">
+        <a href="article1.html" class="read-more btn">Read More</a>
+      </article>
+      <article class="article" data-topic="Video Game Industry">
         <h4>Video Game Industry</h4>
         <p>Discover how AI is being used in video games.</p>
-        <a href="article3.html" class="read-more">Read More</a>
-      </div>
+        <a href="article3.html" class="read-more btn">Read More</a>
+      </article>
     </section>
 
-    <section class="container">
-      <div class="card-container">
-        <section class="card">
-          <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-          <div class="card-content">
-            <h4>Card Title 1</h4>
-            <p>Latest Twitter Post 1</p>
-            <a href="card1.html" class="btn">Read More</a>
-          </div>
-        </section>
-        <section class="card">
-          <img src="https://via.placeholder.com/300" alt="Placeholder Image">
-          <div class="card-content">
-            <h4>Card Title 2</h4>
-            <p>Latest Twitter Post 2</p>
-            <a href="card2.html" class="btn">Read More</a>
-          </div>
-        </section>
-      </div>
-    </section>
+<div class="twitter-container">
+  <div style="transform: scale(0.8); transform-origin: top left;">
+    <blockquote class="twitter-tweet">
+      <p lang="en" dir="ltr">📲 GeminAI, a simple iOS Shortcut integrating Google Gemini Pro + Vision API 🚀<br><br>Processes text/image queries.<br>Saves conversations to the Files app.<br>Free 60 queries/min.<br>Use your own API key.<br><br>🔗 Links below ⬇️<br><br>Gumroad link:<a href="https://t.co/kbqrg0LoH1">https://t.co/kbqrg0LoH1</a><br><br>Get your free Google Gemini…</p>
+      &mdash; NerfGun (@Gunzeroni) <a href="https://twitter.com/Gunzeroni/status/1754405942257738141?s=20">February 9, 2024</a>
+    </blockquote>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+  <div style="transform: scale(0.8); transform-origin: top left;">
+    <blockquote class="twitter-tweet">
+      <p lang="en" dir="ltr">📲 GeminAI, a simple iOS Shortcut integrating Google Gemini Pro + Vision API 🚀<br><br>Processes text/image queries.<br>Saves conversations to the Files app.<br>Free 60 queries/min.<br>Use your own API key.<br><br>🔗 Links below ⬇️<br><br>Gumroad link:<a href="https://t.co/kbqrg0LoH1">https://t.co/kbqrg0LoH1</a><br><br>Get your free Google Gemini…</p>
+      &mdash; NerfGun (@Gunzeroni) <a href="https://twitter.com/Gunzeroni/status/1755829879445315732?ref_src=twsrc%5Etfw">February 9, 2024</a>
+    </blockquote>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+</div>
 
-
-    <section class="newsletter">
-      <div class="container">
-        <h3>Subscribe to Our Newsletter</h3>
-        <form id="newsletter-form" aria-label="Subscribe to newsletter">
-          <input type="email" id="newsletter-email" placeholder="Enter your email..." aria-label="Enter your email">
-          <button type="submit">Subscribe</button>
-        </form>
+    <aside class="card-container">
+      <div class="card" data-topic="Card 1">
+        <img src="https://via.placeholder.com/300" alt="Placeholder Image" class="card-image">
+        <h4 class="card-title">Card Title 1</h4>
+        <p class="card-content">Latest Twitter Post 1</p>
+        <a href="card1.html" class="btn read-more">Read More</a>
       </div>
-    </section>
+
+      <div class="card" data-topic="Card 2">
+        <img src="https://via.placeholder.com/300" alt="Placeholder Image" class="card-image">
+        <h4 class="card-title">Card Title 2</h4>
+        <p class="card-content">Latest Twitter Post 2</p>
+        <a href="card2.html" class="btn read-more">Read More</a>
+      </div>
+    </aside>
 
     <section class="social-links">
       <div class="container">
@@ -102,13 +83,15 @@
         </a>
       </div>
     </section>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="copyright">&copy; FascinAIting</p>
+      </div>
+    </footer>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; FascinAIting - All rights reserved.</p>
-    </div>
-  </footer>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
 </body>
 
 </html>
