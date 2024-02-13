@@ -23,6 +23,8 @@ body {
   box-sizing: border-box;
 }
 
+
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   margin: 2vw;
@@ -47,7 +49,7 @@ nav {
 
 nav h5 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--text-color);
 }
 
@@ -57,7 +59,7 @@ nav h5 {
   display: flex;
   gap: 1rem;
   margin-left: auto;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .nav-links a {
@@ -222,13 +224,6 @@ footer {
   color: #006875;
 }
 
-/* Media Queries for Responsiveness */
-@media only screen and (max-width: 600px) {
-  .featured-article,
-  .articles {
-    width: 90%;
-  }
-
   .newsletter input[type=email],
   .newsletter button[type=submit] {
     width: 100%;
@@ -249,24 +244,26 @@ footer {
   max-width: 1200px;
 }
 
-#newsletter-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 300px;
-  margin: 20px auto;
-}
-
-#newsletter-email {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
 .card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   /* Space out the cards evenly */
 }
+
+@media screen and (max-width: 768px) {
+  .nav-links, .articles {
+    flex-direction: column;
+  }
+  .article {
+    margin-bottom: 20px;
+  }
+}
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--background-color);
+}
+
