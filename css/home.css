@@ -180,17 +180,12 @@ nav h5 {
   box-shadow: 0 8px 16px var(--box-shadow-hover-color);
 }
 
-.newsletter input[type="email"] {
-  padding: 0.75em;
-  margin-right: 0.5em;
-  border: 1px solid #ccc;
-  border-radius: var(--border-radius);
-}
 
 footer {
   background-color: var(--brand-color);
   color: white;
   padding: 1em;
+  border-radius: 20px;
   text-align: center;
 }
 
@@ -208,16 +203,6 @@ footer {
   position: fixed;
   bottom: 20px;
   right: 20px;
-}
-
-.brand-color {
-  color: #006875;
-}
-
-.newsletter input[type=email],
-.newsletter button[type=submit] {
-  width: 100%;
-  margin-bottom: 1rem;
 }
 
 .header-content {
