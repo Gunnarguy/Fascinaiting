@@ -1,12 +1,9 @@
-/* aboutme.css */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 :root {
   --text-color: #333;
   --background-color: #f5f5f5;
   --brand-color: #006775;
   --brand-highlight-color: #83ebe4;
-  --font-family: 'Roboto', sans-serif;
+  --font-family: "Roboto", sans-serif;
   --border-radius: 1.5rem;
   --box-shadow-color: rgba(0, 0, 0, 0.1);
   --box-shadow-hover-color: rgba(0, 0, 0, 0.2);
@@ -25,17 +22,41 @@ body {
   box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 2vw;
+}
+
+h1 {
+  font-size: 7vw;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 3vw;
+}
+
 nav {
   background-color: white;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow-color) 0 2px 4px;
   padding: 1rem;
   display: flex;
   align-items: center;
+  position: sticky; /* Aligned with index.css */
+  top: 0; /* Aligned with index.css */
+  z-index: 1000; /* Aligned with index.css */
 }
 
 nav h5 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--text-color);
 }
 
@@ -45,6 +66,7 @@ nav h5 {
   display: flex;
   gap: 1rem;
   margin-left: auto;
+  font-size: 1.5rem;
 }
 
 .nav-links a {
@@ -58,100 +80,55 @@ nav h5 {
   color: var(--brand-highlight-color);
 }
 
-header {
+.header {
   background-color: var(--brand-color);
   color: white;
-  padding: 2rem;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 3rem;
-}
-
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 0 1rem;
-}
-
-.personal-info, .background {
-  background-color: white;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+  letter-spacing: 0.2vw;
+  padding: 1em;
   border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow-color) 0 2px 4px; /* Aligned with index.css */
+  text-align: center; /* Aligned with index.css */
 }
 
-.personal-info h2, .background h2 {
-  color: var(--brand-color);
-  margin-top: 0;
-}
-
-footer {
+.site-footer {
   background-color: var(--brand-color);
   color: white;
-  text-align: center;
-  padding: 1rem;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-
-footer p {
-  margin: 0;
-  font-size: var(--font-size);
+  padding: 1em;
+  text-align: center; /* Aligned with index.css */
+  border-radius: var(--border-radius); /* Aligned with index.css */
 }
 
 .social-links {
   display: flex;
   justify-content: center;
 }
+
 .social-links a {
-  margin-left: 10px;
+  margin-left: 10px; /* Aligned with index.css */
   display: inline-flex;
 }
 
-/* Media Queries for Responsiveness */
-@media only screen and (max-width: 600px) {
-  .featured-article,
-  .articles {
-    width: 90%;
-  }
+.position-fixed {
+  position: fixed;
+  bottom: 20px; /* Aligned with index.css */
+  right: 20px; /* Aligned with index.css */
+}
 
-  .newsletter input[type=email],
-  .newsletter button[type=submit] {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
+.header-content {
+  font-size: 24px; /* Aligned with index.css */
+  font-weight: bold; /* Aligned with index.css */
+  text-align: center; /* Aligned with index.css */
+  margin-bottom: 20px; /* Aligned with index.css */
 }
 
 .container {
-  padding: 15px;
-  margin: auto;
-  max-width: 1200px;
+  padding: 15px; /* Aligned with index.css */
+  margin: auto; /* Aligned with index.css */
+  max-width: 1200px; /* Aligned with index.css */
 }
 
-#newsletter-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 300px;
-  margin: 20px auto;
-}
-
-#newsletter-email {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  /* Space out the cards evenly */
+@media screen and (max-width: 768px) {
+  .nav-links {
+    flex-direction: column; /* Aligned with index.css */
+  }
 }
