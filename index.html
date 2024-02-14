@@ -8,11 +8,16 @@
   <meta name="keywords" content="AI, Technology, Innovation, Articles">
   <title>FascinAIting</title>
   <link rel="stylesheet" href="css/home.css">
-  <style>.brand-color { color: #006875; }</style>
+  <style>
+    .brand-color {
+      color: #006875;
+    }
+  </style>
 </head>
 
 <body>
-  
+
+  <!-- Site Header -->
   <header class="site-header">
     <nav class="site-nav">
       <h5 class="logo"><span class="brand-color">Fascin</span>AI<span class="brand-color">ting</span></h5>
@@ -23,7 +28,9 @@
     </nav>
   </header>
 
+  <!-- Main Content -->
   <main class="site-content">
+    <!-- Header Section -->
     <section class="header">
       <div class="header-content">
         <h1>Welcome</h1>
@@ -31,52 +38,39 @@
       <p class="tagline">Take a dive into how AI is impacting the fields below:</p>
     </section>
 
+    <!-- Articles Section -->
     <section class="articles">
       <article class="article" data-topic="Medical Industry">
         <h4>Medical Industry</h4>
         <p>Explore how AI is evolving the medical field.</p>
         <a href="article1.html" class="read-more btn">Read More</a>
       </article>
+
       <article class="article" data-topic="Video Game Industry">
         <h4>Video Game Industry</h4>
         <p>Discover how AI is being used in video games.</p>
         <a href="article2.html" class="read-more btn">Read More</a>
       </article>
-    
+    </section>
+
+    <!-- Social Links Section -->
     <section class="social-links">
       <div class="container">
         <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-          <img alt="Logo of Twitter" width="42" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/256px-Logo_of_Twitter.svg.png">
+          <img alt="Logo of Twitter" width="42"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/256px-Logo_of_Twitter.svg.png">
         </a>
       </div>
     </section>
-
-    <section>
-    <footer class="site-footer">
-      <div class="container">
-        <p class="copyright">&copy; FascinAIting</p>
-      </div>
-    </footer>
-    <section>
-
   </main>
 
-  <script>window.twttr = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-  
-    return t;
-  }(document, "script", "twitter-wjs"));</script>
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="copyright">&copy; FascinAIting</p>
+    </div>
+  </footer>
+
 </body>
 
 </html>

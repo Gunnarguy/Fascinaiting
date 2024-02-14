@@ -22,7 +22,12 @@ body {
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 2vw;
 }
 
@@ -30,7 +35,11 @@ h1 {
   font-size: 7vw;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 3vw;
 }
 
@@ -107,7 +116,7 @@ nav h5 {
   align-items: center;
 }
 
-.twitter-container > div {
+.twitter-container>div {
   transform: scale(0.8);
   transform-origin: top left;
   margin: 10px;
@@ -225,9 +234,12 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-  .nav-links, .articles {
+
+  .nav-links,
+  .articles {
     flex-direction: column;
   }
+
   .article {
     margin-bottom: 20px;
   }
