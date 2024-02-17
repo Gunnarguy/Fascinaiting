@@ -88,26 +88,19 @@ nav h5 {
 }
 
 .featured-article,
-.articles {
+.article {
   margin: auto;
   box-shadow: 0.5vw 2px 4px var(--box-shadow-color);
   padding: 20px;
   border-radius: var(--border-radius);
   margin-bottom: 1em;
+  width: 85%;
+  border: 1px solid #ddd;
 }
 
 .featured-article {
   padding: 2vw;
   width: 92%;
-}
-
-.articles {
-  width: 85%;
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: var(--border-radius);
-  margin-bottom: 1em;
-  box-shadow: 0.5vw 2px 4px var(--box-shadow-color);
 }
 
 .twitter-container {
@@ -250,4 +243,24 @@ footer {
   top: 0;
   z-index: 1000;
   background-color: var(--background-color);
+}
+
+/* Twitter Embeds Styling */
+.twitter-tweet {
+  margin: 2rem auto;
+  max-width: 500px;
+}
+
+.twitter-tweet p {
+  font-size: var(--font-size);
+  color: var(--text-color);
+}
+
+.twitter-tweet a {
+  color: var(--brand-color);
+  text-decoration: none;
+}
+
+.twitter-tweet a:hover {
+  color: var(--brand-highlight-color);
 }
