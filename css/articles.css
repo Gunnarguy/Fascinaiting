@@ -4,10 +4,9 @@
   --brand-color: #006775;
   --brand-highlight-color: #83ebe4;
   --font-family: "Roboto", sans-serif;
-  --border-radius: 20px;
-  /* Changed to match index.css */
-  --box-shadow-color: rgba(0, 0, 0, 0.1);
-  --box-shadow-hover-color: rgba(0, 0, 0, 0.2);
+  --border-radius: 1.5rem;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
   --font-size: 1rem;
   --subtext-color: #666;
   --primary-color: var(--brand-color);
@@ -29,126 +28,176 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 2vw;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-  font-size: 4vw;
-  /* Adjusted to match index.css */
+  font-size: 3.5vw;
 }
 
-h2,
-h3,
+h2 {
+  font-size: 5vw;
+}
+
+h3 {
+  font-size: 2.5vw;
+}
+
 h4,
 h5,
 h6 {
-  font-size: 2.5vw;
-  /* Adjusted to match index.css */
+  font-size: 1.5vw;
 }
 
 nav {
-  background-color: white;
-  box-shadow: var(--box-shadow-color) 0 2px 4px;
-  /* Updated shadow to match */
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
   padding: 1rem;
   display: flex;
   align-items: center;
   position: sticky;
-  /* Added to match index.css */
   top: 0;
-  /* Added to match index.css */
   z-index: 1000;
-  /* Added to match index.css */
 }
 
-nav h5 {
-  margin: 0;
-  font-size: 2.5rem;
-  color: var(--text-color);
-}
-
-.nav-links {
+.nav-links,
+.nav-menu a {
   list-style: none;
   padding: 0;
-  display: flex;
   gap: 1rem;
   margin-left: auto;
   font-size: 1.5rem;
+  color: var(--text-color);
+  text-decoration: none;
 }
 
 .nav-links a {
-  color: var(--brand-color);
-  text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-menu a:hover,
+.twitter-tweet a:hover {
   color: var(--brand-highlight-color);
 }
 
-.header {
+.header,
+footer {
   background-color: var(--brand-color);
   color: white;
-  letter-spacing: 0.2vw;
-  padding: 1em;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow-color) 0 2px 4px;
-  /* Updated to match index.css */
   text-align: center;
-  /* Added to match index.css */
+  border-radius: var(--border-radius);
+  padding: 1em;
+  box-shadow: var(--box-shadow);
 }
 
-.site-footer {
+.header:hover {
+  box-shadow: var(--box-shadow-hover);
+}
+
+.btn,
+.read-more {
   background-color: var(--brand-color);
   color: white;
-  padding: 1em;
-  text-align: center;
-  /* Added to match index.css */
+  padding: 0.75em 1.5em;
   border-radius: var(--border-radius);
-  /* Adjusted to match index.css */
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s ease;
+  text-decoration: none;
 }
 
-.social-links {
-  display: flex;
-  justify-content: center;
+.btn:hover,
+.read-more:hover {
+  background-color: var(--brand-highlight-color);
 }
 
-.social-links a {
-  margin-left: 10px;
-  /* Adjusted to match index.css */
-}
-
-.position-fixed {
-  position: fixed;
-  bottom: 20px;
-  /* Adjusted to match index.css */
-  right: 20px;
-  /* Adjusted to match index.css */
-}
-
-.header-content {
-  /* Styles, if any, must align with index.css */
-}
-
-.container {
-  padding: 15px;
-  /* Adjusted to match index.css */
+.article,
+.card {
   margin: auto;
-  /* Adjusted to match index.css */
-  max-width: 1200px;
-  /* Added to match index.css */
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: var(--background-color);
 }
 
-@media screen and (max-width: 768px) {
+.card:hover {
+  box-shadow: var(--box-shadow-hover);
+}
 
-  .nav-links,
-  .articles {
-    flex-direction: column;
+.card img {
+  width: 100%;
+  display: block;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.card-content {
+  padding: 1.6vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-links,
+.articles,
+.card-container {
+  flex-direction: column;
+}
+
+.nav-links {
+  display: none;
+}
+
+.nav-links.responsive,
+.nav-menu.responsive {
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--background-color);
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+}
+
+.hamburger-menu,
+.nav-menu.responsive {
+  display: none;
+}
+
+article {
+  margin-bottom: 20px;
+}
+
+.hamburger-menu {
+  cursor: pointer;
+  font-size: 25px;
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  z-index: 2000;
+  display: block;
+}
+
+@media (max-width: 768px) {
+
+  /* Display the hamburger menu and set nav-menu to overlay */
+  .hamburger-menu {
+    display: block;
   }
 
-  .article {
-    margin-bottom: 20px;
-    /* Added to match index.css */
+  .nav-links.responsive,
+  .nav-menu.responsive {
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--background-color);
+    top: 40px;
+    /* Adjust this value to the height of your nav bar */
+    width: 50%;
+    z-index: 1001;
   }
 }

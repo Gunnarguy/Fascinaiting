@@ -63,7 +63,6 @@ nav {
 .nav-menu a {
   list-style: none;
   padding: 0;
-  display: flex;
   gap: 1rem;
   margin-left: auto;
   font-size: 1.5rem;
@@ -163,19 +162,21 @@ footer {
   display: none;
 }
 
-.nav-links.responsive {
-  display: flex;
+.nav-links.responsive,
+.nav-menu.responsive {
   flex-direction: column;
+  position: absolute;
+  background-color: var(--background-color);
+  top: 64px;
+  /* Assuming 64px is your navbar height */
+  left: 0;
+  right: 0;
+  z-index: 1001;
 }
 
 .hamburger-menu,
 .nav-menu.responsive {
-  display: block;
-}
-
-.nav-menu {
-  flex-direction: column;
-  max-height: 500px;
+  display: none;
 }
 
 .article {
@@ -184,12 +185,13 @@ footer {
 
 .hamburger-menu {
   cursor: pointer;
-  font-size: 30px;
+  font-size: 25px;
   position: absolute;
   top: 50%;
   right: 1.5rem;
   transform: translateY(-50%);
   z-index: 2000;
+  display: block;
 }
 
 .twitter-embeds {
@@ -199,4 +201,24 @@ footer {
 .twitter-tweet {
   display: inline-block;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+
+  /* Display the hamburger menu and set nav-menu to overlay */
+  .hamburger-menu {
+    display: block;
+  }
+
+  .nav-links.responsive,
+  .nav-menu.responsive {
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--background-color);
+    top: 40px;
+    /* Adjust this value to the height of your nav bar */
+    width: 50%;
+    z-index: 1001;
+  }
 }
