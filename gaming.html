@@ -2,50 +2,137 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Article 2 - FascinAIting</title>
+  <meta name="description" content="Explore the FascinAIting world of AI in the Video Game Industry.">
+  <meta name="keywords" content="AI, Video Games, Gaming, Innovation">
+  <title>Video Games - FascinAIting</title>
   <link rel="stylesheet" href="css/articles.css">
+  <link rel="stylesheet" href="css/index.css">
+
+  <style>
+    /* Overlay the styles from index.css into this style block */
+    .hamburger-menu {
+      display: none;
+      
+      cursor: pointer;
+      padding: 1rem;
+      font-size: 1.5rem;
+      background: transparent;
+      border: none;
+      z-index: 2000;
+    }
+
+    @media screen and (max-width: 768px) {
+      .hamburger-menu {
+        display: block;
+      }
+
+      .nav-menu.responsive {
+        position: absolute;
+        background-color: var(--background-color);
+        top: 60px;
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: var(--box-shadow);
+        max-height: 500px;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        display: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        list-style-type: none;
+      }
+
+      .nav-links a {
+        padding: 1rem;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        color: var(--text-color);
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--brand-highlight-color);
+        background-color: var(--background-color);
+      }
+    }
+
+    /* Additional specific styles based on the new index.html structure */
+    .nav-links.nav-menu {
+      margin-left: auto;
+    }
+  </style>
+  <script defer src="navigation.js"></script>
 </head>
 
 <body>
+  <!-- Site Header -->
   <header class="site-header">
     <nav class="site-nav">
-      <h5 class="logo"><span style="color: #006875;">Fascin</span>AI<span style="color: #006875;">ting</span></h5>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="gaming.html">Article 1</a></li>
-        <li><a href="medical.html">Article 2</a></li>
-        <li><a href="aboutme.html">About</a></li>
+      <!-- Hamburger Menu for Mobile View -->
+      <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
+        <span>&#9776;</span>
+      </button>
+      <h1 class="logo">
+        <span class="brand-color">Fascin</span><span style="color: #00bfff;">AI</span><span class="brand-color">ting</span>
+      </h1>
+      <!-- Navigation Links -->
+      <ul class="nav-links nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="aboutme.html" class="nav-link">About</a></li>
+        <li><a href="gaming.html" class="nav-link">Gaming</a></li>
+        <li><a href="medical.html" class="nav-link">Medical</a></li>
+        <li><a href="animal.html" class="nav-link">Animal Behavior</a></li>
+        <li><a href="medevs.html" class="nav-link">Medical Devices</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="site-content">
+  <!-- Main Content -->
+  <main>
+    <!-- Welcome Section -->
     <section class="header">
       <div class="header-content">
-        <h1>Article Title 2</h1>
+        <h2>Explore the Video Game Industry</h2>
+        <p>Discover how AI is revolutionizing video games and gaming experiences.</p>
       </div>
     </section>
-    <article class="articles">
-      <div class="article">
-        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices...</p>
+
+    <!-- Articles Section -->
+    <section class="articles">
+      <!-- Filler content, replace with actual articles related to video game industry -->
+      <article class="article">
+        <h3>AI in Gaming</h3>
+        <p>Advancements in AI technology are enabling more immersive and intelligent game design.</p>
+        <!-- Link to article or related content -->
+      </article>
+      <!-- More articles can be added here -->
+    </section>
+
+    <!-- Social Links -->
+    <section class="social-links">
+      <div class="container">
+        <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
+          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg"
+            width="42">
+        </a>
       </div>
-    </article>
+    </section>
   </main>
 
-  <section class="social-links">
-    <div class="container">
-      <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-        <img alt="Logo of Twitter" width="42"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/256px-Logo_of_Twitter.svg.png">
-      </a>
-    </div>
-  </section>
-  
+  <!-- Site Footer -->
   <footer class="site-footer">
-    <p>&copy; FascinAIting </p>
+    <div class="container">
+      <p>&copy; 2024 FascinAIting - All rights reserved.</p>
+    </div>
   </footer>
-
 </body>
+
 </html>

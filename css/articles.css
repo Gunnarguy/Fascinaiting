@@ -4,7 +4,8 @@
   --brand-color: #006775;
   --brand-highlight-color: #83ebe4;
   --font-family: "Roboto", sans-serif;
-  --border-radius: 20px; /* Changed to match index.css */
+  --border-radius: 20px;
+  /* Changed to match index.css */
   --box-shadow-color: rgba(0, 0, 0, 0.1);
   --box-shadow-hover-color: rgba(0, 0, 0, 0.2);
   --font-size: 1rem;
@@ -32,7 +33,8 @@ h6 {
 }
 
 h1 {
-  font-size: 4vw; /* Adjusted to match index.css */
+  font-size: 4vw;
+  /* Adjusted to match index.css */
 }
 
 h2,
@@ -40,18 +42,23 @@ h3,
 h4,
 h5,
 h6 {
-  font-size: 2.5vw; /* Adjusted to match index.css */
+  font-size: 2.5vw;
+  /* Adjusted to match index.css */
 }
 
 nav {
   background-color: white;
-  box-shadow: var(--box-shadow-color) 0 2px 4px; /* Updated shadow to match */
+  box-shadow: var(--box-shadow-color) 0 2px 4px;
+  /* Updated shadow to match */
   padding: 1rem;
   display: flex;
   align-items: center;
-  position: sticky; /* Added to match index.css */
-  top: 0; /* Added to match index.css */
-  z-index: 1000; /* Added to match index.css */
+  position: sticky;
+  /* Added to match index.css */
+  top: 0;
+  /* Added to match index.css */
+  z-index: 1000;
+  /* Added to match index.css */
 }
 
 nav h5 {
@@ -86,16 +93,20 @@ nav h5 {
   letter-spacing: 0.2vw;
   padding: 1em;
   border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow-color) 0 2px 4px; /* Updated to match index.css */
-  text-align: center; /* Added to match index.css */
+  box-shadow: var(--box-shadow-color) 0 2px 4px;
+  /* Updated to match index.css */
+  text-align: center;
+  /* Added to match index.css */
 }
 
 .site-footer {
   background-color: var(--brand-color);
   color: white;
   padding: 1em;
-  text-align: center; /* Added to match index.css */
-  border-radius: var(--border-radius); /* Adjusted to match index.css */
+  text-align: center;
+  /* Added to match index.css */
+  border-radius: var(--border-radius);
+  /* Adjusted to match index.css */
 }
 
 .social-links {
@@ -104,13 +115,16 @@ nav h5 {
 }
 
 .social-links a {
-  margin-left: 10px; /* Adjusted to match index.css */
+  margin-left: 10px;
+  /* Adjusted to match index.css */
 }
 
 .position-fixed {
   position: fixed;
-  bottom: 20px; /* Adjusted to match index.css */
-  right: 20px; /* Adjusted to match index.css */
+  bottom: 20px;
+  /* Adjusted to match index.css */
+  right: 20px;
+  /* Adjusted to match index.css */
 }
 
 .header-content {
@@ -118,18 +132,23 @@ nav h5 {
 }
 
 .container {
-  padding: 15px; /* Adjusted to match index.css */
-  margin: auto; /* Adjusted to match index.css */
-  max-width: 1200px; /* Added to match index.css */
+  padding: 15px;
+  /* Adjusted to match index.css */
+  margin: auto;
+  /* Adjusted to match index.css */
+  max-width: 1200px;
+  /* Added to match index.css */
 }
 
 @media screen and (max-width: 768px) {
+
   .nav-links,
   .articles {
     flex-direction: column;
   }
 
   .article {
-    margin-bottom: 20px; /* Added to match index.css */
+    margin-bottom: 20px;
+    /* Added to match index.css */
   }
 }

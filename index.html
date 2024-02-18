@@ -1,72 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Explore the world of AI with FascinAIting.">
   <meta name="keywords" content="AI, Technology, Innovation, Articles">
   <title>FascinAIting</title>
   <link rel="stylesheet" href="css/index.css">
+  
+  <style>
+    /* Overlay the styles from index.css into this style block */
+    .hamburger-menu {
+      display: none;
+      cursor: pointer;
+      padding: 1rem;
+      font-size: 1.5rem;
+      background: transparent;
+      border: none;
+      z-index: 2000;
+    }
+
+    @media screen and (max-width: 768px) {
+      .hamburger-menu {
+        display: block;
+      }
+
+      .nav-menu.responsive {
+        position: absolute;
+        background-color: var(--background-color);
+        top: 60px;
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: var(--box-shadow);
+        max-height: 500px;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        display: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        list-style-type: none;
+      }
+
+      .nav-links a {
+        padding: 1rem;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        color: var(--text-color);
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--brand-highlight-color);
+        background-color: var(--background-color);
+      }
+    }
+
+    /* Additional specific styles based on the new index.html structure */
+    .nav-links.nav-menu {
+      margin-left: auto;
+    }
+  </style>
+  <script>
+    // Placeholder for your navigation.js logic for `toggleMenu` function
+    function toggleMenu() {
+      var menu = document.querySelector('.nav-menu');
+      menu.classList.toggle('responsive');
+    }
+  </script>
 </head>
-
 <body>
-
   <!-- Site Header -->
   <header class="site-header">
     <nav class="site-nav">
-      <h1 class="logo"><span class="brand-color">Fascin</span>AI<span class="brand-color">ting</span></h1>
-      <ul class="nav-links">
+      <!-- Hamburger Menu for Mobile View -->
+      <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
+        <span>&#9776;</span>
+      </button>
+      <h1 class="logo">
+         <span class="brand-color">Fascin</span><span style="color: #00bfff;">AI</span><span class="brand-color">ting</span>
+      </h1>
+      <!-- Navigation Links -->
+      <ul class="nav-links nav-menu">
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li><a href="aboutme.html" class="nav-link">About</a></li>
+        <li><a href="gaming.html" class="nav-link">Medical</a></li>
+        <li><a href="medical.html" class="nav-link">Video Games</a></li>
+        <li><a href="animal.html" class="nav-link">Animal Behavior</a></li>
+        <li><a href="medevs.html" class="nav-link">Medical Devices</a>
       </ul>
     </nav>
   </header>
 
   <!-- Main Content -->
-  <main class="site-content">
-    <!-- Header Section -->
+  <main>
+    <!-- Welcome Section -->
     <section class="header">
-      <header class="header-content">
+      <div class="header-content">
         <h2>Welcome</h2>
-      </header>
-      <p class="tagline">Take a dive into how AI is impacting the fields below:</p>
+        <p class="tagline">Take a dive into how AI is impacting the fields below:</p>
+      </div>
     </section>
 
-    <!-- Medical Industry Article -->
-    <article class="article" data-topic="Medical Industry">
-      <h3>Medical Industry</h3>
-      <p>Explore how AI is evolving the medical field.</p>
-      <a href="medical.html" class="read-more btn">Read More</a>
-    </article>
+    <!-- Articles Section -->
+    <section class="articles">
+      <!-- Medical Industry Article -->
+      <article class="article" data-topic="Medical Industry">
+        <h3>Medical Industry</h3>
+        <p>Explore how AI is evolving the medical field.</p>
+        <a href="medical.html" class="read-more btn">Read More</a>
+      </article>
 
-    <!-- Video Game Industry Article -->
-    <article class="article" data-topic="Video Game Industry">
-      <h3>Video Game Industry</h3>
-      <p>Discover how AI is being used in video games.</p>
-      <a href="gaming.html" class="read-more btn">Read More</a>
-    </article>
+      <!-- Video Game Industry Article -->
+      <article class="article" data-topic="Video Game Industry">
+        <h3>Video Game Industry</h3>
+        <p>Discover how AI is being used in video games.</p>
+        <a href="gaming.html" class="read-more btn">Read More</a>
+      </article>
 
-    <!-- Twitter Embeds -->
+      <!-- Animal Behavior Article -->
+      <article class="article" data-topic="Animal Behavior">
+        <h3>Animal Behavior</h3>
+        <p>Uncover the secrets of animal behavior with the help of AI.</p>
+        <a href="animal.html" class="read-more btn">Read More</a>
+      </article>
+
+      <!-- Medical Devices Article -->
+      <article class="article" data-topic="Medical Devices">
+        <h3>Medical Devices</h3>
+        <p>Learn how AI is innovating the development of medical devices.</p>
+        <a href="medevs.html" class="read-more btn">Read More</a>
+      </article>
+    </section>
+
+    <!-- Twitter Embeds Section -->
     <section class="twitter-embeds">
-      <!-- Excerpt of Twitter Widget Embed Code -->
+      <!-- Embedded Tweet about Healthcare and AI -->
       <blockquote class="twitter-tweet">
-        <p lang="en" dir="ltr">AI's transformative power in healthcare is undeniable! 🏥💡 With 85% of healthcare execs embracing AI, the focus shifts to chronic illness, workforce shortages, & improving patient outcomes. The future is now, with AI paving the way for smarter, faster healthcare solutions.…</p>
+        <p lang="en" dir="ltr">AI's transformative power in healthcare is undeniable! With 85% of healthcare execs embracing AI, the focus shifts to chronic illness, workforce shortages, & improving patient outcomes. The future is now, with AI paving the way for smarter, faster healthcare solutions.</p>
         &mdash; NerfGun (@Gunzeroni) <a href="https://twitter.com/Gunzeroni/status/1758730994134429953?ref_src=twsrc%5Etfw">February 17, 2024</a>
       </blockquote>
-      <!-- Excerpt of Twitter Widget Embed Code -->
+
+      <!-- Embedded Tweet about NVIDIA & Medtronic Collaboration -->
       <blockquote class="twitter-tweet">
-        <p lang="en" dir="ltr">🚀 NVIDIA & Medtronic are revolutionizing patient care with AI! Their collaboration integrates NVIDIA's AI tech into Medtronic’s GI Genius, enhancing real-time endoscopy for better outcomes. A leap towards AI-powered healthcare! 🏥💡<a href="https://t.co/AodtPeVSSD">https://t.co/AodtPeVSSD</a><a href="https://twitter.com/hashtag/AIHealthcare?src=hash&ref_src=twsrc%5Etfw">#AIHealthcare</a>…</p>
+        <p lang="en" dir="ltr">NVIDIA & Medtronic are revolutionizing patient care with AI! Their collaboration integrates NVIDIA's AI tech into Medtronic's GI Genius, enhancing real-time endoscopy for better outcomes. A leap towards AI-powered healthcare!</p>
         &mdash; NerfGun (@Gunzeroni) <a href="https://twitter.com/Gunzeroni/status/1756579245084872831?ref_src=twsrc%5Etfw">February 11, 2024</a>
       </blockquote>
+      <!-- Twitter Widgets Script -->
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </section>
 
-    <!-- Social Links Section -->
+    <!-- Social Links -->
     <section class="social-links">
       <div class="container">
         <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-          <img alt="Twitter logo" width="42" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/256px-Logo_of_Twitter.svg.png">
+          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width="42">
         </a>
       </div>
     </section>
@@ -78,7 +171,5 @@
       <p>&copy; 2024 FascinAIting - All rights reserved.</p>
     </div>
   </footer>
-
 </body>
-
 </html>

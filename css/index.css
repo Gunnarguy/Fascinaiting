@@ -5,12 +5,10 @@
   --brand-highlight-color: #83ebe4;
   --font-family: "Roboto", sans-serif;
   --border-radius: 1.5rem;
-  --box-shadow-color: rgba(0, 0, 0, 0.1);
-  --box-shadow-hover-color: rgba(0, 0, 0, 0.2);
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
   --font-size: 1rem;
   --subtext-color: #666;
-  --primary-color: var(--brand-color);
-  --hover-color: var(--brand-highlight-color);
 }
 
 body {
@@ -23,115 +21,128 @@ body {
 }
 
 h1,
-h2, {
-  font-size
-}
-h3,
-h4,
-h5,
-h6 {
-  margin: 2vw;
-}
-
-h1 {
-  font-size: 7vw;
-}
-
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-size: 3vw;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 3.5vw;
+}
+
+h2 {
+  font-size: 5vw;
+}
+
+h3 {
+  font-size: 2.5vw;
+}
+
+h4,
+h5,
+h6 {
+  font-size: 1.5vw;
 }
 
 nav {
-  background-color: white;
-  box-shadow: var(--box-shadow-color); /* Fixed from --box-shadow to --box-shadow-color */
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
   padding: 1rem;
   display: flex;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-nav h5 {
-  margin: 0;
-  font-size: 2.5rem;
-  color: var(--text-color);
-}
-
-.nav-links {
+.nav-links,
+.nav-menu a {
   list-style: none;
   padding: 0;
   display: flex;
   gap: 1rem;
   margin-left: auto;
   font-size: 1.5rem;
+  color: var(--text-color);
+  text-decoration: none;
 }
 
 .nav-links a {
-  color: var(--brand-color);
-  text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-menu a:hover,
+.twitter-tweet a:hover {
   color: var(--brand-highlight-color);
 }
 
-.header {
+.header,
+footer {
   background-color: var(--brand-color);
   color: white;
-  letter-spacing: 0.2vw;
-  padding: 1em;
-  border-radius: var(--border-radius);
-  box-shadow: 1vw 2px 4px var(--box-shadow-color);
   text-align: center;
+  border-radius: var(--border-radius);
+  padding: 1em;
+  box-shadow: var(--box-shadow);
 }
 
-.featured-article,
-.article {
-  margin: auto;
-  box-shadow: 0.5vw 2px 4px var(--box-shadow-color);
-  padding: 20px;
+.header:hover {
+  box-shadow: var(--box-shadow-hover);
+}
+
+.btn,
+.read-more,
+.newsletter button[type="submit"] {
+  background-color: var(--brand-color);
+  color: white;
+  padding: 0.75em 1.5em;
   border-radius: var(--border-radius);
-  margin-bottom: 1em;
-  width: 85%;
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn:hover,
+.read-more:hover,
+.newsletter button[type="submit"]:hover {
+  background-color: var(--brand-highlight-color);
+}
+
+.article,
+.featured-article,
+.card {
+  margin: auto;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 20px;
   border: 1px solid #ddd;
+  background-color: var(--background-color);
 }
 
 .featured-article {
-  padding: 2vw;
   width: 92%;
+  padding: 2vw;
 }
 
-.twitter-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.article {
+  width: 85%;
+  margin-bottom: 1em;
 }
 
-.twitter-container>div {
-  transform: scale(0.8);
-  transform-origin: top left;
-  margin: 10px;
-}
-
-.card {
-  display: inline-block;
-  width: 48%;
-  margin: auto;
-  border-radius: var(--border-radius);
-  box-shadow: 0.5vw 2px 4px var(--box-shadow-color);
-  overflow: hidden;
-  background-color: var(--background-color);
+.card:hover {
+  box-shadow: var(--box-shadow-hover);
 }
 
 .card img {
   width: 100%;
   display: block;
-  border-top-left-radius: var(--border-radius);
-  border-top-right-radius: var(--border-radius);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .card-content {
@@ -142,126 +153,48 @@ nav h5 {
   justify-content: space-between;
 }
 
-.card-content .btn {
-  margin: 0.8vw 0 1.6vw;
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  text-decoration: none;
-  font-size: var(--font-size);
-  text-transform: uppercase;
-  letter-spacing: 0.125vw;
-  line-height: 3vw;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  border-radius: 1.5vw;
-}
-
-.card-content .btn:hover {
-  background-color: var(--hover-color);
-}
-
-.btn,
-.read-more,
-.newsletter button[type="submit"] {
-  display: inline-block;
-  background-color: var(--brand-color);
-  color: white;
-  padding: 0.75em 1.5em;
-  text-decoration: none;
-  border-radius: var(--border-radius);
-  box-shadow: 0.6vw 1vw 2px var(--box-shadow-color);
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover,
-.read-more:hover,
-.newsletter button[type="submit"]:hover {
-  background-color: var(--hover-color);
-}
-
-.card:hover {
-  box-shadow: 0 8px 16px var(--box-shadow-hover-color);
-}
-
-footer {
-  background-color: var(--brand-color);
-  color: white;
-  padding: 1em;
-  border-radius: 20px;
-  text-align: center;
-}
-
-.social-links {
-  display: flex;
-  justify-content: center;
-}
-
-.social-links a {
-  margin-left: 10px;
-  display: inline-flex;
-}
-
-.position-fixed {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-
-.header-content {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.container {
-  padding: 15px;
-  margin: auto;
-  max-width: 1200px;
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-@media screen and (max-width: 768px) {
-
   .nav-links,
-  .articles {
+  .articles,
+  .card-container {
     flex-direction: column;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links.responsive {
+    display: flex;
+    flex-direction: column;
+  }
+  .hamburger-menu,
+  .nav-menu.responsive {
+    display: block;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    max-height: 500px;
   }
 
   .article {
     margin-bottom: 20px;
   }
+
+  .hamburger-menu {
+    cursor: pointer;
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    z-index: 2000;
+  }
+.twitter-embeds {
+  text-align: center;
 }
 
-.site-nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: var(--background-color);
-}
-
-/* Twitter Embeds Styling */
 .twitter-tweet {
-  margin: 2rem auto;
-  max-width: 500px;
-}
-
-.twitter-tweet p {
-  font-size: var(--font-size);
-  color: var(--text-color);
-}
-
-.twitter-tweet a {
-  color: var(--brand-color);
-  text-decoration: none;
-}
-
-.twitter-tweet a:hover {
-  color: var(--brand-highlight-color);
+  display: inline-block;
+  margin: 0 auto;
 }
