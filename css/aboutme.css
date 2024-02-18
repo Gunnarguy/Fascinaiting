@@ -125,7 +125,7 @@ footer {
 .about-header {
   background-color: var(--brand-color);
   color: white;
-  padding: 20px;
+  height: 100px;
   margin: 10px;
   text-align: center;
   box-shadow: var(--box-shadow);
@@ -136,9 +136,8 @@ footer {
   box-shadow: var(--box-shadow-hover);
 }
 
-@media (max-width: 768px) {
   h1 {
-    font-size: 6vw;
+    font-size: 5vw;
   }
 
   h2 {
@@ -152,5 +151,41 @@ footer {
   .bio-info,
   .about-header {
     width: 95%;
+  }
+
+/* Hamburger dropdown menu styles */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--background-color);
+  top: 60px;
+  right: 0;
+  width: 100%;
+  border-radius: 0;
+  box-shadow: var(--box-shadow);
+}
+
+.nav-menu.responsive {
+  display: flex;
+}
+
+.hamburger-menu {
+  display: block;
+  cursor: pointer;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  z-index: 2000;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: block;
   }
 }

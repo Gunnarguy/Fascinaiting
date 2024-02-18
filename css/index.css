@@ -31,7 +31,7 @@ h6 {
 }
 
 h1 {
-  font-size: 3.5vw;
+  font-size: 4.5vw;
 }
 
 h2 {
@@ -70,15 +70,11 @@ nav {
   text-decoration: none;
 }
 
-.nav-links a {
+.nav-links a,
+.nav-menu a,
+.twitter-tweet a {
   font-weight: bold;
   transition: color 0.3s ease;
-}
-
-.nav-links a:hover,
-.nav-menu a:hover,
-.twitter-tweet a:hover {
-  color: var(--brand-highlight-color);
 }
 
 .header,
@@ -89,10 +85,6 @@ footer {
   border-radius: var(--border-radius);
   padding: 1em;
   box-shadow: var(--box-shadow);
-}
-
-.header:hover {
-  box-shadow: var(--box-shadow-hover);
 }
 
 .btn,
@@ -107,12 +99,6 @@ footer {
   text-decoration: none;
 }
 
-.btn:hover,
-.read-more:hover,
-.newsletter button[type="submit"]:hover {
-  background-color: var(--brand-highlight-color);
-}
-
 .article,
 .featured-article,
 .card {
@@ -125,17 +111,12 @@ footer {
 }
 
 .featured-article {
-  width: 92%;
   padding: 2vw;
 }
 
 .article {
   width: 85%;
   margin-bottom: 1em;
-}
-
-.card:hover {
-  box-shadow: var(--box-shadow-hover);
 }
 
 .card img {
@@ -152,48 +133,6 @@ footer {
   justify-content: space-between;
 }
 
-.nav-links,
-.articles,
-.card-container {
-  flex-direction: column;
-}
-
-.nav-links {
-  display: none;
-}
-
-.nav-links.responsive,
-.nav-menu.responsive {
-  flex-direction: column;
-  position: absolute;
-  background-color: var(--background-color);
-  top: 64px;
-  /* Assuming 64px is your navbar height */
-  left: 0;
-  right: 0;
-  z-index: 1001;
-}
-
-.hamburger-menu,
-.nav-menu.responsive {
-  display: none;
-}
-
-.article {
-  margin-bottom: 20px;
-}
-
-.hamburger-menu {
-  cursor: pointer;
-  font-size: 25px;
-  position: absolute;
-  top: 50%;
-  right: 1.5rem;
-  transform: translateY(-50%);
-  z-index: 2000;
-  display: block;
-}
-
 .twitter-embeds {
   text-align: center;
 }
@@ -203,22 +142,51 @@ footer {
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
+/* Hover effects unified */
+.card:hover,
+.btn:hover,
+.read-more:hover,
+.newsletter button[type="submit"]:hover,
+.nav-menu a:hover,
+.twitter-tweet a:hover {
+  box-shadow: var(--box-shadow-hover);
+  background-color: var(--brand-highlight-color);
+  /* Adjust as necessary */
+}
 
-  /* Display the hamburger menu and set nav-menu to overlay */
-  .hamburger-menu {
-    display: block;
+/* Hamburger dropdown menu styles */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--background-color);
+  top: 60px;
+  right: 0;
+  width: 100%;
+  border-radius: 0;
+  box-shadow: var(--box-shadow);
+}
+
+.nav-menu.responsive {
+  display: flex;
+}
+
+.hamburger-menu {
+  display: block;
+  cursor: pointer;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  z-index: 2000;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-menu {
+    display: none;
   }
 
-  .nav-links.responsive,
-  .nav-menu.responsive {
-    display: flex;
-    flex-direction: column;
-
-    background-color: var(--background-color);
-    top: 40px;
-    /* Adjust this value to the height of your nav bar */
-    width: 50%;
-    z-index: 1001;
+  .hamburger-menu {
+    display: block;
   }
 }

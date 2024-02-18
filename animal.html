@@ -9,66 +9,12 @@
   <meta name="keywords" content="AI, Animal Behavior, Research, Innovation">
   <title>Animal Behavior - FascinAIting</title>
   <link rel="stylesheet" href="css/articles.css">
-  <link rel="stylesheet" href="css/index.css">
-
-  <style>
-    /* Overlay the styles from index.css into this style block */
-    .hamburger-menu {
-      display: none;
-      cursor: pointer;
-      padding: 1rem;
-      font-size: 1.5rem;
-      background: transparent;
-      border: none;
-      z-index: 2000;
+  <script>
+    function toggleMenu() {
+      var menu = document.querySelector('.nav-menu');
+      menu.classList.toggle('responsive');
     }
-
-    @media screen and (max-width: 768px) {
-      .hamburger-menu {
-        display: block;
-      }
-
-      .nav-menu.responsive {
-        position: absolute;
-        background-color: var(--background-color);
-        top: 60px;
-        right: 0;
-        width: 100%;
-        border-radius: 0;
-        box-shadow: var(--box-shadow);
-        max-height: 500px;
-      }
-
-      .nav-links {
-        flex-direction: column;
-        display: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        list-style-type: none;
-      }
-
-      .nav-links a {
-        padding: 1rem;
-        text-align: center;
-        display: block;
-        text-decoration: none;
-        color: var(--text-color);
-        transition: color 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        color: var(--brand-highlight-color);
-        background-color: var(--background-color);
-      }
-    }
-
-    /* Additional specific styles based on the new index.html structure */
-    .nav-links.nav-menu {
-      margin-left: auto;
-    }
-  </style>
-  <script defer src="navigation.js"></script>
+  </script>
 </head>
 
 <body>

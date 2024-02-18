@@ -33,7 +33,7 @@ h6 {
 }
 
 h1 {
-  font-size: 3.5vw;
+  font-size: 4.5vw;
 }
 
 h2 {
@@ -151,53 +151,39 @@ footer {
   display: none;
 }
 
-.nav-links.responsive,
-.nav-menu.responsive {
+/* Hamburger dropdown menu styles */
+.nav-menu {
+  display: none;
   flex-direction: column;
   position: absolute;
   background-color: var(--background-color);
-  top: 64px;
-  left: 0;
+  top: 60px;
   right: 0;
-  z-index: 1001;
+  width: 100%;
+  border-radius: 0;
+  box-shadow: var(--box-shadow);
 }
 
-.hamburger-menu,
 .nav-menu.responsive {
-  display: none;
-}
-
-article {
-  margin-bottom: 20px;
+  display: flex;
 }
 
 .hamburger-menu {
-  cursor: pointer;
-  font-size: 25px;
-  position: absolute;
-  top: 50%;
-  right: 1.5rem;
-  transform: translateY(-50%);
-  z-index: 2000;
   display: block;
+  cursor: pointer;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  z-index: 2000;
 }
 
-@media (max-width: 768px) {
-
-  /* Display the hamburger menu and set nav-menu to overlay */
-  .hamburger-menu {
-    display: block;
+@media screen and (max-width: 768px) {
+  .nav-menu {
+    display: none;
   }
 
-  .nav-links.responsive,
-  .nav-menu.responsive {
-    display: flex;
-    flex-direction: column;
-
-    background-color: var(--background-color);
-    top: 40px;
-    /* Adjust this value to the height of your nav bar */
-    width: 50%;
-    z-index: 1001;
+  .hamburger-menu {
+    display: block;
   }
 }

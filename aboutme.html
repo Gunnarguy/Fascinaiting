@@ -5,30 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Gunzino</title>
-  <link rel="stylesheet" href="css/articles.css">
-  <link rel="stylesheet" href="css/index.css">
-  <style>
-    .about-header,
-    background- .about-main {
-      background-color: var(--background-color);
-      color: var(--text-color);
-      padding: 20px;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      margin: 10px;
-      text-align: center;
+  <link rel="stylesheet" href="css/aboutme.css">
+  <script>
+    function toggleMenu() {
+      var menu = document.querySelector('.nav-menu');
+      menu.classList.toggle('responsive');
     }
-
-    .bio-info {
-      background-color: white;
-      padding: 20px;
-      border-radius: var(--border-radius);
-      margin: auto;
-      width: 80%;
-      box-shadow: var(--box-shadow);
-      margin-bottom: 20px;
-    }
-  </style>
+  </script>
 </head>
 
 <body>
@@ -92,14 +75,6 @@
       <p>&copy; FascinAIting - All rights reserved.</p>
     </div>
   </footer>
-
-  <script>
-    // Your existing navigation.js logic for `toggleMenu` function
-    function toggleMenu() {
-      var menu = document.querySelector('.nav-menu');
-      menu.classList.toggle('responsive');
-    }
-  </script>
 
 </body>
 
