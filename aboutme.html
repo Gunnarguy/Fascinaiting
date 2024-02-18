@@ -5,10 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Gunzino</title>
-  <link rel="stylesheet" href="css/aboutme.css">
+  <link rel="stylesheet" href="css/articles.css">
+  <link rel="stylesheet" href="css/index.css">
   <style>
-    .brand-color {
-      color: #006875;
+    .about-header,
+    background- .about-main {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin: 10px;
+      text-align: center;
+    }
+
+    .bio-info {
+      background-color: white;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin: auto;
+      width: 80%;
+      box-shadow: var(--box-shadow);
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -18,51 +36,49 @@
   <!-- Site Header -->
   <header class="site-header">
     <nav class="site-nav">
-      <h5 class="logo"><span class="brand-color">Fascin</span>AI<span class="brand-color">ting</span></h5>
-      <ul class="nav-links">
+      <!-- Hamburger Menu for Mobile View -->
+      <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
+        <span>&#9776;</span>
+      </button>
+      <h1 class="logo"><span class="brand-color">Fascin</span>AI<span class="brand-color">ting</span></h1>
+      <!-- Navigation Links - consistent with index.html -->
+      <ul class="nav-links nav-menu">
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li><a href="aboutme.html" class="nav-link">About</a></li>
+        <!-- Add other links as necessary, following the pattern from index.html -->
       </ul>
     </nav>
   </header>
 
   <!-- Main Content -->
-  <main class="site-content">
+  <main class="about-main">
     <!-- Header Section -->
-    <section class="header">
+    <section class="about-header">
       <div class="header-content">
-        <h1>About Me</h1>
+        <h1>About Me - Gunzino</h1>
+        <p>Welcome to my personal space! Here's a bit more about who I am and what I do.</p>
       </div>
     </section>
 
-    <!-- Personal Info Section -->
-    <section class="articles">
-      <article class="article">
-        <h2>Personal Information</h2>
-        <p>Just a guy with an insatiable hunger for information.</p>
-      </article>
-
-      <!-- Accomplishments Section -->
-      <article class="article">
-        <h2>Accomplishments</h2>
-        <ul>
-          <li>BS: Exercise Science, Kinesiology</li>
-          <li>MS: Computer Science</li>
-          <li>1/30 Credits</li>
-          <li>Focus: Artificial Intelligence/Machine Learning</li>
-          <li>Expected Graduation: June 2025</li>
-        </ul>
-      </article>
+    <!-- Personal Bio Section -->
+    <section class="bio-info">
+      <h2>Personal Biography</h2>
+      <p>Hello! I'm Gunzino, and I have a deep passion for the intersection of technology and fitness. With a background
+        in Exercise Science and Kinesiology, I've ventured into the realm of Computer Science to explore how artificial
+        intelligence can transform the way we understand health and performance.</p>
+      <p>I'm currently advancing my studies with a focus on AI and Machine Learning, with the hope of graduating by June
+        2025.</p>
     </section>
 
-    <!-- Social Links Section -->
-    <section class="social-links">
-      <div class="container">
-        <a href="https://twitter.com/gunzeroni" aria-label="Twitter">
-          <img alt="Logo of Twitter" width="42"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/256px-Logo_of_Twitter.svg.png">
-        </a>
-      </div>
+    <!-- Accomplishments Section -->
+    <section class="bio-info">
+      <h2>Accomplishments</h2>
+      <ul>
+        <li>BS: Exercise Science, Kinesiology</li>
+        <li>MS: Computer Science (In Progress)</li>
+        <li>Focus: Artificial Intelligence/Machine Learning</li>
+        <li>Expected Graduation: June 2025</li>
+      </ul>
     </section>
   </main>
 
@@ -72,6 +88,14 @@
       <p>&copy; FascinAIting - All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    // Your existing navigation.js logic for `toggleMenu` function
+    function toggleMenu() {
+      var menu = document.querySelector('.nav-menu');
+      menu.classList.toggle('responsive');
+    }
+  </script>
 
 </body>
 

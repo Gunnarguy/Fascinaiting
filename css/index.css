@@ -153,43 +153,45 @@ footer {
   justify-content: space-between;
 }
 
-  .nav-links,
-  .articles,
-  .card-container {
-    flex-direction: column;
-  }
+.nav-links,
+.articles,
+.card-container {
+  flex-direction: column;
+}
 
-  .nav-links {
-    display: none;
-  }
+.nav-links {
+  display: none;
+}
 
-  .nav-links.responsive {
-    display: flex;
-    flex-direction: column;
-  }
-  .hamburger-menu,
-  .nav-menu.responsive {
-    display: block;
-  }
+.nav-links.responsive {
+  display: flex;
+  flex-direction: column;
+}
 
-  .nav-menu {
-    flex-direction: column;
-    max-height: 500px;
-  }
+.hamburger-menu,
+.nav-menu.responsive {
+  display: block;
+}
 
-  .article {
-    margin-bottom: 20px;
-  }
+.nav-menu {
+  flex-direction: column;
+  max-height: 500px;
+}
 
-  .hamburger-menu {
-    cursor: pointer;
-    font-size: 30px;
-    position: absolute;
-    top: 50%;
-    right: 1.5rem;
-    transform: translateY(-50%);
-    z-index: 2000;
-  }
+.article {
+  margin-bottom: 20px;
+}
+
+.hamburger-menu {
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  z-index: 2000;
+}
+
 .twitter-embeds {
   text-align: center;
 }
