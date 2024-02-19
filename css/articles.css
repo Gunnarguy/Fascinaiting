@@ -12,6 +12,7 @@
   --primary-color: var(--brand-color);
   --hover-color: var(--brand-highlight-color);
 }
+
 body {
   font-family: var(--font-family);
   color: var(--text-color);
@@ -61,13 +62,12 @@ nav {
 }
 
 .nav-links,
-.nav-menu a,
-.twitter-tweet a {
+.nav-menu a {
   list-style: none;
   padding: 0;
   gap: 1rem;
   margin-left: auto;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: var(--text-color);
   text-decoration: none;
   font-weight: bold;
@@ -75,8 +75,7 @@ nav {
 }
 
 .nav-links a:hover,
-.nav-menu a:hover,
-.twitter-tweet a:hover {
+.nav-menu a:hover {
   color: var(--brand-highlight-color);
 }
 
@@ -86,10 +85,11 @@ nav {
   position: absolute;
   background-color: var(--background-color);
   top: 60px;
-  right: 0;
-  width: 100%;
-  border-radius: 0;
+  left: 0;
+  width: 15%;
+  border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
+  padding: 10px 20px;
 }
 
 .nav-menu.responsive {
@@ -105,26 +105,37 @@ nav {
   border: none;
   z-index: 2000;
 }
-.header, footer, .btn, .read-more {
+
+.btn,
+.read-more,
+.newsletter button[type="submit"] {
   background-color: var(--brand-color);
   color: white;
-  text-align: center;
+  padding: 0.75em 1.5em;
   border-radius: var(--border-radius);
-  padding: 1em;
   box-shadow: var(--box-shadow);
   transition: background-color 0.3s ease;
+  text-decoration: none;
 }
 
-.header:hover, .btn:hover, .read-more:hover, .card:hover {
-  box-shadow: var(--box-shadow-hover);
-}
-
-.article, .card {
+.article,
+.featured-article,
+.card {
   margin: auto;
   border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
   padding: 20px;
   border: 1px solid #ddd;
   background-color: var(--background-color);
+}
+
+.featured-article {
+  padding: 2vw;
+}
+
+.article {
+  width: 85%;
+  margin-bottom: 1em;
 }
 
 .card img {
@@ -139,4 +150,29 @@ nav {
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.header,
+footer {
+  background-color: var(--brand-color);
+  color: white;
+  text-align: center;
+  border-radius: var(--border-radius);
+  padding: 1em;
+  box-shadow: var(--box-shadow);
+}
+
+.twitter-embeds {
+  text-align: center;
+}
+
+.twitter-tweet {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.social-links .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

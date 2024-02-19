@@ -68,7 +68,7 @@ nav {
   padding: 0;
   gap: 1rem;
   margin-left: auto;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: var(--text-color);
   text-decoration: none;
   font-weight: bold;
@@ -78,7 +78,7 @@ nav {
 .nav-links a:hover,
 .nav-menu a:hover,
 .twitter-tweet a:hover {
-  color: var(--brand-highlight-color);
+  color: var(--hover-color);
 }
 
 .nav-menu {
@@ -87,10 +87,11 @@ nav {
   position: absolute;
   background-color: var(--background-color);
   top: 60px;
-  right: 0;
-  width: 100%;
-  border-radius: 0;
+  left: 0;
+  width: 15%;
+  border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
+  padding: 10px 20px;
 }
 
 .nav-menu.responsive {
@@ -170,4 +171,10 @@ footer {
 .twitter-tweet {
   display: inline-block;
   margin: 0 auto;
+}
+
+.social-links .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
