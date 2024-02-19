@@ -62,8 +62,7 @@ nav {
 }
 
 .nav-links,
-.nav-menu a,
-.twitter-tweet a {
+.nav-menu a {
   list-style: none;
   padding: 0;
   gap: 1rem;
@@ -76,8 +75,7 @@ nav {
 }
 
 .nav-links a:hover,
-.nav-menu a:hover,
-.twitter-tweet a:hover {
+.nav-menu a:hover {
   color: var(--hover-color);
 }
 
