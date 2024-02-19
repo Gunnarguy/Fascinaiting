@@ -40,8 +40,8 @@
       </h1>
       <ul class="nav-links nav-menu">
         <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="aboutme.html" class="nav-link active">About</a></li>
-        <li><a href="medical.html" class="nav-link">Medical</a></li>
+        <li><a href="aboutme.html" class="nav-link">About</a></li>
+        <li><a href="medical.html" class="nav-link active">Medical</a></li>
         <li><a href="gaming.html" class="nav-link">Video Games</a></li>
         <li><a href="animal.html" class="nav-link">Animal Behavior</a></li>
         <li><a href="medevs.html" class="nav-link">Medical Devices</a></li>
@@ -81,25 +81,6 @@
         <p>Learn how AI is innovating the development of medical devices.</p>
         <a href="medevs.html" class="read-more btn">Read More</a>
       </article>
-    </section>
-
-    <section class="twitter-embeds">
-      <blockquote class="twitter-tweet">
-        <p lang="en" dir="ltr">AI's transformative power in healthcare is undeniable! With 85% of healthcare execs
-          embracing AI, the focus shifts to chronic illness, workforce shortages, & improving patient outcomes. The
-          future is now, with AI paving the way for smarter, faster healthcare solutions.</p>
-        &mdash; NerfGun (@Gunzeroni) <a
-          href="https://twitter.com/Gunzeroni/status/1758730994134429953?ref_src=twsrc%5Etfw">February 17, 2024</a>
-      </blockquote>
-
-      <blockquote class="twitter-tweet">
-        <p lang="en" dir="ltr">NVIDIA & Medtronic are revolutionizing patient care with AI! Their collaboration
-          integrates NVIDIA's AI tech into Medtronic's GI Genius, enhancing real-time endoscopy for better outcomes. A
-          leap towards AI-powered healthcare!</p>
-        &mdash; NerfGun (@Gunzeroni) <a
-          href="https://twitter.com/Gunzeroni/status/1756579245084872831?ref_src=twsrc%5Etfw">February 11, 2024</a>
-      </blockquote>
-      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </section>
 
     <section class="social-links">
@@ -142,12 +123,8 @@
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) {
-          this.speedX = -this.speedX;
-        }
-        if (this.y < 0 || this.y > canvas.height) {
-          this.speedY = -this.speedY;
-        }
+        if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+        if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
       }
       draw() {
         ctx.beginPath();
@@ -166,8 +143,10 @@
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesArray.forEach(particle => particle.update());
-      particlesArray.forEach(particle => particle.draw());
+      particlesArray.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
       requestAnimationFrame(animate);
     }
 
@@ -181,7 +160,13 @@
       menu.classList.toggle('responsive');
     }
   </script>
-
 </body>
 
 </html>
+
+
+
+
+
+
+
