@@ -62,11 +62,12 @@ nav {
 }
 
 .nav-links,
-.nav-menu a {
+.nav-menu a,
+.twitter-tweet a {
   list-style: none;
   padding: 0;
   gap: 1rem;
-  margin-left: auto;
+  margin-right: auto;
   font-size: 1rem;
   color: var(--text-color);
   text-decoration: none;
@@ -75,7 +76,8 @@ nav {
 }
 
 .nav-links a:hover,
-.nav-menu a:hover {
+.nav-menu a:hover,
+.twitter-tweet a:hover {
   color: var(--hover-color);
 }
 
@@ -85,7 +87,7 @@ nav {
   position: absolute;
   background-color: var(--background-color);
   top: 60px;
-  left: 0;
+  right: 0;
   width: 15%;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
@@ -100,10 +102,12 @@ nav {
   display: block;
   cursor: pointer;
   padding: 1rem;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   background: transparent;
   border: none;
   z-index: 2000;
+  position: absolute;
+  right: 0;
 }
 
 .btn,
@@ -114,8 +118,15 @@ nav {
   padding: 0.75em 1.5em;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   text-decoration: none;
+}
+
+.btn:hover,
+.read-more:hover,
+.newsletter button[type="submit"]:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color);
 }
 
 .article,
