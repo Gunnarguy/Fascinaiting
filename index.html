@@ -1,205 +1,178 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Explore the world of AI with FascinAIting.">
+      <meta name="keywords" content="AI, Technology, Innovation, Articles">
+      <title>FascinAIting</title>
+      <link rel="stylesheet" href="css/index.css">
+      <style>
+        body, html {
+          margin: 0;
+          padding: 0;
+        }
+        canvas {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          pointer-events: none;
+        }
+      </style>
+    </head>
+    <body>
+      <canvas id="particleCanvas"></canvas>
+      <header class="site-header">
+        <nav class="site-nav">
+          <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
+            <span>&#9776;</span>
+          </button>
+          <h1 class="logo">
+            <span class="brand-color">Fascin</span><a href="index.html" style="color: #00bfff; text-decoration: none;">AI</a><span class="brand-color">ting</span>
+          </h1>
+          <div class="nav-links nav-menu">
+            <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
+            <div class="nav-item"><a href="aboutme.html" class="nav-link">About</a></div>
+            <div class="nav-item"><a href="gaming.html" class="nav-link">Medical</a></div>
+            <div class="nav-item"><a href="medical.html" class="nav-link">Video Games</a></div>
+            <div class="nav-item"><a href="animal.html" class="nav-link">Animal Behavior</a></div>
+            <div class="nav-item"><a href="medevs.html" class="nav-link">Medical Devices</a></div>
+          </div>
+        </nav>
+      </header>
 
-<head>
+      <main>
+        <section class="header">
+          <div class="header-content">
+            <h2>Welcome</h2>
+            <p class="tagline">Take a dive into how AI is impacting the fields below:</p>
+          </div>
+        </section>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the world of AI with FascinAIting.">
-  <meta name="keywords" content="AI, Technology, Innovation, Articles">
-  <title>FascinAIting</title>
-  <link rel="stylesheet" href="css/index.css">
-  <style>
-    body,
-    html {
-      margin: 0;
-      padding: 0;
-    }
+        <section class="articles">
+          <article class="article" data-topic="Medical Industry">
+            <h3>Medical Industry</h3>
+            <p>Explore how AI is evolving the medical field.</p>
+            <a href="medical.html" class="read-more btn">Read More</a>
+          </article>
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
-  </style>
+          <article class="article" data-topic="Video Game Industry">
+            <h3>Video Game Industry</h3>
+            <p>Discover how AI is being used in video games.</p>
+            <a href="gaming.html" class="read-more btn">Read More</a>
+          </article>
 
-</head>
+          <article class="article" data-topic="Animal Behavior">
+            <h3>Animal Behavior</h3>
+            <p>Uncover the secrets of animal behavior with the help of AI.</p>
+            <a href="animal.html" class="read-more btn">Read More</a>
+          </article>
 
-<canvas id="particleCanvas"></canvas>
-<header class="site-header">
-  <!-- Your existing header content -->
-</header>
-<!-- Rest of your existing body content -->
-<script>
-  const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
+          <article class="article" data-topic="Medical Devices">
+            <h3>Medical Devices</h3>
+            <p>Learn how AI is innovating the development of medical devices.</p>
+            <a href="medevs.html" class="read-more btn">Read More</a>
+          </article>
+        </section>
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+        <section class="twitter-embeds">
+          <blockquote class="twitter-tweet">
+            <p lang="en" dir="ltr">AI's transformative power in healthcare is undeniable! With 85% of healthcare execs
+              embracing AI, the focus shifts to chronic illness, workforce shortages, & improving patient outcomes. The
+              future is now, with AI paving the way for smarter, faster healthcare solutions.</p>
+            &mdash; NerfGun (@Gunzeroni) <a
+              href="https://twitter.com/Gunzeroni/status/1758730994134429953?ref_src=twsrc%5Etfw">February 17, 2024</a>
+          </blockquote>
 
-  let particlesArray = [];
-  const numberOfParticles = 100;
+          <blockquote class="twitter-tweet">
+            <p lang="en" dir="ltr">NVIDIA & Medtronic are revolutionizing patient care with AI! Their collaboration
+              integrates NVIDIA's AI tech into Medtronic's GI Genius, enhancing real-time endoscopy for better outcomes. A
+              leap towards AI-powered healthcare!</p>
+            &mdash; NerfGun (@Gunzeroni) <a
+              href="https://twitter.com/Gunzeroni/status/1756579245084872831?ref_src=twsrc%5Etfw">February 11, 2024</a>
+          </blockquote>
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </section>
 
-  // Listener to resize canvas on window resize
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
+        <section class="social-links">
+          <div class="container">
+            <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
+              <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg"
+                width="42">
+            </a>
+          </div>
+        </section>
+      </main>
 
-  // Particle class
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 5 + 1;
-      this.speedX = Math.random() * 3 - 1.5;
-      this.speedY = Math.random() * 3 - 1.5;
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > canvas.width) {
-        this.speedX = -this.speedX;
-      }
-      if (this.y < 0 || this.y > canvas.height) {
-        this.speedY = -this.speedY;
-      }
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = '#8C5523'; // Particle color
-      ctx.fill();
-    }
-  }
+      <footer class="site-footer">
+        <div class="container">
+          <p>&copy; 2024 FascinAIting - All rights reserved.</p>
+        </div>
+      </footer>
 
-  // Initialize particles
-  function init() {
-    particlesArray = [];
-    for (let i = 0; i < numberOfParticles; i++) {
-      particlesArray.push(new Particle());
-    }
-  }
+      <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particlesArray = [];
+        const numberOfParticles = 100;
 
-  // Animation loop
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < particlesArray.length; i++) {
-      particlesArray[i].update();
-      particlesArray[i].draw();
-    }
-    requestAnimationFrame(animate);
-  }
+        window.addEventListener('resize', () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
 
-  init();
-  animate();
-</script>
+        class Particle {
+          constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 5 + 1;
+            this.speedX = Math.random() * 3 - 1.5;
+            this.speedY = Math.random() * 3 - 1.5;
+          }
+          update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+            if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+          }
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = '#8C5523';
+            ctx.fill();
+          }
+        }
 
-<script>
-  function toggleMenu() {
-    var menu = document.querySelector('.nav-menu');
-    menu.classList.toggle('responsive');
-  }
-</script>
-</head>
+        function init() {
+          particlesArray = [];
+          for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle());
+          }
+        }
 
-<body>
-  <header class="site-header">
-    <nav class="site-nav">
-      <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
-        <span>&#9776;</span>
-      </button>
-      <h1 class="logo">
-        <span class="brand-color">Fascin</span><a href="index.html"
-          style="color: #00bfff; text-decoration: none;">AI</a><span class="brand-color">ting</span>
-      </h1>
-      <div class="nav-links nav-menu">
-        <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
-        <div class="nav-item"><a href="aboutme.html" class="nav-link">About</a></div>
-        <div class="nav-item"><a href="gaming.html" class="nav-link">Medical</a></div>
-        <div class="nav-item"><a href="medical.html" class="nav-link">Video Games</a></div>
-        <div class="nav-item"><a href="animal.html" class="nav-link">Animal Behavior</a></div>
-        <div class="nav-item"><a href="medevs.html" class="nav-link">Medical Devices</a></div>
-      </div>
-    </nav>
-  </header>
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particlesArray.forEach(particle => {
+            particle.update();
+            particle.draw();
+          });
+          requestAnimationFrame(animate);
+        }
 
+        init();
+        animate();
+      </script>
 
-  <main>
-    <section class="header">
-      <div class="header-content">
-        <h2>Welcome</h2>
-        <p class="tagline">Take a dive into how AI is impacting the fields below:</p>
-      </div>
-    </section>
-
-    <section class="articles">
-      <article class="article" data-topic="Medical Industry">
-        <h3>Medical Industry</h3>
-        <p>Explore how AI is evolving the medical field.</p>
-        <a href="medical.html" class="read-more btn">Read More</a>
-      </article>
-
-      <article class="article" data-topic="Video Game Industry">
-        <h3>Video Game Industry</h3>
-        <p>Discover how AI is being used in video games.</p>
-        <a href="gaming.html" class="read-more btn">Read More</a>
-      </article>
-
-      <article class="article" data-topic="Animal Behavior">
-        <h3>Animal Behavior</h3>
-        <p>Uncover the secrets of animal behavior with the help of AI.</p>
-        <a href="animal.html" class="read-more btn">Read More</a>
-      </article>
-
-      <article class="article" data-topic="Medical Devices">
-        <h3>Medical Devices</h3>
-        <p>Learn how AI is innovating the development of medical devices.</p>
-        <a href="medevs.html" class="read-more btn">Read More</a>
-      </article>
-    </section>
-
-    <section class="twitter-embeds">
-      <blockquote class="twitter-tweet">
-        <p lang="en" dir="ltr">AI's transformative power in healthcare is undeniable! With 85% of healthcare execs
-          embracing AI, the focus shifts to chronic illness, workforce shortages, & improving patient outcomes. The
-          future is now, with AI paving the way for smarter, faster healthcare solutions.</p>
-        &mdash; NerfGun (@Gunzeroni) <a
-          href="https://twitter.com/Gunzeroni/status/1758730994134429953?ref_src=twsrc%5Etfw">February 17, 2024</a>
-      </blockquote>
-
-      <blockquote class="twitter-tweet">
-        <p lang="en" dir="ltr">NVIDIA & Medtronic are revolutionizing patient care with AI! Their collaboration
-          integrates NVIDIA's AI tech into Medtronic's GI Genius, enhancing real-time endoscopy for better outcomes. A
-          leap towards AI-powered healthcare!</p>
-        &mdash; NerfGun (@Gunzeroni) <a
-          href="https://twitter.com/Gunzeroni/status/1756579245084872831?ref_src=twsrc%5Etfw">February 11, 2024</a>
-      </blockquote>
-      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </section>
-
-    <section class="social-links">
-      <div class="container">
-        <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg"
-            width="42">
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2024 FascinAIting - All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="js/animation.js"></script>
-
-</body>
-
-</html>
+      <script>
+        function toggleMenu() {
+          var menu = document.querySelector('.nav-menu');
+          menu.classList.toggle('responsive');
+        }
+      </script>
+    </body>
+    </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +8,10 @@
   <title>Medical Industry - FascinAIting</title>
   <link rel="stylesheet" href="css/articles.css">
   <style>
-    body,
-    html {
+    body, html {
       margin: 0;
       padding: 0;
     }
-
     canvas {
       position: fixed;
       top: 0;
@@ -25,102 +22,21 @@
       pointer-events: none;
     }
   </style>
-
 </head>
-
-<canvas id="particleCanvas"></canvas>
-<header class="site-header">
-  <!-- Your existing header content -->
-</header>
-<!-- Rest of your existing body content -->
-<script>
-  const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  let particlesArray = [];
-  const numberOfParticles = 100;
-
-  // Listener to resize canvas on window resize
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-
-  // Particle class
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 5 + 1;
-      this.speedX = Math.random() * 3 - 1.5;
-      this.speedY = Math.random() * 3 - 1.5;
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > canvas.width) {
-        this.speedX = -this.speedX;
-      }
-      if (this.y < 0 || this.y > canvas.height) {
-        this.speedY = -this.speedY;
-      }
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = '#8C5523'; // Particle color
-      ctx.fill();
-    }
-  }
-
-  // Initialize particles
-  function init() {
-    particlesArray = [];
-    for (let i = 0; i < numberOfParticles; i++) {
-      particlesArray.push(new Particle());
-    }
-  }
-
-  // Animation loop
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < particlesArray.length; i++) {
-      particlesArray[i].update();
-      particlesArray[i].draw();
-    }
-    requestAnimationFrame(animate);
-  }
-
-  init();
-  animate();
-</script>
-
-<script>
-  function toggleMenu() {
-    var menu = document.querySelector('.nav-menu');
-    menu.classList.toggle('responsive');
-  }
-</script>
-</head>
-
 <body>
-  <!-- Site Header -->
+  <canvas id="particleCanvas"></canvas>
   <header class="site-header">
     <nav class="site-nav">
       <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
         <span>&#9776;</span>
       </button>
       <h1 class="logo">
-        <span class="brand-color">Fascin</span><a href="index.html"
-          style="color: #00bfff; text-decoration: none;">AI</a><span class="brand-color">ting</span>
+        <span class="brand-color">Fascin</span><a href="index.html" style="color: #00bfff; text-decoration: none;">AI</a><span class="brand-color">ting</span>
       </h1>
       <ul class="nav-links nav-menu">
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li><a href="aboutme.html" class="nav-link">About</a></li>
-        <li><a href="medical.html" class="nav-link">Medical</a></li>
+        <li><a href="medical.html" class="nav-link active">Medical</a></li>
         <li><a href="gaming.html" class="nav-link">Video Games</a></li>
         <li><a href="animal.html" class="nav-link">Animal Behavior</a></li>
         <li><a href="medevs.html" class="nav-link">Medical Devices</a></li>
@@ -128,9 +44,7 @@
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main>
-    <!-- Welcome Section -->
     <section class="header">
       <div class="header-content">
         <h2>Healthcare</h2>
@@ -138,34 +52,88 @@
       </div>
     </section>
 
-    <!-- Articles Section -->
     <section class="articles">
-      <!-- Filler content, replace with actual articles related to medical industry -->
       <article class="article">
         <h3>AI in Diagnosis</h3>
         <p>Advancements in AI technology are enabling early and more accurate diagnosis.</p>
-        <!-- Link to article or related content -->
       </article>
-      <!-- More articles can be added here -->
     </section>
 
-    <!-- Social Links -->
     <section class="social-links">
       <div class="container">
         <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg"
-            width="42">
+          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width="42">
         </a>
       </div>
     </section>
   </main>
 
-  <!-- Site Footer -->
   <footer class="site-footer">
     <div class="container">
       <p>&copy; 2024 FascinAIting - All rights reserved.</p>
     </div>
   </footer>
-</body>
 
+  <script>
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particlesArray = [];
+    const numberOfParticles = 100;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 5 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+        if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = '#8C5523'; // Particle color
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+  </script>
+
+  <script>
+    function toggleMenu() {
+      var menu = document.querySelector('.nav-menu');
+      menu.classList.toggle('responsive');
+    }
+  </script>
+</body>
 </html>
