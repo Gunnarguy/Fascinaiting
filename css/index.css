@@ -9,6 +9,8 @@
   --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
   --font-size: 1rem;
   --subtext-color: #666;
+  --primary-color: var(--brand-color);
+  --hover-color: var(--brand-highlight-color);
 }
 
 body {
@@ -60,7 +62,8 @@ nav {
 }
 
 .nav-links,
-.nav-menu a {
+.nav-menu a,
+.twitter-tweet a {
   list-style: none;
   padding: 0;
   gap: 1rem;
@@ -68,23 +71,40 @@ nav {
   font-size: 1.5rem;
   color: var(--text-color);
   text-decoration: none;
-}
-
-.nav-links a,
-.nav-menu a,
-.twitter-tweet a {
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
-.header,
-footer {
-  background-color: var(--brand-color);
-  color: white;
-  text-align: center;
-  border-radius: var(--border-radius);
-  padding: 1em;
+.nav-links a:hover,
+.nav-menu a:hover,
+.twitter-tweet a:hover {
+  color: var(--brand-highlight-color);
+}
+
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--background-color);
+  top: 60px;
+  right: 0;
+  width: 100%;
+  border-radius: 0;
   box-shadow: var(--box-shadow);
+}
+
+.nav-menu.responsive {
+  display: flex;
+}
+
+.hamburger-menu {
+  display: block;
+  cursor: pointer;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  z-index: 2000;
 }
 
 .btn,
@@ -133,6 +153,16 @@ footer {
   justify-content: space-between;
 }
 
+.header,
+footer {
+  background-color: var(--brand-color);
+  color: white;
+  text-align: center;
+  border-radius: var(--border-radius);
+  padding: 1em;
+  box-shadow: var(--box-shadow);
+}
+
 .twitter-embeds {
   text-align: center;
 }
@@ -140,53 +170,4 @@ footer {
 .twitter-tweet {
   display: inline-block;
   margin: 0 auto;
-}
-
-/* Hover effects unified */
-.card:hover,
-.btn:hover,
-.read-more:hover,
-.newsletter button[type="submit"]:hover,
-.nav-menu a:hover,
-.twitter-tweet a:hover {
-  box-shadow: var(--box-shadow-hover);
-  background-color: var(--brand-highlight-color);
-  /* Adjust as necessary */
-}
-
-/* Hamburger dropdown menu styles */
-.nav-menu {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  background-color: var(--background-color);
-  top: 60px;
-  right: 0;
-  width: 100%;
-  border-radius: 0;
-  box-shadow: var(--box-shadow);
-}
-
-.nav-menu.responsive {
-  display: flex;
-}
-
-.hamburger-menu {
-  display: block;
-  cursor: pointer;
-  padding: 1rem;
-  font-size: 1.5rem;
-  background: transparent;
-  border: none;
-  z-index: 2000;
-}
-
-@media screen and (max-width: 768px) {
-  .nav-menu {
-    display: none;
-  }
-
-  .hamburger-menu {
-    display: block;
-  }
 }
