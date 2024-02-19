@@ -137,7 +137,7 @@ nav {
   box-shadow: var(--box-shadow);
   padding: 20px;
   border: 1px solid #ddd;
-  background-color: var(--background-color);
+  background-color: white;
 }
 
 .featured-article {
