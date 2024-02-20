@@ -37,7 +37,7 @@ h1 {
 }
 
 h2 {
-  font-size: 5vw;
+  font-size: 6vw;
 }
 
 h3 {
@@ -100,7 +100,7 @@ nav {
   display: block;
   cursor: pointer;
   padding: 1rem;
-  font-size: 2.5rem;
+  font-size: 5vw;
   background: transparent;
   border: none;
   z-index: 2000;
@@ -133,8 +133,8 @@ nav {
   margin: auto;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  padding: 20px;
-  border: 1px solid #ddd;
+  padding: 25px;
+  border: 2px solid #ddd;
   background-color: white;
 }
 

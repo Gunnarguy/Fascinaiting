@@ -41,7 +41,7 @@
       <ul class="nav-links nav-menu">
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li><a href="aboutme.html" class="nav-link">About</a></li>
-        <li><a href="medical.html" class="nav-link active">Medical</a></li>
+        <li><a href="medical.html" class="nav-link">Medical</a></li>
         <li><a href="gaming.html" class="nav-link">Video Games</a></li>
         <li><a href="animal.html" class="nav-link">Animal Behavior</a></li>
         <li><a href="medevs.html" class="nav-link">Medical Devices</a></li>
@@ -83,6 +83,26 @@
       </article>
     </section>
 
+    <blockquote class="twitter-tweet">
+      <p lang="en" dir="ltr">📢 Revolutionary AI advancements in healthcare! 📷 Discover how AI is transforming medical
+        diagnosis, treatment, and healthcare efficiency in SPIE&#39;s eye-opening article &quot;Changing Medicine via
+        AI&quot; 📷 <a href="https://t.co/b9A6RjyViP">https://t.co/b9A6RjyViP</a> <a
+          href="https://twitter.com/hashtag/AIinHealthcare?src=hash&amp;ref_src=twsrc%5Etfw">#AIinHealthcare</a> <a
+          href="https://twitter.com/hashtag/MedTech?src=hash&amp;ref_src=twsrc%5Etfw">#MedTech</a> <a
+          href="https://twitter.com/hashtag/FutureofMedicine?src=hash&amp;ref_src=twsrc%5Etfw">#FutureofMedicine</a></p>
+      &mdash; NerfGun (@Gunzeroni) <a
+        href="https://twitter.com/Gunzeroni/status/1759799411075657890?ref_src=twsrc%5Etfw">February 20, 2024</a>
+    </blockquote>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <blockquote class="twitter-tweet">
+      <p lang="en" dir="ltr">📢 The Rise of AI in Medical Devices 🩺💻<br><br>In 2023 alone, 91 innovative devices were
+        cleared.<br><br>📈 A Growing Field: The number of AI-enabled medical devices has surged in the past five years,
+        with a staggering 33% increase in 2023. Medical specialties like radiology,…</p>&mdash; NerfGun (@Gunzeroni) <a
+        href="https://twitter.com/Gunzeroni/status/1759801570185855263?ref_src=twsrc%5Etfw">February 20, 2024</a>
+    </blockquote>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
     <section class="social-links">
       <div class="container">
         <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
@@ -107,24 +127,36 @@
     let particlesArray = [];
     const numberOfParticles = 100;
 
+    let scrollY = 0;
+    let lastScrollY = 0;
+    let scrollSpeed = 0;
+
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
 
+    window.addEventListener('scroll', () => {
+      scrollY = window.scrollY;
+      scrollSpeed = scrollY - lastScrollY;
+      lastScrollY = scrollY;
+    });
+
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.y = Math.random() * canvas.height - scrollY;
         this.size = Math.random() * 5 + 1;
         this.speedX = Math.random() * 3 - 1.5;
         this.speedY = Math.random() * 3 - 1.5;
       }
       update() {
         this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
-        if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+        this.y += this.speedY + scrollSpeed * 0.1; // Apply scroll effect
+
+        // Make particles bounce off the edges
+        if (this.x <= 0 || this.x >= canvas.width) this.speedX *= -1;
+        if (this.y <= 0 || this.y >= canvas.height) this.speedY *= -1;
       }
       draw() {
         ctx.beginPath();
@@ -160,6 +192,7 @@
       menu.classList.toggle('responsive');
     }
   </script>
+
 
 
 </body>
