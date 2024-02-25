@@ -1,127 +1,154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore the world of AI with FascinAIting."
+    />
+    <meta name="keywords" content="AI, Technology, Innovation, Articles" />
+    <title>FascinAIting</title>
+    <link rel="stylesheet" href="src/styles/main.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the world of AI with FascinAIting.">
-  <meta name="keywords" content="AI, Technology, Innovation, Articles">
-  <title>FascinAIting</title>
-  <link rel="stylesheet" href="src/styles/main.css">
-  <style>
-    body,
-    html {
-      margin: 0;
-      padding: 0;
-    }
+  <body>
+    <canvas id="particleCanvas"></canvas>
+    <header class="site-header">
+      <nav class="site-nav">
+        <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
+          <span>&#9776;</span>
+        </button>
+        <h1 class="logo">
+          <span class="brand-color">Fascin</span
+          ><a href="index.html" style="color: #00bfff; text-decoration: none"
+            >AI</a
+          ><span class="brand-color">ting</span>
+        </h1>
+        <ul class="nav-links nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="src/pages/aboutme.html" class="nav-link">About</a></li>
+          <li><a href="src/pages/medical.html" class="nav-link">Medical</a></li>
+          <li>
+            <a href="src/pages/gaming.html" class="nav-link">Video Games</a>
+          </li>
+          <li>
+            <a href="src/pages/animal.html" class="nav-link active"
+              >Animal Behavior</a
+            >
+          </li>
+          <li>
+            <a href="src/pages/medevs.html" class="nav-link">Medical Devices</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
-  </style>
-</head>
+    <main>
+      <section class="header">
+        <div class="header-content">
+          <h2>Welcome</h2>
+          <p>Take a dive into how AI is impacting the fields below:</p>
+        </div>
+      </section>
 
-<body>
-  <canvas id="particleCanvas"></canvas>
-  <header class="site-header">
-    <nav class="site-nav">
-      <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
-        <span>&#9776;</span>
-      </button>
-      <h1 class="logo">
-        <span class="brand-color">Fascin</span><a href="index.html"
-          style="color: #00bfff; text-decoration: none;">AI</a><span class="brand-color">ting</span>
-      </h1>
-      <ul class="nav-links nav-menu">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="src/pages/aboutme.html" class="nav-link">About</a></li>
-        <li><a href="src/pages/medical.html" class="nav-link">Medical</a></li>
-        <li><a href="src/pages/gaming.html" class="nav-link">Video Games</a></li>
-        <li><a href="src/pages/animal.html" class="nav-link active">Animal Behavior</a></li>
-        <li><a href="src/pages/medevs.html" class="nav-link">Medical Devices</a></li>
-      </ul>
-    </nav>
-  </header>
+      <section class="articles">
+        <article class="article" data-topic="Medical Industry">
+          <h3>Medical Industry</h3>
+          <p>Explore how AI is evolving the medical field.</p>
+          <a href="src/pages/medical.html" class="read-more btn">Read More</a>
+        </article>
 
-  <main>
-    <section class="header">
-      <div class="header-content">
-        <h2>Welcome</h2>
-        <p>Take a dive into how AI is impacting the fields below:</p>
-      </div>
-    </section>
+        <article class="article" data-topic="Video Game Industry">
+          <h3>Video Game Industry</h3>
+          <p>Discover how AI is being used in video games.</p>
+          <a href="src/pages/gaming.html" class="read-more btn">Read More</a>
+        </article>
 
-    <section class="articles">
-      <article class="article" data-topic="Medical Industry">
-        <h3>Medical Industry</h3>
-        <p>Explore how AI is evolving the medical field.</p>
-        <a href="src/pages/medical.html" class="read-more btn">Read More</a>
-      </article>
+        <article class="article" data-topic="Animal Behavior">
+          <h3>Animal Behavior</h3>
+          <p>Uncover the secrets of animal behavior with the help of AI.</p>
+          <a href="src/pages/animal.html" class="read-more btn">Read More</a>
+        </article>
 
-      <article class="article" data-topic="Video Game Industry">
-        <h3>Video Game Industry</h3>
-        <p>Discover how AI is being used in video games.</p>
-        <a href="src/pages/gaming.html" class="read-more btn">Read More</a>
-      </article>
+        <article class="article" data-topic="Medical Devices">
+          <h3>Medical Devices</h3>
+          <p>Learn how AI is innovating the development of medical devices.</p>
+          <a href="src/pages/medevs.html" class="read-more btn">Read More</a>
+        </article>
+      </section>
 
-      <article class="article" data-topic="Animal Behavior">
-        <h3>Animal Behavior</h3>
-        <p>Uncover the secrets of animal behavior with the help of AI.</p>
-        <a href="src/pages/animal.html" class="read-more btn">Read More</a>
-      </article>
+      <blockquote class="twitter-tweet">
+        <p lang="en" dir="ltr">
+          📢 Revolutionary AI advancements in healthcare! 📷 Discover how AI is
+          transforming medical diagnosis, treatment, and healthcare efficiency
+          in SPIE&#39;s eye-opening article &quot;Changing Medicine via AI&quot;
+          📷 <a href="https://t.co/b9A6RjyViP">https://t.co/b9A6RjyViP</a>
+          <a
+            href="https://twitter.com/hashtag/AIinHealthcare?src=hash&amp;ref_src=twsrc%5Etfw"
+            >#AIinHealthcare</a
+          >
+          <a
+            href="https://twitter.com/hashtag/MedTech?src=hash&amp;ref_src=twsrc%5Etfw"
+            >#MedTech</a
+          >
+          <a
+            href="https://twitter.com/hashtag/FutureofMedicine?src=hash&amp;ref_src=twsrc%5Etfw"
+            >#FutureofMedicine</a
+          >
+        </p>
+        &mdash; NerfGun (@Gunzeroni)
+        <a
+          href="https://twitter.com/Gunzeroni/status/1759799411075657890?ref_src=twsrc%5Etfw"
+          >February 20, 2024</a
+        >
+      </blockquote>
+      <script
+        async
+        src="https://platform.twitter.com/widgets.js"
+        charset="utf-8"
+      ></script>
 
-      <article class="article" data-topic="Medical Devices">
-        <h3>Medical Devices</h3>
-        <p>Learn how AI is innovating the development of medical devices.</p>
-        <a href="src/pages/medevs.html" class="read-more btn">Read More</a>
-      </article>
-    </section>
+      <blockquote class="twitter-tweet">
+        <p lang="en" dir="ltr">
+          📢 The Rise of AI in Medical Devices 🩺💻<br /><br />In 2023 alone, 91
+          innovative devices were cleared.<br /><br />📈 A Growing Field: The
+          number of AI-enabled medical devices has surged in the past five
+          years, with a staggering 33% increase in 2023. Medical specialties
+          like radiology,…
+        </p>
+        &mdash; NerfGun (@Gunzeroni)
+        <a
+          href="https://twitter.com/Gunzeroni/status/1759801570185855263?ref_src=twsrc%5Etfw"
+          >February 20, 2024</a
+        >
+      </blockquote>
+      <script
+        async
+        src="https://platform.twitter.com/widgets.js"
+        charset="utf-8"
+      ></script>
 
-    <blockquote class="twitter-tweet">
-      <p lang="en" dir="ltr">📢 Revolutionary AI advancements in healthcare! 📷 Discover how AI is transforming medical
-        diagnosis, treatment, and healthcare efficiency in SPIE&#39;s eye-opening article &quot;Changing Medicine via
-        AI&quot; 📷 <a href="https://t.co/b9A6RjyViP">https://t.co/b9A6RjyViP</a> <a
-          href="https://twitter.com/hashtag/AIinHealthcare?src=hash&amp;ref_src=twsrc%5Etfw">#AIinHealthcare</a> <a
-          href="https://twitter.com/hashtag/MedTech?src=hash&amp;ref_src=twsrc%5Etfw">#MedTech</a> <a
-          href="https://twitter.com/hashtag/FutureofMedicine?src=hash&amp;ref_src=twsrc%5Etfw">#FutureofMedicine</a></p>
-      &mdash; NerfGun (@Gunzeroni) <a
-        href="https://twitter.com/Gunzeroni/status/1759799411075657890?ref_src=twsrc%5Etfw">February 20, 2024</a>
-    </blockquote>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <section class="social-links">
+        <div class="container">
+          <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
+            <img
+              alt="Twitter logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg"
+              width="42"
+            />
+          </a>
+        </div>
+      </section>
+    </main>
 
-    <blockquote class="twitter-tweet">
-      <p lang="en" dir="ltr">📢 The Rise of AI in Medical Devices 🩺💻<br><br>In 2023 alone, 91 innovative devices were
-        cleared.<br><br>📈 A Growing Field: The number of AI-enabled medical devices has surged in the past five years,
-        with a staggering 33% increase in 2023. Medical specialties like radiology,…</p>&mdash; NerfGun (@Gunzeroni) <a
-        href="https://twitter.com/Gunzeroni/status/1759801570185855263?ref_src=twsrc%5Etfw">February 20, 2024</a>
-    </blockquote>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-    <section class="social-links">
+    <footer class="site-footer">
       <div class="container">
-        <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg"
-            width="42">
-        </a>
+        <p>&copy; 2024 FascinAIting - All rights reserved.</p>
       </div>
-    </section>
-  </main>
+    </footer>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2024 FascinAIting - All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="src/components/canvas.js"></script>                                                                                                                                                                                                                                                                                                          
-  <script src="src/components/navigation.js"></script>   
-
-</body>
-
+    <script src="src/components/canvas.js"></script>
+    <script src="src/components/navigation.js"></script>
+  </body>
 </html>
