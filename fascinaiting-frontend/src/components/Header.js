@@ -1,7 +1,6 @@
 // src/components/Header.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using react-router for navigation
-import './Header.css'; // Make sure to create this CSS file based on your styles
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
