@@ -1,0 +1,189 @@
+:root {
+  --text-color: #333;
+  --background-color: #f5f5f5;
+  --brand-color: #006775;
+  --brand-highlight-color: #83ebe4;
+  --font-family: "Roboto", sans-serif;
+  --border-radius: 1.5rem;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --font-size: 1rem;
+  --subtext-color: #666;
+  --primary-color: var(--brand-color);
+  --hover-color: var(--brand-highlight-color);
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 4.5vw;
+}
+
+h2 {
+  font-size: 5vw;
+}
+
+h3 {
+  font-size: 2.5vw;
+}
+
+h4,
+h5,
+h6 {
+  font-size: 1.5vw;
+}
+
+nav {
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-links,
+.nav-menu a,
+.twitter-tweet a {
+  list-style: none;
+  padding: 0;
+  gap: 1rem;
+  margin-right: auto;
+  font-size: 1rem;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-menu a:hover,
+.twitter-tweet a:hover {
+  color: var(--hover-color);
+}
+
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--background-color);
+  top: 60px;
+  right: 0;
+  width: 15%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 10px 20px;
+}
+
+.nav-menu.responsive {
+  display: flex;
+}
+
+.hamburger-menu {
+  display: block;
+  cursor: pointer;
+  padding: 1rem;
+  font-size: 2.5rem;
+  background: transparent;
+  border: none;
+  z-index: 2000;
+  position: absolute;
+  right: 0;
+}
+
+.btn,
+.read-more,
+.newsletter button[type="submit"] {
+  background-color: var(--brand-color);
+  color: white;
+  padding: 0.75em 1.5em;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn:hover,
+.read-more:hover,
+.newsletter button[type="submit"]:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color);
+}
+
+.article,
+.featured-article,
+.card {
+  margin: auto;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+.featured-article {
+  padding: 2vw;
+}
+
+.article {
+  width: 85%;
+  margin-bottom: 1em;
+}
+
+.card img {
+  width: 100%;
+  display: block;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.card-content {
+  padding: 1.6vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header,
+footer {
+  background-color: var(--brand-color);
+  color: white;
+  text-align: center;
+  border-radius: var(--border-radius);
+  padding: 1em;
+  box-shadow: var(--box-shadow);
+}
+
+.twitter-embeds {
+  text-align: center;
+}
+
+.twitter-tweet {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.social-links .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
