@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let particlesArray = [];
-const numberOfParticles = 100;
+const numberOfParticles = 400;
 
 let scrollY = 0;
 let lastScrollY = 0;
@@ -24,8 +24,8 @@ class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height - scrollY;
-    this.size = Math.random() * 5 + 1;
-    this.speedX = Math.random() * 3 - 1.5;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 2 - 1.5;
     this.speedY = Math.random() * 3 - 1.5;
   }
   update() {
@@ -39,7 +39,7 @@ class Particle {
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = '#8C5523'; // Particle color
+    ctx.fillStyle = '#336699'; // Particle color
     ctx.fill();
   }
 }
