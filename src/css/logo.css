@@ -1,0 +1,13 @@
+.brand-color {
+    /* Add the color you want for the text with class 'brand-color' */
+    color: #000000; /* Change this to the color you want */
+}
+
+.logo a {
+    color: #0076a5;
+    text-decoration: none;
+}
+
+.logo a:hover {
+    color: var(--brand-highlight-color);
+}

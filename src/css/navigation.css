@@ -24,7 +24,7 @@ nav {
   color: var(--text-color);
   text-decoration: none;
   font-weight: bold;
-  transition: color 0.3s ease;
+  transition: color 0.1s ease;
 }
 
 .nav-links a:hover,

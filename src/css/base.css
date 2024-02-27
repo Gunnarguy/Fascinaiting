@@ -24,7 +24,21 @@ h4, h5, h6 { font-size: 1.5vw; }
 
 
 
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
 
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
 
 
 
