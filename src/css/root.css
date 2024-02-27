@@ -1,0 +1,14 @@
+:root {
+    --text-color: #333;
+    --background-color: #f5f5f5;
+    --brand-color: #006775;
+    --brand-highlight-color: #83ebe4;
+    --font-family: "Roboto", sans-serif;
+    --border-radius: 1.5rem;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --font-size: 1rem;
+    --subtext-color: #666;
+    --primary-color: var(--brand-color);
+    --hover-color: var(--brand-highlight-color);
+  }

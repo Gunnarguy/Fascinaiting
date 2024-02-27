@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Social Links and Footer Styles */
+.social-links .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0;
+  }
+  
+  .footer {
+    background-color: var(--brand-color);
+    color: white;
+    text-align: center;
+    border-radius: var(--border-radius);
+    padding: 1em;
+    box-shadow: var(--box-shadow);
+  }

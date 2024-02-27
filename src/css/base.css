@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Styles */
+body {
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1 { font-size: 4.5vw; }
+h2 { font-size: 6vw; }
+h3 { font-size: 2.5vw; }
+h4, h5, h6 { font-size: 1.5vw; }
+
+
+
+
+
+
+
+
+
+
+
+
