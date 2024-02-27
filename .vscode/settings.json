@@ -1,4 +1,4 @@
 {
-    "CodeGPT.apiKey": "OpenAI",
+    "CodeGPT.apiKey": "Ollama",
     "git.ignoreLimitWarning": true
 }
