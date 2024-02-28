@@ -1,5 +1,5 @@
 {
-    "CodeGPT.apiKey": "Mistral",
+    "CodeGPT.apiKey": "Perplexity",
     "git.ignoreLimitWarning": true,
     "CodeGPT.Autocomplete.enabled": false
 }
