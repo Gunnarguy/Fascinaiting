@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 .twitter-embeds {
-    text-align: center;
-  }
-  
-  .twitter-tweet {
-    display: inline-block;
-    margin: 0 auto;
-  }
+  text-align: center;
+}
+
+.twitter-tweet {
+  display: inline-block;
+  margin: 0 auto;
+}
