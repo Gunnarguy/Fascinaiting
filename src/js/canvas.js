@@ -1,5 +1,5 @@
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let particlesArray = [];
@@ -9,12 +9,12 @@ let scrollY = 0;
 let lastScrollY = 0;
 let scrollSpeed = 0;
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
 
-window.addEventListener('scroll', () => {
+window.addEventListener("scroll", () => {
   scrollY = window.scrollY;
   scrollSpeed = scrollY - lastScrollY;
   lastScrollY = scrollY;
@@ -39,7 +39,7 @@ class Particle {
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = '#336699'; // Particle color
+    ctx.fillStyle = "#336699"; // Particle color
     ctx.fill();
   }
 }
@@ -53,7 +53,7 @@ function init() {
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particlesArray.forEach(particle => {
+  particlesArray.forEach((particle) => {
     particle.update();
     particle.draw();
   });
