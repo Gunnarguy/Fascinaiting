@@ -1,4 +1,5 @@
 {
-    "CodeGPT.apiKey": "CodeGPT Plus Beta",
-    "git.ignoreLimitWarning": true
+    "CodeGPT.apiKey": "Mistral",
+    "git.ignoreLimitWarning": true,
+    "CodeGPT.Autocomplete.enabled": false
 }

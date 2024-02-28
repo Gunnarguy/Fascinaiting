@@ -10,11 +10,4 @@
     margin: 1em 0;
   }
   
-  .footer {
-    background-color: var(--brand-color);
-    color: white;
-    text-align: center;
-    border-radius: var(--border-radius);
-    padding: 1em;
-    box-shadow: var(--box-shadow);
-  }
+  
