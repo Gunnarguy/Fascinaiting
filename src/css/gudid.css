@@ -1,37 +1,39 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 #chat-container {
-    bottom: 0;
-    right: 0;
-    width: 80%;
-    max-width: 100%;
-    background-color: #f1f1f1;
-    border: 1px solid #ddd;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 0 auto; /* Add this line to center the element */
+  bottom: 0;
+  right: 0;
+  width: 80%;
+  max-width: 100%;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  /* Add this line to center the element */
 }
 
 #chat-box {
-    height: 200px;
-    overflow-y: auto;
-    background-color: #fff;
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    font-size: 1em;
+  height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  font-size: 1em;
 }
 
 #chat-input {
-    width: calc(100% - 70px);
-    padding: 5px;
+  width: calc(100% - 70px);
+  padding: 5px;
 }
 
 #send-btn {
-    width: 50px;
-    height: 34px;
+  width: 50px;
+  height: 34px;
 }
