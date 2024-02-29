@@ -15,8 +15,7 @@ function fetchDeviceInfo(di) {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            // Assuming response data is directly usable - customize as needed
-            const deviceInfo = JSON.stringify(data, null, 2);
+            const deviceInfo = formatDeviceInfo(data);
             displayMessage('System: ' + deviceInfo, 'system');
         })
         .catch(error => {
@@ -25,10 +24,33 @@ function fetchDeviceInfo(di) {
         });
 }
 
+function formatDeviceInfo(data) {
+    // Check if device information is present
+    if (!data || !data.gudid || !data.gudid.device) {
+        return "No device information found.";
+    }
+    const device = data.gudid.device;
+    let info = `Device Information:\n`;
+
+    // Extracting key details
+    if (device.brandName) info += `Brand Name: ${device.brandName}\n`;
+    if (device.deviceDescription) info += `Description: ${device.deviceDescription}\n`;
+    if (device.companyName) info += `Manufacturer: ${device.companyName}\n`;
+    if (device.gmdnTerms && device.gmdnTerms.gmdn) {
+        const gmdnTerm = device.gmdnTerms.gmdn[0];
+        if (gmdnTerm && gmdnTerm.gmdnPTName) info += `GMDN Term: ${gmdnTerm.gmdnPTName}\n`;
+    }
+    if (device.expirationDate) info += `Expiration Date: ${device.expirationDate}\n`;
+    if (device.manufacturingDate) info += `Manufacturing Date: ${device.manufacturingDate}\n`;
+
+    // Formatting for display
+    return info.replace(/\n/g, '<br>'); // Replace newline characters with HTML line breaks for web display
+}
+
 function displayMessage(message, sender) {
     const chatBox = document.getElementById('chat-box');
     const msgDiv = document.createElement('div');
-    msgDiv.textContent = message;
+    msgDiv.innerHTML = message; // Use innerHTML to interpret line breaks
     msgDiv.className = sender === 'user' ? 'user-message' : 'system-message';
     chatBox.appendChild(msgDiv);
     chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
