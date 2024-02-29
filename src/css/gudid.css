@@ -1,7 +1,7 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;;
 }
 
 #chat-container {
@@ -22,10 +22,11 @@ body, html {
     margin-bottom: 10px;
     padding: 5px;
     border: 1px solid #ddd;
+    font-size: 9px;
 }
 
 #chat-input {
-    width: calc(100% - 60px);
+    width: calc(100% - 70px);
     padding: 5px;
 }
 
