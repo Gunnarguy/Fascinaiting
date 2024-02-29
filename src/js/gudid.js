@@ -16,22 +16,23 @@ function fetchDeviceInfo(di) {
         .then(response => response.json())
         .then(data => {
             displayMessage('System: ' + JSON.stringify(data, null, 2), 'system');
-            
-            // Display all fields
-            Object.keys(data.gudid.device).forEach(key => {
-                if (typeof data.gudid.device[key] === 'object' && data.gudid.device[key] !== null) {
-                    Object.keys(data.gudid.device[key]).forEach(subKey => {
-                        displayMessage(`${subKey}: ${JSON.stringify(data.gudid.device[key][subKey], null, 2)}`, 'system');
-                    });
-                } else {
-                    displayMessage(`${key}: ${data.gudid.device[key]}`, 'system');
-                }
-            });
+            displayFields(data.gudid.device);
         })
         .catch(error => {
             console.error('Error:', error);
             displayMessage('System: Failed to retrieve device information.', 'system');
         });
+}
+
+function displayFields(obj, parentKey = '') {
+    Object.keys(obj).forEach(key => {
+        const newKey = parentKey ? `${parentKey}.${key}` : key;
+        if (typeof obj[key] === 'object' && obj[key] !== null) {
+            displayFields(obj[key], newKey);
+        } else {
+            displayMessage(`${newKey}: ${obj[key]}`, 'system');
+        }
+    });
 }
 
 function displayMessage(message, sender) {

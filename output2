@@ -1,0 +1,58 @@
+You: 07613327419153
+System: { "gudid": { "device": { "publicDeviceRecordKey": "872ff654-947a-4fb4-adda-57db0c8032c7", "publicVersionStatus": "New", "deviceRecordStatus": "Published", "publicVersionNumber": 1, "publicVersionDate": "2019-01-21T00:00:00.000Z", "devicePublishDate": "2018-12-19T00:00:00.000Z", "deviceCommDistributionEndDate": null, "deviceCommDistributionStatus": "In Commercial Distribution", "identifiers": { "identifier": [ { "deviceId": "07613327419153", "deviceIdType": "Primary", "deviceIdIssuingAgency": "GS1", "containsDINumber": null, "pkgQuantity": null, "pkgDiscontinueDate": null, "pkgStatus": null, "pkgType": null } ] }, "brandName": "Connected OR HUB", "versionModelNumber": "0240200103", "catalogNumber": "0240200103", "dunsNumber": "187502109", "companyName": "STRYKER CORPORATION", "deviceCount": 1, "deviceDescription": null, "DMExempt": false, "premarketExempt": false, "deviceHCTP": false, "deviceKit": false, "deviceCombinationProduct": false, "singleUse": false, "lotBatch": true, "serialNumber": false, "manufacturingDate": false, "expirationDate": false, "donationIdNumber": false, "labeledContainsNRL": false, "labeledNoNRL": false, "MRISafetyStatus": "Labeling does not contain MRI Safety Information", "rx": true, "otc": false, "contacts": { "customerContact": [ { "phone": "+1(866)624-4422", "phoneExtension": null, "email": "xx@xx.xx" } ] }, "premarketSubmissions": { "premarketSubmission": [ { "submissionNumber": "K181258", "supplementNumber": "000" } ] }, "gmdnTerms": { "gmdn": [ { "gmdnCode": "61583", "gmdnPTName": "Endoscopic device remote control", "gmdnPTDefinition": "A hand-operated electronic unit with a configuration of analogue or digital push-buttons (alphanumeric, colour-, or symbol-coded) designed to control the functions of an endoscopic device (e.g., endoscope video camera) from a distance via a connected cable or wirelessly [e.g., radio-frequency (RF), infrared (IR) transmission]. It is intended to be operated by the healthcare provider.", "implantable": false, "gmdnCodeStatus": "Active" } ] }, "productCodes": { "fdaProductCode": [ { "productCode": "GCJ", "productCodeName": "Laparoscope, general & plastic surgery" } ] }, "deviceSizes": null, "environmentalConditions": null, "sterilization": { "deviceSterile": false, "sterilizationPriorToUse": false, "methodTypes": null } } }, "productCodes": [ { "productCode": "GCJ", "physicalState": null, "deviceClass": "2", "thirdPartyFlag": "N", "definition": "Validated reprocessing instructions and reprocessing validation data for this device type must be included in a 510(k) submission if the device is reusable and has specific design features (please refer to Table 2 of 82 FR 26807, available at https://www.gpo.gov/fdsys/pkg/FR-2017-06-09/pdf/2017-12007.pdf).", "submissionTypeID": "1", "reviewPanel": "SU", "gmpExemptFlag": "N", "technicalMethod": null, "reviewCode": null, "lifeSustainSupportFlag": "N", "unclassifiedReason": null, "implantFlag": "N", "targetArea": null, "regulationNumber": "876.1500", "deviceName": "Laparoscope, General & Plastic Surgery", "medicalSpecialty": "GU" } ] }
+publicDeviceRecordKey: 872ff654-947a-4fb4-adda-57db0c8032c7
+publicVersionStatus: New
+deviceRecordStatus: Published
+publicVersionNumber: 1
+publicVersionDate: 2019-01-21T00:00:00.000Z
+devicePublishDate: 2018-12-19T00:00:00.000Z
+deviceCommDistributionEndDate: null
+deviceCommDistributionStatus: In Commercial Distribution
+identifiers.identifier.0.deviceId: 07613327419153
+identifiers.identifier.0.deviceIdType: Primary
+identifiers.identifier.0.deviceIdIssuingAgency: GS1
+identifiers.identifier.0.containsDINumber: null
+identifiers.identifier.0.pkgQuantity: null
+identifiers.identifier.0.pkgDiscontinueDate: null
+identifiers.identifier.0.pkgStatus: null
+identifiers.identifier.0.pkgType: null
+brandName: Connected OR HUB
+versionModelNumber: 0240200103
+catalogNumber: 0240200103
+dunsNumber: 187502109
+companyName: STRYKER CORPORATION
+deviceCount: 1
+deviceDescription: null
+DMExempt: false
+premarketExempt: false
+deviceHCTP: false
+deviceKit: false
+deviceCombinationProduct: false
+singleUse: false
+lotBatch: true
+serialNumber: false
+manufacturingDate: false
+expirationDate: false
+donationIdNumber: false
+labeledContainsNRL: false
+labeledNoNRL: false
+MRISafetyStatus: Labeling does not contain MRI Safety Information
+rx: true
+otc: false
+contacts.customerContact.0.phone: +1(866)624-4422
+contacts.customerContact.0.phoneExtension: null
+contacts.customerContact.0.email: xx@xx.xx
+premarketSubmissions.premarketSubmission.0.submissionNumber: K181258
+premarketSubmissions.premarketSubmission.0.supplementNumber: 000
+gmdnTerms.gmdn.0.gmdnCode: 61583
+gmdnTerms.gmdn.0.gmdnPTName: Endoscopic device remote control
+gmdnTerms.gmdn.0.gmdnPTDefinition: A hand-operated electronic unit with a configuration of analogue or digital push-buttons (alphanumeric, colour-, or symbol-coded) designed to control the functions of an endoscopic device (e.g., endoscope video camera) from a distance via a connected cable or wirelessly [e.g., radio-frequency (RF), infrared (IR) transmission]. It is intended to be operated by the healthcare provider.
+gmdnTerms.gmdn.0.implantable: false
+gmdnTerms.gmdn.0.gmdnCodeStatus: Active
+productCodes.fdaProductCode.0.productCode: GCJ
+productCodes.fdaProductCode.0.productCodeName: Laparoscope, general & plastic surgery
+deviceSizes: null
+environmentalConditions: null
+sterilization.deviceSterile: false
+sterilization.sterilizationPriorToUse: false
+sterilization.methodTypes: null
