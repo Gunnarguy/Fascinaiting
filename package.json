@@ -15,5 +15,8 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1"
   },
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "rss": "^1.2.2"
+  }
 }
