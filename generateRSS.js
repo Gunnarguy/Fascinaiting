@@ -8,6 +8,7 @@ const posts = [
     url: 'http://www.fascinaiting.me/src/html/medical.html',
     date: 'April 20, 2023',
   },
+  
   // Future posts will be added here
 ];
 
