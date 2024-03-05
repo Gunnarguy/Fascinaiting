@@ -1,12 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* Twitter Embeds */
 .twitter-embeds {
   text-align: center;
 }
 
+/* Twitter Tweet */
 .twitter-tweet {
   display: inline-block;
   margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effects */
+.twitter-embeds:hover,
+.twitter-tweet:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

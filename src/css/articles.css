@@ -1,8 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Article and Card Styles */
+/* Common styles for articles, featured articles, cards, and bio info */
 .article,
 .featured-article,
 .card,
@@ -19,10 +15,12 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* Additional styles for featured articles */
 .featured-article {
   padding: 2vw;
 }
 
+/* Styles for images within cards */
 .card img {
   width: 100%;
   display: block;
@@ -30,6 +28,7 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* Styles for content within cards */
 .card-content {
   padding: 1.6vw;
   display: flex;
@@ -37,21 +36,4 @@
   flex-direction: column;
   justify-content: space-between;
   transition: all 0.3s ease-in-out;
-}
-
-/* Hover Effects */
-.article:hover,
-.featured-article:hover,
-.card:hover,
-.bio-info:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.card img:hover {
-  transform: scale(1.05);
-}
-
-.card-content:hover {
-  background-color: #f5f5f5;
 }

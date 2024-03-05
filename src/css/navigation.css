@@ -1,8 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Navigation Styles */
+/* Navigation Bar */
 nav {
   background-color: var(--background-color);
   box-shadow: var(--box-shadow);
@@ -14,6 +10,7 @@ nav {
   z-index: 1000;
 }
 
+/* Navigation Links */
 .nav-links,
 .nav-menu a {
   list-style: none;
@@ -32,6 +29,7 @@ nav {
   color: var(--hover-color);
 }
 
+/* Responsive Navigation Menu */
 .nav-menu {
   display: none;
   flex-direction: column;
@@ -49,6 +47,7 @@ nav {
   display: flex;
 }
 
+/* Hamburger Menu */
 .hamburger-menu {
   display: block;
   cursor: pointer;

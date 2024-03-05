@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* Reset heading margins and paddings */
 h1,
 h2,
 h3,
@@ -12,24 +9,31 @@ h6 {
   padding: 0;
 }
 
+/* Styling for h1 */
 h1 {
   font-size: 4.5vw;
 }
 
+/* Styling for h2 */
 h2 {
   font-size: 6vw;
 }
 
+/* Styling for h3 */
 h3 {
   font-size: 2.5vw;
 }
 
+/* Styling for h4, h5, h6 */
 h4,
 h5,
 h6 {
   font-size: 1.5vw;
 }
 
+/* Header Styles */
+
+/* Styling for header */
 .header {
   background-color: var(--brand-color);
   color: white;
