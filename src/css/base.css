@@ -1,13 +1,8 @@
-/* General Styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Reset default styles */
-body,
-html {
-  margin: 0;
-  padding: 0;
-}
-
-/* Set font and color */
+/* Base Styles */
 body {
   font-family: var(--font-family);
   color: var(--text-color);
@@ -17,9 +12,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Heading Styles */
-
-/* Reset margin and padding for all headings */
 h1,
 h2,
 h3,
@@ -30,7 +22,6 @@ h6 {
   padding: 0;
 }
 
-/* Set font sizes for headings */
 h1 {
   font-size: 4.5vw;
 }
@@ -49,9 +40,14 @@ h6 {
   font-size: 1.5vw;
 }
 
-/* Canvas Styles */
 
-/* Position and size the canvas element */
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
 canvas {
   position: fixed;
   top: 0;

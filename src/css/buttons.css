@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Button Styles */
 .btn,
 .read-more,
 .newsletter button[type="submit"] {

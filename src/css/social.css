@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Social Links and Footer Styles */
 .social-links .container {
   display: flex;
