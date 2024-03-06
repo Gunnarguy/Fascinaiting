@@ -1,30 +1,36 @@
-#drugName {
-  width: 300px;
-  height: 30px;
-  padding: 5px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+/* Input Styles */
+#drugInput {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+#drugInput:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Button Styles */
 #searchButton {
-  width: 100px;
-  height: 35px;
-  margin-left: 10px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: var(--brand-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#resultWindow {
-  width: 100%;
-  height: 200px;
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  overflow-y: auto;
+#searchButton:hover {
+    background-color: var(--hover-color);
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Result Div Styles */
+#resultDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
 }
