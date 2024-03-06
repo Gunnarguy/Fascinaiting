@@ -1,4 +1,4 @@
-document.getElementById('searchButton').addEventListener('click', () => {
+document.getElementById('searchButton').addEventListener('click', async () => {
     const drugName = document.getElementById('drugName').value;
     if (!drugName) {
         alert('Please enter a drug name');
