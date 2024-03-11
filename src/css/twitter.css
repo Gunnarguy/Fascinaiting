@@ -1,20 +1,9 @@
-blockquote {
-  margin: 1.5rem 0;
-  padding: 0.5rem 1rem;
-  border-left: 0.3rem solid #444;
-  background-color: #f5f5f5;
-  font-size: 0.9rem;
-  line-height: 1.5;
+.twitter-embeds {
+  text-align: center;
+  display: flex;
 }
 
-blockquote p {
-  margin: 0;
-}
-
-blockquote a {
-  color: #008CBA;
-}
-
-blockquote a:hover {
-  text-decoration: underline;
+.twitter-tweet {
+  display: inline-block;
+  margin: 0 auto;
 }
