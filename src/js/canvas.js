@@ -2,7 +2,7 @@ const canvas = document.getElementById("particleCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-let particlesArray = [];
+const particlesArray = [];
 const numberOfParticles = 400;
 
 let scrollY = 0;
@@ -28,24 +28,34 @@ class Particle {
     this.speedX = Math.random() * 2 - 1.5;
     this.speedY = Math.random() * 3 - 1.5;
   }
+  
   update() {
     this.x += this.speedX;
-    this.y += this.speedY + scrollSpeed * 0.1; // Apply scroll effect
+    this.y += this.speedY + scrollSpeed * 0.1;
 
-    // Make particles bounce off the edges
-    if (this.x <= 0 || this.x >= canvas.width) this.speedX *= -1;
-    if (this.y <= 0 || this.y >= canvas.height) this.speedY *= -1;
+    if (this.x <= 0) {
+      this.x = canvas.width; // Wrap around to the right side
+    } else if (this.x >= canvas.width) {
+      this.x = 0; // Wrap around to the left side
+    }
+
+    if (this.y <= 0) {
+      this.y = canvas.height; // Wrap around to the bottom
+    } else if (this.y >= canvas.height) {
+      this.y = 0; // Wrap around to the top
+    }
   }
+  
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = "#336699"; // Particle color
+    ctx.fillStyle = "#336699";
     ctx.fill();
   }
 }
 
 function init() {
-  particlesArray = [];
+  particlesArray.length = 0;
   for (let i = 0; i < numberOfParticles; i++) {
     particlesArray.push(new Particle());
   }

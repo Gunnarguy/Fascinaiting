@@ -1,28 +1,34 @@
-.gumroad-container {
+.container {
+  /* styles for the container class */
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  padding: 20px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+.gumroad-container {
+  /* styles for the gumroad-container class */
+  background-color: #f0f0f0;
+  padding: 20px;
+  flex: 1;
+  margin: 0 10px;
 }
 
 .gumroad-product-embed {
-  width: 100%;
-  max-width: 300px;
+  /* styles for the gumroad-product-embed class */
+  margin: 10px 0;
 }
 
 .gumroad-product-embed a {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #f2f2f2;
-  color: #333;
-  text-align: center;
+  /* styles for the anchor elements inside gumroad-product-embed */
+  color: #007bff;
   text-decoration: none;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  font-size: 18px;
 }
 
 .gumroad-product-embed a:hover {
-  background-color: #e8e8e8;
+  /* styles for hover effect on anchor elements */
+  text-decoration: underline;
 }
