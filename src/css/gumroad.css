@@ -1,6 +1,6 @@
 .gumroad-container {
     display: flex;
-    width: fit-content;
+    width: 100%;
     margin: 0 auto;
     padding: 0;
     justify-content: center;
