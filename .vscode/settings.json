@@ -1,5 +1,7 @@
 {
-    "CodeGPT.apiKey": "Perplexity",
+    "CodeGPT.apiKey": "OpenAI",
     "git.ignoreLimitWarning": true,
-    "CodeGPT.Autocomplete.enabled": false
+    "CodeGPT.Autocomplete.enabled": true,
+    "CodeGPT.Autocomplete.provider": "Anthropic - claude-3-opus-20240229",
+    "CodeGPT.Autocomplete.suggestionDelay": 200
 }
