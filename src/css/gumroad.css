@@ -1,34 +1,4 @@
-.container {
-  /* styles for the container class */
-  width: 100%;
-  margin: 0 auto;
-  border: 1px solid #ccc;
-  padding: 20px;
-  display: flex;
-  justify-content: space-around;
-}
-
 .gumroad-container {
-  /* styles for the gumroad-container class */
-  background-color: #f0f0f0;
-  padding: 20px;
-  flex: 1;
-  margin: 0 10px;
-}
-
-.gumroad-product-embed {
-  /* styles for the gumroad-product-embed class */
-  margin: 10px 0;
-}
-
-.gumroad-product-embed a {
-  /* styles for the anchor elements inside gumroad-product-embed */
-  color: #007bff;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-.gumroad-product-embed a:hover {
-  /* styles for hover effect on anchor elements */
-  text-decoration: underline;
+    display: flex;
+    width: fit-content
 }
