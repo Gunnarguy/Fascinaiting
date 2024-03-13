@@ -1,4 +1,5 @@
 .gumroad-container {
     display: flex;
-    width: fit-content
+    width: fit-content;
+    max-width: 40%;
 }
