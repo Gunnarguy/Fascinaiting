@@ -3,7 +3,7 @@
     width: fit-content;
 }
 
-@media (max-width: 60%) {
+@media (max-width: 768px) {
     .gumroad-container {
         flex-direction: column;
     }
