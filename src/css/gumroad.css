@@ -4,8 +4,6 @@
     margin: 0 auto;
     padding: 0;
     justify-content: center;
-    align-items: center;
-    flex-direction: row;
 }
 
 @media (max-width: 768px) {
