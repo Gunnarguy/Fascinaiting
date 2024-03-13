@@ -1,7 +1,6 @@
 .gumroad-container {
     display: flex;
     width: fit-content;
-    max-width: 35%;
 }
 
 @media (max-width: 60%) {
