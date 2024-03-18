@@ -14,7 +14,7 @@
     margin: 0 auto; /* Add this line to center the element */
 }
 
-#darkModeToggle:hover {
+#darkModeToggle:hover, #backToTopBtn:hover{
     background-color: rgba(85, 85, 85, 0.8);
 }
 
@@ -34,11 +34,12 @@
     border: none;
     border-radius: 50%; /* Change border-radius to 50% to make it a circle */
     cursor: pointer;
-    width: 4vw;
-    height: 4vw; /* Set height equal to width to make it a circle */
+    width: 40px;
+    height: 40px; /* Set height equal to width to make it a circle */
     font-size: 1.25vw;
     padding: 0; /* Remove padding to make it a circle */
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease;
 }
