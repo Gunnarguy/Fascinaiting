@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FascinAIting</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --text-color: #333;
+            --background-color: #f5f5f5;
+            --brand-color: #0076a5;
+            --brand-highlight-color: #83ebe4;
+            --font-family: "Roboto", sans-serif;
+            --border-radius: 1.5rem;
+            --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+            --font-size: 1rem;
+            --subtext-color: #666;
+            --primary-color: var(--brand-color);
+            --hover-color: var(--brand-highlight-color);
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 4.5vw;
+        }
+
+        h2 {
+            font-size: 6vw;
+        }
+
+        h3 {
+            font-size: 2.5vw;
+        }
+
+        h4, h5, h6 {
+            font-size: 1.5vw;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .brand-color {
+            color: #000000;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--brand-color);
+            color: white;
+            text-align: center;
+            border-radius: var(--border-radius);
+            padding: 1em;
+            box-shadow: var(--box-shadow);
+        }
+
+        /* Gumroad Styles */
+        .gumroad-container {
+            display: flex;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .gumroad-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: var(--brand-color);
+            color: white;
+            text-align: center;
+            border-radius: var(--border-radius);
+            padding: 1em;
+            box-shadow: var(--box-shadow);
+        }
+
+        .logo a {
+            color: #0076a5;
+            text-decoration: none;
+        }
+
+        .logo a:hover {
+            color: var(--brand-highlight-color);
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: var(--background-color);
+            box-shadow: var(--box-shadow);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links, .nav-menu a {
+            list-style: none;
+            padding: 0;
+            gap: 1rem;
+            margin-right: auto;
+            font-size: 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.1s ease;
+        }
+
+        .nav-links a:hover, .nav-menu a:hover {
+            color: var(--hover-color);
+        }
+
+        .nav-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            background-color: var(--background-color);
+            top: 60px;
+            right: 0;
+            width: 15%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 10px 20px;
+        }
+
+        .nav-menu.responsive {
+            display: flex;
+        }
+
+        .hamburger-menu {
+            display: block;
+            cursor: pointer;
+            padding: 1rem;
+            font-size: 5vw;
+            background: transparent;
+            border: none;
+            z-index: 2000;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        /* Twitter Embeds Styles */
+        .twitter-embeds {
+            text-align: center;
+            display: flex;
+        }
+
+        .twitter-tweet {
+            display: inline-block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <header class="site-header">
+        <nav class="site-nav">
+            <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
+                <span>&#9776;</span>
+            </button>
+            <h1 class="logo">
+                <span class="brand-color">Fascin</span><a href="index.html">AI</a><span class="brand-color">ting</span>
+            </h1>
+            <ul class="nav-links nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="src/html/aboutme.html" class="nav-link">About</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Gumroad</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://gunzeroni.gumroad.com" class="dropdown-item">Gumroad Home</a></li>
+                        <li><a href="https://gunzeroni.gumroad.com" class="dropdown-item">Universal iOS Shortcut (coming soon!)</a></li>
+                        <li><a href="https://gunzeroni.gumroad.com" class="dropdown-item">OpenAI iOS Shortcuts (coming soon!)</a></li>
+                        <li><a href="https://gunzeroni.gumroad.com/l/ggsnf" class="dropdown-item">Anthropic iOS Shortcuts (more coming soon!)</a></li>
+                        <li><a href="https://gunzeroni.gumroad.com" class="dropdown-item">Google iOS Shortcuts (more coming soon!)</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="header">
+            <div class="header-content">
+                <h2>Welcome</h2>
+                <p>⬇︎ What I'm working on ⬇︎</p>
+            </div>
+        </section>
+        <div class="container">
+            <div class="gumroad-container">
+                <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+                <div class="gumroad-product-embed">
+                    <a href="https://gunzeroni.gumroad.com/l/iClaude">Loading...</a>
+                </div>
+                <div class="gumroad-product-embed">
+                    <a href="https://gunzeroni.gumroad.com/l/vxjrfy">Loading...</a>
+                </div>
+            </div>
+            <div class="twitter-embeds">
+                <blockquote class="twitter-tweet">
+                    <p lang="en" dir="ltr">📢 Revolutionary AI advancements in healthcare! 📷 Discover how AI is transforming medical diagnosis, treatment, and healthcare efficiency in SPIE&#39;s eye-opening article &quot;Changing Medicine via AI&quot; 📷 <a href="https://t.co/b9A6RjyViP">https://t.co/b9A6RjyViP</a> <a href="https://twitter.com/hashtag/AIinHealthcare?src=hash&amp;ref_src=twsrc%5Etfw">#AIinHealthcare</a> <a href="https://twitter.com/hashtag/MedTech?src=hash&amp;ref_src=twsrc%5Etfw">#MedTech</a> <a href="https://twitter.com/hashtag/FutureofMedicine?src=hash&amp;ref_src=twsrc%5Etfw">#FutureofMedicine</a></p>
+                    &mdash; NerfGun (@Gunzeroni) <a href="https://twitter.com/Gunzeroni/status/1759799411075657890?ref_src=twsrc%5Etfw">February 20, 2024</a>
+                </blockquote>
+                <blockquote class="twitter-tweet">
+                    <p lang="en" dir="ltr">📢 The Rise of AI in Medical Devices 🩺💻<br><br>In 2023 alone, 91 innovative devices were cleared.<br><br>📈 A Growing Field: The number of AI-enabled medical devices has surged in the past five years, with a staggering 33% increase in 2023. Medical specialties like radiology,…</p>
+                    &mdash; NerfGun (@Gunzeroni) <a href="https://twitter.com/Gunzeroni/status/1759801570185855263?ref_src=twsrc%5Etfw">February 20, 2024</a>
+                </blockquote>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 FascinAIting - All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById("particleCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particlesArray = [];
+        const numberOfParticles = 400;
+        let scrollY = 0;
+        let lastScrollY = 0;
+        let scrollSpeed = 0;
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        window.addEventListener("scroll", () => {
+            scrollY = window.scrollY;
+            scrollSpeed = scrollY - lastScrollY;
+            lastScrollY = scrollY;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - scrollY;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY + scrollSpeed * 0.1;
+                if (this.x <= 0) {
+                    this.x = canvas.width; // Wrap around to the right side
+                } else if (this.x >= canvas.width) {
+                    this.x = 0; // Wrap around to the left side
+                }
+                if (this.y <= 0) {
+                    this.y = canvas.height; // Wrap around to the bottom
+                } else if (this.y >= canvas.height) {
+                    this.y = 0; // Wrap around to the top
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = "#336699";
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray.length = 0;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach((particle) => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        function toggleMenu() {
+            var menu = document.querySelector(".nav-menu");
+            menu.classList.toggle("responsive");
+        }
+    </script>
+</body>
+</html>

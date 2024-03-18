@@ -64,3 +64,10 @@
   .brand-color {
     color: #000000;
   }
+
+  /* Add this in your CSS file */
+.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
