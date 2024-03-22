@@ -1,18 +1,20 @@
+/* Header styles */
 .header {
-    background-color: var(--brand-color);
-    color: white;
-    text-align: center;
-    border-radius: var(--border-radius);
-    padding: 1em;
-    box-shadow: var(--box-shadow);
-  }
-  
-  .logo a {
-    color: #0076a5;
-    text-decoration: none;
-  }
-  
-  .logo a:hover {
-    color: var(--brand-highlight-color);
-    transition: color 0.3s ease;
-  }
+  background-color: var(--brand-color);
+  color: white;
+  text-align: center;
+  border-radius: var(--border-radius);
+  padding: 1em;
+  box-shadow: var(--box-shadow);
+}
+
+/* Logo styles */
+.logo a {
+  color: #0076a5;
+  text-decoration: none;
+}
+
+.logo a:hover {
+  color: var(--brand-highlight-color);
+  transition: color 0.3s ease;
+}

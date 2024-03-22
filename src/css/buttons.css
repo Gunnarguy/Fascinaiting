@@ -14,7 +14,8 @@
     margin: 0 auto; /* Add this line to center the element */
 }
 
-#darkModeToggle:hover, #backToTopBtn:hover{
+#darkModeToggle:hover,
+#backToTopBtn:hover {
     background-color: rgba(85, 85, 85, 0.8);
 }
 

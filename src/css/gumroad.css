@@ -7,10 +7,10 @@
   padding: 0;
   justify-content: center;
 }
-  
-  @media (max-width: 768px) {
-    .gumroad-container {
-      display: flex;
-      flex-direction: column;
-    }
+
+@media (max-width: 768px) {
+  .gumroad-container {
+    display: flex;
+    flex-direction: column;
   }
+}
