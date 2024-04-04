@@ -1,4 +1,4 @@
-footer {
+.site-footer {
   background-color: var(--brand-color);
   color: white;
   text-align: center;
@@ -7,5 +7,5 @@ footer {
   box-shadow: var(--box-shadow);
   position: fixed;
   bottom: 0;
-  width: 100%
+  width: 100%;
 }
