@@ -224,15 +224,7 @@ footer {
     width: 100px; /* Adjust size as needed */
   }
 }
-@import url('base.css');
-@import url('footer.css');
-@import url('gumroad.css');
-@import url('header.css');
-@import url('navigation.css');
-@import url('twitter-embeds.css');
-@import url('buttons.css');
-@import url('icons.css');
-@import url('sections.css');/* Updated Navigation styling with Flexbox */
+
 nav {
   display: flex; /* Enable Flexbox */
   flex-direction: column; /* Stack items vertically */
