@@ -1,0 +1,28 @@
+/* Navigation */
+/* Updated Navigation styling with Flexbox */
+nav {
+  display: flex; /* Enable Flexbox */
+  justify-content: space-between; /* Space between items, pushing them to each edge */
+  align-items: center; /* Align items vertically in the center */
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  padding: 1rem;
+  align-items: right;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 1rem; 
+  top: 10px
+
+  margin: 0 1rem; /* Corrected syntax here */
+  top: 10px; /* Added missing semicolon */
+}
+
+.nav-link:hover {
+  color: var(--hover-color);
+}
