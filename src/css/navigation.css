@@ -1,8 +1,9 @@
 /* Updated Navigation styling with Flexbox */
 nav {
   display: flex; /* Enable Flexbox */
-  justify-content: space-between; /* Space between items, pushing them to each edge */
-  align-items: center; /* Align items vertically in the center */
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Align items horizontally in the center */
   background-color: var(--background-color);
   box-shadow: var(--box-shadow);
   padding: 1rem;
@@ -14,6 +15,12 @@ nav {
 .nav-link {
   color: var(--text-color);
   text-decoration: none;
-  margin: 0 1rem; /* Corrected syntax here */
-  top: 10px; /* Added missing semicolon */
+  margin: 0.5rem 0; /* Add vertical spacing */
+}
+
+@media screen and (max-width: 768px) {
+  /* Styles for mobile devices */
+  nav {
+    padding: 0.5rem; /* Reduce padding for mobile */
+  }
 }

@@ -16,3 +16,26 @@
 .store-icons a:hover img {
   transform: scale(1.2);
 }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .store-icons {
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .store-icons a img {
+    width: 80px; /* Adjust size as needed */
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  .store-icons {
+    margin-top: 50px;
+  }
+  
+  .store-icons a img {
+    width: 100px; /* Adjust size as needed */
+  }
+}
