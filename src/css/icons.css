@@ -1,17 +1,18 @@
-.floating-icons {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+.store-icons {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
 }
 
-.floating-icons a img {
-  width: 50px; /* Adjust size as needed */
+.store-icons a img {
+  width: 100px; /* Adjust size as needed */
   transition: transform 0.3s ease;
 }
 
-.floating-icons a:hover img {
-  transform: scale(1.1);
+.store-icons a:hover img {
+  transform: scale(1.2);
 }
