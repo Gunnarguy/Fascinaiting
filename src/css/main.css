@@ -217,7 +217,7 @@ footer {
 /* Desktop Styles */
 @media (min-width: 769px) {
   .store-icons {
-    margin-top: 50px;
+    margin-top: 4em;
   }
   
   .store-icons a img {
