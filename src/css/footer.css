@@ -20,4 +20,5 @@ footer.site-footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box; /* Ensures padding and border are included in the width and height */
 }

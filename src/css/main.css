@@ -3,3 +3,56 @@
 @import url('header.css');
 @import url('nav.css');
 @import url('icons.css');
+
+:root {
+    --text-color: #333;
+    --background-color: #f5f5f5;
+    --brand-color: #0076a5;
+    --brand-highlight-color: #83ebe4;
+    --font-family: "Roboto", sans-serif;
+    --border-radius: 1.5rem;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --font-size: 1rem;
+    --subtext-color: #666;
+    --primary-color: var(--brand-color);
+    --hover-color: var(--brand-highlight-color);
+    --large-font-size: 2.5rem;
+    --x-large-font-size: 3.5rem;
+    --xx-large-font-size: 4.5rem;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive font size */
+@media (max-width: 768px) {
+  :root {
+    --font-size: 0.9rem;
+    --large-font-size: 2rem;
+    --x-large-font-size: 2.8rem;
+    --xx-large-font-size: 3.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size: 0.8rem;
+    --large-font-size: 1.5rem;
+    --x-large-font-size: 2rem;
+    --xx-large-font-size: 2.5rem;
+  }
+}

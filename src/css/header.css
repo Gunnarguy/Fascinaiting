@@ -9,13 +9,12 @@
   box-sizing: border-box;
 }
 
-.header-content h1 a,
-.header-content h1 a:hover {
+.header-content h1 a {
   text-decoration: none;
   color: #0a3b54;
+  transition: color 0.3s ease;
 }
 
 .header-content h1 a:hover {
   color: var(--brand-highlight-color);
-  transition: color 0.3s ease;
 }
