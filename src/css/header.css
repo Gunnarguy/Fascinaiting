@@ -1,20 +1,30 @@
-/* Header styles */
-.header {
-  background-color: var(--brand-color);
-  color: white;
-  text-align: center;
-  border-radius: var(--border-radius);
-  padding: 1em;
-  box-shadow: var(--box-shadow);
+:root {
+  --header-bg-color: var(--brand-color);
+  --header-text-color: white;
+  --header-text-align: center;
+  --header-border-radius: var(--border-radius);
+  --header-padding: 1em;
+  --header-box-shadow: var(--box-shadow);
+  --logo-link-color: #0076a5;
+  --logo-link-hover-color: var(--brand-highlight-color);
+  --logo-link-hover-transition: color 0.3s ease;
 }
 
-/* Logo styles */
+.header {
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+  text-align: var(--header-text-align);
+  border-radius: var(--header-border-radius);
+  padding: var(--header-padding);
+  box-shadow: var(--header-box-shadow);
+}
+
 .logo a {
-  color: #0076a5;
+  color: var(--logo-link-color);
   text-decoration: none;
 }
 
 .logo a:hover {
-  color: var(--brand-highlight-color);
-  transition: color 0.3s ease;
+  color: var(--logo-link-hover-color);
+  transition: var(--logo-link-hover-transition);
 }
