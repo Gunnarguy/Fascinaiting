@@ -1,0 +1,44 @@
+.nav-link {
+  margin: 0.5rem 0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: bold;
+  font-size: calc(0.9vw + 0.5rem); /* Adjust font size based on viewport width */
+}
+
+.site-header,
+.site-nav,
+.about-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+  padding: 1% 2%; /* Use percentage for scalable padding */
+  position: relative; /* Changed from relative to fixed for consistent positioning */
+  top: 0;
+  left: 0;
+  right: 0; /* Ensure full width */
+  z-index: 1000;
+}
+
+.site-nav .nav-link,
+.about-nav .nav-link {
+  color: var(--text-color);
+  margin: 0 1vw; /* Use viewport width for scalable margins */
+}
+
+.site-nav .nav-link:hover,
+.about-nav .nav-link:hover {
+  color: var(--hover-color);
+}
+
+.site-header .logo a {
+  color: #0076a5;
+  text-decoration: none;
+}
+
+.site-header .logo a:hover {
+  color: var(--brand-highlight-color);
+  transition: color 0.3s ease;
+}

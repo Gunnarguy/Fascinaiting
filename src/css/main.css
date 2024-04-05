@@ -1,284 +1,58 @@
-/* Base Styles */
+@import url('base.css');
+@import url('footer.css');
+@import url('header.css');
+@import url('nav.css');
+@import url('icons.css');
+
 :root {
-  --text-color: #333;
-  --background-color: #f5f5f5;
-  --brand-color: #0076a5;
-  --brand-highlight-color: #83ebe4;
-  --font-family: "Roboto", sans-serif;
-  --border-radius: 1.5rem;
-  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
-  --font-size: 1rem;
-  --subtext-color: #666;
-  --primary-color: var(--brand-color);
-  --hover-color: var(--brand-highlight-color);
+    --text-color: #333;
+    --background-color: #f5f5f5;
+    --brand-color: #0076a5;
+    --brand-highlight-color: #83ebe4;
+    --font-family: "Roboto", sans-serif;
+    --border-radius: 1.5rem;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --font-size: 1rem;
+    --subtext-color: #666;
+    --primary-color: var(--brand-color);
+    --hover-color: var(--brand-highlight-color);
+    --large-font-size: 2.5rem;
+    --x-large-font-size: 3.5rem;
+    --xx-large-font-size: 4.5rem;
 }
 
-/* Global Styles */
-body, html {
-  margin: 0;
-  padding: 0;
+html {
   height: 100%;
-  width: 100%;
 }
 
 body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: var(--font-family);
   color: var(--text-color);
   background-color: var(--background-color);
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Heading Styles */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
-  font-size: 4.5vw;
-}
-
-h2 {
-  font-size: 6vw;
-}
-
-h3 {
-  font-size: 2.5vw;
-}
-
-h4, h5, h6 {
-  font-size: 1.5vw;
-}
-
-/* Canvas Styles */
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Brand Color Styles */
-.brand-color {
-  color: #000000;
-}
-
-/* Dark Mode Styles */
-.dark-mode {
-  background-color: #333;
-  color: #fff;
-}
-#darkModeToggle {
-    background-color: rgba(51, 51, 51, 0.8);
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto; /* Add this line to center the element */
-}
-
-#darkModeToggle:hover,
-#backToTopBtn:hover {
-    background-color: rgba(85, 85, 85, 0.8);
-}
-
-#darkModeToggle:focus {
-    outline: none;
-    box-shadow: 0 0 5px #666;
-}
-
-#backToTopBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(51, 51, 51, 0.8);
-    color: #fff;
-    border: none;
-    border-radius: 50%; /* Change border-radius to 50% to make it a circle */
-    cursor: pointer;
-    width: 40px;
-    height: 40px; /* Set height equal to width to make it a circle */
-    font-size: 1.25vw;
-    padding: 0; /* Remove padding to make it a circle */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-}/* FILEPATH: /Users/gunnarhostetler/Documents/GitHub/Fascinaiting/src/css/footer.css */
-
-footer {
-  background-color: var(--brand-color);
-  color: white;
-  text-align: center;
-  border-radius: var(--border-radius);
-  padding: 1rem;
-  box-shadow: var(--box-shadow);
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Desktop Styles */
-@media (min-width: 768px) {
-  footer {
-    padding: 2rem;
-  }
-}
-
-/* Mobile Styles */
-@media (max-width: 767px) {
-  footer {
-    padding: 0.5rem;
-  }
-}
-.gumroad-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  justify-content: center;
-}
-
-@media (max-width: 768px) {
-  .gumroad-container {
-    display: flex;
-    flex-direction: column;
-  }
-}
-/* Header styles */
-.header {
-  background-color: var(--brand-color);
-  color: white;
-  text-align: center;
-  border-radius: var(--border-radius);
-  padding: 1em;
-  box-shadow: var(--box-shadow);
-}
-
-/* Logo styles */
-.logo a {
-  color: #0076a5;
-  text-decoration: none;
-}
-
-.logo a:hover {
-  color: var(--brand-highlight-color);
-  transition: color 0.3s ease;
-}
-.store-icons {
-  position: relative;
+  cursor: default;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 50px;
+  flex-direction: column;
 }
 
-.store-icons a img {
-  width: 100px; /* Adjust size as needed */
-  transition: transform 0.3s ease;
-}
-
-.store-icons a:hover img {
-  transform: scale(1.2);
-}
-
-/* Mobile Styles */
+/* Responsive font size */
 @media (max-width: 768px) {
-  .store-icons {
-    flex-direction: column;
-    margin-top: 20px;
-  }
-  
-  .store-icons a img {
-    width: 80px; /* Adjust size as needed */
+  :root {
+    --font-size: 0.9rem;
+    --large-font-size: 2rem;
+    --x-large-font-size: 2.8rem;
+    --xx-large-font-size: 3.6rem;
   }
 }
 
-/* Desktop Styles */
-@media (min-width: 769px) {
-  .store-icons {
-    margin-top: 4em;
-  }
-  
-  .store-icons a img {
-    width: 100px; /* Adjust size as needed */
+@media (max-width: 480px) {
+  :root {
+    --font-size: 0.8rem;
+    --large-font-size: 1.5rem;
+    --x-large-font-size: 2rem;
+    --xx-large-font-size: 2.5rem;
   }
 }
-
-nav {
-  display: flex; /* Enable Flexbox */
-  flex-direction: column; /* Stack items vertically */
-  justify-content: center; /* Center items vertically */
-  align-items: center; /* Align items horizontally in the center */
-  background-color: var(--background-color);
-  box-shadow: var(--box-shadow);
-  padding: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.nav-link {
-  color: var(--text-color);
-  text-decoration: none;
-  margin: 0.5rem 0; /* Add vertical spacing */
-}
-
-@media screen and (max-width: 768px) {
-  /* Styles for mobile devices */
-  nav {
-    padding: 0.5rem; /* Reduce padding for mobile */
-  }
-}
-
-
-/* Style for the content section */
-.content-1 {
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-
-/* Style for the about section */
-.content-2 {
-    background-color: #f9f9f9;
-    padding: 20px;
-}
-
-/* Style for the contact section */
-.articles {
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-/* BEGIN: .twitter-embeds */
-.twitter-embeds {
-  text-align: center;
-  display: flex;
-}
-/* END: .twitter-embeds */
-
-/* BEGIN: .twitter-tweet */
-.twitter-tweet {
-  display: inline-block;
-  margin: 0 auto;
-}
-/* END: .twitter-tweet */

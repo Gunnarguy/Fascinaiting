@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+footer.site-footer {
+  --height: 3.5rem; /* Adjust this value to your preference */
+  --border-radius: 0.5rem; /* Add your border radius here */
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add your box shadow here */
+  background-color: var(--brand-color);
+  color: white;
+  text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* Ensures padding and border are included in the width and height */
+}
