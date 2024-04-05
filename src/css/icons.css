@@ -7,11 +7,14 @@
   margin-top: 50px;
 }
 
-.store-icons a img {
-  width: 100px;
+.store-icons a {
   transition: transform 0.3s ease;
 }
 
-.store-icons a:hover img {
+.store-icons a:hover {
   transform: scale(1.2);
+}
+
+.store-icons img {
+  width: 100px;
 }
