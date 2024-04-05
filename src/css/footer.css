@@ -3,7 +3,6 @@
   color: white;
   text-align: center;
   border-radius: var(--border-radius);
-  padding: 1rem;
   box-shadow: var(--box-shadow);
   position: fixed;
   bottom: 0;

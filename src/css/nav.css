@@ -1,21 +1,39 @@
-.nav {
+.site-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: var(--background-color);
   box-shadow: var(--box-shadow);
   padding: 1rem;
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 1000;
 }
 
-.nav-link {
+.site-nav .nav-link,
+.about-nav .nav-link  {
   color: var(--text-color);
   text-decoration: none;
   margin: 0 1rem;
+  transition: color 0.3s ease;
+  font-weight: bold;
+  font-size: smaller;
 }
 
-.nav-link:hover {
+.site-nav .nav-link:hover,
+.about-nav .nav-link:hover {
   color: var(--hover-color);
+  justify-content: center;
 }
+
+.site-header .logo a {
+  color: #0076a5;
+  text-decoration: none;
+}
+
+.site-header .logo a:hover {
+  color: var(--brand-highlight-color);
+  transition: color 0.3s ease;
+}
+
+
