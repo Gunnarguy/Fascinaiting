@@ -1,23 +1,29 @@
-.site-header {
+.nav-link {
+  margin: 0.5rem 0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: bold;
+  font-size: smaller;
+}
+
+.site-header,
+.site-nav,
+.about-nav {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   background-color: var(--background-color);
-  box-shadow: var(--box-shadow);
-  padding: 1rem;
+  padding: .5rem;
   position: relative;
   top: 0;
   z-index: 1000;
 }
 
 .site-nav .nav-link,
-.about-nav .nav-link  {
+.about-nav .nav-link {
   color: var(--text-color);
-  text-decoration: none;
   margin: 0 1rem;
-  transition: color 0.3s ease;
-  font-weight: bold;
-  font-size: smaller;
 }
 
 .site-nav .nav-link:hover,
@@ -35,5 +41,3 @@
   color: var(--brand-highlight-color);
   transition: color 0.3s ease;
 }
-
-

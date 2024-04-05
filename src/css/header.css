@@ -5,11 +5,14 @@
   border-radius: var(--border-radius);
   padding: 1em;
   box-shadow: var(--box-shadow);
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.header-content h1 a {
-  color: #0a3b54; /* AI portion color */
+.header-content h1 a,
+.header-content h1 a:hover {
   text-decoration: none;
+  color: #0a3b54;
 }
 
 .header-content h1 a:hover {
