@@ -4,3 +4,11 @@
 @import url('nav.css');
 @import url('buttons.css');
 @import url('icons.css');
+
+@media (max-width: 768px) {
+    /* Styles for mobile devices */
+}
+
+@media (min-width: 769px) {
+    /* Styles for desktop devices */
+}
