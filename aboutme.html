@@ -1,65 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Learn more about Gunzino, the person behind FascinAIting.">
   <meta name="keywords" content="About Gunzino, Biography, AI, Technology, Fitness">
   <title>About Gunzino - FascinAIting</title>
-  <link rel="stylesheet" href="../css/main.css">
-
+  <style>
+    :root {
+      --xx-large-font-size: 4.5rem;
+      --x-large-font-size: 3.5rem;
+      --large-font-size: 2.5rem;
+      --text-color: #333;
+      --background-color: #f5f5f5;
+      --brand-color: #0076a5;
+      --brand-highlight-color: #83ebe4;
+      --font-family: "Roboto", sans-serif;
+      --border-radius: 1.5rem;
+      --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+      --font-size: 1rem;
+      --subtext-color: #666;
+      --primary-color: var(--brand-color);
+      --hover-color: var(--brand-highlight-color);
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
+    
+    h1 { font-size: var(--xx-large-font-size); }
+    h2 { font-size: var(--x-large-font-size); }
+    h3 { font-size: var(--large-font-size); }
+    h4, h5, h6 { font-size: calc(var(--large-font-size) * 0.6); }
+    
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .nav-link {
+      margin: var(--font-size);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: bold;
+      font-size: var(--font-size);
+    }
+    
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--background-color);
+      padding: var(--font-size) 2rem;
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    
+    .site-nav .nav-link,
+    .about-nav .nav-link {
+      color: var(--text-color);
+      margin: 0 var(--font-size);
+    }
+    
+    .site-nav .nav-link:hover,
+    .about-nav .nav-link:hover {
+      color: var(--hover-color);
+    }
+    
+    .header {
+      background-color: var(--brand-color);
+      color: white;
+      text-align: center;
+      border-radius: var(--border-radius);
+      padding: 1em;
+      box-shadow: var(--box-shadow);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .header-content h1 {
+      text-decoration: none;
+      color: #0a3b54;
+      transition: color 0.3s ease;
+    }
+    
+    .header-content h1:hover {
+      color: var(--brand-highlight-color);
+    }
+    
+    html {
+      height: 100%;
+    }
+    
+    body {
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      color: var(--text-color);
+      background-color: var(--background-color);
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    main {
+      padding: 2rem;
+    }
+    
+    .bio-info {
+      margin-bottom: 2rem;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    
+    .social-links a {
+      margin: 0 1rem;
+    }
+    
+    footer.site-footer {
+      --height: 3.5rem;
+      --border-radius: 0.5rem;
+      --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: var(--brand-color);
+      color: white;
+      text-align: center;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+    
+    @media (max-width: 768px) {
+      :root {
+        --font-size: 0.9rem;
+        --large-font-size: 2rem;
+        --x-large-font-size: 2.8rem;
+        --xx-large-font-size: 3.6rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      :root {
+        --font-size: 0.8rem;
+        --large-font-size: 1.5rem;
+        --x-large-font-size: 2rem;
+        --xx-large-font-size: 2.5rem;
+      }
+    }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XSD9FNHJ82"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XSD9FNHJ82');
+  </script>
 </head>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XSD9FNHJ82"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XSD9FNHJ82');
-</script>
-
 <body>
   <canvas id="particleCanvas"></canvas>
-  <header class="site-header">
-    <nav class="site-nav">
-      <button class="hamburger-menu" onclick="toggleMenu()" aria-label="Menu">
-        <span>&#9776;</span>
-      </button>
-      <h1 class="logo">
-        <span class="brand-color">Fascin</span><a href="index.html">AI</a><span class="brand-color">ting</span>
-      </h1>
-      <ul class="nav-links nav-menu">
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="aboutme.html" class="nav-link">About</a></li>
-        <li><a href="medical.html" class="nav-link">Medical</a></li>
-        <li><a href="gaming.html" class="nav-link">Video Games</a></li>
-        <li><a href="animal.html" class="nav-link active">Animal Behavior</a></li>
-        <li><a href="medevs.html" class="nav-link">Medical Devices</a></li>
-      </ul>
+  
+  <header class="site-nav">
+    <nav class="about-nav">
+      <a href="index.html" class="nav-link">Home</a>
     </nav>
   </header>
-
+  
   <main>
     <section class="header">
       <div class="header-content">
-        <h2>About Gunzino</h2>
+        <h1>About Gunzino</h1>
         <p>A bit more about who I am and what I do.</p>
       </div>
     </section>
-
+    
     <section class="bio-info">
-      <h3>Personal Biography</h3>
-      <p>Hello! I'm Gunzino, and I have a deep passion for the intersection of technology and fitness. With a background
-        in Exercise Science and Kinesiology, I've ventured into the realm of Computer Science to explore how artificial
-        intelligence can transform the way we understand health and performance.</p>
-      <p>I'm currently advancing my studies with a focus on AI and Machine Learning, with the hope of graduating by June
-        2025.</p>
+      <h2>Personal Biography</h2>
+      <p>Hello! I'm Gunzino, and I have a deep passion for the intersection of technology and fitness. With a background in Exercise Science and Kinesiology, I've ventured into the realm of Computer Science to explore how artificial intelligence can transform the way we understand health and performance.</p>
+      <p>I'm currently advancing my studies with a focus on AI and Machine Learning, with the hope of graduating by June 2025.</p>
     </section>
-
+    
     <section class="bio-info">
-      <h3>Accomplishments</h3>
+      <h2>Accomplishments</h2>
       <ul>
         <li>BS: Exercise Science, Kinesiology</li>
         <li>MS: Computer Science (In Progress)</li>
@@ -67,26 +211,20 @@
         <li>Expected Graduation: June 2025</li>
       </ul>
     </section>
-
+    
     <section class="social-links">
       <div class="container">
         <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg"
-            width="42">
+          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width="42">
         </a>
       </div>
     </section>
   </main>
-
+  
   <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2024 FascinAIting - All rights reserved.</p>
-    </div>
+    <p>&copy; 2024 FascinAIting - All rights reserved.</p>
   </footer>
-
-  <script src="../js/canvas.js"></script>
-  <script src="../js/navigation.js"></script>
-
+  
+  <script src="src/js/canvas.js"></script>
 </body>
-
 </html>
