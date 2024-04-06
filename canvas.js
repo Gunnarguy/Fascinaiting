@@ -3,49 +3,57 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 const particlesArray = [];
-const numberOfParticles = 400;
-
-let scrollY = 0;
-let lastScrollY = 0;
-let scrollSpeed = 0;
+const numberOfParticles = 200;
+let mouseX = 0;
+let mouseY = 0;
 
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
 
-window.addEventListener("scroll", () => {
-  scrollY = window.scrollY;
-  scrollSpeed = scrollY - lastScrollY;
-  lastScrollY = scrollY;
+window.addEventListener("mousemove", (event) => {
+  mouseX = event.clientX;
+  mouseY = event.clientY;
 });
 
 class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height - scrollY;
+    this.y = Math.random() * canvas.height;
     this.size = Math.random() * 3 + 1;
     this.speedX = Math.random() * 2 - 1.5;
-    this.speedY = Math.random() * 3 - 1.5;
+    this.speedY = Math.random() * 2 - 1.5;
   }
-  
+
   update() {
-    this.x += this.speedX;
-    this.y += this.speedY + scrollSpeed * 0.1;
+    const dx = mouseX - this.x;
+    const dy = mouseY - this.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (this.x <= 0) {
-      this.x = canvas.width; // Wrap around to the right side
-    } else if (this.x >= canvas.width) {
-      this.x = 0; // Wrap around to the left side
+    if (distance < 100) {
+      const forceDirectionX = dx / distance;
+      const forceDirectionY = dy / distance;
+      const maxDistance = 100;
+      const force = (maxDistance - distance) / maxDistance;
+      const directionX = forceDirectionX * force * 2;
+      const directionY = forceDirectionY * force * 2;
+
+      this.x -= directionX;
+      this.y -= directionY;
+    } else {
+      this.x += this.speedX;
+      this.y += this.speedY;
     }
 
-    if (this.y <= 0) {
-      this.y = canvas.height; // Wrap around to the bottom
-    } else if (this.y >= canvas.height) {
-      this.y = 0; // Wrap around to the top
+    if (this.x <= 0 || this.x >= canvas.width) {
+      this.speedX *= -1;
+    }
+    if (this.y <= 0 || this.y >= canvas.height) {
+      this.speedY *= -1;
     }
   }
-  
+
   draw() {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
