@@ -6,8 +6,190 @@
   <meta name="description" content="Explore the world of AI with FascinAIting.">
   <meta name="keywords" content="AI, Technology, Innovation, Articles">
   <title>FascinAIting</title>
-  <link rel="stylesheet" href="src/css/main.css?v=1712377791">
-
+  <style>
+    :root {
+      --xx-large-font-size: 4.5rem;
+      --x-large-font-size: 3.5rem;
+      --large-font-size: 2.5rem;
+      --text-color: #333;
+      --background-color: #f5f5f5;
+      --brand-color: #0076a5;
+      --brand-highlight-color: #83ebe4;
+      --font-family: "Roboto", sans-serif;
+      --border-radius: 1.5rem;
+      --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+      --font-size: 1rem;
+      --subtext-color: #666;
+      --primary-color: var(--brand-color);
+      --hover-color: var(--brand-highlight-color);
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
+    
+    h1 { font-size: var(--xx-large-font-size); }
+    h2 { font-size: var(--x-large-font-size); }
+    h3 { font-size: var(--large-font-size); }
+    h4, h5, h6 { font-size: calc(var(--large-font-size) * 0.6); }
+    
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .nav-link {
+      margin: var(--font-size);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: bold;
+      font-size: var(--font-size);
+    }
+    
+    .site-header,
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--background-color);
+      padding: var(--font-size) 2rem;
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    
+    .site-nav .nav-link,
+    .about-nav .nav-link {
+      color: var(--text-color);
+      margin: 0 var(--font-size);
+    }
+    
+    .site-nav .nav-link:hover,
+    .about-nav .nav-link:hover {
+      color: var(--hover-color);
+    }
+    
+    .site-header .logo {
+      color: var(--brand-color);
+      text-decoration: none;
+    }
+    
+    .site-header .logo:hover {
+      color: var(--brand-highlight-color);
+      transition: color 0.3s ease;
+    }
+    
+    .header {
+      background-color: var(--brand-color);
+      color: white;
+      text-align: center;
+      border-radius: var(--border-radius);
+      padding: 1em;
+      box-shadow: var(--box-shadow);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .header-content h1 {
+      text-decoration: none;
+      color: #0a3b54;
+      transition: color 0.3s ease;
+    }
+    
+    .header-content h1:hover {
+      color: var(--brand-highlight-color);
+    }
+    
+    html {
+      height: 100%;
+    }
+    
+    body {
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-family);
+      color: var(--text-color);
+      background-color: var(--background-color);
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    @media (max-width: 768px) {
+      :root {
+        --font-size: 0.9rem;
+        --large-font-size: 2rem;
+        --x-large-font-size: 2.8rem;
+        --xx-large-font-size: 3.6rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      :root {
+        --font-size: 0.8rem;
+        --large-font-size: 1.5rem;
+        --x-large-font-size: 2rem;
+        --xx-large-font-size: 2.5rem;
+      }
+    }
+    
+    footer.site-footer {
+      --height: 3.5rem;
+      --border-radius: 0.5rem;
+      --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: var(--brand-color);
+      color: white;
+      text-align: center;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+    
+    .store-icons {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2vw;
+      margin-top: 5vh;
+    }
+    
+    .store-icons a {
+      transition: transform 0.3s ease;
+    }
+    
+    .store-icons a:hover {
+      transform: scale(1.2);
+    }
+    
+    .store-icons img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 10vh;
+      min-height: 10vh;
+      object-fit: contain;
+    }
+  </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-EY8Q3RVMNR"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -20,11 +202,11 @@
   <canvas id="particleCanvas"></canvas>
   
   <header class="site-nav">
-  <nav class="about-nav">
-    <a href="src/html/aboutme.html" class="nav-link">The Creator</a>
-  </nav>
-</header>
-
+    <nav class="about-nav">
+      <a href="aboutme.html" class="nav-link">The Creator</a>
+    </nav>
+  </header>
+  
   <main>
     <section class="header">
       <div class="header-content">
@@ -35,7 +217,7 @@
       </div>
     </section>
   </main>
-
+  
   <div class="store-icons">
     <a href="http://fascinaiting.myshopify.com/" target="_blank">
       <img src="icons/shopify.svg" alt="Store" />
@@ -48,9 +230,9 @@
     </a>
   </div>
   
-<footer class="site-footer">
+  <footer class="site-footer">
     <p class="mb-0">&copy; 2024 FascinAIting</p>
-</footer>
+  </footer>
   
   <script src="src/js/canvas.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XSD9FNHJ82"></script>
