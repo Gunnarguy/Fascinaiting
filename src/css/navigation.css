@@ -47,13 +47,13 @@
 }
 
 /* Site header logo styles */
-.site-header .logo a {
+.site-header .logo {
   color: #0076a5;
   text-decoration: none;
 }
 
 /* Site header logo hover styles */
-.site-header .logo a:hover {
+.site-header .logo:hover {
   color: var(--brand-highlight-color);
   transition: color 0.3s ease;
 }
