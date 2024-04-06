@@ -1,11 +1,23 @@
+/* Base styles for scalability */
+:root {
+  --text-color: #000;
+  --background-color: #fff;
+  --hover-color: #ccc;
+  --brand-highlight-color: #f00; /* Change this to your desired highlight color */
+  --font-size-base: 1rem;
+  --margin-base: 1rem;
+}
+
+/* Nav link styles */
 .nav-link {
-  margin: 0.5rem 0;
+  margin: var(--margin-base);
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: bold;
-  font-size: calc(0.9vw + 0.5rem); /* Adjust font size based on viewport width */
+  font-size: calc(0.9 * var(--font-size-base) + 0.5rem);
 }
 
+/* Site header and navigation container styles */
 .site-header,
 .site-nav {
   display: flex;
@@ -13,7 +25,7 @@
   justify-content: center;
   align-items: center;
   background-color: var(--background-color);
-  padding: 1rem 2rem; /* Use rem for scalable padding */
+  padding: var(--margin-base) 2rem;
   position: relative;
   top: 0;
   left: 0;
@@ -21,22 +33,26 @@
   z-index: 1000;
 }
 
+/* Site navigation link styles */
 .site-nav .nav-link,
 .about-nav .nav-link {
   color: var(--text-color);
-  margin: 0 1vw; /* Use viewport width for scalable margins */
+  margin: 0 var(--margin-base);
 }
 
+/* Site navigation link hover styles */
 .site-nav .nav-link:hover,
 .about-nav .nav-link:hover {
   color: var(--hover-color);
 }
 
+/* Site header logo styles */
 .site-header .logo a {
   color: #0076a5;
   text-decoration: none;
 }
 
+/* Site header logo hover styles */
 .site-header .logo a:hover {
   color: var(--brand-highlight-color);
   transition: color 0.3s ease;
