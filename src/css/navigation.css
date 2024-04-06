@@ -7,18 +7,17 @@
 }
 
 .site-header,
-.site-nav,
-.about-nav {
+.site-nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   background-color: var(--background-color);
-  padding: 1% 2%; /* Use percentage for scalable padding */
-  position: relative; /* Changed from relative to fixed for consistent positioning */
+  padding: 1rem 2rem; /* Use rem for scalable padding */
+  position: relative;
   top: 0;
   left: 0;
-  right: 0; /* Ensure full width */
+  right: 0;
   z-index: 1000;
 }
 
