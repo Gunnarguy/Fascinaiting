@@ -15,9 +15,13 @@
   <title>FascinAIting</title>
   <style>
     :root {
+      --xxxx-large-font-size: 8rem;
+      --xxx-large-font-size: 6rem;
       --xx-large-font-size: 4.5rem;
       --x-large-font-size: 3.5rem;
       --large-font-size: 2.5rem;
+      --medium-font-size: 1.5rem;
+      --font-size: 1rem;
       --text-color: #333;
       --background-color: #f5f5f5;
       --brand-color: #215791;
@@ -26,7 +30,6 @@
       --border-radius: 1.5rem;
       --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
-      --font-size: 1rem;
       --subtext-color: #666;
       --primary-color: var(--brand-color);
       --hover-color: var(--brand-highlight-color);
@@ -36,10 +39,10 @@
       margin: 0;
     }
     
-    h1 { font-size: var(--xx-large-font-size); }
-    h2 { font-size: var(--x-large-font-size); }
+    h1 { font-size: var(--xxxx-large-font-size); }
+    h2 { font-size: var(--xx-large-font-size); }
     h3 { font-size: var(--large-font-size); }
-    h4, h5, h6 { font-size: calc(var(--large-font-size) * 0.6); }
+    h4, h5, h6 { font-size: var(--font-size); }
     
     .nav-link {
       margin: var(--font-size);
@@ -89,7 +92,7 @@
     
     .header-content h1 a {
       text-decoration: none;
-      color: #61dbeb;
+      color: #29b6c9;
       transition: color 0.3s ease;
     }
     
@@ -173,8 +176,8 @@
       width: auto;
       height: auto;
       max-width: 100%;
-      max-height: 5vh;
-      min-height: 5vh;
+      max-height: 7vh;
+      min-height: 7vh;
       object-fit: contain;
     }
 
@@ -229,11 +232,8 @@
       <img src="icons/lemonsqueezy.svg" alt="Store" />
     </a>
   </div>
-        <p>⬇︎ Check out my latest iOS Shortcuts ⬇︎</p>
-      </div>
-    </section>
-      </div>
-    </section>
+  <h6>⬇︎ Check out my latest iOS Shortcuts ⬇︎</h6>
+</div>
   </main>
   
 
