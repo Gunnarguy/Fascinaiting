@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>c
+<head>
   <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -20,8 +20,8 @@
       --large-font-size: 2.5rem;
       --text-color: #333;
       --background-color: #f5f5f5;
-      --brand-color: #0076a5;
-      --brand-highlight-color: #83ebe4;
+      --brand-color: #215791;
+      --brand-highlight-color: #00e4e8;
       --font-family: "Roboto", sans-serif;
       --border-radius: 1.5rem;
       --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -40,16 +40,6 @@
     h2 { font-size: var(--x-large-font-size); }
     h3 { font-size: var(--large-font-size); }
     h4, h5, h6 { font-size: calc(var(--large-font-size) * 0.6); }
-    
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-    }
     
     .nav-link {
       margin: var(--font-size);
@@ -84,16 +74,7 @@
     .about-nav .nav-link:hover {
       color: var(--hover-color);
     }
-    
-    .site-header .logo {
-      color: var(--brand-color);
-      text-decoration: none;
-    }
-    
-    .site-header .logo:hover {
-      color: var(--brand-highlight-color);
-      transition: color 0.3s ease;
-    }
+
     
     .header {
       background-color: var(--brand-color);
@@ -108,7 +89,7 @@
     
     .header-content h1 a {
       text-decoration: none;
-      color: #0a3b54;
+      color: #ffffffaa;
       transition: color 0.3s ease;
     }
     
@@ -177,7 +158,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 2vw;
-      margin-top: 5vh;
+      margin-top: 1vh;
     }
     
     .store-icons a {
@@ -192,13 +173,22 @@
       width: auto;
       height: auto;
       max-width: 100%;
-      max-height: 17.5vh;
-      min-height: 17.5vh;
+      max-height: 5vh;
+      min-height: 5vh;
       object-fit: contain;
+    }
+
+    .box-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .box {
+      width: 350px;
     }
   </style>
 </head>
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XSD9FNHJ82"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -210,10 +200,9 @@
 
 <body>
   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPSQGK3M"
+<noscript><iframe title="Google Tag Manager" src="https://www.googletagmanager.com/ns.html?id=GTM-WPSQGK3M"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-  <canvas id="particleCanvas"></canvas>
   
   <header class="site-nav">
     <nav class="about-nav">
@@ -229,14 +218,7 @@
         <h1>
           <span class="brand-color">Fascin</span><a href="index.html">AI</a><span class="brand-color">ting</span>
         </h1>
-        <p>⬇︎ What I'm working on ⬇︎</p>
-      </div>
-    </section>
-      </div>
-    </section>
-  </main>
-  
-  <div class="store-icons">
+          <div class="store-icons">
     <a href="http://fascinaiting.myshopify.com/" target="_blank">
       <img src="icons/shopify.svg" alt="Store" />
     </a>
@@ -247,7 +229,32 @@
       <img src="icons/lemonsqueezy.svg" alt="Store" />
     </a>
   </div>
+        <p>⬇︎ What I'm working on ⬇︎</p>
+      </div>
+    </section>
+      </div>
+    </section>
+  </main>
   
+
+  <div class="box-container">
+    <div class="box">
+      <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+      <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/iClaude">Loading...</a></div>
+    </div>
+    <div class="box">
+      <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+      <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/GeminAI">Loading...</a></div>
+    </div>
+    <div class="box">
+      <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+      <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/OpenAPI">Loading...</a></div>
+    </div>
+    <div class="box">
+      <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+      <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/PerplexitySonarOnline">Loading...</a></div>
+    </div>
+  </div>
   <footer class="site-footer">
     <p class="mb-0">&copy; 2024 FascinAIting</p>
   </footer>
