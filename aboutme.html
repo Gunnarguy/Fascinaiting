@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5VBJ5JZQ');</script>
+  <!-- End Google Tag Manager -->
+  
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8NJS59E4LQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8NJS59E4LQ');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8NJS59E4LQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8NJS59E4LQ');
+  </script>
   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,15 +28,16 @@
       --xx-large-font-size: 4.5rem;
       --x-large-font-size: 3.5rem;
       --large-font-size: 2.5rem;
+      --medium-font-size: 1.5rem;
+      --font-size: 1rem;
       --text-color: #333;
       --background-color: #f5f5f5;
-      --brand-color: #0076a5;
-      --brand-highlight-color: #83ebe4;
+      --brand-color: #215791;
+      --brand-highlight-color: #7784f2;
       --font-family: "Roboto", sans-serif;
       --border-radius: 1.5rem;
       --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
-      --font-size: 1rem;
       --subtext-color: #666;
       --primary-color: var(--brand-color);
       --hover-color: var(--brand-highlight-color);
@@ -42,17 +50,7 @@
     h1 { font-size: var(--xx-large-font-size); }
     h2 { font-size: var(--x-large-font-size); }
     h3 { font-size: var(--large-font-size); }
-    h4, h5, h6 { font-size: calc(var(--large-font-size) * 0.6); }
-    
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-    }
+    h4, h5, h6 { font-size: var(--font-size); }
     
     .nav-link {
       margin: var(--font-size);
@@ -62,6 +60,7 @@
       font-size: var(--font-size);
     }
     
+    .site-header,
     .site-nav {
       display: flex;
       flex-wrap: wrap;
@@ -98,10 +97,14 @@
       box-sizing: border-box;
     }
     
-    .header-content h1 {
+    .header-content h1 a {
       text-decoration: none;
-      color: white;
+      color: #29b6c9;
       transition: color 0.3s ease;
+    }
+    
+    .header-content h1 a:hover {
+      color: var(--brand-highlight-color);
     }
     
     html {
@@ -120,23 +123,22 @@
       flex-direction: column;
     }
     
-    main {
-      padding: 2rem;
+    @media (max-width: 768px) {
+      :root {
+        --font-size: 0.9rem;
+        --large-font-size: 2rem;
+        --x-large-font-size: 2.8rem;
+        --xx-large-font-size: 3.6rem;
+      }
     }
     
-    .bio-info {
-      margin-bottom: 2rem;
-    }
-    
-    .social-links {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 2rem;
-    }
-    
-    .social-links a {
-      margin: 0 1rem;
+    @media (max-width: 480px) {
+      :root {
+        --font-size: 0.8rem;
+        --large-font-size: 1.5rem;
+        --x-large-font-size: 2rem;
+        --xx-large-font-size: 2.5rem;
+      }
     }
     
     footer.site-footer {
@@ -159,37 +161,51 @@
       box-sizing: border-box;
     }
     
-    @media (max-width: 768px) {
-      :root {
-        --font-size: 0.9rem;
-        --large-font-size: 2rem;
-        --x-large-font-size: 2.8rem;
-        --xx-large-font-size: 3.6rem;
-      }
+    .store-icons {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2vw;
+      margin-top: 1vh;
+      margin-bottom: 1vh;
     }
     
-    @media (max-width: 480px) {
-      :root {
-        --font-size: 0.8rem;
-        --large-font-size: 1.5rem;
-        --x-large-font-size: 2rem;
-        --xx-large-font-size: 2.5rem;
-      }
+    .store-icons a {
+      transition: transform 0.3s ease;
+    }
+    
+    .store-icons a:hover {
+      transform: scale(1.2);
+    }
+    
+    .store-icons img {
+      max-height: 7vh;
+      min-height: 7vh;
+    }
+
+    .box-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .box {
+      width: 350px;
     }
   </style>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XSD9FNHJ82"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XSD9FNHJ82');
-  </script>
 </head>
 <body>
-  <canvas id="particleCanvas"></canvas>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VBJ5JZQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   
   <header class="site-nav">
     <nav class="about-nav">
+      <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
+      <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width="20"></a>
       <a href="index.html" class="nav-link">Home</a>
     </nav>
   </header>
@@ -217,20 +233,10 @@
         <li>Expected Graduation: June 2025</li>
       </ul>
     </section>
-    
-    <section class="social-links">
-      <div class="container">
-        <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-          <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width="42">
-        </a>
-      </div>
-    </section>
   </main>
   
   <footer class="site-footer">
-    <p>&copy; 2024 FascinAIting - All rights reserved.</p>
+    <p>&copy; 2024 FascinAIting</p>
   </footer>
-  
-  <script src="src/js/canvas.js"></script>
 </body>
 </html>
