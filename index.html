@@ -182,7 +182,270 @@
       width: 350px;
     }
   </style>
-</script>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5VBJ5JZQ');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the world of AI with FascinAIting.">
+    <meta name="keywords" content="AI, Technology, Innovation, Articles">
+    <title>FascinAIting</title>
+    <style>
+      :root {
+        --xx-large-font-size: 4.5rem;
+        --x-large-font-size: 3.5rem;
+        --large-font-size: 2.5rem;
+        --medium-font-size: 1.5rem;
+        --font-size: 1rem;
+        --text-color: #333;
+        --background-color: #f5f5f5;
+        --brand-color: #215791;
+        --brand-highlight-color: #7784f2;
+        --font-family: "Roboto", sans-serif;
+        --border-radius: 1.5rem;
+        --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
+        --subtext-color: #666;
+        --primary-color: var(--brand-color);
+        --hover-color: var(--brand-highlight-color);
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+      }
+      
+      h1 { font-size: var(--xx-large-font-size); }
+      h2 { font-size: var(--x-large-font-size); }
+      h3 { font-size: var(--large-font-size); }
+      h4, h5, h6 { font-size: var(--font-size); }
+      
+      .nav-link {
+        margin: var(--font-size);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: bold;
+        font-size: var(--font-size);
+      }
+      
+      .site-header,
+      .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--background-color);
+        padding: var(--font-size) 2rem;
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+      
+      .site-nav .nav-link,
+      .about-nav .nav-link {
+        color: var(--text-color);
+        margin: 0 var(--font-size);
+      }
+      
+      .site-nav .nav-link:hover,
+      .about-nav .nav-link:hover {
+        color: var(--hover-color);
+      }
+      
+      .header {
+        background-color: var(--brand-color);
+        color: white;
+        text-align: center;
+        border-radius: var(--border-radius);
+        padding: 1em;
+        box-shadow: var(--box-shadow);
+        width: 100%;
+        box-sizing: border-box;
+      }
+      
+      .header-content h1 a {
+        text-decoration: none;
+        color: #29b6c9;
+        transition: color 0.3s ease;
+      }
+      
+      .header-content h1 a:hover {
+        color: var(--brand-highlight-color);
+      }
+      
+      html {
+        height: 100%;
+      }
+      
+      body {
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-family);
+        color: var(--text-color);
+        background-color: var(--background-color);
+        cursor: default;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      @media (max-width: 768px) {
+        :root {
+          --font-size: 0.9rem;
+          --large-font-size: 2rem;
+          --x-large-font-size: 2.8rem;
+          --xx-large-font-size: 3.6rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        :root {
+          --font-size: 0.8rem;
+          --large-font-size: 1.5rem;
+          --x-large-font-size: 2rem;
+          --xx-large-font-size: 2.5rem;
+        }
+      }
+      
+      footer.site-footer {
+        background-color: var(--brand-color);
+        color: white;
+        text-align: center;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+      
+      .store-icons {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 2vw;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+      }
+      
+      .store-icons a {
+        transition: transform 0.3s ease;
+      }
+      
+      .store-icons a:hover {
+        transform: scale(1.2);
+      }
+      
+      .store-icons img {
+        max-height: 7vh;
+        min-height: 7vh;
+      }
+  
+      .box-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .box {
+        width: 350px;
+      }
+    </style>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EY8Q3RVMNR">
+  </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-EY8Q3RVMNR');
+  </script>
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CQD5KZ06Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-8CQD5KZ06Y');
+  </script>
+  <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VBJ5JZQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <header class="site-nav">
+      <nav class="about-nav">
+        <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
+        <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width="20"></a>
+        <a href="aboutme.html" class="nav-link">The Creator</a>
+      </nav>
+    </header>
+    
+    <main>
+      <section class="header">
+        <div class="header-content">
+          <h1>
+            <span class="brand-color">Fascin</span><a>AI</a><span class="brand-color">ting</span>
+          </h1>
+            <div class="store-icons">
+      <a href="http://fascinaiting.myshopify.com/" target="_blank">
+        <img src="icons/shopify.svg" alt="Store" />
+      </a>
+      <a href="https://gunzeroni.gumroad.com" target="_blank">
+        <img src="icons/gumroad-1.svg" alt="Store" />
+      </a>
+      <a href="https://fascinaiting.lemonsqueezy.com" target="_blank">
+        <img src="icons/lemonsqueezy.svg" alt="Store" />
+      </a>
+    </div>
+    <h6>⬇︎ Check out my latest iOS Shortcuts ⬇︎</h6>
+  </div>
+    </main>
+    
+  
+    <div class="box-container">
+      <div class="box">
+        <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+        <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/iClaude">Loading...</a></div>
+      </div>
+      <div class="box">
+        <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+        <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/GeminAI">Loading...</a></div>
+      </div>
+      <div class="box">
+        <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+        <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/OpenAPI">Loading...</a></div>
+      </div>
+      <div class="box">
+        <script src="https://gumroad.com/js/gumroad-embed.js"></script>
+        <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/PerplexitySonarOnline">Loading...</a></div>
+      </div>
+    </div>
+    <footer class="site-footer">
+      <p class="mb-0">&copy; 2024 FascinAIting</p>
+    </footer>
+    
+  </body>
+  </html>
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CQD5KZ06Y"></script>
