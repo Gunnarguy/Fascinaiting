@@ -1,249 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-5VBJ5JZQ');</script>
-  <!-- End Google Tag Manager -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8CQD5KZ06Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8CQD5KZ06Y');
-</script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the world of AI with FascinAIting.">
-  <meta name="keywords" content="AI, Technology, Innovation, Articles">
-  <title>FascinAIting</title>
-  <style>
-    :root {
-      --xx-large-font-size: 4.5rem;
-      --x-large-font-size: 3.5rem;
-      --large-font-size: 2.5rem;
-      --medium-font-size: 1.5rem;
-      --font-size: 1rem;
-      --text-color: #333;
-      --background-color: #f5f5f5;
-      --brand-color: #215791;
-      --brand-highlight-color: #7784f2;
-      --font-family: "Roboto", sans-serif;
-      --border-radius: 1.5rem;
-      --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      --box-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.2);
-      --subtext-color: #666;
-      --primary-color: var(--brand-color);
-      --hover-color: var(--brand-highlight-color);
-    }
-    
-    h1, h2, h3, h4, h5, h6 {
-      margin: 0;
-    }
-    
-    h1 { font-size: var(--xx-large-font-size); }
-    h2 { font-size: var(--x-large-font-size); }
-    h3 { font-size: var(--large-font-size); }
-    h4, h5, h6 { font-size: var(--font-size); }
-    
-    .nav-link {
-      margin: var(--font-size);
-      text-decoration: none;
-      transition: color 0.3s ease;
-      font-weight: bold;
-      font-size: var(--font-size);
-    }
-    
-    .site-header,
-    .site-nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      background-color: var(--background-color);
-      padding: var(--font-size) 2rem;
-      position: relative;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-    }
-    
-    .site-nav .nav-link,
-    .about-nav .nav-link {
-      color: var(--text-color);
-      margin: 0 var(--font-size);
-    }
-    
-    .site-nav .nav-link:hover,
-    .about-nav .nav-link:hover {
-      color: var(--hover-color);
-    }
-    
-    .header {
-      background-color: var(--brand-color);
-      color: white;
-      text-align: center;
-      border-radius: var(--border-radius);
-      padding: 1em;
-      box-shadow: var(--box-shadow);
-      width: 100%;
-      box-sizing: border-box;
-    }
-    
-    .header-content h1 a {
-      text-decoration: none;
-      color: #29b6c9;
-      transition: color 0.3s ease;
-    }
-    
-    .header-content h1 a:hover {
-      color: var(--brand-highlight-color);
-    }
-    
-    html {
-      height: 100%;
-    }
-    
-    body {
-      min-height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: var(--font-family);
-      color: var(--text-color);
-      background-color: var(--background-color);
-      cursor: default;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    @media (max-width: 768px) {
-      :root {
-        --font-size: 0.9rem;
-        --large-font-size: 2rem;
-        --x-large-font-size: 2.8rem;
-        --xx-large-font-size: 3.6rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      :root {
-        --font-size: 0.8rem;
-        --large-font-size: 1.5rem;
-        --x-large-font-size: 2rem;
-        --xx-large-font-size: 2.5rem;
-      }
-    }
-    
-    footer.site-footer {
-      background-color: var(--brand-color);
-      color: white;
-      text-align: center;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-    
-    .store-icons {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 2vw;
-      margin-top: 1vh;
-      margin-bottom: 1vh;
-    }
-    
-    .store-icons a {
-      transition: transform 0.3s ease;
-    }
-    
-    .store-icons a:hover {
-      transform: scale(1.2);
-    }
-    
-    .store-icons img {
-      max-height: 7vh;
-      min-height: 7vh;
-    }
-
-    .box-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .box {
-      width: 450px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GunnPoint - The Things Nobody Talks About</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts.js"></script>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VBJ5JZQ"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  
-  <header class="site-nav">
-    <nav class="about-nav">
-      <a href="https://twitter.com/Gunzeroni" aria-label="Twitter">
-      <img alt="Twitter logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width="20"></a>
-      <a href="aboutme.html" class="nav-link">The Creator</a>
-    </nav>
-  </header>
-  
-  <main>
-    <section class="header">
-      <div class="header-content">
-        <h1>
-          <span class="brand-color">Fascin</span><a>AI</a><span class="brand-color">ting</span>
-        </h1>
-          <div class="store-icons">
-    <a href="http://fascinaiting.myshopify.com/" target="_blank">
-      <img src="icons/shopify.svg" alt="Store" />
-    </a>
-    <a href="https://gunzeroni.gumroad.com" target="_blank">
-      <img src="icons/gumroad-1.svg" alt="Store" />
-    </a>
-    <a href="https://fascinaiting.lemonsqueezy.com" target="_blank">
-      <img src="icons/lemonsqueezy.svg" alt="Store" />
-    </a>
-  </div>
-  <h6>⬇︎ Check out my latest iOS Shortcuts ⬇︎</h6>
-</div>
-  </main>
-  
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#focus">Key Areas of Focus</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#support">Support Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <div class="box-container">
-      <div class="box">
-        <script src="https://gumroad.com/js/gumroad-embed.js"></script>
-        <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/OpenAI-GPT-4o">Loading...</a></div>
-    </div>
-    <div class="box">
-      <script src="https://gumroad.com/js/gumroad-embed.js"></script>
-      <div class="gumroad-product-embed"><a href="https://gunzeroni.gumroad.com/l/iClaude">Loading...</a></div>
-    </div>
-</div>
-</div>
-  
-  <footer class="site-footer">
-    <p class="mb-0">&copy; 2024 FascinAIting</p>
-  </footer>
-  
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Welcome to GunnPoint</h1>
+                <p>Unraveling the truths that are often brushed under the carpet.</p>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2>About Us</h2>
+                <p>Welcome to my comprehensive hub where we engage in deep dives into the vital yet neglected aspects of health and society...</p>
+            </div>
+        </section>
+
+        <section id="focus" class="section">
+            <div class="container">
+                <h2>Key Areas of Focus</h2>
+                <div class="focus-item">
+                    <h3><a href="gut-brain-health.html">Gut Health and Brain Health</a></h3>
+                    <p><strong>Gut-Brain Axis:</strong> Delve into the profound connection between our gut and brain...</p>
+                    <p><strong>Neurotransmitter Optimization:</strong> Discover advanced strategies to enhance neurotransmitter function...</p>
+                    <p><strong>Probiotics and Postbiotics:</strong> Investigate the pivotal role of beneficial bacteria in our gut...</p>
+                </div>
+                <div class="focus-item">
+                    <h3><a href="neurological-psychological.html">Neurological and Psychological Health</a></h3>
+                    <p><strong>ADHD/ASD:</strong> Gain insights into Attention Deficit Hyperactivity Disorder and Autism Spectrum Disorder...</p>
+                    <p><strong>Alzheimer’s, Dementia, and Parkinson’s:</strong> Explore the complexities of these neurodegenerative diseases...</p>
+                    <p><strong>Cognition and Psychology:</strong> Uncover methods to maintain cognitive health...</p>
+                </div>
+                <div class="focus-item">
+                    <h3><a href="chronic-health-conditions.html">Chronic Health Conditions</a></h3>
+                    <p><strong>IBS and Obesity:</strong> Examine the underlying causes, treatments, and lifestyle changes necessary to manage Irritable Bowel Syndrome and obesity effectively...</p>
+                    <p><strong>Mitochondrial Function and Cellular Health:</strong> Learn about the powerhouse of the cell—mitochondria...</p>
+                </div>
+                <div class="focus-item">
+                    <h3><a href="nervous-system-balance.html">Nervous System Balance</a></h3>
+                    <p><strong>Vagus Nerve:</strong> Investigate the vagus nerve's critical role in maintaining balance...</p>
+                    <p><strong>HPA Axis:</strong> Understand the Hypothalamic-Pituitary-Adrenal axis and its role in our stress response...</p>
+                </div>
+                <div class="focus-item">
+                    <h3><a href="american-diet-nutritional-impact.html">The American Diet and Nutritional Impact</a></h3>
+                    <p><strong>Macro and Micro Nutrients:</strong> Analyze the nutritional content of the American diet, highlighting deficiencies and imbalances that contribute to chronic health issues...</p>
+                    <p><strong>Soil Health:</strong> Explore the impact of nutrient-depleted soil on the micronutrient content of our food supply...</p>
+                    <p><strong>Healthcare Professional Silos:</strong> Address the gap in healthcare where most doctors lack an understanding of nutrition and its effects on health...</p>
+                </div>
+                <div class="focus-item">
+                    <h3><a href="societal-systemic-issues.html">Societal and Systemic Issues</a></h3>
+                    <p><strong>The US Healthcare System:</strong> Critically examine why the US has the most expensive healthcare system...</p>
+                    <p><strong>Metabolic Health:</strong> Confront the reality that more than 90% of Americans have a metabolic condition...</p>
+                    <p><strong>Diet and Global Health:</strong> Discuss how the adoption of the American diet globally has led to widespread health deterioration...</p>
+                </div>
+                <div class="focus-item">
+                    <h3><a href="economic-political-influences.html">Economic and Political Influences</a></h3>
+                    <p><strong>Money in Government and Health:</strong> Trace the influence of money through various facets of government...</p>
+                    <p><strong>Capitalism and Health:</strong> Examine the intersection of capitalism and healthcare...</p>
+                    <p><strong>Vaping vs. Tobacco:</strong> Explore the paradoxical stance on vaping bans despite evidence suggesting it as a less harmful alternative to traditional tobacco...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="section">
+            <div class="container">
+                <h2>Blog</h2>
+                <p>Latest Posts...</p>
+            </div>
+        </section>
+
+        <section id="resources" class="section">
+            <div class="container">
+                <h2>Resources</h2>
+                <p>Research Database, Books and Guides, Tools and Apps...</p>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <form action="mailto:GunnPoint@gmail.com" method="POST" enctype="text/plain">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="support" class="section">
+            <div class="container">
+                <h2>Support Us</h2>
+                <p><strong>Donate:</strong> Option for visitors to support the platform financially.</p>
+                <p><strong>Merchandise:</strong> GunnPoint branded merchandise.</p>
+                <p><strong>Affiliate Links:</strong> Links to recommended products and services.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 GunnPoint. All rights reserved.</p>
+            <div class="social">
+                <a href="#">Twitter</a>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
 </body>
-
 </html>
