@@ -1,11 +1,23 @@
+:root {
+    --main-color: #333;
+    --secondary-color: #fff;
+    --accent-color: #77c7ff;
+    --highlight-color: #ff9900;
+    --link-color: #0056b3;
+    --text-color: #666;
+    --gradient-start: #1272b7;
+    --gradient-end: #000408;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    color: #333;
+    color: var(--main-color);
 }
+
 
 .container {
     width: 90%;

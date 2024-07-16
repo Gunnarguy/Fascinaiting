@@ -1,5 +1,5 @@
 {
-    "CodeGPT.apiKey": "Google AI Studio",
+    "CodeGPT.apiKey": "Mistral",
     "git.ignoreLimitWarning": true,
     "CodeGPT.Autocomplete.enabled": true,
     "CodeGPT.Autocomplete.provider": "Anthropic - claude-3-opus-20240229",
