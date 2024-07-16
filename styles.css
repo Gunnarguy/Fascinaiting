@@ -238,6 +238,49 @@ button:active {
     background: var(--highlight-color);
 }
 
+/* Back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.back-to-top.visible {
+    display: block;
+    opacity: 1;
+}
+
+.back-to-top:hover {
+    background-color: var(--highlight-color);
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background-color: var(--accent-color);
+    width: 0;
+    z-index: 1000;
+    transition: width 0.25s ease;
+}
+
+/* Navbar item hover effect */
+nav ul li a:hover {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     header h1 {
