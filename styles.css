@@ -18,7 +18,6 @@ body {
     color: var(--main-color);
 }
 
-
 .container {
     width: 90%;
     max-width: 1200px;
@@ -41,7 +40,7 @@ header {
 header h1 {
     text-align: center;
     margin: 0;
-    font-size: 2.5em;
+    font-size: 4.5em;
 }
 
 nav ul {
@@ -53,13 +52,13 @@ nav ul {
 
 nav ul li {
     display: inline;
-    margin: 0 15px;
+    margin: 0 10px;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
-    font-size: 1.1em;
+    font-size: 1em;
     transition: color 0.3s ease;
 }
 
@@ -69,12 +68,16 @@ nav ul li a.active {
 }
 
 .hero {
-    background: linear-gradient(to right, #1272b7, #000408);
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
     color: #fff;
     padding: 100px 0;
     text-align: center;
     background-size: cover;
     background-position: center;
+}
+
+.hero h1 {
+    font-size: 4.5em; /* Add this rule to change the font size */
 }
 
 .section {
@@ -89,7 +92,7 @@ nav ul li a.active {
     text-align: center;
     margin-bottom: 20px;
     font-size: 2.5em;
-    color: #0056b3;
+    color: var(--link-color);
 }
 
 .section .focus-item {
@@ -103,25 +106,59 @@ nav ul li a.active {
 }
 
 .section .focus-item h3 a {
-    color: #0056b3;
+    color: var(--link-color);
     text-decoration: none;
     transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .section .focus-item h3 a:hover {
-    color: #77c7ff;
-    border-bottom: 2px solid #77c7ff;
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
 }
 
 .section .focus-item h3 a:active {
-    color: #ff9900;
-    border-bottom: 2px solid #ff9900;
+    color: var(--highlight-color);
+    border-bottom: 2px solid var(--highlight-color);
 }
 
 .section .focus-item p {
     margin-bottom: 10px;
     font-size: 1.2em;
-    color: #666;
+    color: var(--text-color);
+}
+
+.blog-post {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.post-meta {
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+.resource-category h3 {
+    font-size: 1.5em;
+    color: var(--main-color);
+}
+
+.resource-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.resource-category ul li {
+    margin-bottom: 10px;
+}
+
+.resource-category ul li a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.resource-category ul li a:hover {
+    color: var(--highlight-color);
 }
 
 footer {
@@ -140,7 +177,7 @@ footer .social a {
 }
 
 footer .social a:hover {
-    color: #77c7ff;
+    color: var(--accent-color);
 }
 
 form label {
@@ -174,13 +211,37 @@ form button {
 }
 
 form button:hover {
-    background: #77c7ff;
+    background: var(--accent-color);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--highlight-color);
+}
+
+a:focus {
+    outline: 2px solid var(--highlight-color);
+    outline-offset: 2px;
+}
+
+button:focus {
+    outline: 2px solid var(--highlight-color);
+    outline-offset: 2px;
+}
+
+button:active {
+    background: var(--highlight-color);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     header h1 {
-        font-size: 2em;
+        font-size: 4em;
     }
 
     nav ul li {
@@ -190,6 +251,10 @@ form button:hover {
 
     .hero {
         padding: 60px 0;
+    }
+
+    .hero h1 {
+        font-size: 3em; /* Add this rule to change the font size on smaller screens */
     }
 
     .section {
