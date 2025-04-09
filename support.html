@@ -1,79 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenAssistant Support</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        header {
-            background: #333;
-            color: #fff;
-            padding-top: 30px;
-            min-height: 70px;
-            border-bottom: #77aaff 3px solid;
-        }
-        header a {
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 16px;
-        }
-        header ul {
-            padding: 0;
-            list-style: none;
-        }
-        header li {
-            display: inline;
-            padding: 0 20px 0 20px;
-        }
-        .main {
-            padding: 20px;
-            background: #fff;
-            margin-top: 20px;
-        }
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
-        }
-    </style>
+    <!-- SEO Meta Tags -->
+    <title>OpenAssistant Support - Help & FAQs</title>
+    <meta name="description"
+        content="Get support and find answers to frequently asked questions for the OpenAssistant iOS app.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://YOUR_DOMAIN.com/support.html"> <!-- Replace with your actual domain -->
+    <meta property="og:title" content="OpenAssistant Support - Help & FAQs">
+    <meta property="og:description"
+        content="Get support and find answers to frequently asked questions for the OpenAssistant iOS app.">
+    <!-- <meta property="og:image" content="https://YOUR_DOMAIN.com/images/og-image.jpg"> -->
+    <!-- Optional: Add an image URL -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://YOUR_DOMAIN.com/support.html">
+    <!-- Replace with your actual domain -->
+    <meta property="twitter:title" content="OpenAssistant Support - Help & FAQs">
+    <meta property="twitter:description"
+        content="Get support and find answers to frequently asked questions for the OpenAssistant iOS app.">
+    <!-- <meta property="twitter:image" content="https://YOUR_DOMAIN.com/images/twitter-image.jpg"> -->
+    <!-- Optional: Add an image URL -->
+
+    <!-- iOS Smart App Banner -->
+    <meta name="apple-itunes-app" content="app-id=6692613772">
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" href="/favicon.ico" sizes="any"> -->
+    <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Link to Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Add AOS (Animate On Scroll) library for smooth animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
+
 <body>
-    <header>
+    <!-- Particle background container -->
+    <div id="particles-js" class="particle-container"></div>
+
+    <!-- Glassmorphism Header -->
+    <header class="glass-header">
         <div class="container">
-            <h1>OpenAssistant Support</h1>
+            <div class="logo">
+                <span class="highlight">Open</span>Assistant
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="support.html" class="active">Support</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
-    <div class="container main">
-        <h2>Contact Us</h2>
-        <p>If you have any questions, please contact me at:</p>
-        <p>Email: OpenAssistant@Gmail.com</p>
-        
-        <h2>FAQs</h2>
-        <h3>How do I use OpenAssistant?</h3>
-        <p>Refer to the App Store description for detailed instructions on how to use the app.</p>
-        
-        <h3>What should I do if the app crashes or if things aren't loading correctly?</h3>
-        <p>If the app crashes, please try restarting it. If the problem persists, please let me know.</p>
-        
-        <h3>How can I provide feedback?</h3>
-        <p>I appreciate any feedback! Please send any comments or suggestions to OpenAssistant@Gmail.com</p>
-    </div>
-    <footer>
-        <p>&copy; 2024 OpenAssistant. All rights reserved.</p>
+
+    <main>
+        <!-- Support Hero Section -->
+        <section class="support-hero section">
+            <div class="container">
+                <div class="support-hero-content" data-aos="fade-up">
+                    <h1>Support & <span class="highlight">FAQs</span></h1>
+                    <p class="subtitle">Get help with OpenAssistant. Find answers to frequently asked questions or
+                        contact us directly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section section">
+            <div class="container">
+                <div class="support-grid">
+                    <!-- Contact Info -->
+                    <div class="support-card contact-card" data-aos="fade-up">
+                        <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+                        <p>If you have any questions or need assistance, please don't hesitate to reach out.</p>
+                        <div class="contact-item">
+                            <i class="fas fa-at"></i>
+                            <a href="mailto:Gunnarguy@me.com">Gunnarguy@me.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-app-store-ios"></i>
+                            <a href="https://apps.apple.com/us/app/openassistant/id6692613772" target="_blank"
+                                rel="noopener noreferrer">
+                                OpenAssistant on App Store
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Items -->
+                    <div class="faq-container" data-aos="fade-up" data-aos-delay="100">
+                        <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+
+                        <div class="faq-item">
+                            <h3>How do I use OpenAssistant?</h3>
+                            <div class="faq-answer">
+                                <p>OpenAssistant is designed to be intuitive and user-friendly. Simply open the app and
+                                    start typing your question or request. The AI assistant will respond quickly with
+                                    helpful information.</p>
+                                <p>For detailed instructions, refer to the <a
+                                        href="https://apps.apple.com/us/app/openassistant/id6692613772" target="_blank"
+                                        rel="noopener noreferrer">App Store description</a>.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3>What should I do if the app crashes?</h3>
+                            <div class="faq-answer">
+                                <p>If you experience any crashes:</p>
+                                <ol>
+                                    <li>Close the app completely and restart it</li>
+                                    <li>Make sure your iOS device is updated to the latest version</li>
+                                    <li>Check if an app update is available</li>
+                                    <li>If the issue persists, please contact support with details about when the crash
+                                        occurred</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3>How can I provide feedback?</h3>
+                            <div class="faq-answer">
+                                <p>We appreciate your feedback to help improve OpenAssistant! You can:</p>
+                                <ul>
+                                    <li>Email us at <a href="mailto:Gunnarguy@me.com">Gunnarguy@me.com</a></li>
+                                    <li>Leave a review on the <a
+                                            href="https://apps.apple.com/us/app/openassistant/id6692613772"
+                                            target="_blank" rel="noopener noreferrer">App Store</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call-to-action section -->
+        <section class="cta section">
+            <div class="container">
+                <div class="cta-content" data-aos="zoom-in">
+                    <h2>Ready to try <span class="highlight">OpenAssistant</span>?</h2>
+                    <p>Download now and experience the future of AI assistance.</p>
+                    <a href="https://apps.apple.com/us/app/openassistant/id6692613772" target="_blank"
+                        rel="noopener noreferrer" class="app-store-button large">
+                        <i class="fab fa-apple"></i>
+                        <span>
+                            <small>Download on the</small>
+                            App Store
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modern footer with subtle gradient -->
+    <footer class="glass-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="highlight">Open</span>Assistant
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="support.html">Support</a>
+                    <a href="mailto:Gunnarguy@me.com">Contact</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 OpenAssistant. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="scripts.js"></script>
 </body>
+
 </html>

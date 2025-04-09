@@ -1,217 +1,65 @@
+/**
+ * OpenAssistant Website Stylesheet
+ * Author: Gunnar Hostetler
+ * Last updated: April 8, 2025
+ *
+ * Table of Contents:
+ * 1. CSS Variables / Root
+ * 2. Base Styles & Typography
+ * 3. Layout & Containers
+ * 4. Header & Navigation
+ * 5. Hero Section
+ * 6. Feature Cards
+ * 7. Testimonials
+ * 8. Call-to-Action
+ * 9. Device Mockup
+ * 10. Footer
+ * 11. Animations & Effects
+ * 12. Utility Classes
+ * 13. Media Queries
+ */
+
+/* ---------- 1. CSS Variables / Root ---------- */
 :root {
+    /* Color Palette */
     --main-color: #333;
+    /* Dark grey for main text/elements */
     --secondary-color: #fff;
-    --accent-color: #77c7ff;
-    --highlight-color: #ff9900;
-    --link-color: #0056b3;
-    --text-color: #666;
-    --gradient-start: #1272b7;
-    --gradient-end: #000408;
+    /* White for backgrounds/text on dark */
+    --accent-color: #00bcd4;
+    /* Cyan for accents */
+    --highlight-color: #66d9ef;
+    /* Lighter cyan/blue for highlights/hovers */
+    --link-color: #007bff;
+    /* Standard blue for links */
+    --text-color: #555;
+    /* Slightly lighter grey for secondary text */
+    --gradient-start: #007bff;
+    /* Blue for gradient start */
+    --gradient-end: #004d99;
+    /* Darker blue for gradient end */
+
+    /* UI Effects */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --card-shadow: 0 8px 32px rgba(0, 123, 255, 0.1);
+    --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    /* Typography & Animation */
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* ---------- 2. Base Styles & Typography ---------- */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-family);
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f8fafc;
     color: var(--main-color);
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    overflow: hidden;
-    padding: 0 20px;
-}
-
-header {
-    background: #333;
-    color: #fff;
-    padding: 20px 0;
-    border-bottom: #77c7ff 3px solid;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-header h1 {
-    text-align: center;
-    margin: 0;
-    font-size: 4.5em;
-}
-
-nav ul {
-    padding: 0;
-    list-style: none;
-    text-align: center;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1em;
-    transition: color 0.3s ease;
-}
-
-nav ul li a:hover,
-nav ul li a.active {
-    color: #ff9900;
-}
-
-.hero {
-    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-    color: #fff;
-    padding: 100px 0;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
-}
-
-.hero h1 {
-    font-size: 4.5em; /* Add this rule to change the font size */
-}
-
-.section {
-    padding: 60px 0;
-    background: #fff;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-.section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2.5em;
-    color: var(--link-color);
-}
-
-.section .focus-item {
-    margin-bottom: 20px;
-}
-
-.section .focus-item h3 {
-    font-size: 1.75em;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.section .focus-item h3 a {
-    color: var(--link-color);
-    text-decoration: none;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-}
-
-.section .focus-item h3 a:hover {
-    color: var(--accent-color);
-    border-bottom: 2px solid var(--accent-color);
-}
-
-.section .focus-item h3 a:active {
-    color: var(--highlight-color);
-    border-bottom: 2px solid var(--highlight-color);
-}
-
-.section .focus-item p {
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    color: var(--text-color);
-}
-
-.blog-post {
-    margin-bottom: 20px;
-    padding: 15px;
-    border-bottom: 1px solid #ccc;
-}
-
-.post-meta {
-    font-size: 0.9em;
-    color: var(--text-color);
-}
-
-.resource-category h3 {
-    font-size: 1.5em;
-    color: var(--main-color);
-}
-
-.resource-category ul {
-    list-style: none;
-    padding: 0;
-}
-
-.resource-category ul li {
-    margin-bottom: 10px;
-}
-
-.resource-category ul li a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-.resource-category ul li a:hover {
-    color: var(--highlight-color);
-}
-
-footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-}
-
-footer .social a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-}
-
-footer .social a:hover {
-    color: var(--accent-color);
-}
-
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-}
-
-form input,
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1em;
-    color: #333;
-}
-
-form button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: background 0.3s ease;
-}
-
-form button:hover {
-    background: var(--accent-color);
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
 }
 
 a {
@@ -229,37 +77,527 @@ a:focus {
     outline-offset: 2px;
 }
 
-button:focus {
-    outline: 2px solid var(--highlight-color);
-    outline-offset: 2px;
+/* Highlight text styling used throughout the site */
+.highlight {
+    color: var(--accent-color);
+    font-weight: 700;
 }
 
-button:active {
-    background: var(--highlight-color);
+/* ---------- 3. Layout & Containers ---------- */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* Back to top button */
-.back-to-top {
+.section {
+    padding: 80px 0;
+    position: relative;
+}
+
+/* Particle background for dynamic visual effect */
+.particle-container {
     position: fixed;
-    bottom: 40px;
-    right: 40px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Behind all content */
+}
+
+/* ---------- 4. Header & Navigation ---------- */
+.glass-header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    margin: 0;
+    gap: 30px;
+}
+
+nav ul li a {
+    color: var(--main-color);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+    padding: 8px 0;
+    position: relative;
+}
+
+/* Animated underline effect for nav links */
+nav ul li a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
     background-color: var(--accent-color);
+    transition: var(--transition-smooth);
+}
+
+nav ul li a:hover:after,
+nav ul li a.active:after {
+    width: 100%;
+}
+
+nav ul li a.active {
+    color: var(--accent-color);
+}
+
+/* Space for fixed header */
+main {
+    padding-top: 80px;
+}
+
+/* ---------- 5. Hero Section ---------- */
+.hero {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     color: var(--secondary-color);
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: none;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 }
 
-.back-to-top.visible {
-    display: block;
+.hero .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content {
+    max-width: 50%;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    text-shadow: var(--text-shadow);
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* Call to action buttons */
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* App Store button styling */
+.app-store-button {
+    display: flex;
+    align-items: center;
+    background: var(--secondary-color);
+    color: var(--main-color);
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition-smooth);
+}
+
+.app-store-button i {
+    font-size: 1.8rem;
+    margin-right: 10px;
+}
+
+.app-store-button span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.app-store-button small {
+    font-size: 0.7rem;
+    font-weight: 400;
+}
+
+.app-store-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.app-store-button.large {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+/* Text link styling */
+.text-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: var(--transition-smooth);
+}
+
+.text-link i {
+    margin-right: 5px;
+}
+
+.text-link:hover {
+    color: var(--highlight-color);
+}
+
+/* Decorative shapes for hero section */
+.shape {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.shape1 {
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    bottom: -150px;
+    left: -150px;
+}
+
+.shape2 {
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    top: -100px;
+    right: -100px;
+}
+
+/* ---------- 6. Feature Cards ---------- */
+.features {
+    background: var(--secondary-color);
+}
+
+.features h2,
+.testimonials h2,
+.cta h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    font-weight: 700;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-smooth);
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 60px rgba(0, 123, 255, 0.15);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(0, 188, 212, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.feature-icon i {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.feature-card p {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* ---------- 7. Testimonials ---------- */
+.testimonials {
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+}
+
+.testimonial-carousel {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.testimonial {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+}
+
+.quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Decorative quote marks */
+.quote:before,
+.quote:after {
+    content: '"';
+    color: var(--accent-color);
+    font-size: 2rem;
+    position: absolute;
+}
+
+.quote:before {
+    left: -15px;
+    top: -10px;
+}
+
+.quote:after {
+    right: -15px;
+    bottom: -10px;
+}
+
+.author {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.rating {
+    color: gold;
+}
+
+/* ---------- 8. Call-to-Action ---------- */
+.cta {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta h2 {
+    margin-bottom: 20px;
+}
+
+.cta p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+/* ---------- 9. Device Mockup ---------- */
+.device-mockup {
+    position: relative;
+    max-width: 300px;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Floating animation for device mockup */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.phone {
+    width: 100%;
+    height: 550px;
+    background: #222;
+    border-radius: 40px;
+    padding: 10px;
+    box-shadow: 0 50px 80px rgba(0, 0, 0, 0.25);
+    position: relative;
+    overflow: hidden;
+    border: 6px solid #121212;
+}
+
+/* Notch for iPhone mockup */
+.phone:before {
+    content: '';
+    position: absolute;
+    width: 40%;
+    height: 25px;
+    background: #121212;
+    border-radius: 0 0 20px 20px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+/* App interface in the phone mockup */
+.app-interface {
+    padding: 20px;
+    height: 100%;
+    background: #f2f2f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Chat bubbles for mockup */
+.chat-bubble {
+    padding: 12px 15px;
+    border-radius: 18px;
+    margin-bottom: 15px;
+    max-width: 80%;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.chat-bubble.user {
+    background: #e1e1e6;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+    margin-left: auto;
+}
+
+.chat-bubble.assistant {
+    background: var(--accent-color);
+    color: white;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+/* ---------- 10. Footer ---------- */
+.glass-footer {
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--secondary-color);
+    padding: 40px 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* ---------- 11. Animations & Effects ---------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* AOS (Animate On Scroll) custom styling */
+[data-aos] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+[data-aos].aos-animate {
     opacity: 1;
-}
-
-.back-to-top:hover {
-    background-color: var(--highlight-color);
+    transform: translateY(0);
 }
 
 /* Scroll indicator */
@@ -274,45 +612,296 @@ button:active {
     transition: width 0.25s ease;
 }
 
-/* Navbar item hover effect */
-nav ul li a:hover {
-    background-color: var(--highlight-color);
+/* Back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: var(--accent-color);
     color: var(--secondary-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    opacity: 0;
+    transition: var(--transition-smooth);
+    z-index: 100;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 4em;
+.back-to-top.visible {
+    display: block;
+    opacity: 1;
+}
+
+.back-to-top:hover {
+    background-color: var(--highlight-color);
+    transform: translateY(-3px);
+}
+
+/* ---------- Support Page Styles ---------- */
+
+/* Support hero section */
+.support-hero {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: var(--secondary-color);
+    padding: 100px 0 60px;
+    text-align: center;
+}
+
+.support-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: var(--text-shadow);
+}
+
+.support-hero .subtitle {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+}
+
+/* Support grid layout */
+.support-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+}
+
+/* Contact card styling */
+.support-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    height: fit-content;
+}
+
+.support-card h2 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.support-card h2 i {
+    font-size: 1.2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.contact-item i {
+    color: var(--accent-color);
+    margin-right: 15px;
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+
+.contact-item a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* FAQ section styling */
+.faq-container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+}
+
+.faq-container h2 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 20px;
+}
+
+.faq-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.faq-item h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--main-color);
+    transition: var(--transition-smooth);
+    position: relative;
+    padding-right: 30px;
+}
+
+.faq-item h3:hover {
+    color: var(--accent-color);
+}
+
+.faq-answer {
+    margin-top: 15px;
+}
+
+.faq-answer p {
+    margin-top: 0;
+}
+
+.faq-answer ul,
+.faq-answer ol {
+    padding-left: 20px;
+}
+
+.faq-answer li {
+    margin-bottom: 10px;
+}
+
+.faq-answer a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.faq-answer a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Support page responsive styles */
+@media (max-width: 991.98px) {
+    .support-grid {
+        grid-template-columns: 1fr;
     }
 
-    nav ul li {
-        display: block;
-        margin: 10px 0;
+    .support-hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .support-hero h1 {
+        font-size: 2rem;
     }
 
-    .hero {
+    .faq-container,
+    .support-card {
+        padding: 20px;
+    }
+}
+
+/* ---------- 13. Media Queries ---------- */
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .hero .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+    }
+
+    .device-mockup {
+        max-width: 250px;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .section {
         padding: 60px 0;
     }
 
     .hero h1 {
-        font-size: 3em; /* Add this rule to change the font size on smaller screens */
+        font-size: 2.5rem;
     }
 
-    .section {
-        padding: 40px 0;
+    .feature-grid {
+        grid-template-columns: 1fr;
     }
 
-    .section h2 {
-        font-size: 2em;
+    .app-store-button.large {
+        padding: 12px 24px;
+        font-size: 1rem;
     }
 
-    .section .focus-item h3 {
-        font-size: 1.5em;
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
     }
 
-    .section .focus-item p {
-        font-size: 1em;
+    .testimonial {
+        padding: 30px 20px;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    nav ul {
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero .subtitle {
+        font-size: 1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .text-link {
+        margin-top: 10px;
+    }
+
+    .feature-card {
+        padding: 20px;
+    }
+
+    .testimonial {
+        padding: 20px 15px;
+    }
+
+    .quote:before,
+    .quote:after {
+        display: none;
+        /* Remove quote marks on very small screens */
     }
 }
