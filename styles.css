@@ -639,6 +639,64 @@ main {
     transform: translateY(-3px);
 }
 
+/* ---------- Troubleshooting Section Styles ---------- */
+.troubleshooting-section {
+    background-color: var(--secondary-color); /* White background */
+    padding: 40px; /* Add padding inside the box */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: var(--card-shadow); /* Consistent shadow */
+    margin-top: 40px; /* Space above the section */
+    margin-bottom: 40px; /* Space below the section */
+}
+
+.troubleshooting-section h2 {
+    text-align: center; /* Center the heading */
+    font-size: 2rem; /* Slightly smaller than main section titles if desired, or keep consistent */
+    margin-bottom: 30px; /* Space below the heading */
+    color: var(--main-color); /* Main text color */
+}
+
+.troubleshooting-section ul {
+    list-style: none; /* Remove default bullet points */
+    padding-left: 0; /* Remove default padding */
+}
+
+.troubleshooting-section ul li {
+    background-color: #f8fafc; /* Light background for each tip item */
+    padding: 15px 20px; /* Padding within each list item */
+    border-radius: 8px; /* Rounded corners for list items */
+    margin-bottom: 15px; /* Space between list items */
+    border: 1px solid #eef2f7; /* Subtle border for list items */
+    transition: var(--transition-smooth);
+}
+
+.troubleshooting-section ul li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.08);
+}
+
+.troubleshooting-section ul li strong {
+    color: var(--accent-color); /* Accent color for the strong tag */
+    display: block; /* Make strong tag take full width */
+    margin-bottom: 5px; /* Space below the strong tag */
+}
+
+.troubleshooting-section ul li p {
+    margin-top: 5px; /* Space above paragraph if it follows a strong tag */
+    margin-bottom: 0; /* Remove bottom margin from paragraph inside li */
+    color: var(--text-color);
+}
+
+.troubleshooting-section ul li a {
+    color: var(--link-color);
+    font-weight: 500;
+}
+
+.troubleshooting-section ul li a:hover {
+    color: var(--highlight-color);
+    text-decoration: underline;
+}
+
 /* ---------- Support Page Styles ---------- */
 
 /* Support hero section */
