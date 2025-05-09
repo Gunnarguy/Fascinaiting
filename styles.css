@@ -846,6 +846,113 @@ main {
     text-decoration: underline;
 }
 
+/* Contact Section Styles */
+.contact-section {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: var(--secondary-color);
+}
+
+.contact-section h2 {
+    color: var(--secondary-color); /* Ensure heading is visible on gradient */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    text-align: center; /* Center the heading */
+}
+
+.contact-section p {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.contact-form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--card-shadow); /* Use theme card shadow */
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--secondary-color);
+    opacity: 0.9;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--secondary-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group input[type="email"]::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 3px rgba(var(--highlight-color), 0.3);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-form .btn-primary:hover {
+    background-color: var(--highlight-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.contact-section .note {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
 /* Support page responsive styles */
 @media (max-width: 991.98px) {
     .support-grid {
@@ -855,6 +962,17 @@ main {
     .support-hero h1 {
         font-size: 2.5rem;
     }
+
+    .faq-section h2,
+    .troubleshooting-section h2,
+    .contact-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+    }
+
+    .contact-form {
+        padding: 30px;
+    }
 }
 
 @media (max-width: 575.98px) {
@@ -862,9 +980,39 @@ main {
         font-size: 2rem;
     }
 
-    .faq-container,
-    .support-card {
+    .support-hero .subtitle {
+        font-size: 1rem;
+    }
+
+    .faq-section h2,
+    .troubleshooting-section h2,
+    .contact-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    .faq-item, .troubleshooting-section ul li {
+        padding: 15px 20px;
+    }
+
+    .faq-item h3 {
+        font-size: 1.1rem;
+    }
+
+    .contact-form {
         padding: 20px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .contact-form .btn-primary {
+        padding: 12px;
+        font-size: 1rem;
     }
 }
 
