@@ -278,19 +278,19 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Added to center content vertically */
-    align-items: center;   /* Added to center content horizontally */
-    overflow: hidden; /* Ensure screenshot respects border radius */
+    overflow: hidden; /* Kept */
+    position: relative; /* Added */
 }
 
 .app-screenshot {
-    display: block; /* Consistent block behavior */
-    max-width: 100%;  /* Ensure it doesn't exceed parent width */
-    max-height: 100%; /* Ensure it doesn't exceed parent height */
-    object-fit: contain; /* Scale image to fit while maintaining aspect ratio */
-    border-radius: 28px; /* Match inner radius of phone screen if needed */
+    position: absolute; /* Added */
+    top: 50%;           /* Added */
+    left: 50%;          /* Added */
+    transform: translate(-50%, -50%); /* Added */
+    max-width: 100%;    /* Kept */
+    max-height: 100%;   /* Kept */
+    object-fit: contain;/* Kept */
+    border-radius: 28px;/* Kept */
     /* width: 100%; Removed in favor of max-width */
     /* height: 100%; Removed in favor of max-height */
 }
