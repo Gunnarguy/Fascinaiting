@@ -205,6 +205,32 @@ body {
     color: #667eea;
 }
 
+.app-store-badge {
+    display: inline-flex; /* Align icon and text */
+    align-items: center; /* Vertically center content */
+    padding: 8px 16px; /* Adjust padding as needed */
+    background-color: #000; /* Apple's typical black badge color */
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem; /* Adjust font size */
+    border: 2px solid transparent;
+}
+
+.app-store-badge:hover {
+    background-color: #333; /* Darken on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.app-store-badge .apple-icon {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Adjust icon size */
+    margin-right: 8px; /* Space between icon and text */
+    fill: white; /* Ensure SVG fill is white */
+}
+
 /* ================================
    PHONE MOCKUP
    ================================ */
@@ -240,13 +266,15 @@ body {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* Ensure screenshot respects border radius */
 }
 
 .app-screenshot {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 32px;
+    object-fit: cover; /* Cover the area, might crop */
+    /* object-fit: contain; */ /* Contain within area, might letterbox */
+    border-radius: 28px; /* Match inner radius of phone screen if needed */
 }
 
 .status-bar {
