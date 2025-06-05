@@ -17,14 +17,14 @@
     <!-- SEO Meta Tags -->
     <title>OpenAssistant Support - Get Help with Your iOS AI Assistant App</title>
     <meta name="description"
-        content="Find comprehensive support for OpenAssistant. Get answers to frequently asked questions (FAQs), troubleshooting tips, and learn how to make the most of your AI companion app on iOS.">
+        content="Find comprehensive support for OpenAssistant. Get answers to frequently asked questions, troubleshooting tips, and learn how to maximize your AI companion app on iOS.">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gunnarguy.github.io/Fascinaiting/support.html"> <!-- Updated domain -->
     <meta property="og:title" content="OpenAssistant Support - Help & FAQs">
     <meta property="og:description"
-        content="Access support resources for OpenAssistant, your advanced iOS AI assistant management app. FAQs, troubleshooting, and more.">
+        content="Access support resources for OpenAssistant, your advanced iOS AI assistant management app. Find FAQs, troubleshooting guides, and more.">
     <!-- Removed placeholder og:image -->
 
     <!-- Twitter -->
@@ -56,90 +56,145 @@
 </head>
 
 <body>
-    <!-- Particle background container for animated effect -->
-    <div id="particles-js" class="particle-container"></div>
-
-    <!-- Header Section -->
-    <header class="glass-header"> <!-- Changed class -->
-        <div class="container">
-            <div class="logo">
-                <span class="highlight">Open</span>Assistant
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" alt="OpenAssistant" width="32" height="32">
+                <span>OpenAssistant</span>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="support.html" class="active">Support</a></li> <!-- "Support" is active -->
-                    <!-- Removed other links to match index.html structure, can be re-added if needed -->
-                </ul>
-            </nav>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="architecture.html">Architecture</a></li>
+                <li><a href="index.html#flow">App Flow</a></li>
+                <li><a href="interactions.html">Interactions</a></li>
+                <li><a href="support.html" class="active">Support</a></li>
+                <li><a href="https://github.com/Gunnarguy/OpenAssistant" target="_blank">GitHub</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <main>
-        <section class="section support-hero">
+        <!-- Hero Section -->
+        <section class="hero">
             <div class="container">
-                <h1>OpenAssistant Support</h1>
+                <div class="hero-content">
+                    <h1>Support & Help</h1>
+                    <p class="hero-subtitle">Get assistance with OpenAssistant</p>
+                    <p class="hero-description">
+                        Find answers to frequently asked questions, troubleshooting tips, and learn how to 
+                        maximize your OpenAssistant experience. Our comprehensive support resources are here 
+                        to help you make the most of your AI assistant management app.
+                    </p>
+                </div>
+                <div class="hero-visual">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <img src="Simulator Screenshot - iPhone 16 Pro Max - 2025-05-07 at 20.54.26.png" 
+                                 alt="OpenAssistant iOS App Screenshot" 
+                                 class="app-screenshot">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="section faq-section">
+        <!-- FAQ Section -->
+        <section id="faq" class="section">
             <div class="container">
-                <h2>Frequently Asked Questions (FAQs)</h2>
-                <div class="faq-item">
+                <h2>Frequently Asked Questions</h2>
+                <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="card-icon">❓</div>
                     <h3>What is OpenAssistant?</h3>
-                    <p>OpenAssistant is a native iOS application that allows you to create, manage, and interact with OpenAI Assistants directly on your device. It supports advanced features like Vector Stores for file-based knowledge, Code Interpreter for running code, and File Search for retrieval. It aims to provide a native iOS experience for interacting with assistants, similar to what you can explore on the <a href="https://platform.openai.com/playground/assistants" target="_blank" rel="noopener noreferrer">OpenAI Assistants Playground</a>.</p>
+                    <p>OpenAssistant is a native iOS application that enables you to create, manage, and interact with OpenAI Assistants directly on your device. It supports advanced features like Vector Stores for file-based knowledge, Code Interpreter for running code, and File Search for retrieval. It provides a native iOS experience for interacting with assistants, similar to what you can explore on the <a href="https://platform.openai.com/playground/assistants" target="_blank" rel="noopener noreferrer">OpenAI Assistants Playground</a>.</p>
                 </div>
-                <div class="faq-item">
+                <div class="overview-card">
+                    <div class="card-icon">🚀</div>
                     <h3>How do I get started with OpenAssistant?</h3>
-                    <p>Download OpenAssistant from the App Store. You'll need an OpenAI API key to use the app. You can get an API key from the <a href="https://platform.openai.com/settings/organization/api-keys" target="_blank" rel="noopener noreferrer">OpenAI API Keys page</a>. Once you have your key, enter it in the app's settings to begin creating and using assistants.</p>
+                    <p>Download OpenAssistant from the App Store. You'll need an OpenAI API key to use the app - get one from the <a href="https://platform.openai.com/settings/organization/api-keys" target="_blank" rel="noopener noreferrer">OpenAI API Keys page</a>. Once you have your key, enter it in the app's settings to begin creating and using assistants.</p>
                 </div>
-                <div class="faq-item">
+                <div class="overview-card">
+                    <div class="card-icon">🔒</div>
                     <h3>Is my OpenAI API key secure?</h3>
-                    <p>Yes, your OpenAI API key is stored securely on your device using `AppStorage` and is only used to communicate directly with the OpenAI API. It is not shared with us or any third parties.</p>
+                    <p>Yes, your OpenAI API key is stored securely on your device using AppStorage and is only used to communicate directly with the OpenAI API. It is not shared with us or any third parties.</p>
                 </div>
-                <div class="faq-item">
+                <div class="overview-card">
+                    <div class="card-icon">📚</div>
                     <h3>What are Vector Stores?</h3>
-                    <p>Vector Stores allow you to upload files that your Assistant can use as a knowledge base. This enables your Assistant to answer questions or perform tasks based on the content of your documents, enhancing its capabilities beyond its general training data.</p>
+                    <p>Vector Stores enable you to upload files that your Assistant can use as a knowledge base. This allows your Assistant to answer questions or perform tasks based on the content of your documents, enhancing its capabilities beyond its general training data.</p>
                 </div>
-                <div class="faq-item">
+                <div class="overview-card">
+                    <div class="card-icon">🔍</div>
                     <h3>How does File Search (Retrieval) work?</h3>
                     <p>When you enable File Search for an Assistant and associate it with a Vector Store containing your files, the Assistant can search through those files to find relevant information to answer your queries or complete tasks. This is particularly useful for domain-specific knowledge.</p>
                 </div>
-                <div class="faq-item">
+                <div class="overview-card">
+                    <div class="card-icon">💻</div>
                     <h3>What is Code Interpreter?</h3>
-                    <p>Code Interpreter is a tool that allows your Assistant to write and run Python code in a sandboxed environment. This enables it to perform complex calculations, data analysis, file conversions, and more.</p>
+                    <p>Code Interpreter is a tool that enables your Assistant to write and run Python code in a sandboxed environment. This allows it to perform complex calculations, data analysis, file conversions, and more.</p>
                 </div>
-                 <div class="faq-item">
+                 <div class="overview-card">
+                    <div class="card-icon">🤖</div>
                     <h3>What OpenAI models can I use?</h3>
-                    <p>OpenAssistant allows you to select from various OpenAI models compatible with the Assistants API, such as GPT-4o, GPT-4.1, o3-mini, and others as they become available.</p>
+                    <p>OpenAssistant supports various OpenAI models compatible with the Assistants API, including GPT-4o, GPT-4.1, o3-mini, and others as they become available.</p>
                 </div>
-                <div class="faq-item">
+                <div class="overview-card">
+                    <div class="card-icon">🛠️</div>
                     <h3>I'm having trouble with the app. What should I do?</h3>
                     <p>First, ensure your OpenAI API key is correctly entered and has sufficient credits. Check that your device has a stable internet connection. If problems persist, try restarting the app. For further assistance, please use the contact form below.</p>
                 </div>
-                <!-- Add more FAQs as needed -->
+                </div>
             </div>
         </section>
 
-        <section class="section troubleshooting-section">
+        <!-- Troubleshooting Section -->
+        <section id="troubleshooting" class="section bg-light">
             <div class="container">
                 <h2>Troubleshooting Tips</h2>
-                <ul>
-                    <li><strong>API Key Issues:</strong> Double-check your OpenAI API key for typos. Ensure it's active and has available funds/credits on the <a href="https://platform.openai.com/settings/organization/api-keys" target="_blank" rel="noopener noreferrer">OpenAI platform</a>.</li>
-                    <li><strong>Connectivity:</strong> OpenAssistant relies on a stable internet connection, as it directly communicates with the OpenAI API. So check your Wi-Fi or cellular data connection.</li>
-                    <li><strong>App Version:</strong> Make sure you have the latest version of OpenAssistant installed from the App Store for the newest features and bug fixes (will be updated more regularly - 5/8/2025).</li>
-                    <li><strong>File Uploads:</strong> Ensure filetypes are supported and files are within the size limits specified by OpenAI. 
-                        <p>Scroll to the bottom of this page for the filetypes you can upload: <a href="https://platform.openai.com/docs/assistants/tools/file-search" target="_blank" rel="noopener noreferrer">File Types</a></li>
-                    <li><strong>Assistant Responses:</strong> If an assistant isn't behaving as expected, review its instructions and ensure they are clear and specific. Experiment with temperature and top_p settings.</li>
-                </ul>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔑</div>
+                        <h3>API Key Issues</h3>
+                        <p>Double-check your OpenAI API key for typos. Ensure it's active and has available funds/credits on the <a href="https://platform.openai.com/settings/organization/api-keys" target="_blank" rel="noopener noreferrer">OpenAI platform</a>.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📶</div>
+                        <h3>Connectivity</h3>
+                        <p>OpenAssistant requires a stable internet connection to communicate directly with the OpenAI API. Check your Wi-Fi or cellular data connection.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>App Version</h3>
+                        <p>Ensure you have the latest version of OpenAssistant installed from the App Store for the newest features and bug fixes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📄</div>
+                        <h3>File Uploads</h3>
+                        <p>Ensure file types are supported and files are within the size limits specified by OpenAI. View supported file types at the bottom of this page: <a href="https://platform.openai.com/docs/assistants/tools/file-search" target="_blank" rel="noopener noreferrer">File Types Documentation</a></p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3>Assistant Responses</h3>
+                        <p>If an assistant isn't behaving as expected, review its instructions and ensure they are clear and specific. Experiment with temperature and top_p settings.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contact-support" class="section contact-section">
+        <!-- Contact Section -->
+        <section id="contact" class="section">
             <div class="container">
                 <h2>Contact Support</h2>
-                <p>If you couldn't find an answer in our FAQs or troubleshooting tips, please feel free to reach out to us.</p>
-                <form id="support-form" class="contact-form">
+                <p class="section-intro">If you couldn't find an answer in our FAQs or troubleshooting tips, we're here to help! Please reach out to us using the form below.</p>
+                <div class="contact-form-container">
+                    <form id="support-form" class="contact-form">
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" id="name" name="name" required>
@@ -154,53 +209,65 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Message:</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <textarea id="message" name="message" rows="5" required placeholder="Please describe your issue or question in detail..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-                <p class="note">Please allow 1-2 business days for a response. Your patience is appreciated!</p>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                    </form>
+                    <p class="contact-note">Please allow 1-2 business days for a response. Your patience is appreciated!</p>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer Section -->
-    <footer class="glass-footer"> <!-- Changed class to glass-footer -->
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="highlight">Open</span>Assistant
+                <div class="footer-section">
+                    <h4>OpenAssistant</h4>
+                    <p>A sophisticated iOS client for the OpenAI Assistants API</p>
                 </div>
-                <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="support.html">Support</a>
-
-                    <a href="https://github.com/Gunnarguy/OpenAssistant" target="_blank" rel="noopener noreferrer" title="OpenAssistant on GitHub"><i class="fab fa-github"></i> GitHub</a>
+                <div class="footer-section">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="https://github.com/Gunnarguy/OpenAssistant">GitHub Repository</a></li>
+                        <li><a href="interactions.html">Component Interactions</a></li>
+                        <li><a href="architecture.html">Architecture</a></li>
+                        <li><a href="support.html">Support & Help</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Technology</h4>
+                    <ul>
+                        <li>Swift & SwiftUI</li>
+                        <li>Combine Framework</li>
+                        <li>OpenAI API</li>
+                        <li>MVVM Architecture</li>
+                    </ul>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; <span id="current-year"></span> OpenAssistant. All rights reserved.</p>
-                <p>Designed by <a href="https://github.com/Gunnarguy" target="_blank" rel="noopener noreferrer">Gunnar Hostetler</a></p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OpenAssistant. Licensed under the MIT License.</p>
             </div>
         </div>
     </footer>
 
     <script src="scripts.js"></script>
     <script>
-        // Set current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Handle support form submission (basic example)
+        // Handle support form submission
         const supportForm = document.getElementById('support-form');
         if (supportForm) {
             supportForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                // Basic form validation (can be expanded)
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const subject = document.getElementById('subject').value;
-                const message = document.getElementById('message').value;
+                
+                // Get form data
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const subject = document.getElementById('subject').value.trim();
+                const message = document.getElementById('message').value.trim();
 
+                // Basic form validation
                 if (name && email && subject && message) {
                     // Here you would typically send the data to a backend server
                     // For now, we'll just log it and show an alert
@@ -210,73 +277,6 @@
                 } else {
                     alert('Please fill out all fields.');
                 }
-            });
-        }
-
-        // Initialize particles.js for background effect (if not already in scripts.js)
-        // This is a simplified version, ensure your full particles.js config is used
-        if (typeof particlesJS !== 'undefined' && !document.querySelector('#particles-js canvas')) {
-             particlesJS('particles-js', {
-                particles: {
-                    number: {
-                        value: 80,
-                        density: {
-                            enable: true,
-                            value_area: 900
-                        }
-                    },
-                    color: {
-                        value: '#00bcd4'
-                    },
-                    shape: {
-                        type: 'circle',
-                    },
-                    opacity: {
-                        value: 0.2,
-                        random: true,
-                    },
-                    size: {
-                        value: 3,
-                        random: true,
-                    },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: '#004d99',
-                        opacity: 0.15,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 1.2,
-                        direction: 'none',
-                        out_mode: 'out',
-                    }
-                },
-                interactivity: {
-                    events: {
-                        onhover: {
-                            enable: true,
-                            mode: 'grab'
-                        },
-                        onclick: {
-                            enable: true,
-                            mode: 'push'
-                        },
-                    },
-                    modes: {
-                        grab: {
-                            distance: 140,
-                            line_linked: {
-                                opacity: 0.7
-                            }
-                        },
-                        push: {
-                            particles_nb: 4
-                        }
-                    }
-                },
-                retina_detect: true
             });
         }
     </script>

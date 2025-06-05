@@ -1,263 +1,385 @@
 /**
- * OpenAssistant Website JavaScript
- * Author: Gunnar Hostetler
- * Last updated: April 8, 2025
- * 
- * This script handles various interactive elements:
- * - Smooth scrolling navigation
- * - Active section highlighting
- * - Back-to-top button functionality
- * - Scroll progress indicator
- * - Fade-in animations on scroll
- * - Particle.js background initialization
+ * ================================
+ * OPENASSISTANT WEBSITE JAVASCRIPT
+ * ================================
+ * Enhanced interactions and animations for the OpenAssistant documentation website
+ * Built with modern JavaScript and optimized for performance
  */
 
-// Wait for the DOM to be fully loaded before executing scripts
+// ================================
+// NAVIGATION & SCROLLING
+// ================================
+
+/**
+ * Smooth scrolling for internal navigation links
+ * Provides smooth page transitions when clicking anchor links
+ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            // Account for fixed navbar height
+            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+            const targetPosition = target.offsetTop - navbarHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+/**
+ * Mobile navigation toggle functionality
+ * Handles hamburger menu interactions and mobile navigation
+ */
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+// ================================
+// SCROLL EFFECTS & ANIMATIONS
+// ================================
+
+/**
+ * Dynamic navbar styling based on scroll position
+ * Enhances navbar appearance as user scrolls down
+ */
+let ticking = false;
+
+const updateNavbar = () => {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+    
+    if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+    } else {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.boxShadow = 'none';
+    }
+    ticking = false;
+};
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(updateNavbar);
+        ticking = true;
+    }
+});
+
+/**
+ * Intersection Observer for scroll-triggered animations
+ * Provides smooth entrance animations for page elements
+ */
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            
+            // Add staggered animation delay for grouped elements
+            const siblings = Array.from(entry.target.parentNode.children);
+            const index = siblings.indexOf(entry.target);
+            entry.target.style.transitionDelay = `${index * 0.1}s`;
+        }
+    });
+}, observerOptions);
+
+// Apply intersection observer to animated elements
+document.querySelectorAll('.overview-card, .feature-card, .tech-card, .flow-step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
+
+// ================================
+// INTERACTIVE ENHANCEMENTS
+// ================================
+
+/**
+ * Subtle phone mockup animation for visual appeal
+ * Creates a floating effect to draw attention to the app preview
+ */
+const phoneMockup = document.querySelector('.phone-mockup');
+if (phoneMockup) {
+    phoneMockup.style.transition = 'transform 2s ease-in-out';
+    
+    const animatePhone = () => {
+        phoneMockup.style.transform = 'translateY(-10px) rotate(1deg)';
+        setTimeout(() => {
+            phoneMockup.style.transform = 'translateY(0) rotate(0deg)';
+        }, 2000);
+    };
+    
+    // Start animation after page load, then repeat
+    setTimeout(animatePhone, 2000);
+    setInterval(animatePhone, 6000);
+}
+
+/**
+ * Enhanced button interactions with ripple effect
+ * Provides visual feedback for user interactions
+ */
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        // Prevent multiple ripples
+        const existingRipple = this.querySelector('.ripple');
+        if (existingRipple) existingRipple.remove();
+        
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+});
+
+// ================================
+// DYNAMIC STYLES & EFFECTS
+// ================================
+
+/**
+ * Inject dynamic CSS for enhanced interactions
+ * Adds styles that work in conjunction with JavaScript animations
+ */
+const injectDynamicStyles = () => {
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Enhanced button interactions */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Ripple effect animation */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Enhanced mobile navigation */
+        .nav-menu.active {
+            display: flex;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 70px);
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 50px 20px 20px;
+            z-index: 999;
+            animation: slideInFromRight 0.3s ease-out;
+        }
+        
+        @keyframes slideInFromRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Enhanced hamburger animation */
+        .hamburger {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger span {
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        /* Responsive design adjustments */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+        }
+        
+        /* Focus styles for accessibility */
+        .btn:focus,
+        .nav-menu a:focus {
+            outline: 2px solid #007AFF;
+            outline-offset: 2px;
+        }
+        
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Enhanced card hover effects */
+        .overview-card,
+        .feature-card,
+        .tech-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .overview-card:hover,
+        .feature-card:hover,
+        .tech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+    `;
+    document.head.appendChild(style);
+};
+
+// ================================
+// PERFORMANCE OPTIMIZATIONS
+// ================================
+
+/**
+ * Optimize scroll performance with throttling
+ * Prevents excessive scroll event firing
+ */
+const throttle = (func, limit) => {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+};
+
+/**
+ * Add parallax effect to hero background
+ * Creates subtle depth and visual interest
+ */
+const addParallaxEffect = throttle(() => {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    const scrolled = window.pageYOffset;
+    const parallax = scrolled * 0.3;
+    hero.style.backgroundPosition = `center ${parallax}px`;
+}, 16); // ~60fps
+
+window.addEventListener('scroll', addParallaxEffect);
+
+// ================================
+// INITIALIZATION
+// ================================
+
+/**
+ * Initialize all website functionality when DOM is ready
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    // Cache DOM elements to avoid repeated queries
-    const navLinks = document.querySelectorAll('nav ul li a');
-    const sections = document.querySelectorAll('.section');
+    // Inject dynamic styles
+    injectDynamicStyles();
+    
+    // Add loading class to body for initial animations
+    document.body.classList.add('loaded');
+    
+    // Initialize any additional features
+    console.log('OpenAssistant website initialized successfully');
+});
 
-    // --- UI Element Creation ---
-
-    /**
-     * Creates and configures the back-to-top button
-     * @returns {HTMLElement} The configured button element
-     */
-    const createBackToTopButton = () => {
-        const btn = document.createElement('button');
-        btn.textContent = '⬆️';
-        btn.classList.add('back-to-top');
-        btn.setAttribute('aria-label', 'Scroll back to top');
-        document.body.appendChild(btn);
-
-        // Add click event handler to scroll to top
-        btn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        return btn;
-    };
-
-    /**
-     * Creates and adds the scroll progress indicator
-     * @returns {HTMLElement} The created scroll indicator element
-     */
-    const createScrollIndicator = () => {
-        const indicator = document.createElement('div');
-        indicator.classList.add('scroll-indicator');
-        document.body.appendChild(indicator);
-        return indicator;
-    };
-
-    // Create UI elements
-    const backToTopBtn = createBackToTopButton();
-    const scrollIndicator = createScrollIndicator();
-
-    // --- Utility Functions ---
-
-    /**
-     * Debounces a function to limit how often it runs
-     * @param {Function} func - The function to debounce
-     * @param {number} wait - Time to wait in ms
-     * @param {boolean} immediate - Whether to run immediately
-     * @returns {Function} Debounced function
-     */
-    const debounce = (func, wait = 20, immediate = true) => {
-        let timeout;
-        return function (...args) {
-            const context = this;
-            const later = () => {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            const callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
-    };
-
-    /**
-     * Checks if an element is in the viewport
-     * @param {HTMLElement} el - The element to check
-     * @param {number} offset - Offset from the edge of viewport
-     * @returns {boolean} Whether element is in viewport
-     */
-    const isInViewport = (el, offset = 100) => {
-        const rect = el.getBoundingClientRect();
-        return (
-            rect.top + offset < window.innerHeight &&
-            rect.bottom - offset > 0
-        );
-    };
-
-    // --- Event Handler Functions ---
-
-    /**
-     * Sets the active navigation link based on scroll position
-     */
-    const setActiveSection = () => {
-        // Find the section currently in view
-        let currentSectionIndex = -1;
-        const scrollPosition = window.scrollY + 100; // Offset for better UX
-
-        sections.forEach((section, index) => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-
-            if (scrollPosition >= sectionTop &&
-                scrollPosition < sectionTop + sectionHeight) {
-                currentSectionIndex = index;
-            }
-        });
-
-        // Update active state in navigation
-        navLinks.forEach(link => link.classList.remove('active'));
-        if (currentSectionIndex !== -1 && navLinks[currentSectionIndex]) {
-            navLinks[currentSectionIndex].classList.add('active');
-        }
-    };
-
-    /**
-     * Shows/hides the back to top button based on scroll position
-     */
-    const toggleBackToTopBtn = () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add('visible');
-        } else {
-            backToTopBtn.classList.remove('visible');
-        }
-    };
-
-    /**
-     * Updates the width of the scroll indicator
-     */
-    const updateScrollIndicator = () => {
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercentage = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
-        scrollIndicator.style.width = `${scrollPercentage}%`;
-    };
-
-    /**
-     * Adds 'visible' class to sections when they enter the viewport
-     */
-    const fadeInSections = () => {
-        sections.forEach(section => {
-            if (isInViewport(section)) {
-                section.classList.add('visible');
-            }
-        });
-    };
-
-    // --- Initialize Particle.js Background ---
-
-    /**
-     * Initializes the particles.js background if the library is loaded
-     */
-    const initParticles = () => {
-        if (typeof particlesJS === 'undefined') return;
-
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#00bcd4' },
-                shape: { type: 'circle', stroke: { width: 0, color: '#000000' } },
-                opacity: { value: 0.2, random: false },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#004d99',
-                    opacity: 0.1,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 1.5,
-                    direction: 'none',
-                    random: false,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: true, mode: 'grab' },
-                    onclick: { enable: true, mode: 'push' },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 1 } },
-                    push: { particles_nb: 4 }
-                }
-            },
-            retina_detect: true
-        });
-    };
-
-    /**
-     * Initializes the AOS (Animate On Scroll) library if loaded
-     */
-    const initAOS = () => {
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: true
-            });
-        }
-    };
-
-    // --- Initialize Smooth Scrolling ---
-
-    /**
-     * Sets up smooth scrolling for navigation links
-     */
-    const initSmoothScrolling = () => {
-        navLinks.forEach(link => {
-            link.addEventListener('click', event => {
-                // Only handle links to sections (like #features)
-                const href = link.getAttribute('href');
-                if (href.startsWith('#')) {
-                    event.preventDefault();
-                    const targetId = href;
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
-    };
-
-    // --- Event Registration ---
-
-    // Create debounced versions of functions for better performance
-    const debouncedSetActiveSection = debounce(setActiveSection, 50);
-
-    // Register all scroll and resize event listeners
-    window.addEventListener('scroll', toggleBackToTopBtn);
-    window.addEventListener('scroll', updateScrollIndicator);
-    window.addEventListener('scroll', fadeInSections);
-    window.addEventListener('scroll', debouncedSetActiveSection);
-    window.addEventListener('resize', debouncedSetActiveSection);
-
-    // --- Initialization ---
-
-    // Set up all features and initial state
-    const init = () => {
-        initSmoothScrolling();
-        initParticles();
-        initAOS();
-        setActiveSection();
-        toggleBackToTopBtn();
-        updateScrollIndicator();
-        fadeInSections();
-    };
-
-    // Run initialization
-    init();
+/**
+ * Handle page visibility changes for performance
+ * Pause animations when page is not visible
+ */
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        // Pause expensive operations
+        document.body.style.animationPlayState = 'paused';
+    } else {
+        // Resume operations
+        document.body.style.animationPlayState = 'running';
+    }
 });

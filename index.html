@@ -1,352 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17079810778"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'AW-17079810778'); // Google Ads configuration
-      gtag('config', 'G-8CQD5KZ06Y');    // Google Analytics configuration
-    </script>
-    <!-- SEO Meta Tags -->
-    <title>OpenAssistant - Your Premier iOS Client for OpenAI Assistants</title>
-    <meta name="description"
-        content="Take full control of OpenAI Assistants on your iOS device with OpenAssistant. Create, manage, and chat with custom AIs. Leverage Vector Stores, File Search, Code Interpreter, and direct OpenAI API integration. Download now!">
-
+    <meta name="description" content="OpenAssistant - A professional native SwiftUI iOS client for the OpenAI Assistants API. Features comprehensive assistant management, vector stores, and real-time chat functionality.">
+    <meta name="keywords" content="iOS, SwiftUI, OpenAI, Assistants API, AI, mobile app, vector stores, chat, MVVM, artificial intelligence">
+    <meta name="author" content="OpenAssistant Team">
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://YOUR_DOMAIN.com/"> <!-- Replace with your actual domain -->
-    <meta property="og:title" content="OpenAssistant - Your Premier iOS Client for OpenAI Assistants">
-    <meta property="og:description"
-        content="Natively create, manage, and chat with powerful custom OpenAI assistants on iOS. Features Vector Stores, File Search, Code Interpreter, and seamless OpenAI API integration.">
-    <meta property="og:image" content="https://YOUR_DOMAIN.com/images/og-image.png"> <!-- IMPORTANT: Replace with your actual Open Graph image URL (e.g., 1200x630px) -->
-
+    <meta property="og:url" content="https://gunnarguy.github.io/Fascinaiting/">
+    <meta property="og:title" content="OpenAssistant - Advanced iOS Client for OpenAI Assistants">
+    <meta property="og:description" content="A professional-grade iOS application that brings the full power of OpenAI's Assistants API to your mobile device with comprehensive management tools.">
+    
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://YOUR_DOMAIN.com/"> <!-- Replace with your actual domain -->
-    <meta property="twitter:title" content="OpenAssistant - Your Premier iOS Client for OpenAI Assistants">
-    <meta property="twitter:description"
-        content="Your native iOS client for OpenAI Assistants. Manage custom AIs, utilize Vector Stores, File Search, and Code Interpreter. Download today and unlock advanced AI capabilities!">
-    <meta property="twitter:image" content="https://YOUR_DOMAIN.com/images/twitter-image.png"> <!-- IMPORTANT: Replace with your actual Twitter card image URL (e.g., 800x418px) -->
-
-    <!-- iOS Smart App Banner -->
-    <meta name="apple-itunes-app" content="app-id=6692613772"> <!-- Ensure this app-id is correct for OpenAssistant -->
-
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png"> <!-- Create a 180x180px apple-touch-icon.png -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest"> <!-- Optional: for PWA features -->
-
-    <!-- Google Fonts -->
+    <meta property="twitter:url" content="https://gunnarguy.github.io/Fascinaiting/">
+    <meta property="twitter:title" content="OpenAssistant - Advanced iOS Client for OpenAI Assistants">
+    <meta property="twitter:description" content="Professional iOS app for OpenAI Assistants API with vector stores, chat, and comprehensive management tools.">
+    
+    <title>OpenAssistant - Advanced iOS Client for OpenAI Assistants</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-    <!-- Link to Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Add AOS (Animate On Scroll) library for smooth animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-
 <body>
-    <!-- Particle background container for animated effect -->
-    <div id="particles-js" class="particle-container"></div>
-
-    <!-- Sleek, minimal header with glassmorphism effect -->
-    <header class="glass-header">
-        <div class="container">
-            <div class="logo">
-                <span class="highlight">Open</span>Assistant
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" alt="OpenAssistant" width="32" height="32">
+                <span>OpenAssistant</span>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="support.html">Support</a></li>
-                    <!-- Consider adding a link to your Privacy Policy and Terms of Service -->
-                </ul>
-            </nav>
+            <ul class="nav-menu">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#flow">App Flow</a></li>
+                <li><a href="interactions.html">Interactions</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="https://github.com/Gunnarguy/OpenAssistant" target="_blank">GitHub</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main>
-        <!-- Hero section with animated gradient and floating elements -->
-        <section class="hero section">
-            <div class="container">
-                <div class="hero-content" data-aos="fade-up">
-                    <h1><span class="highlight">OpenAssistant:</span> Master Your OpenAI Assistants on iOS</h1>
-                    <p class="subtitle">Unlock the full potential of custom AI with OpenAssistant. Natively create, manage, and chat with assistants, utilizing powerful tools like Vector Stores for file search, Code Interpreter for complex tasks, and direct OpenAI API integration for peak performance.</p>
-
-                    <!-- App Store Button with hover effect -->
-                    <div class="cta-buttons">
-                        <a href="https://apps.apple.com/us/app/openassistant/id6692613772" target="_blank"
-                            rel="noopener noreferrer" class="app-store-button">
-                            <i class="fab fa-apple"></i>
-                            <span>
-                                <small>Download on the</small>
-                                App Store
-                            </span>
-                        </a>
-                        <a href="#features" class="text-link scroll-link"> <!-- Changed href to point to features section -->
-                            <i class="fas fa-circle-info"></i> Learn more
-                        </a>
-                    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>OpenAssistant</h1>
+                <p class="hero-subtitle">A Native SwiftUI iOS Client for the OpenAI Assistants API</p>
+                <p class="hero-description">
+                    A professional-grade iOS application that brings the full power of OpenAI's Assistants API 
+                    to your mobile device. Built entirely with SwiftUI and the Combine framework, OpenAssistant 
+                    provides comprehensive assistant management, intelligent vector storage, and real-time 
+                    conversations in a beautifully crafted native iOS experience.
+                </p>
+                <div class="hero-badges">
+                    <img src="https://img.shields.io/badge/Swift-F05138.svg?style=for-the-badge&logo=Swift&logoColor=white" alt="Swift">
+                    <img src="https://img.shields.io/badge/SwiftUI-007AFF.svg?style=for-the-badge&logo=SwiftUI&logoColor=white" alt="SwiftUI">
+                    <img src="https://img.shields.io/badge/Combine-007AFF.svg?style=for-the-badge&logo=Combine&logoColor=white" alt="Combine">
+                    <img src="https://img.shields.io/badge/OpenAI%20API-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white" alt="OpenAI API">
                 </div>
-
-                <!-- Floating iPhone mockup with app screenshot -->
-                <div class="device-mockup" data-aos="fade-left" data-aos-delay="200">
-                    <div class="phone">
-                        <div class="phone-screen">
-                            <!-- Replace with your actual app screenshot -->
-                            <div class="app-interface">
-                                <div class="chat-bubble user">Analyze this sales data and generate a Python script for visualization.</div>
-                                <div class="chat-bubble assistant">Certainly! Upload your CSV, and I'll use Code Interpreter to process it and provide the Python script.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Decorative elements -->
-            <div class="shape shape1"></div>
-            <div class="shape shape2"></div>
-        </section>
-
-        <!-- Features section with icons -->
-        <section id="features" class="features section"> <!-- Added id="features" for scroll link -->
-            <div class="container">
-                <h2 data-aos="fade-up">Leverage Advanced <span class="highlight">Capabilities</span></h2>
-
-                <div class="feature-grid">
-                    <!-- Feature 1 -->
-                    <div class="feature-card" data-aos="zoom-in" data-aos-delay="0">
-                        <div class="feature-icon">
-                            <i class="fas fa-brain"></i> <!-- Changed icon -->
-                        </div>
-                        <h3>Intuitive Assistant Creation & Management</h3>
-                        <p>Easily create, customize, and manage your OpenAI assistants. Define names, instructions, models (e.g., GPT-4, GPT-3.5-turbo), and fine-tune parameters like temperature and top_p.</p>
-                    </div>
-
-                    <!-- Feature 2 -->
-                    <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="feature-icon">
-                            <i class="fas fa-cogs"></i> <!-- Changed icon -->
-                        </div>
-                        <h3>Powerful Tool Integration</h3>
-                        <p>Equip your assistants with Code Interpreter for executing Python code, and File Search (Retrieval) by associating them with custom Vector Stores for knowledge lookup in your documents.</p>
-                    </div>
-
-                    <!-- Feature 3 -->
-                    <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="feature-icon">
-                            <i class="fas fa-database"></i> <!-- Changed icon -->
-                        </div>
-                        <h3>Vector Store & File Management</h3>
-                        <p>Create and manage Vector Stores, upload your files directly to OpenAI, and seamlessly associate them with your assistants to enable powerful, context-aware responses based on your own data.</p>
-                    </div>
-
-                    <!-- Feature 4 -->
-                    <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i> <!-- Changed icon -->
-                        </div>
-                        <h3>Native iOS Chat Experience</h3>
-                        <p>Engage in rich, threaded conversations with your assistants through a clean, native SwiftUI interface designed for iOS. Securely manage your OpenAI API key on your device.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call-to-action section -->
-        <section class="cta section">
-            <div class="container">
-                <div class="cta-content" data-aos="zoom-in">
-                    <h2>Ready to Unleash the Full Power of <span class="highlight">AI Assistants on iOS?</span></h2>
-                    <p>Download OpenAssistant from the App Store and transform how you interact with custom AI, leveraging the full capabilities of the OpenAI Assistants API.</p>
-                    <a href="https://apps.apple.com/us/app/openassistant/id6692613772" target="_blank"
-                        rel="noopener noreferrer" class="app-store-button large">
-                        <i class="fab fa-apple"></i>
-                        <span>
-                            <small>Download on the</small>
-                            App Store
-                        </span>
+                <div class="hero-buttons">
+                    <a href="https://github.com/Gunnarguy/OpenAssistant" class="btn btn-primary" target="_blank">
+                        View on GitHub
+                    </a>
+                    <a href="#overview" class="btn btn-secondary">
+                        Learn More
                     </a>
                 </div>
             </div>
-        </section>
-    </main>
-
-    <!-- Modern footer with subtle gradient -->
-    <!-- If you're experiencing color issues with the footer, it might be due to the 'glass-footer' transparency interacting with the 'particles-js' background. Check your CSS for 'glass-footer' and 'particle-container'. -->
-    <footer class="glass-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span class="highlight">Open</span>Assistant
-                </div>
-                <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="support.html">Support</a>
-                    <a href="mailto:Gunnarguy@me.com">Contact</a>
-                    <!-- Consider adding Privacy Policy and Terms of Service links here -->
-                     <a href="https://github.com/Gunnarguy/OpenAssistant" target="_blank" rel="noopener noreferrer" title="OpenAssistant on GitHub"><i class="fab fa-github"></i> GitHub</a>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <img src="Simulator Screenshot - iPhone 16 Pro Max - 2025-05-07 at 20.54.26.png" 
+                             alt="OpenAssistant iOS App Screenshot" 
+                             class="app-screenshot">
+                    </div>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 OpenAssistant. All rights reserved.</p> <!-- Current year is 2025, this is correct. -->
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+        <div class="container">
+            <h2>Project Overview</h2>
+            <p class="section-intro">
+                OpenAssistant represents a new standard in native iOS development for AI interaction. 
+                Built from the ground up with SwiftUI and the Combine framework, this application 
+                delivers comprehensive access to OpenAI's Assistants API capabilities. From advanced 
+                conversation management to sophisticated file processing with vector stores, 
+                OpenAssistant transforms your iOS device into a powerful AI workspace.
+            </p>
+            
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="card-icon">🏗️</div>
+                    <h3>MVVM Architecture</h3>
+                    <p>Built with a robust Model-View-ViewModel pattern that ensures clean separation of concerns, exceptional testability, and maintainable code for enterprise-grade iOS development.</p>
+                </div>
+                <div class="overview-card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Reactive Programming</h3>
+                    <p>Harnesses the full power of the Combine framework to deliver real-time UI updates, seamless async operations, and responsive user interactions throughout the application lifecycle.</p>
+                </div>
+                <div class="overview-card">
+                    <div class="card-icon">🔧</div>
+                    <h3>Modular Architecture</h3>
+                    <p>Thoughtfully organized into specialized modules including API services, chat functionality, assistant management, and vector store operations for maximum code reusability and maintainability.</p>
+                </div>
+                <div class="overview-card">
+                    <div class="card-icon">📱</div>
+                    <h3>Native iOS Excellence</h3>
+                    <p>Crafted exclusively with SwiftUI to deliver a truly native iOS experience with platform-specific design patterns, accessibility features, and performance optimizations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section bg-light">
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Comprehensive Assistant Management</h3>
+                    <p>Full lifecycle management of OpenAI Assistants with advanced configuration options including GPT-4o, O1-series models, fine-tuned temperature and reasoning effort controls, and custom instruction sets.</p>
+                    <ul>
+                        <li>Full assistant creation and management</li>
+                        <li>Advanced model selection (GPT-4o, O1, GPT-4 series)</li>
+                        <li>Precision parameter tuning (temperature, top-P, reasoning effort)</li>
+                        <li>Real-time configuration updates</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3>Dynamic Tool Integration</h3>
+                    <p>Seamlessly enable and configure powerful AI tools including Code Interpreter for programming tasks and File Search for document-based knowledge retrieval with advanced vector store integration.</p>
+                    <ul>
+                        <li>Code Interpreter with execution capabilities</li>
+                        <li>Advanced File Search with vector embeddings</li>
+                        <li>Runtime tool configuration</li>
+                        <li>Context-aware tool selection</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🗂️</div>
+                    <h3>Advanced Vector Store Management</h3>
+                    <p>Enterprise-grade vector store operations with full CRUD functionality. Create knowledge bases from documents and associate them with assistants for intelligent, context-aware responses.</p>
+                    <ul>
+                        <li>Complete vector store lifecycle management</li>
+                        <li>Intelligent assistant-store associations</li>
+                        <li>Document-based knowledge retrieval</li>
+                        <li>Configurable embedding strategies</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h3>Intelligent File Processing</h3>
+                    <p>Upload and process multiple file formats (PDF, TXT, DOCX, and more) with sophisticated chunking strategies. Advanced metadata management and seamless vector store integration.</p>
+                    <ul>
+                        <li>Multi-format file support with smart processing</li>
+                        <li>Configurable chunking (size and overlap control)</li>
+                        <li>Rich file metadata and status tracking</li>
+                        <li>Automated vector store association</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Real-Time Chat Interface</h3>
+                    <p>Engage in sophisticated conversations with rich Markdown rendering, persistent message history, and intelligent thread management. Features loading states and real-time conversation updates.</p>
+                    <ul>
+                        <li>Rich Markdown rendering with syntax highlighting</li>
+                        <li>Persistent conversation history across sessions</li>
+                        <li>Intelligent OpenAI thread lifecycle management</li>
+                        <li>Real-time message streaming and updates</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Enterprise-Grade Security & Persistence</h3>
+                    <p>Secure API key management using iOS secure storage, with robust local data persistence and privacy-focused design principles throughout the application.</p>
+                    <ul>
+                        <li>Secure @AppStorage-based API key storage</li>
+                        <li>Local message persistence with MessageStore</li>
+                        <li>Cross-session data integrity</li>
+                        <li>Privacy-first architecture design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="section">
+        <div class="container">
+            <h2>Architecture Overview (MVVM)</h2>
+            <p class="section-intro">
+                Built using the Model-View-ViewModel (MVVM) pattern, the application provides 
+                a scalable and maintainable foundation for complex SwiftUI development.
+            </p>
+            
+            <div class="architecture-diagram">
+                <div class="arch-layer">
+                    <h3>View Layer (SwiftUI)</h3>
+                    <p>Declarative UI built with SwiftUI components</p>
+                    <div class="arch-components">
+                        <span class="component">ChatView</span>
+                        <span class="component">AssistantManagerView</span>
+                        <span class="component">VectorStoreDetailView</span>
+                        <span class="component">SettingsView</span>
+                    </div>
+                </div>
+                
+                <div class="arch-arrow">↕️</div>
+                
+                <div class="arch-layer">
+                    <h3>ViewModel Layer (Business Logic)</h3>
+                    <p>Manages state and coordinates between View and Model</p>
+                    <div class="arch-components">
+                        <span class="component">ChatViewModel</span>
+                        <span class="component">AssistantManagerViewModel</span>
+                        <span class="component">VectorStoreManagerViewModel</span>
+                        <span class="component">ContentViewModel</span>
+                    </div>
+                </div>
+                
+                <div class="arch-arrow">↕️</div>
+                
+                <div class="arch-layer">
+                    <h3>Service Layer (API & Persistence)</h3>
+                    <p>Handles external API calls and data persistence</p>
+                    <div class="arch-components">
+                        <span class="component">OpenAIService</span>
+                        <span class="component">FileUploadService</span>
+                        <span class="component">MessageStore</span>
+                        <span class="component">@AppStorage</span>
+                    </div>
+                </div>
+                
+                <div class="arch-arrow">↕️</div>
+                
+                <div class="arch-layer">
+                    <h3>Model Layer (Data Structures)</h3>
+                    <p>Codable structs mirroring OpenAI API entities</p>
+                    <div class="arch-components">
+                        <span class="component">Assistant</span>
+                        <span class="component">Message</span>
+                        <span class="component">Thread</span>
+                        <span class="component">VectorStore</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Flow Section -->
+    <section id="flow" class="section bg-light">
+        <div class="container">
+            <h2>Core Application Flow</h2>
+            <p class="section-intro">
+                Understanding how data flows through the application and how users interact with different features.
+            </p>
+            
+            <div class="flow-steps">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>App Initialization</h3>
+                        <p>The application starts with <code>OpenAssistantApp</code>, which initializes environment objects and checks for API key presence.</p>
+                        <div class="code-snippet">
+                            <code>@StateObject private var assistantManagerViewModel = AssistantManagerViewModel()</code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>API Key Management</h3>
+                        <p>The app securely stores the OpenAI API key using <code>@AppStorage</code> and prompts for setup if missing.</p>
+                        <div class="code-snippet">
+                            <code>@AppStorage("OpenAI_API_Key") private var apiKey: String = ""</code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Main Navigation</h3>
+                        <p><code>MainTabView</code> provides tab-based navigation between Assistants, Management, Vector Stores, and Settings.</p>
+                        <div class="code-snippet">
+                            <code>TabView { ForEach(Tab.allCases, id: \.self) { tab in ... } }</code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Data Fetching</h3>
+                        <p>ViewModels interact with <code>OpenAIService</code> to fetch assistants, create vector stores, and manage chat threads.</p>
+                        <div class="code-snippet">
+                            <code>assistantManagerViewModel.fetchAssistants()</code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Real-time Updates</h3>
+                        <p>The app uses <code>NotificationCenter</code> and Combine publishers for decoupled, real-time UI updates.</p>
+                        <div class="code-snippet">
+                            <code>NotificationCenter.default.post(name: .settingsUpdated, object: nil)</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section class="section">
+        <div class="container">
+            <h2>Technical Implementation</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>🔄 Asynchronous Operations</h3>
+                    <p>Built with Swift's modern concurrency model using async/await and Combine publishers for reactive programming.</p>
+                </div>
+                <div class="tech-card">
+                    <h3>🗃️ Data Persistence</h3>
+                    <p>Local message storage with MessageStore and secure API key persistence using @AppStorage.</p>
+                </div>
+                <div class="tech-card">
+                    <h3>🌐 API Integration</h3>
+                    <p>Comprehensive OpenAI API integration with dedicated service extensions for different endpoints.</p>
+                </div>
+                <div class="tech-card">
+                    <h3>🎨 Adaptive UI</h3>
+                    <p>Support for Light, Dark, and System appearance modes with responsive design principles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>OpenAssistant</h4>
+                    <p>A sophisticated iOS client for the OpenAI Assistants API</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="https://github.com/Gunnarguy/OpenAssistant">GitHub Repository</a></li>
+                        <li><a href="interactions.html">Component Interactions</a></li>
+                        <li><a href="architecture.html">Architecture</a></li>
+                        <li><a href="support.html">Support & Help</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Technology</h4>
+                    <ul>
+                        <li>Swift & SwiftUI</li>
+                        <li>Combine Framework</li>
+                        <li>OpenAI API</li>
+                        <li>MVVM Architecture</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 OpenAssistant. Licensed under the MIT License.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="scripts.js"></script>
-
-    <!-- Initialize animations -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Initialize AOS (Animate On Scroll)
-            AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: true
-            });
-
-            // Smooth scroll for internal links
-            const scrollLinks = document.querySelectorAll('.scroll-link');
-            scrollLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Initialize particles.js for background effect
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS('particles-js', {
-                    particles: {
-                        number: {
-                            value: 80, // Adjusted for a slightly less dense feel
-                            density: {
-                                enable: true,
-                                value_area: 900 // Increased area for particle distribution
-                            }
-                        },
-                        color: {
-                            value: '#00bcd4' // Consider a color that complements your app branding
-                        },
-                        shape: {
-                            type: 'circle',
-                            stroke: {
-                                width: 0,
-                                color: '#000000'
-                            },
-                        },
-                        opacity: {
-                            value: 0.2, // Subtle opacity
-                            random: true, // Slight randomness for a more dynamic feel
-                            anim: { // Optional: animate opacity
-                                enable: false,
-                                speed: 1,
-                                opacity_min: 0.1,
-                                sync: false
-                            }
-                        },
-                        size: {
-                            value: 3,
-                            random: true,
-                            anim: { // Optional: animate size
-                                enable: false,
-                                speed: 10,
-                                size_min: 0.1,
-                                sync: false
-                            }
-                        },
-                        line_linked: {
-                            enable: true,
-                            distance: 150,
-                            color: '#004d99', // Consider a color that complements your app branding
-                            opacity: 0.15, // Slightly more visible lines
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 1.2, // Slightly slower for a calmer effect
-                            direction: 'none',
-                            random: false,
-                            straight: false,
-                            out_mode: 'out',
-                            bounce: false,
-                            attract: { // Optional: attract particles
-                                enable: false,
-                                rotateX: 600,
-                                rotateY: 1200
-                            }
-                        }
-                    },
-                    interactivity: {
-                        detect_on: 'canvas',
-                        events: {
-                            onhover: {
-                                enable: true,
-                                mode: 'grab' // 'grab' or 'repulse' are common
-                            },
-                            onclick: {
-                                enable: true,
-                                mode: 'push' // 'push' or 'remove' particles
-                            },
-                            resize: true
-                        },
-                        modes: {
-                            grab: {
-                                distance: 140,
-                                line_linked: {
-                                    opacity: 0.7 // More visible grab line
-                                }
-                            },
-                            bubble: { // Example: bubble effect on hover
-                                distance: 200,
-                                size: 6,
-                                duration: 2,
-                                opacity: 0.8,
-                                speed: 3
-                            },
-                            repulse: { // Example: repulse effect on click
-                                distance: 200,
-                                duration: 0.4
-                            },
-                            push: {
-                                particles_nb: 4
-                            },
-                            remove: {
-                                particles_nb: 2
-                            }
-                        }
-                    },
-                    retina_detect: true
-                });
-            }
-        });
-    </script>
 </body>
-
 </html>
