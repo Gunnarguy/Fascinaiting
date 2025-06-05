@@ -13,20 +13,50 @@
 /**
  * Smooth scrolling for internal navigation links
  * Provides smooth page transitions when clicking anchor links
+ * Enhanced Safari compatibility with fallback
  */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
             // Account for fixed navbar height
-            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+            const navbar = document.querySelector('.navbar');
+            const navbarHeight = navbar ? navbar.offsetHeight : 70;
             const targetPosition = target.offsetTop - navbarHeight - 20;
             
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
+            // Try modern smooth scrolling first
+            if ('scrollBehavior' in document.documentElement.style) {
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Fallback for Safari and older browsers
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                const duration = 800;
+                let start = null;
+                
+                function step(timestamp) {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    const progressPercentage = Math.min(progress / duration, 1);
+                    
+                    // Easing function for smooth animation
+                    const ease = progressPercentage < 0.5 
+                        ? 2 * progressPercentage * progressPercentage 
+                        : 1 - Math.pow(-2 * progressPercentage + 2, 2) / 2;
+                    
+                    window.scrollTo(0, startPosition + distance * ease);
+                    
+                    if (progress < duration) {
+                        window.requestAnimationFrame(step);
+                    }
+                }
+                
+                window.requestAnimationFrame(step);
+            }
         }
     });
 });
@@ -34,34 +64,51 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 /**
  * Mobile navigation toggle functionality
  * Handles hamburger menu interactions and mobile navigation
+ * Enhanced for Safari compatibility
  */
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 
 if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
+    // Add click event listener with proper error handling
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
         
-        // Prevent body scroll when menu is open
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        // Prevent body scroll when menu is open - Safari compatible
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
     });
 
     // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
+    document.querySelectorAll('.nav-menu a').forEach(function(link) {
+        link.addEventListener('click', function() {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         });
     });
     
     // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', function(e) {
         if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         }
     });
 }
@@ -360,14 +407,23 @@ window.addEventListener('scroll', addParallaxEffect);
  * Initialize all website functionality when DOM is ready
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // Inject dynamic styles
-    injectDynamicStyles();
+    // Dynamic styles are now handled in CSS file for better Safari compatibility
+    // injectDynamicStyles();
     
     // Add loading class to body for initial animations
     document.body.classList.add('loaded');
     
+    // Ensure body is visible
+    document.body.style.opacity = '1';
+    
     // Initialize any additional features
     console.log('OpenAssistant website initialized successfully');
+});
+
+// Also set loaded on window load as fallback
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    document.body.style.opacity = '1';
 });
 
 /**
