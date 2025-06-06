@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="OpenAssistant - A professional native SwiftUI iOS client for the OpenAI Assistants API. Features comprehensive assistant management, vector stores, and real-time chat functionality.">
+    <meta name="description" content="OpenAssistant - A native SwiftUI iOS application for the OpenAI Assistants API. Features comprehensive assistant management, vector stores, file management, and real-time chat functionality.">
     <meta name="keywords" content="iOS, SwiftUI, OpenAI, Assistants API, AI, mobile app, vector stores, chat, MVVM, artificial intelligence">
-    <meta name="author" content="OpenAssistant Team">
+    <meta name="author" content="Gunnar Hostetler">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://gunnarguy.github.io/Fascinaiting/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gunnarguy.github.io/Fascinaiting/">
-    <meta property="og:title" content="OpenAssistant - Advanced iOS Client for OpenAI Assistants">
-    <meta property="og:description" content="A professional-grade iOS application that brings the full power of OpenAI's Assistants API to your mobile device with comprehensive management tools.">
+    <meta property="og:title" content="OpenAssistant - iOS App for OpenAI Assistants API">
+    <meta property="og:description" content="Native iOS application that brings the full power of OpenAI's Assistants API directly to your iPhone with comprehensive management tools.">
     <meta property="og:image" content="https://gunnarguy.github.io/Fascinaiting/ios-app-screenshot.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://gunnarguy.github.io/Fascinaiting/">
-    <meta property="twitter:title" content="OpenAssistant - Advanced iOS Client for OpenAI Assistants">
-    <meta property="twitter:description" content="Professional iOS app for OpenAI Assistants API with vector stores, chat, and comprehensive management tools.">
+    <meta property="twitter:title" content="OpenAssistant - iOS App for OpenAI Assistants API">
+    <meta property="twitter:description" content="Native iOS app for OpenAI Assistants API with vector stores, chat, and comprehensive management tools.">
     <meta property="twitter:image" content="https://gunnarguy.github.io/Fascinaiting/ios-app-screenshot.png">
     
-    <title>OpenAssistant - Advanced iOS Client for OpenAI Assistants</title>
+    <title>OpenAssistant - iOS App for OpenAI Assistants API</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,8 +72,8 @@
                 <h1>OpenAssistant</h1>
                 <p class="hero-subtitle">A Native SwiftUI iOS Client for the OpenAI Assistants API</p>
                 <p class="hero-description">
-                    A professional-grade iOS application that brings the full power of OpenAI's Assistants API 
-                    to your mobile device. Built entirely with SwiftUI and the Combine framework, OpenAssistant 
+                    This iOS application brings the full power of OpenAI's Assistants API directly to your 
+                    iPhone. Built entirely with SwiftUI and the Combine framework, OpenAssistant 
                     provides comprehensive assistant management, intelligent vector storage, and real-time 
                     conversations in a beautifully crafted native iOS experience.
                 </p>
@@ -119,18 +119,18 @@
         <div class="container">
             <h2>Project Overview</h2>
             <p class="section-intro">
-                OpenAssistant represents a new standard in native iOS development for AI interaction. 
-                Built from the ground up with SwiftUI and the Combine framework, this application 
-                delivers comprehensive access to OpenAI's Assistants API capabilities. From advanced 
-                conversation management to sophisticated file processing with vector stores, 
-                OpenAssistant transforms your iOS device into a powerful AI workspace.
+                OpenAssistant comes with a full SwiftUI interface with reactive Combine data flows. It 
+                unlocks the full spectrum of the OpenAI Assistants API, empowering you 
+                to orchestrate dynamic conversations, manage intelligent vector stores, 
+                and perform advanced file ingestion and processing — all within a sleek
+                iPhone app.
             </p>
             
             <div class="overview-grid">
                 <div class="overview-card">
                     <div class="card-icon">🏗️</div>
                     <h3>MVVM Architecture</h3>
-                    <p>Built with a robust Model-View-ViewModel pattern that ensures clean separation of concerns, exceptional testability, and maintainable code for enterprise-grade iOS development.</p>
+                    <p>Built with a robust Model-View-ViewModel pattern that ensures clean separation of concerns, exceptional testability, and maintainable code.</p>
                 </div>
                 <div class="overview-card">
                     <div class="card-icon">⚡</div>
@@ -140,12 +140,12 @@
                 <div class="overview-card">
                     <div class="card-icon">🔧</div>
                     <h3>Modular Architecture</h3>
-                    <p>Thoughtfully organized into specialized modules including API services, chat functionality, assistant management, and vector store operations for maximum code reusability and maintainability.</p>
+                    <p>Organized into specialized modules including API services, chat functionality, assistant management, and vector store operations for maximum code reusability and maintainability.</p>
                 </div>
                 <div class="overview-card">
                     <div class="card-icon">📱</div>
-                    <h3>Native iOS Excellence</h3>
-                    <p>Crafted exclusively with SwiftUI to deliver a truly native iOS experience with platform-specific design patterns, accessibility features, and performance optimizations.</p>
+                    <h3>Native iOS</h3>
+                    <p>Crafted exclusively with SwiftUI to deliver a truly native iOS experience.  No dependencies outside of the Apple ecosystem.</p>
                 </div>
             </div>
         </div>
@@ -162,8 +162,8 @@
                     <p>Full lifecycle management of OpenAI Assistants with advanced configuration options including GPT-4o, O1-series models, fine-tuned temperature and reasoning effort controls, and custom instruction sets.</p>
                     <ul>
                         <li>Full assistant creation and management</li>
-                        <li>Advanced model selection (GPT-4o, O1, GPT-4 series)</li>
-                        <li>Precision parameter tuning (temperature, top-P, reasoning effort)</li>
+                        <li>Advanced model selection (GPT-4o, 4.1, 4.5 / o1, 03-mini, o4-mini)</li>
+                        <li>Dynamic parameter tuning (temperature & Top-P (workhorses), reasoning effort (reasoning models))</li>
                         <li>Real-time configuration updates</li>
                     </ul>
                 </div>
@@ -171,7 +171,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">🛠️</div>
                     <h3>Dynamic Tool Integration</h3>
-                    <p>Seamlessly enable and configure powerful AI tools including Code Interpreter for programming tasks and File Search for document-based knowledge retrieval with advanced vector store integration.</p>
+                    <p>Enable and configure AI tools including Code Interpreter for coding queries and File Search for document-based knowledge retrieval with advanced vector store integration.</p>
                     <ul>
                         <li>Code Interpreter with execution capabilities</li>
                         <li>Advanced File Search with vector embeddings</li>
