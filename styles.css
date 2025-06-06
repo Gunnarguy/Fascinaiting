@@ -246,29 +246,68 @@ body {
 }
 
 .app-store-badge {
-    display: inline-flex; /* Align icon and text */
-    align-items: center; /* Vertically center content */
-    padding: 8px 16px; /* Adjust padding as needed */
-    background-color: #000; /* Apple's typical black badge color */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background-color: #000;
     color: white;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.9rem; /* Adjust font size */
+    font-size: 0.875rem;
     border: 2px solid transparent;
+    white-space: nowrap;
+    min-height: 44px; /* Ensure consistent height */
+    max-width: 200px; /* Prevent it from getting too wide */
+    line-height: 1;
 }
 
 .app-store-badge:hover {
-    background-color: #333; /* Darken on hover */
+    background-color: #333;
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    color: white; /* Ensure text stays white on hover */
 }
 
 .app-store-badge .apple-icon {
-    width: 18px; /* Ensured icon size */
-    height: 18px; /* Ensured icon size */
-    margin-right: 8px; /* Space between icon and text */
-    fill: white; /* Ensure SVG fill is white */
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px;
+    min-height: 16px;
+    max-width: 16px;
+    max-height: 16px;
+    fill: white;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.app-store-badge span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Universal App Store badge constraints for all browsers */
+.app-store-badge svg,
+.app-store-badge .apple-icon,
+.app-store-badge img {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    fill: white !important;
+    flex: none !important;
+}
+
+/* Additional cross-browser compatibility */
+.app-store-badge {
+    box-sizing: border-box !important;
+    contain: layout style;
 }
 
 /* ================================
@@ -873,6 +912,39 @@ body {
     
     .hero-buttons {
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    /* Mobile-specific App Store button styling */
+    .app-store-badge {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+        max-width: 180px;
+        min-height: 40px;
+    }
+    
+    .app-store-badge .apple-icon {
+        width: 14px !important;
+        height: 14px !important;
+        min-width: 14px;
+        min-height: 14px;
+        max-width: 14px;
+        max-height: 14px;
+    }
+    
+    .app-store-badge span {
+        font-size: 0.8rem;
+    }
+    
+    /* Ensure all hero buttons are consistently sized on mobile */
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        width: auto;
+        max-width: 200px;
+        text-align: center;
     }
     
     .phone-mockup {
