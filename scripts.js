@@ -400,6 +400,109 @@ const addParallaxEffect = throttle(() => {
 window.addEventListener('scroll', addParallaxEffect);
 
 // ================================
+// IMAGE SIZING FALLBACKS
+// ================================
+
+/**
+ * Enhanced image sizing fallback for cross-browser compatibility
+ * Handles edge cases where CSS solutions may not work
+ */
+function ensureProperImageSizing() {
+    const screenshots = document.querySelectorAll('.app-screenshot');
+    
+    screenshots.forEach(img => {
+        // Function to properly size the image
+        const sizeImage = () => {
+            const container = img.closest('.app-preview');
+            if (!container) return;
+            
+            const containerRect = container.getBoundingClientRect();
+            const maxWidth = containerRect.width;
+            const maxHeight = containerRect.height;
+            
+            // Set explicit dimensions
+            img.style.width = '100%';
+            img.style.height = '100%';
+            img.style.maxWidth = maxWidth + 'px';
+            img.style.maxHeight = maxHeight + 'px';
+            img.style.objectFit = 'cover';
+            img.style.objectPosition = 'center';
+            
+            // Fallback for browsers that don't support object-fit
+            if (!CSS.supports('object-fit', 'cover')) {
+                img.style.width = maxWidth + 'px';
+                img.style.height = maxHeight + 'px';
+                
+                // Hide img and use background on container
+                img.style.opacity = '0';
+                img.style.position = 'absolute';
+                
+                container.style.backgroundImage = `url(${img.src})`;
+                container.style.backgroundSize = 'cover';
+                container.style.backgroundPosition = 'center';
+                container.style.backgroundRepeat = 'no-repeat';
+            }
+        };
+        
+        // Apply sizing when image loads
+        if (img.complete) {
+            sizeImage();
+        } else {
+            img.addEventListener('load', sizeImage);
+            img.addEventListener('error', () => {
+                console.warn('Failed to load app screenshot');
+                // Provide a fallback or placeholder
+                const container = img.closest('.app-preview');
+                if (container) {
+                    container.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    container.innerHTML = '<div style="color: white; text-align: center; font-size: 14px; padding: 20px;">App Preview</div>';
+                }
+            });
+        }
+        
+        // Re-apply sizing on window resize
+        const resizeHandler = throttle(sizeImage, 250);
+        window.addEventListener('resize', resizeHandler);
+    });
+}
+
+/**
+ * Handle viewport changes that might affect image sizing
+ */
+function handleViewportChanges() {
+    const phoneMockups = document.querySelectorAll('.phone-mockup');
+    
+    phoneMockups.forEach(mockup => {
+        const updateMockupSize = () => {
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            // Dynamic sizing based on viewport
+            if (viewportWidth <= 360) {
+                mockup.style.width = Math.min(220, viewportWidth * 0.7) + 'px';
+                mockup.style.height = Math.min(440, viewportHeight * 0.55) + 'px';
+            } else if (viewportWidth <= 480) {
+                mockup.style.width = Math.min(250, viewportWidth * 0.75) + 'px';
+                mockup.style.height = Math.min(500, viewportHeight * 0.6) + 'px';
+            } else if (viewportWidth <= 768) {
+                mockup.style.width = Math.min(280, viewportWidth * 0.7) + 'px';
+                mockup.style.height = Math.min(560, viewportHeight * 0.65) + 'px';
+            } else {
+                // Use CSS defaults for larger screens
+                mockup.style.width = '';
+                mockup.style.height = '';
+            }
+        };
+        
+        updateMockupSize();
+        window.addEventListener('resize', throttle(updateMockupSize, 250));
+        window.addEventListener('orientationchange', () => {
+            setTimeout(updateMockupSize, 100); // Small delay for orientation change
+        });
+    });
+}
+
+// ================================
 // INITIALIZATION
 // ================================
 
@@ -415,6 +518,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Ensure body is visible
     document.body.style.opacity = '1';
+    
+    // Initialize image sizing fallbacks
+    ensureProperImageSizing();
+    handleViewportChanges();
     
     // Initialize any additional features
     console.log('OpenAssistant website initialized successfully');
