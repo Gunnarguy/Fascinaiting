@@ -257,95 +257,6 @@ body {
     color: #667eea;
 }
 
-.app-store-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 20px;
-    background-color: #000;
-    color: white;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.875rem;
-    border: 2px solid transparent;
-    white-space: nowrap;
-    min-height: 44px; /* Ensure consistent height */
-    max-width: 200px; /* Prevent it from getting too wide */
-    line-height: 1;
-}
-
-.app-store-badge:hover {
-    background-color: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    color: white; /* Ensure text stays white on hover */
-}
-
-.app-store-badge .apple-icon {
-    width: 16px !important;
-    height: 16px !important;
-    min-width: 16px !important;
-    min-height: 16px !important;
-    max-width: 16px !important;
-    max-height: 16px !important;
-    fill: white !important;
-    flex-shrink: 0;
-    display: block !important;
-}
-
-.app-store-badge span {
-    font-size: 0.875rem;
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-/* Universal App Store badge constraints for all browsers */
-.app-store-badge svg,
-.app-store-badge .apple-icon,
-.app-store-badge img {
-    width: 16px !important;
-    height: 16px !important;
-    min-width: 16px !important;
-    min-height: 16px !important;
-    max-width: 16px !important;
-    max-height: 16px !important;
-    display: inline-block !important;
-    fill: white !important;
-    flex: none !important;
-    flex-shrink: 0 !important;
-}
-
-/* Additional cross-browser compatibility */
-.app-store-badge {
-    box-sizing: border-box !important;
-    contain: layout style;
-}
-
-/* Force SVG sizing across all browsers including WebKit */
-.app-store-badge svg.apple-icon {
-    width: 16px !important;
-    height: 16px !important;
-    max-width: 16px !important;
-    max-height: 16px !important;
-    min-width: 16px !important;
-    min-height: 16px !important;
-    object-fit: contain !important;
-    flex-shrink: 0 !important;
-    transform: scale(1) !important;
-}
-
-/* WebKit specific fixes */
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-    .app-store-badge svg,
-    .app-store-badge .apple-icon {
-        width: 16px !important;
-        height: 16px !important;
-        transform: translateZ(0) !important;
-    }
-}
-
 /* ================================
    PHONE MOCKUP
    ================================ */
@@ -862,31 +773,11 @@ body {
     flex: none !important;
 }
 
-/* Strict App Store badge icon sizing */
-.app-store-badge svg[class*="apple"],
-.app-store-badge .apple-icon,
-.app-store-badge svg {
-    width: 16px !important;
-    height: 16px !important;
-    max-width: 16px !important;
-    max-height: 16px !important;
-    min-width: 16px !important;
-    min-height: 16px !important;
-    flex: 0 0 16px !important;
-    object-fit: contain !important;
-    transform: none !important;
-    zoom: 1 !important;
-}
-
 /* Firefox and Edge specific fixes */
 @supports (-moz-appearance: none) {
-    .nav-logo img, .app-store-badge svg {
+    .nav-logo img {
         width: 24px !important;
         height: 24px !important;
-    }
-    .app-store-badge svg {
-        width: 16px !important;
-        height: 16px !important;
     }
 }
 
@@ -896,10 +787,6 @@ body {
         width: 24px !important;
         height: 24px !important;
     }
-    .app-store-badge svg {
-        width: 16px !important;
-        height: 16px !important;
-    }
 }
 
 /* Chrome/Safari fallback */
@@ -907,10 +794,6 @@ body {
     .nav-logo img {
         max-width: 24px !important;
         max-height: 24px !important;
-    }
-    .app-store-badge svg {
-        max-width: 16px !important;
-        max-height: 16px !important;
     }
 }
 
@@ -1021,27 +904,6 @@ body {
         flex-direction: column;
         align-items: center;
         gap: 12px;
-    }
-    
-    /* Mobile-specific App Store button styling */
-    .app-store-badge {
-        padding: 10px 16px;
-        font-size: 0.8rem;
-        max-width: 180px;
-        min-height: 40px;
-    }
-    
-    .app-store-badge .apple-icon {
-        width: 14px !important;
-        height: 14px !important;
-        min-width: 14px;
-        min-height: 14px;
-        max-width: 14px;
-        max-height: 14px;
-    }
-    
-    .app-store-badge span {
-        font-size: 0.8rem;
     }
     
     /* Ensure all hero buttons are consistently sized on mobile */
