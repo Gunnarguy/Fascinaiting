@@ -837,6 +837,7 @@ body {
 .footer-section h4 {
     margin-bottom: 1rem;
     font-size: 1.2rem;
+    color: white;
 }
 
 .footer-section p {
@@ -862,11 +863,41 @@ body {
     color: white;
 }
 
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #bdc3c7;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: translateY(-3px);
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: 30px;
     border-top: 1px solid #34495e;
     color: #bdc3c7;
+}
+
+.footer-note {
+    font-size: 0.85rem;
+    margin-top: 10px;
+    opacity: 0.8;
 }
 
 /* ================================
@@ -1020,6 +1051,10 @@ body {
         gap: 12px;
     }
     
+    .hero-badges {
+        justify-content: center;
+    }
+    
     /* Ensure all hero buttons are consistently sized on mobile */
     .btn {
         padding: 10px 20px;
@@ -1055,6 +1090,10 @@ body {
     /* Better section spacing on mobile */
     .section {
         padding: 60px 0;
+    }
+    
+    .section h2 {
+        font-size: 2rem;
     }
     
     /* Improved feature grid for mobile */
@@ -1100,6 +1139,7 @@ body {
     .flow-step {
         flex-direction: column;
         text-align: center;
+        align-items: center;
     }
     
     .step-number {
