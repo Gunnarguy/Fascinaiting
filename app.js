@@ -10,95 +10,68 @@ const PROJECTS = [
         tech: ["Swift", "SwiftUI", "CoreML", "Apple Intelligence", "OCR Vision"],
         stats: {
             "Latency Profile": "~180ms local lookup",
-            "Target Model": "Apple LanguageModelSession",
+            "Target Model": "Llama-3-3B-Instruct (local)",
             "Storage Overhead": "<120MB offline engine",
-            "Confidence Gate": "0.70 grounding threshold"
+            "Privacy Mode": "100% Airplane Mode Safe"
         },
         features: [
             "Fully offline local embedding generation & retrieval using CoreML vector spaces.",
-            "Vision-based PDF & OCR image scanning straight to the localized vault.",
-            "Dynamic reasoning router directing queries between on-device SLMs and cloud-based models.",
-            "Custom recursive token window extension bypassing standard 4,096 SLM token boundaries."
+            "Vision-based document scanning that extracts text and structures files directly into the Local Vault.",
+            "Dynamic Apple Intelligence reasoning router that decides whether to process queries locally or escalate.",
+            "Custom recursive token window bypass pushing through standard 4,096 SLM token boundaries."
         ],
-        diagram: `[PDF/Image Ingestion] ──> [OCR Vision Pipeline] ──> [Vector Embedding Store (CoreML)]
+        diagram: `[Ingested Document/Image] ──> [OCR Vision Pipeline] ──> [Vector Embedding Store (CoreML)]
                                                                                │
                                                                                ▼
 [Query Text Input] ─────> [Apple Intelligence Router] ─────> [Local Semantic Context]`,
-        link: "https://github.com/Gunnarguy/OpenIntelligence-Public",
-        linkLabel: "View Source on GitHub"
-    },
-    {
-        id: "openclinic",
-        tag: "on-device-ml",
-        title: "OpenClinic Workspace",
-        status: "active",
-        statusClass: "pulse",
-        desc: "Provider-facing clinical workstation integrating patient scheduling, chart documentation, and on-device clinical intelligence via LanguageModelSession.",
-        tech: ["SwiftData", "LanguageModelSession", "SMART on FHIR", "SQLite FTS5", "Actors"],
-        stats: {
-            "Concurrency": "Background Actor-isolated RAG",
-            "Vector Embed": "768-dim MLPackage CoreML",
-            "Sync Engine": "SMART on FHIR OAuth",
-            "Safety Gates": "9-gate output validator"
-        },
-        features: [
-            "Local-first patient charting and schedule timelines running off SwiftData.",
-            "Dictation transcription into structured ClinicalVisitNotes via local Apple Foundation models.",
-            "9-Gate Safety Verification system checking evidence coverage and patient boundaries.",
-            "SMART on FHIR sandbox synchronization using ASWebAuthenticationSession tokens."
-        ],
-        diagram: `[SMART FHIR Server] ──> [OAuth ASWebAuthSession] ──> [SwiftData Local Store]
-                                                                   │
-                                                                   ▼
-[Clinician Query] ──> [FTS5 + CoreML Search] ──> [LanguageModelSession] ──> [9-Gate Validator]`,
-        link: "https://github.com/Gunnarguy/OpenClinic",
+        link: "https://github.com/Gunnarguy/RAGMLCore",
         linkLabel: "View Source on GitHub"
     },
     {
         id: "openresponses",
         tag: "ai-agents",
-        title: "OpenResponses Client",
+        title: "OpenResponses Agent Client",
         status: "streaming",
         statusClass: "pulse",
-        desc: "Real-time streaming developer playground client for OpenAI's Responses API, hosting token-level output parameters, reasoning traces, and local MCP tool integrations.",
-        tech: ["SwiftUI", "Responses API", "Computer Use", "AsyncThrowingStream", "Keychain"],
+        desc: "Real-time streaming desktop assistant client utilizing OpenAI WebSocket APIs, model-driven computer-use automation, and local Model Context Protocol integrations.",
+        tech: ["SwiftUI", "OpenAI WebSocket", "Computer Use", "FastAPI", "MCP"],
         stats: {
-            "Websocket Stream": "Asynchronous SSE (~45ms)",
-            "Model Selection": "GPT-4o & Claude 3.5 Sonnet",
-            "Secret Storage": "Keychain Enclave Secure",
-            "Automation Gating": "Consent approval sheets"
+            "WebSocket Latency": "~45ms stream response",
+            "Model Compatibility": "GPT-4o & Claude 3.5 Sonnet",
+            "Running Daemon": "FastAPI Agent host",
+            "Active Ports": "localhost:8000 (Local API)"
         },
         features: [
-            "SSE stream parser dispatching UI updates to the MainActor to avoid layout race conditions.",
-            "Exposes raw token counters and live connection monitors for o1/o3-mini reasoning traces.",
-            "Sandboxed browser automation (Computer Use) utilizing state coordinators to prevent loops.",
-            "Custom file converter processing attachments locally via PDFKit and Vision OCR."
+            "Persistent WebSocket audio/text connection providing instant streaming LLM interfaces.",
+            "Computer Use daemon executing automated screen captures, keyboard strokes, and mouse navigation.",
+            "Hosts custom local Model Context Protocol (MCP) endpoints connecting system tools.",
+            "Parallel model stream analyzer comparing performance across multiple LLM backends concurrently."
         ],
-        diagram: `[OpenResponses Client] <═══(WebSocket Streaming)═══> [Real-time API (OpenAI/Anthropic)]
+        diagram: `[OpenResponses Client] <═══(WebSocket Streaming)═══> [Real-time Agent APIs]
          │                                                          │
-         └───> [Local MCP Hub] ──> [Notion & Remote Shell Integrations] ┘`,
+         └───> [Local MCP Server] ──> [Notion & Shell Script Integrations] ┘`,
         link: "https://github.com/Gunnarguy/OpenResponses",
         linkLabel: "View Source on GitHub"
     },
     {
         id: "plaudblender",
         tag: "pipelines",
-        title: "PlaudBlender (Chronos)",
+        title: "PlaudBlender Core",
         status: "idle",
         statusClass: "orange",
-        desc: "Cognitive processing pipeline converting raw voice recordings from Plaud devices into searchable NetworkX/Cytoscape temporal knowledge graphs.",
-        tech: ["Python", "Gemini 1.5 Pro", "Qdrant Vector DB", "Dash UI", "FastMCP"],
+        desc: "Automated voice intelligence pipeline transforming raw recordings from Plaud devices into searchable, structured semantic knowledge graphs in Qdrant.",
+        tech: ["Python", "Gemini 1.5 Pro", "Qdrant Vector DB", "MCP", "Docker"],
         stats: {
-            "Database": "Qdrant (Cloud/Local)",
-            "Embed Model": "Gemini-Embedding-2 (768-dim)",
-            "MCP Server": "11 custom tools registered",
-            "Activity Monitor": "X-ray PiP panel (800ms poll)"
+            "Processing Speed": "10x transcribing speed",
+            "Vector Database": "Qdrant (Cloud/Local)",
+            "Active Pipelines": "Audio Webhook Listener",
+            "MCP Integration": "11 custom tools exposed"
         },
         features: [
-            "Plaud audio API transcript ingest with OAuth authentication.",
-            "Gemini 1.5 Pro audio-native processing to extract events, sentiment, and categories.",
-            "Visualizations using Dash v2 Cytoscape graphs with communities detection.",
-            "Activity logs streamed to a floating, draggable client-side Picture-in-Picture panel."
+            "Automatic webhook capture of raw audio transcripts from Plaud Cloud APIs.",
+            "Multimodal audio-native intelligence with Gemini 1.5 Pro for entity-relation extraction.",
+            "Structured graph schema creation storing nodes and directional relation vectors in Qdrant.",
+            "Exposes knowledge graph nodes as an 11-tool Model Context Protocol server for local LLMs."
         ],
         diagram: `[Plaud Audio File] ──> [Gemini Audio Processing] ──> [Graph Schema Mapper]
                                                                         │
@@ -113,52 +86,25 @@ const PROJECTS = [
         title: "OpenCone Vector Client",
         status: "ready",
         statusClass: "blue",
-        desc: "Local-first iOS vector client integrating OpenAI embeddings and Pinecone databases directly with rate-limiting and circuit-breaker protection.",
-        tech: ["Swift", "SwiftUI", "Pinecone REST API", "RecursiveTextSplitter", "Speech"],
+        desc: "Swift client managing Pinecone databases directly from mobile devices, featuring local embedding models, semantic search, and RAG namespace control.",
+        tech: ["Swift", "SwiftUI", "Pinecone DB", "Vector Space", "REST API"],
         stats: {
-            "Vector Lookup": "~90ms query REST API",
-            "Segmentation": "Recursive (1024 chars, 256 overlap)",
-            "Secure Store": "Keychain SecureSettingsStore",
-            "Audio Input": "AVAudioEngine & SFSpeechRecognizer"
+            "HTTP Request Time": "~90ms vector query",
+            "Index Provider": "Pinecone Serverless",
+            "Minimum OS": "iOS 17.0+ Native",
+            "Embedding Model": "On-Device Mobile Embed"
         },
         features: [
-            "Exponential backoff retries and rate limiters protecting against vector-store throttling.",
-            "Local document chunking using a MIME-aware recursive splitter.",
-            "Hybrid search weighting slider combining dense vectors and sparse keywords.",
-            "Secure bookmarks retaining local file permissions across app restarts without prompts."
+            "Clean, direct connection to Pinecone Vector DB REST APIs from native Swift code.",
+            "On-device lightweight embedding models encoding query string before remote lookup.",
+            "Interactive system for editing namespace contents and exploring document metadata values.",
+            "Optimized payload inspection layout rendering JSON variables in a clean, scrollable interface."
         ],
-        diagram: `[Local Document] ──> [MIME Chunker] ──> [OpenAI Embeddings] ──> [Pinecone REST API]
-                                                                             │
-                                                                             ▼
-[Voice Query (AVAudio)] ──> [Speech Recognition] ──> [Cosine Similarity Matches]`,
+        diagram: `[User Text Note] ──> [On-device Vector Embedder] ──> [Pinecone REST API]
+                                                                  │
+                                                                  ▼
+[Search Query] ─────> [Semantic Vector Query] ─────> [Metadata Matching]`,
         link: "https://apps.apple.com/us/app/opencone/id6744467668",
-        linkLabel: "View on App Store"
-    },
-    {
-        id: "openassistant",
-        tag: "ai-agents",
-        title: "OpenAssistant Classic",
-        status: "legacy",
-        statusClass: "orange",
-        desc: "Foundational native SwiftUI client for OpenAI's stateful Assistants API (v2) featuring strategy-driven local file preprocessing and active run polling.",
-        tech: ["SwiftUI", "Combine", "Assistants API", "Strategy Pattern", "Polling"],
-        stats: {
-            "Polling Pipeline": "2.0s interval with weak captures",
-            "File Handling": "HEIC/RTF on-device converters",
-            "Architecture": "Decoupled notification bus",
-            "Target OS": "iOS 15.0+ Compatible"
-        },
-        features: [
-            "Timer-based polling system designed to manage stateful thread run lifecycles safely.",
-            "MIME preprocessing converting non-supported formats (HEIC to JPEG, RTF to TXT) locally.",
-            "Cross-module synchronization using NotificationCenter to update views without tight coupling.",
-            "Secure direct-to-OpenAI TLS 1.3 connections bypassing third-party proxies."
-        ],
-        diagram: `[Select Attachment] ──> [Conversion Strategy] ──> [Upload to OpenAI Files]
-                                                                      │
-                                                                      ▼
-[Send Prompt] ──> [Create Thread Run] ──> [2.0s Polling Loop] ──> [Deduplicate & Render]`,
-        link: "https://apps.apple.com/us/app/openassistant/id6692613772",
         linkLabel: "View on App Store"
     },
     {
@@ -167,25 +113,25 @@ const PROJECTS = [
         title: "MCP Core Servers",
         status: "connected",
         statusClass: "pulse",
-        desc: "Custom Model Context Protocol servers enabling local LLM clients to safely read/write workspace documents, execute CLI tasks, and sync Notion data.",
-        tech: ["TypeScript", "Node.js", "JSON-RPC", "Notion API", "HTTP Transport"],
+        desc: "Custom Model Context Protocol servers enabling LLM clients to safely read/write workspace documents, manage Notion databases, and trigger shell scripts.",
+        tech: ["TypeScript", "Node.js", "JSON-RPC", "Notion API", "Shell Control"],
         stats: {
-            "Protocol": "JSON-RPC over stdio / HTTP",
-            "Access Control": "Regex-bounded write blocks",
-            "Host Options": "Smithery & Docker images",
-            "API Target": "Notion v2022-06-28"
+            "Active Protocols": "JSON-RPC over stdio",
+            "Running Servers": "3 custom servers",
+            "Client Interface": "Claude Desktop / Cursor",
+            "Safety Layer": "Regex-bounded write access"
         },
         features: [
-            "Notion MCP server supporting database query searches and comment additions.",
-            "Standard stdio transport and streamable HTTP transport options on custom ports.",
-            "Local file system access with folder restrictions safeguarding core environment files.",
+            "Notion MCP server supporting database query searches, item additions, and block edits.",
+            "Local file editor server featuring safety limits that block system directory access.",
+            "CLI command execution server streaming output logs back into the model context in real-time.",
             "Fully compliant with the Anthropic Model Context Protocol specification."
         ],
-        diagram: `[Claude Desktop / Zed IDE]
-             │ (stdio JSON-RPC / HTTP bearer token)
+        diagram: `[Claude Desktop Client / Cursor IDE]
+             │ (stdio JSON-RPC protocol)
              ▼
      [Local MCP Host]
-      ├── [Notion Server] ───> [Notion Developers API]
+      ├── [Notion Server] ───> [External Notion API]
       └── [System Controller] ─> [Restricted Workspace Files]`,
         link: "https://github.com/Gunnarguy/notion-mcp-server",
         linkLabel: "View Server Source"
@@ -193,7 +139,7 @@ const PROJECTS = [
     {
         id: "visionbud",
         tag: "pipelines",
-        title: "VisionBud (Edge AI)",
+        title: "VisionBud & Automations",
         status: "dormant",
         statusClass: "orange",
         desc: "Edge computer vision and real-time object tracking scripts running on Raspberry Pi and Apple hardware, featuring YOLO integration.",
@@ -357,7 +303,7 @@ class TerminalSimulator {
         this.writeLine("READING CORE SENSORS...", "term-output-system");
         this.writeLine(`  [CPU Engine Load]  : ${cpu}% load`, "term-output-info");
         this.writeLine(`  [System Memory]    : ${memory} GB / 8.0 GB index cache`, "term-output-info");
-        this.writeLine(`  [Active Models]    : LanguageModelSession (Idle)`, "term-output-info");
+        this.writeLine(`  [Active Models]    : CoreML Llama-3-3B (Idle)`, "term-output-info");
         this.writeLine(`  [Socket Channels]  : 1 listener on localhost:8000`, "term-output-info");
         this.writeLine(`  [Core Temperature] : ${temp}°C (ANE passive)`, "term-output-info");
         
