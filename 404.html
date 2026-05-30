@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fascinaiting | 404 Resource Not Found</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+        }
+        .error-panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--accent-magenta);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 0, 127, 0.1), 0 0 20px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        .error-header {
+            background: rgba(255, 0, 127, 0.15);
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--accent-magenta);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .error-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-magenta);
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+        .error-body {
+            padding: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #f87171;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .error-code {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-magenta);
+            text-shadow: var(--glow-magenta);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-panel">
+        <div class="error-header">
+            <div class="terminal-buttons">
+                <span class="terminal-btn close" style="background:#ef4444;"></span>
+                <span class="terminal-btn minimize" style="background:#eab308;"></span>
+                <span class="terminal-btn maximize" style="background:#22c55e;"></span>
+            </div>
+            <div class="error-title">SYSTEM EXCEPTION // PATH_FAULT</div>
+        </div>
+        <div class="error-body">
+            <div class="error-code">404</div>
+            <p><strong>[ERROR] RESOURCE_NOT_FOUND:</strong> The target directory or memory index you requested does not exist on this host space.</p>
+            <p style="color: var(--text-secondary);">Possible causes: Deep-link path broken, or active dev workspace refactoring in progress.</p>
+            <div>
+                <a href="index.html" class="btn btn-accent" style="text-decoration:none;">Go Back to Workspace</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
