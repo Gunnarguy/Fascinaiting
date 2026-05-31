@@ -1,3 +1,27 @@
+const ASSET_VERSION = "20260531c";
+
+function forceFreshStylesheet() {
+  const versionedHref = `styles.css?v=${ASSET_VERSION}`;
+  const hasVersionedSheet = Array.from(document.styleSheets).some((sheet) => {
+    try {
+      return sheet.href && sheet.href.includes(versionedHref);
+    } catch {
+      return false;
+    }
+  });
+
+  if (hasVersionedSheet) {
+    return;
+  }
+
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = versionedHref;
+  document.head.appendChild(link);
+}
+
+forceFreshStylesheet();
+
 // Project Metadata for the Fascinaiting multi-repo showcase
 const PROJECTS = [
   {
