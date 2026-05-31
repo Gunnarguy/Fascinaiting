@@ -1,246 +1,247 @@
-// Project Metadata for the Fascinaiting AI & Edge Dashboard
+// Project Metadata for the Fascinaiting multi-repo showcase
 const PROJECTS = [
     {
-        id: "portfolio-main",
-        tag: "portfolio",
-        title: "Portfolio Homepage",
+        id: "orhub",
+        tag: "ops",
+        title: "ORHub",
         status: "active",
         statusClass: "pulse",
-        desc: "Your personal professional resume site, highlighting surgical operations context and native iOS app development. Features custom dynamic GitHub contribution grids and SVG tree ring charts.",
-        tech: ["HTML5", "CSS3", "JavaScript", "GitHub Pages", "Git Stratigraphy"],
+        desc: "SwiftUI operations console for live operating-room activity, combining a status dashboard, an interactive 2D floor map, and a LiDAR-backed AR overlay.",
+        tech: ["SwiftUI", "WebSockets", "REST API", "RealityKit", "LiDAR"],
         stats: {
-            "Host Platform": "GitHub Pages (gunnarguy.me)",
-            "Visualizations": "Tree Rings & Heatmaps",
-            "Embeddings Mode": "Text-embedding-ada-002",
-            "Performance": "100/100 Lighthouse score"
+            "Surface Modes": "Live hub + map + AR overlay",
+            "Data Feeds": "REST and WebSocket room updates",
+            "Clinical Context": "VA operating-room visibility",
+            "Device Target": "LiDAR iPhone/iPad for AR"
         },
         features: [
-            "Displays dynamic, all-time commit frequency heatmap using custom fetch wrappers.",
-            "Renders SVGs depicting repo lifespan rings ('tree rings') from static workflow JSONs.",
-            "Contains complete clinical narratives bridging hospital operations and software development.",
-            "Fully responsive glassmorphism aesthetic tailored for technical recruiters."
+            "Live room-state dashboard with connectivity indicators and drill-in detail views.",
+            "Tappable 2D floor-plan visualization shading rooms by current status.",
+            "RealityKit overlay that anchors room telemetry to a LiDAR scan.",
+            "Launch-time endpoint switching between bundled sample data and live services."
         ],
-        diagram: `[Portfolio Copy] ──> [Dynamic Chunker] ──> [Text Embeddings (OpenAI)]
-                                                    │
-                                                    ▼
-[User Matcher] ──> [Semantic Search Engine] <── [Vector Database]`,
-        link: "https://gunnarguy.me",
-        linkLabel: "Explore Portfolio Site"
+        diagram: `[REST + WebSocket feeds] ──> [Shared AppState] ──> [Live Hub + Floor Map]
+                                                     │
+                                                     ▼
+                                            [RealityKit AR Overlay]`,
+        link: "https://github.com/Gunnarguy/ORHub",
+        linkLabel: "View ORHub Source"
     },
     {
-        id: "portfolio-narrative",
-        tag: "portfolio",
-        title: "Narrative & Experience",
-        status: "ready",
-        statusClass: "blue",
-        desc: "Deep dive into your professional story as Stryker's on-site intraoperative specialist at Stanford VA in Palo Alto, coordinating clinical tech and surgical teams.",
-        tech: ["Surgical Systems", "Stakeholder Relations", "Hospital Logistics", "Autonomy"],
-        stats: {
-            "Location Context": "Palo Alto VA Hospital",
-            "Affiliated School": "Stanford Orthopedic Residency",
-            "Operational Autonomy": "100% Solo site lead",
-            "Primary Specialty": "Intraoperative technology support"
-        },
-        features: [
-            "Acts as the first line of defense for critical surgical equipment readiness.",
-            "Manages turnaround reliability and repair pipelines under intense time constraints.",
-            "Navigates vendor relations, procurement pressure, and high-variability workflows.",
-            "Translates hospital system safety checklists into clean, predictable software design."
-        ],
-        diagram: `[Hospital Operations] ──> [Equipment Turnaround] ──> [Surgeon Checklists]
-                                                                  │
-                                                                  ▼
-[Predictable Code] <─── [Autonomy & Critical Focus] <─── [Clinical Safety Rules]`,
-        link: "https://gunnarguy.me#about",
-        linkLabel: "Read Profile Narrative"
-    },
-    {
-        id: "gunzino-studio",
-        tag: "gunzino",
-        title: "Gunzino App Store Portal",
+        id: "pushapp",
+        tag: "native",
+        title: "PushApp",
         status: "active",
         statusClass: "pulse",
-        desc: "Landing site and publisher registry for shipped native iOS/macOS developer utilities. Serves support documentation, legal notices, and direct App Store links.",
-        tech: ["HTML5", "Vanilla CSS", "Google Tag Manager", "App Store Connect"],
+        desc: "Production-grade iOS implementation of the Pushscroll concept: block addictive apps with Screen Time shields, then require camera-verified push-ups to unlock them.",
+        tech: ["SwiftUI", "Vision", "FamilyControls", "ManagedSettings", "SwiftData"],
         stats: {
-            "Host Platform": "GitHub Pages (gunzino.me)",
-            "Published Apps": "5 shipped App Store titles",
-            "Search Engine Opt": "SEO semantic headers",
-            "Compliance": "App Store review privacy rules"
+            "Unlock Loop": "Camera-verified push-up reps",
+            "OS Hooks": "FamilyControls + DeviceActivity",
+            "Architecture": "3-extension Screen Time stack",
+            "Language Mode": "Swift 6 strict concurrency"
         },
         features: [
-            "Aggregates overview cards and descriptive summaries for all active app releases.",
-            "Maintains standard support links, privacy policies, and user manuals.",
-            "Features responsive grids with unique linear color palettes highlighting each utility.",
-            "Integrated analytics logs capturing landing interest securely."
+            "Pose-validation state machine built on VNDetectHumanBodyPoseRequest.",
+            "Native iOS shields and activity monitors that relock apps after earned time expires.",
+            "Analytics-ready architecture spanning the full restriction-to-reward funnel.",
+            "End-to-end SwiftUI product surface instead of a prototype or concept demo."
         ],
-        diagram: `[App Store Connect] ──> [Privacy & Terms Compliance] ──> [Support Registry]
-                                                                        │
-                                                                        ▼
-[Analytics telemetry] <──── [SEO Optimized Landing Page] <──── [User Inquiries]`,
-        link: "https://gunzino.me",
-        linkLabel: "View Shipped Catalog"
+        diagram: `[Blocked apps] ──> [FamilyControls Shield] ──> [Vision Pose Validator]
+                                                      │
+                                                      ▼
+                                             [Earned Unlock Minutes]`,
+        link: "https://github.com/Gunnarguy/PushApp",
+        linkLabel: "View PushApp Source"
     },
     {
-        id: "gunzino-intelligence",
-        tag: "gunzino",
-        title: "OpenIntelligence Portal",
-        status: "active",
-        statusClass: "pulse",
-        desc: "Flagship on-device local document search and OCR app. Fully offline Swift/CoreML vector embedding engine generating early App Store revenue.",
-        tech: ["Swift", "SwiftUI", "CoreML", "Apple Intelligence", "OCR Vision"],
-        stats: {
-            "Processing Mode": "100% Offline / Airplane Mode",
-            "First Release": "February 2026 (Live)",
-            "Token Boundary": "Dynamic recursive token loop",
-            "Total Earnings": "$190+ recorded to date"
-        },
-        features: [
-            "Locally parses, chunks, and embeds text/images on-device.",
-            "Leverages CoreML vector space embedding generation for offline semantics.",
-            "Recursive reasoning bypasses standard 4,096 SLM token boundaries.",
-            "Advanced hybrid routingEscalates reasoning dynamically to remote models."
-        ],
-        diagram: `[Ingested Image] ──> [OCR Vision Pipeline] ──> [Vector Embedding Store]
-                                                                          │
-                                                                          ▼
-[Query Text Input] ──> [Apple Intelligence Router] ──> [Local Semantic Context]`,
-        link: "https://gunzino.me/openintelligence",
-        linkLabel: "View OpenIntelligence App"
-    },
-    {
-        id: "gunzino-responses",
-        tag: "gunzino",
-        title: "OpenResponses Portal",
+        id: "linkedout",
+        tag: "sandbox",
+        title: "LinkedOut",
         status: "streaming",
         statusClass: "pulse",
-        desc: "WebSocket-driven OpenAI API playground, integrating real-time speech responses, FastAPI local host agents, and Model Context Protocol tools.",
-        tech: ["SwiftUI", "OpenAI WebSockets", "FastAPI Daemon", "MCP Transport"],
+        desc: "Swipe-based job discovery app that ingests listings from five remote boards, scores them with LLMs against a user profile, and ranks the best matches in a native iOS deck.",
+        tech: ["SwiftUI", "FastAPI", "Gemini", "OpenAI", "Render"],
         stats: {
-            "Connection Latency": "~45ms streaming connection",
-            "API Protocol": "JSON-RPC over websocket stdio",
-            "Agent Integration": "FastAPI localhost loopback",
-            "Running Services": "Client UI & FastAPI agent host"
+            "Job Sources": "5 remote APIs",
+            "Ranking Layer": "Gemini / OpenAI scoring",
+            "Client UX": "Swipe deck + saved matches",
+            "Backend": "FastAPI dedup and ingest"
         },
         features: [
-            "Establishes a persistent bidirectional speech/text pipeline with LLM backends.",
-            "Executes local keystrokes, screenshots, and shell scripts via FastAPI helper daemon.",
-            "Acts as a custom MCP host exposing Notion database and local editor integrations.",
-            "Passed rigid App Store review checks for developer playground utilities."
+            "Aggregates roles from Remotive, Himalayas, HN, Jobicy, and RemoteOK.",
+            "Deduplicates inbound listings before LLM relevance scoring runs.",
+            "Packages the results into a native swipe UI instead of a static job board.",
+            "Keeps the matching logic open to prompt tuning and profile experimentation."
         ],
-        diagram: `[OpenResponses Client] <═══(WebSocket Streaming)═══> [Real-time Agent APIs]
-         │                                                          │
-         └───> [Local MCP Server] ──> [Notion & Shell Script Integrations] ┘`,
-        link: "https://gunzino.me/openresponses",
-        linkLabel: "View OpenResponses App"
-    },
-    {
-        id: "gunzino-cone",
-        tag: "gunzino",
-        title: "OpenCone Portal",
-        status: "ready",
-        statusClass: "blue",
-        desc: "Lightweight mobile Pinecone Vector Database client featuring REST API connectivity and lightweight on-device query embed models.",
-        tech: ["Swift", "SwiftUI", "Pinecone REST API", "Keychain Secure"],
-        stats: {
-            "Query Latency": "~90ms remote vector search",
-            "Minimum OS Version": "iOS 17.0+ Native Swift",
-            "Storage Solution": "Keychain SecureSettingsStore",
-            "Data Provider": "Pinecone Serverless index"
-        },
-        features: [
-            "Direct API connection enabling mobile CRUD vector index operations.",
-            "Encodes local document segments and queries before uploading.",
-            "Exposes interactive views for managing index namespaces and metadata values.",
-            "Clean, scrollable layout designed for direct JSON payload inspection."
-        ],
-        diagram: `[User Text Note] ──> [On-device Vector Embedder] ──> [Pinecone REST API]
-                                                                  │
-                                                                  ▼
-[Search Query] ─────> [Semantic Vector Query] ─────> [Metadata Matching]`,
-        link: "https://gunzino.me/opencone",
-        linkLabel: "View OpenCone App"
-    },
-    {
-        id: "linkedin-profile",
-        tag: "linkedin",
-        title: "LinkedIn Profile",
-        status: "connected",
-        statusClass: "pulse",
-        desc: "Direct link to Gunnar Hostetler on LinkedIn. Access professional recommendations, Stryker product certifications, surgical specialties, and career updates.",
-        tech: ["Networking", "Professional Brand", "Resume Sync", "Advising"],
-        stats: {
-            "Platform URL": "linkedin.com/in/gunnar-hostetler",
-            "Connections Count": "Professional medical & tech",
-            "Authored Posts": "iOS development progression logs",
-            "Certifications": "Stryker Orthopedic Tech Specs"
-        },
-        features: [
-            "Highlights detailed trajectory from surgical clinical support to iOS development.",
-            "Lists verified recommendations from surgical technicians and Stanford residents.",
-            "Maintains record of product safety compliances and account audits.",
-            "Documents transition milestones shipping live App Store products."
-        ],
-        diagram: `[Clinical Operations] ──> [Stryker Certs] ──> [Verified Recommendations]
-                                                                │
-                                                                ▼
-[Career Transitions] <──── [App Store Deployments] <──── [LinkedIn Network Connect]`,
-        link: "https://www.linkedin.com/in/gunnar-hostetler/",
-        linkLabel: "View LinkedIn Profile"
-    },
-    {
-        id: "linkedin-experience",
-        tag: "linkedin",
-        title: "Clinical Operations Experience",
-        status: "ready",
-        statusClass: "blue",
-        desc: "Professional history managing Stryker intraoperative equipment, Stanford surgical resident relationships, and procurement pipelines at the VA Hospital in Palo Alto.",
-        tech: ["Surgical Systems", "VA Procurement", "Stryker Specialist", "Safety Protocols"],
-        stats: {
-            "Primary Location": "Palo Alto VA Hospital",
-            "Specialty Focus": "Intraoperative orthopedic tech",
-            "Team Integration": "Stanford Orthopedic Surgery",
-            "Process Auditing": "Zero equipment failures"
-        },
-        features: [
-            "Provides real-time troubleshooting inside sterile operating suites.",
-            "Coordinates multi-million dollar surgical equipment kits across cases.",
-            "Ensures patient safety protocols are adhered to during setup and turnover.",
-            "Operates independently without local supervisors on-site."
-        ],
-        diagram: `[Surgeon Requests] ──> [Sterile Suite Setup] ──> [Intraoperative Troubleshoot]
-                                                                  │
-                                                                  ▼
-[Account Health] <──── [Procurement Auditing] <──── [Autonomous Logistics lead]`,
-        link: "https://www.linkedin.com/in/gunnar-hostetler/",
-        linkLabel: "View Career History"
-    },
-    {
-        id: "linkedout-concept",
-        tag: "linkedin",
-        title: "LinkedOut/LunkedIn Concepts",
-        status: "ready",
-        statusClass: "blue",
-        desc: "Swipe-based job hunting concepts connecting remote databases and scoring relevance locally. Part of your ongoing experimentation with recruitment matching flows.",
-        tech: ["SwiftUI", "Job Boards API", "LLM Evaluation", "Gesture UI"],
-        stats: {
-            "Repository Status": "Open-Source Sandbox",
-            "AI Evaluator": "Embeddings & Semantic matching",
-            "Interface Style": "Card-deck swipe gestures",
-            "Sync Mode": "REST API caching"
-        },
-        features: [
-            "Pulls fresh software engineering listings from multiple public REST endpoints.",
-            "Processes job descriptions through LLM models to score compatibility.",
-            "Provides an intuitive card UI allowing swift saving or discarding.",
-            "Stores matching results in offline local caches for quick navigation."
-        ],
-        diagram: `[Public Job APIs] ──> [Local Content Parser] ──> [Semantic LLM Score]
-                                                                 │
-                                                                 ▼
-[Saved Listings Cache] <── [Tinder Swipe Gesture UI] <── [Relevance Rank Filter]`,
+        diagram: `[5 job APIs] ──> [Dedup + Ingest Pipeline] ──> [LLM Match Score]
+                                              │
+                                              ▼
+                                     [Native Swipe Deck]`,
         link: "https://github.com/Gunnarguy/LinkedOut",
-        linkLabel: "Explore Sandbox Source"
+        linkLabel: "View LinkedOut Source"
+    },
+    {
+        id: "chickenplans",
+        tag: "ops",
+        title: "ChickenPlans",
+        status: "active",
+        statusClass: "pulse",
+        desc: "Live-data weekend planner built for dog-friendly exploration, combining maps, Overpass API discovery, GPX imports, weather-aware scheduling, and Fi collar context.",
+        tech: ["Python", "Flask", "Leaflet", "Overpass API", "Fi"],
+        stats: {
+            "Map Stack": "Leaflet explorer UI",
+            "Discovery": "Overpass API live queries",
+            "Planner": "Weather-aware trip scheduler",
+            "Dog Signal": "Fi collar telemetry"
+        },
+        features: [
+            "Interactive map for trails, parks, dog parks, boutiques, and weekend stops.",
+            "Zero-hardcoded discovery driven by live POI queries instead of a static list.",
+            "Imports GPX or CSV history and renders elevation-aware adventure context.",
+            "Adds dog-first details like leash rules, off-leash status, and pet suitability."
+        ],
+        diagram: `[Overpass API + GPX] ──> [Flask Planner] ──> [Leaflet Explorer]
+                                                 │
+                                                 ▼
+                                       [Dog-friendly trip picks]`,
+        link: "https://github.com/Gunnarguy/ChickenPlans",
+        linkLabel: "View ChickenPlans Source"
+    },
+    {
+        id: "ddg-pct",
+        tag: "ops",
+        title: "DDG-PCT Mission Control",
+        status: "ready",
+        statusClass: "blue",
+        desc: "Interactive planning dashboard for a Burney Falls to Castle Crags PCT section hike, turning an original route document into GPS-accurate logistics and daily visual breakdowns.",
+        tech: ["Vite", "GPX", "Elevation Data", "Maps", "Planning"],
+        stats: {
+            "Route Span": "Burney Falls to Castle Crags",
+            "Plan Length": "52 miles over 6 days",
+            "Source Input": "Original hike planning doc",
+            "Focus": "GPS-accurate logistics"
+        },
+        features: [
+            "Transforms a family planning document into a navigable mission-control dashboard.",
+            "Tracks day-by-day mileage, route segments, and terrain expectations.",
+            "Keeps logistics grounded in GPX-derived route data instead of rough estimates.",
+            "Packages a personal outdoor plan like an operational briefing tool."
+        ],
+        diagram: `[Planning doc + GPX] ──> [Route Visualizer] ──> [Daily breakdown]
+                                                   │
+                                                   ▼
+                                        [Logistics + elevation checks]`,
+        link: "https://github.com/Gunnarguy/DDG-PCT",
+        linkLabel: "View DDG-PCT Source"
+    },
+    {
+        id: "audio-clean-check",
+        tag: "native",
+        title: "AudioCleanCheck",
+        status: "active",
+        statusClass: "pulse",
+        desc: "Guided microphone quality tester for iPhone, iPad, and Apple Watch that compares before-and-after recordings to quantify whether cleaning the ports improved clarity.",
+        tech: ["Vite", "Web Audio", "DSP", "Drag and Drop", "Apple Watch"],
+        stats: {
+            "Test Flow": "Before / after recording compare",
+            "Output Lock": "Built-in speakers enforced",
+            "Modes": "iPhone + Apple Watch panels",
+            "Delivery": "Vite web interface"
+        },
+        features: [
+            "Guided workflow for generating a repeatable before-and-after microphone test.",
+            "Locks the Mac output path to prevent AirPods or external devices from skewing the result.",
+            "Includes a dedicated Apple Watch path for importing and comparing voice memos.",
+            "Surfaces audible cleanliness changes as a measurable frequency-response difference."
+        ],
+        diagram: `[Reference signal] ──> [Before/After recordings] ──> [Frequency comparison]
+                                                      │
+                                                      ▼
+                                             [Cleaning delta]`,
+        link: "https://github.com/Gunnarguy/audio-clean-check",
+        linkLabel: "View AudioCleanCheck Source"
+    },
+    {
+        id: "visionbud",
+        tag: "sandbox",
+        title: "VisionBud",
+        status: "dormant",
+        statusClass: "orange",
+        desc: "Edge computer vision experiments for Raspberry Pi and Apple hardware, focused on live object tracking, YOLO inference, and hardware-triggered automation loops.",
+        tech: ["Python", "OpenCV", "YOLOv8", "Raspberry Pi", "CoreML"],
+        stats: {
+            "Runtime": "Realtime edge inference",
+            "Hardware": "Pi 4 + Apple Silicon",
+            "Loop": "Object detection and triggers",
+            "Focus": "Computer-vision automation"
+        },
+        features: [
+            "Realtime camera parsing with OpenCV pre-processing and accelerated inference paths.",
+            "YOLO-driven object detection loops tuned for lightweight edge environments.",
+            "GPIO or automation trigger flow based on matched objects in the camera frame.",
+            "Explores the boundary between hobby robotics and practical local AI utilities."
+        ],
+        diagram: `[Camera feed] ──> [OpenCV prep] ──> [YOLOv8 inference]
+                                            │
+                                            ▼
+                                 [Trigger or automation output]`,
+        link: "https://github.com/Gunnarguy/VisionBud",
+        linkLabel: "View VisionBud Source"
+    },
+    {
+        id: "wowca",
+        tag: "native",
+        title: "Classic Era Assistant",
+        status: "ready",
+        statusClass: "blue",
+        desc: "Offline-first item and spell database for Classic Era, shipping a SwiftUI client plus a reproducible data pipeline that generates the app's local SQLite bundle.",
+        tech: ["SwiftUI", "SQLite", "Offline Search", "visionOS", "Data Pipeline"],
+        stats: {
+            "Mode": "Offline-first game reference",
+            "Platforms": "iOS, iPadOS, visionOS",
+            "Data Store": "Generated SQLite bundle",
+            "Lookup": "Instant local search"
+        },
+        features: [
+            "Keeps a large item and spell corpus available with zero network dependency.",
+            "Pairs the native client with a rebuildable content pipeline instead of hand-managed data.",
+            "Targets Apple platforms beyond iPhone, including iPad and visionOS.",
+            "Treats a game companion app with the same rigor as a serious utility product."
+        ],
+        diagram: `[Game data pipeline] ──> [SQLite bundle] ──> [SwiftUI reference client]
+                                                     │
+                                                     ▼
+                                            [Offline search + lookup]`,
+        link: "https://github.com/Gunnarguy/WoWCA",
+        linkLabel: "View Classic Era Assistant"
+    },
+    {
+        id: "warcraftlogs",
+        tag: "native",
+        title: "WarcraftLogs Client",
+        status: "ready",
+        statusClass: "blue",
+        desc: "Native iOS client for browsing WarcraftLogs raid data with OAuth, biometrics, bookmarks, widgets, and share-extension entry points.",
+        tech: ["SwiftUI", "OAuth", "WidgetKit", "Biometrics", "Notifications"],
+        stats: {
+            "Auth": "OAuth + Face ID / Touch ID",
+            "Entry Points": "App, widget, share extension",
+            "Focus": "Raid-log browsing",
+            "Platform": "Native iOS"
+        },
+        features: [
+            "Wraps WarcraftLogs browsing in native navigation rather than a plain web wrapper.",
+            "Adds authentication hardening through biometrics and session handling.",
+            "Supports bookmarks and recents for faster return to active logs.",
+            "Extends the experience with widgets, notifications, and URL share intake."
+        ],
+        diagram: `[WarcraftLogs API] ──> [OAuth session] ──> [Native browse + bookmarks]
+                                                  │
+                                                  ▼
+                                         [Widgets + share extension]`,
+        link: "https://github.com/Gunnarguy/WarcraftLogs",
+        linkLabel: "View WarcraftLogs Source"
     }
 ];
 
@@ -262,11 +263,11 @@ class TerminalSimulator {
                 action: () => this.showAbout()
             },
             projects: {
-                desc: "Print active AI development status dashboard",
+                desc: "Print the current showcase matrix",
                 action: () => this.showProjects()
             },
             telemetry: {
-                desc: "Read simulated system resources and model loads",
+                desc: "Read showcase telemetry and repo signals",
                 action: () => this.showTelemetry()
             },
             clear: {
@@ -323,7 +324,7 @@ class TerminalSimulator {
         this.writeLine("System Status: <span class='term-output-green'>ONLINE</span>", "term-output-system");
         this.writeLine("Local Memory Indexing: Complete", "term-output-system");
         this.writeLine("--------------------------------------------");
-        this.writeLine("Welcome to the AI Experiment Workspace.", "term-output-accent");
+        this.writeLine("Welcome to the multi-repo systems showcase.", "term-output-accent");
         this.writeLine("Type <span class='term-output-accent'>help</span> to view available operations, or click project cards on the right.");
         this.writeLine("--------------------------------------------");
     }
@@ -354,9 +355,9 @@ class TerminalSimulator {
 
     showAbout() {
         this.writeLine("CREATOR: Gunnar Hostetler", "term-output-accent");
-        this.writeLine("NIGHTS : Building Swift/SwiftUI apps, LLM pipelines, and automation tools.");
+        this.writeLine("NIGHTS : Building Swift apps, ops dashboards, and weirdly practical prototypes.");
         this.writeLine("DAYS   : Hospital Operations & Stryker intraoperative VA specialist.");
-        this.writeLine("GOAL   : Designing lightweight, highly-optimized on-device AI architectures.");
+        this.writeLine("GOAL   : Ship original software that feels specific, useful, and unmistakably mine.");
         this.writeLine("GitHub : <a href='https://github.com/Gunnarguy' target='_blank' style='color:#00f2fe;'>github.com/Gunnarguy</a>");
     }
 
@@ -379,11 +380,11 @@ class TerminalSimulator {
         const cpu = Math.floor(Math.random() * 25) + 5;
         const memory = (Math.random() * 2 + 1.2).toFixed(1);
         const temp = Math.floor(Math.random() * 15) + 38;
-        this.writeLine("READING SENSORS & HUB TELEMETRY...", "term-output-system");
-        this.writeLine(`  [Portfolio Ping]     : gunnarguy.me (online, ~18ms latency)`, "term-output-info");
-        this.writeLine(`  [App Studio Status]  : gunzino.me (active, TLS 1.3)`, "term-output-info");
-        this.writeLine(`  [LinkedIn Sync]      : API connection active (rate limits OK)`, "term-output-info");
-        this.writeLine(`  [Embeddings Vector]  : Text-embedding-ada-002 loaded`, "term-output-info");
+        this.writeLine("READING SHOWCASE TELEMETRY...", "term-output-system");
+        this.writeLine(`  [Ops Dashboards]     : 3 indexed (ORHub, ChickenPlans, DDG-PCT)`, "term-output-info");
+        this.writeLine(`  [Native Clients]     : 4 indexed (PushApp, AudioCleanCheck, WoWCA, WCL)`, "term-output-info");
+        this.writeLine(`  [Sandbox Queue]      : 2 staged (LinkedOut, VisionBud)`, "term-output-info");
+        this.writeLine(`  [Remote Feeds]       : job APIs, GPX routes, and OR sockets nominal`, "term-output-info");
         this.writeLine(`  [Host CPU Engine]    : ${cpu}% active dashboard load`, "term-output-info");
         this.writeLine(`  [Memory Cache]       : ${memory} MB indexed metadata`, "term-output-info");
         this.writeLine(`  [Core Temperature]   : ${temp}°C (ANE passive)`, "term-output-info");
@@ -393,15 +394,15 @@ class TerminalSimulator {
     }
 
     ping() {
-        this.writeLine("PING gunzino.me (104.21.34.82): 56 data bytes", "term-output-info");
+        this.writeLine("PING github.com (140.82.112.3): 56 data bytes", "term-output-info");
         let i = 0;
         const interval = setInterval(() => {
             const time = (Math.random() * 15 + 18).toFixed(1);
-            this.writeLine(`64 bytes from 104.21.34.82: icmp_seq=${i} ttl=57 time=${time} ms`);
+            this.writeLine(`64 bytes from 140.82.112.3: icmp_seq=${i} ttl=57 time=${time} ms`);
             i++;
             if (i >= 4) {
                 clearInterval(interval);
-                this.writeLine("--- gunzino.me ping statistics ---", "term-output-info");
+                this.writeLine("--- github.com ping statistics ---", "term-output-info");
                 this.writeLine("4 packets transmitted, 4 received, 0% packet loss", "term-output-info");
                 this.writeLine("rtt min/avg/max = 18.2/23.4/34.9 ms", "term-output-info");
             }

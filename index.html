@@ -5,27 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Optimization -->
-    <title>Fascinaiting | AI & On-Device ML Playground</title>
+    <title>Fascinaiting | Repo Systems Showcase</title>
     <meta
       name="description"
-      content="Gunnar Hostetler's personal AI sandbox and experiment dashboard. Interactive telemetry console, local ML pipelines, and Model Context Protocol servers."
+      content="Gunnar Hostetler's repo showcase for ops dashboards, native utilities, technical sandboxes, and offbeat product experiments."
     />
     <meta
       name="keywords"
-      content="AI, Machine Learning, RAG, CoreML, Swift, Apple Intelligence, MCP, Model Context Protocol, Qdrant, Pinecone, Raspberry Pi"
+      content="SwiftUI, Flask, Vite, operations dashboard, iOS utilities, computer vision, job matching, hiking planner, GitHub Pages"
     />
     <meta
       property="og:title"
-      content="Fascinaiting | AI & On-Device ML Playground"
+      content="Fascinaiting | Repo Systems Showcase"
     />
     <meta
       property="og:description"
-      content="Interactive AI sandbox with local ML pipelines, telemetry views, and Model Context Protocol experiments."
+      content="Interactive project console for Gunnar Hostetler's ops tools, native utilities, and technical sandboxes."
     />
     <meta property="og:type" content="website" />
     <meta
       property="og:image"
-      content="https://fascinaiting.me/ios-app-screenshot.png"
+      content="https://gunnarguy.github.io/Fascinaiting/ios-app-screenshot.png"
     />
 
     <!-- Theme and Fonts -->
@@ -39,8 +39,8 @@
         "name": "Fascinaiting",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web Browser",
-        "description": "Interactive AI sandbox with local ML pipelines, telemetry views, and Model Context Protocol experiments.",
-        "url": "https://fascinaiting.me/"
+        "description": "Interactive project console for Gunnar Hostetler's ops tools, native utilities, and technical sandboxes.",
+        "url": "https://gunnarguy.github.io/Fascinaiting/"
       }
     </script>
 
@@ -103,7 +103,7 @@
           <div class="brand-logo" aria-hidden="true">F</div>
           <div class="brand-text">
             <h1>Fascinaiting</h1>
-            <span>AI &amp; On-Device ML Workspace</span>
+            <span>Repo Systems &amp; Sandbox Console</span>
           </div>
         </div>
 
@@ -114,11 +114,11 @@
           </div>
           <div class="status-item">
             <span class="led orange pulse" aria-hidden="true"></span>
-            <span>LOCAL LLM: IDLE</span>
+            <span>REPO INDEX: HOT</span>
           </div>
           <div class="status-item">
             <span class="led blue" aria-hidden="true"></span>
-            <span>HOST: MAC-STUDIO</span>
+            <span>HOST: GITHUB-PAGES</span>
           </div>
         </div>
 
@@ -127,11 +127,18 @@
             >Workspace</a
           >
           <a
-            href="https://gunzino.me"
+            href="https://gunnarguy.me"
             target="_blank"
             class="nav-link"
-            id="navGunzinoLink"
-            >Gunzino Apps</a
+            id="navPortfolioLink"
+            >Portfolio</a
+          >
+          <a
+            href="https://www.linkedin.com/in/gunnar-hostetler/"
+            target="_blank"
+            class="nav-link"
+            id="navLinkedInLink"
+            >LinkedIn</a
           >
           <a
             href="https://github.com/Gunnarguy"
@@ -218,13 +225,13 @@
           <!-- Hardware/Pipeline Monitor -->
           <div class="stats-widget" id="telemetryStatsWidget">
             <div class="widget-title">
-              <span>Local Pipeline Monitor</span>
+              <span>Showcase Signal Monitor</span>
               <span class="led pulse" aria-hidden="true"></span>
             </div>
 
             <div class="stat-row">
               <div class="stat-info">
-                <span class="stat-label">Model Context Memory</span>
+                <span class="stat-label">Repo Index Cache</span>
                 <span class="stat-value" id="memValueText"
                   >2.1 GB / 8.0 GB</span
                 >
@@ -236,7 +243,7 @@
 
             <div class="stat-row">
               <div class="stat-info">
-                <span class="stat-label">Neural Core (ANE) Load</span>
+                <span class="stat-label">Dashboard Load</span>
                 <span class="stat-value" id="cpuValueText">8%</span>
               </div>
               <div class="stat-bar">
@@ -250,8 +257,8 @@
 
             <div class="stat-row">
               <div class="stat-info">
-                <span class="stat-label">Audio Pipeline Capture</span>
-                <span class="stat-value">Webhooks Standby</span>
+                <span class="stat-label">External Sources</span>
+                <span class="stat-value">Feeds Online</span>
               </div>
               <div class="stat-bar">
                 <div class="stat-progress magenta" style="width: 100%"></div>
@@ -261,7 +268,7 @@
         </section>
 
         <!-- Right Column: Projects Matrix Explorer -->
-        <section class="workspace" aria-label="AI Experiment Explorer">
+        <section class="workspace" aria-label="Repository Showcase Explorer">
           <!-- Category filtering bar -->
           <div class="filter-bar" id="projectFilterBar">
             <div class="filter-tags" role="tablist">
@@ -272,34 +279,34 @@
                 aria-selected="true"
                 id="filterAllBtn"
               >
-                All Hubs
+                All Projects
               </button>
               <button
                 class="filter-tag"
-                data-category="portfolio"
+                data-category="ops"
                 role="tab"
                 aria-selected="false"
-                id="filterMlBtn"
+                id="filterOpsBtn"
               >
-                Portfolio &amp; Bio
+                Ops &amp; Systems
               </button>
               <button
                 class="filter-tag"
-                data-category="gunzino"
+                data-category="native"
                 role="tab"
                 aria-selected="false"
-                id="filterAgentsBtn"
+                id="filterNativeBtn"
               >
-                Gunzino Apps
+                Native Utilities
               </button>
               <button
                 class="filter-tag"
-                data-category="linkedin"
+                data-category="sandbox"
                 role="tab"
                 aria-selected="false"
-                id="filterPipelinesBtn"
+                id="filterSandboxBtn"
               >
-                LinkedIn &amp; Career
+                Sandboxes &amp; Play
               </button>
             </div>
           </div>
