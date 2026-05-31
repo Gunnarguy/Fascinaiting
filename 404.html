@@ -1,120 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fascinaiting | 404 Resource Not Found</title>
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" href="styles.css">
+    <meta
+      name="description"
+      content="404 page for Fascinaiting. Return to the AI sandbox, telemetry console, and local ML workspace."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="Fascinaiting | 404 Resource Not Found" />
+    <meta
+      property="og:description"
+      content="404 page for Fascinaiting. Return to the AI sandbox, telemetry console, and local ML workspace."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://fascinaiting.me/ios-app-screenshot.png"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 1.5rem;
-        }
-        .error-panel {
-            background: var(--bg-panel);
-            border: 1px solid var(--accent-magenta);
-            border-radius: 12px;
-            max-width: 500px;
-            width: 100%;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(255, 0, 127, 0.1), 0 0 20px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
-        }
-        .error-header {
-            background: rgba(255, 0, 127, 0.15);
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--accent-magenta);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .error-title {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--accent-magenta);
-            font-weight: bold;
-            letter-spacing: 0.05em;
-        }
-        .error-body {
-            padding: 2rem;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: #f87171;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-        .error-code {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent-magenta);
-            text-shadow: var(--glow-magenta);
-        }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 1.5rem;
+      }
+      .error-panel {
+        background: var(--bg-panel);
+        border: 1px solid var(--accent-magenta);
+        border-radius: 12px;
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+        box-shadow:
+          0 10px 30px rgba(255, 0, 127, 0.1),
+          0 0 20px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+      }
+      .error-header {
+        background: rgba(255, 0, 127, 0.15);
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--accent-magenta);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .error-title {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--accent-magenta);
+        font-weight: bold;
+        letter-spacing: 0.05em;
+      }
+      .error-body {
+        padding: 2rem;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: #f87171;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .error-code {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--accent-magenta);
+        text-shadow: var(--glow-magenta);
+      }
+      .error-subtitle {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fca5a5;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
     </style>
-    
-
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Fascinaiting 404",
+        "description": "404 page for Fascinaiting. Return to the AI sandbox, telemetry console, and local ML workspace.",
+        "url": "https://fascinaiting.me/404.html"
+      }
+    </script>
 
     <!-- ====================================================================== -->
-<!-- UNIFIED GLOBAL TELEMETRY ENGINE & CUSTOM DATA INTERCEPTOR            -->
-<!-- ====================================================================== -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8CQD5KZ06Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // Configured to ensure compatibility with Ads Account 450-937-9845
-  gtag('config', 'G-8CQD5KZ06Y', {
-    'send_page_view': true,
-    'enhanced_measurement': true
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.body.addEventListener('click', function(event) {
-      var interactiveTarget = event.target.closest('[data-track]');
-      if (interactiveTarget) {
-        var actionLabel = interactiveTarget.getAttribute('data-track');
-        var actionGroup = interactiveTarget.getAttribute('data-track-group') || 'general_interaction';
-        var actionValue = interactiveTarget.getAttribute('data-track-value') || '';
-
-        if (typeof gtag === 'function') {
-          gtag('event', 'ui_interaction_event', {
-            'interaction_label': actionLabel,
-            'interaction_group': actionGroup,
-            'interaction_value': actionValue,
-            'page_location_path': window.location.pathname
-          });
-        }
+    <!-- UNIFIED GLOBAL TELEMETRY ENGINE & CUSTOM DATA INTERCEPTOR            -->
+    <!-- ====================================================================== -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-8CQD5KZ06Y"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
       }
-    }, true);
-  });
-</script>
-<!-- ====================================================================== -->
-</head>
-<body>
+      gtag("js", new Date());
+
+      // Configured to ensure compatibility with Ads Account 450-937-9845
+      gtag("config", "G-8CQD5KZ06Y", {
+        send_page_view: true,
+        enhanced_measurement: true,
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.body.addEventListener(
+          "click",
+          function (event) {
+            var interactiveTarget = event.target.closest("[data-track]");
+            if (interactiveTarget) {
+              var actionLabel = interactiveTarget.getAttribute("data-track");
+              var actionGroup =
+                interactiveTarget.getAttribute("data-track-group") ||
+                "general_interaction";
+              var actionValue =
+                interactiveTarget.getAttribute("data-track-value") || "";
+
+              if (typeof gtag === "function") {
+                gtag("event", "ui_interaction_event", {
+                  interaction_label: actionLabel,
+                  interaction_group: actionGroup,
+                  interaction_value: actionValue,
+                  page_location_path: window.location.pathname,
+                });
+              }
+            }
+          },
+          true,
+        );
+      });
+    </script>
+    <!-- ====================================================================== -->
+  </head>
+  <body>
     <div class="error-panel">
-        <div class="error-header">
-            <div class="terminal-buttons">
-                <span class="terminal-btn close" style="background:#ef4444;"></span>
-                <span class="terminal-btn minimize" style="background:#eab308;"></span>
-                <span class="terminal-btn maximize" style="background:#22c55e;"></span>
-            </div>
-            <div class="error-title">SYSTEM EXCEPTION // PATH_FAULT</div>
+      <div class="error-header">
+        <div class="terminal-buttons">
+          <span class="terminal-btn close" style="background: #ef4444"></span>
+          <span
+            class="terminal-btn minimize"
+            style="background: #eab308"
+          ></span>
+          <span
+            class="terminal-btn maximize"
+            style="background: #22c55e"
+          ></span>
         </div>
-        <div class="error-body">
-            <div class="error-code">404</div>
-            <p><strong>[ERROR] RESOURCE_NOT_FOUND:</strong> The target directory or memory index you requested does not exist on this host space.</p>
-            <p style="color: var(--text-secondary);">Possible causes: Deep-link path broken, or active dev workspace refactoring in progress.</p>
-            <div>
-                <a href="index.html" class="btn btn-accent" style="text-decoration:none;">Go Back to Workspace</a>
-            </div>
+        <div class="error-title">SYSTEM EXCEPTION // PATH_FAULT</div>
+      </div>
+      <div class="error-body">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-subtitle">Resource Not Found</h2>
+        <p>
+          <strong>[ERROR] RESOURCE_NOT_FOUND:</strong> The target directory or
+          memory index you requested does not exist on this host space.
+        </p>
+        <p style="color: var(--text-secondary)">
+          Possible causes: Deep-link path broken, or active dev workspace
+          refactoring in progress.
+        </p>
+        <div>
+          <a
+            href="index.html"
+            class="btn btn-accent"
+            style="text-decoration: none"
+            >Go Back to Workspace</a
+          >
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

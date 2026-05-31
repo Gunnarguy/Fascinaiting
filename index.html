@@ -1,246 +1,421 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- SEO Optimization -->
     <title>Fascinaiting | AI & On-Device ML Playground</title>
-    <meta name="description" content="Gunnar Hostetler's personal AI sandbox and experiment dashboard. Interactive telemetry console, local ML pipelines, and Model Context Protocol servers.">
-    <meta name="keywords" content="AI, Machine Learning, RAG, CoreML, Swift, Apple Intelligence, MCP, Model Context Protocol, Qdrant, Pinecone, Raspberry Pi">
-    
+    <meta
+      name="description"
+      content="Gunnar Hostetler's personal AI sandbox and experiment dashboard. Interactive telemetry console, local ML pipelines, and Model Context Protocol servers."
+    />
+    <meta
+      name="keywords"
+      content="AI, Machine Learning, RAG, CoreML, Swift, Apple Intelligence, MCP, Model Context Protocol, Qdrant, Pinecone, Raspberry Pi"
+    />
+    <meta
+      property="og:title"
+      content="Fascinaiting | AI & On-Device ML Playground"
+    />
+    <meta
+      property="og:description"
+      content="Interactive AI sandbox with local ML pipelines, telemetry views, and Model Context Protocol experiments."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://fascinaiting.me/ios-app-screenshot.png"
+    />
+
     <!-- Theme and Fonts -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-    
-    
-
-        <!-- ====================================================================== -->
-<!-- UNIFIED GLOBAL TELEMETRY ENGINE & CUSTOM DATA INTERCEPTOR            -->
-<!-- ====================================================================== -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8CQD5KZ06Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // Configured to ensure compatibility with Ads Account 450-937-9845
-  gtag('config', 'G-8CQD5KZ06Y', {
-    'send_page_view': true,
-    'enhanced_measurement': true
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.body.addEventListener('click', function(event) {
-      var interactiveTarget = event.target.closest('[data-track]');
-      if (interactiveTarget) {
-        var actionLabel = interactiveTarget.getAttribute('data-track');
-        var actionGroup = interactiveTarget.getAttribute('data-track-group') || 'general_interaction';
-        var actionValue = interactiveTarget.getAttribute('data-track-value') || '';
-
-        if (typeof gtag === 'function') {
-          gtag('event', 'ui_interaction_event', {
-            'interaction_label': actionLabel,
-            'interaction_group': actionGroup,
-            'interaction_value': actionValue,
-            'page_location_path': window.location.pathname
-          });
-        }
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Fascinaiting",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Interactive AI sandbox with local ML pipelines, telemetry views, and Model Context Protocol experiments.",
+        "url": "https://fascinaiting.me/"
       }
-    }, true);
-  });
-</script>
-<!-- ====================================================================== -->
-</head>
-<body>
+    </script>
 
+    <!-- ====================================================================== -->
+    <!-- UNIFIED GLOBAL TELEMETRY ENGINE & CUSTOM DATA INTERCEPTOR            -->
+    <!-- ====================================================================== -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-8CQD5KZ06Y"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      // Configured to ensure compatibility with Ads Account 450-937-9845
+      gtag("config", "G-8CQD5KZ06Y", {
+        send_page_view: true,
+        enhanced_measurement: true,
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.body.addEventListener(
+          "click",
+          function (event) {
+            var interactiveTarget = event.target.closest("[data-track]");
+            if (interactiveTarget) {
+              var actionLabel = interactiveTarget.getAttribute("data-track");
+              var actionGroup =
+                interactiveTarget.getAttribute("data-track-group") ||
+                "general_interaction";
+              var actionValue =
+                interactiveTarget.getAttribute("data-track-value") || "";
+
+              if (typeof gtag === "function") {
+                gtag("event", "ui_interaction_event", {
+                  interaction_label: actionLabel,
+                  interaction_group: actionGroup,
+                  interaction_value: actionValue,
+                  page_location_path: window.location.pathname,
+                });
+              }
+            }
+          },
+          true,
+        );
+      });
+    </script>
+    <!-- ====================================================================== -->
+  </head>
+  <body>
     <div class="container">
-        <!-- Dashboard Header -->
-        <header>
-            <div class="brand" id="brandContainer">
-                <div class="brand-logo" aria-hidden="true">F</div>
-                <div class="brand-text">
-                    <h1>Fascinaiting</h1>
-                    <span>AI &amp; On-Device ML Workspace</span>
-                </div>
-            </div>
-            
-            <div class="system-status" id="systemStatusPanel">
-                <div class="status-item">
-                    <span class="led pulse" aria-hidden="true"></span>
-                    <span>SYSTEM: ACTIVE</span>
-                </div>
-                <div class="status-item">
-                    <span class="led orange pulse" aria-hidden="true"></span>
-                    <span>LOCAL LLM: IDLE</span>
-                </div>
-                <div class="status-item">
-                    <span class="led blue" aria-hidden="true"></span>
-                    <span>HOST: MAC-STUDIO</span>
-                </div>
-            </div>
-
-            <nav aria-label="Main Navigation">
-                <a href="#" class="nav-link active" id="navWorkspaceLink">Workspace</a>
-                <a href="https://gunzino.me" target="_blank" class="nav-link" id="navGunzinoLink">Gunzino Apps</a>
-                <a href="https://github.com/Gunnarguy" target="_blank" class="nav-link" id="navGithubLink">GitHub</a>
-            </nav>
-        </header>
-
-        <!-- Main Dashboard Split Layout -->
-        <main class="dashboard-grid" id="mainDashboard">
-            
-            <!-- Left Column: Terminal & Resource Telemetry -->
-            <section class="sidebar" aria-label="Telemetry and Command Shell">
-                
-                <!-- Terminal Shell Simulator -->
-                <div class="terminal-widget" id="terminalWidget">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons" aria-hidden="true">
-                            <span class="terminal-btn close"></span>
-                            <span class="terminal-btn minimize"></span>
-                            <span class="terminal-btn maximize"></span>
-                        </div>
-                        <div class="terminal-title">TERMINAL SIMULATOR // STASH_SHELL</div>
-                    </div>
-                    
-                    <div class="terminal-body" id="terminalBody">
-                        <!-- Command lines appended dynamically here -->
-                        <div class="terminal-input-line">
-                            <span class="terminal-prompt" aria-hidden="true">guest@fascinaiting.me:~$</span>
-                            <input type="text" id="terminalInput" class="terminal-input" placeholder="Type command..." autocomplete="off" aria-label="Terminal Command Input">
-                        </div>
-                    </div>
-                    
-                    <div class="terminal-shortcuts" id="terminalShortcuts">
-                        <button class="shortcut-btn" data-command="help" id="cmdHelpBtn">help</button>
-                        <button class="shortcut-btn" data-command="about" id="cmdAboutBtn">about</button>
-                        <button class="shortcut-btn" data-command="projects" id="cmdProjectsBtn">projects</button>
-                        <button class="shortcut-btn" data-command="telemetry" id="cmdTelemetryBtn">telemetry</button>
-                        <button class="shortcut-btn" data-command="ping" id="cmdPingBtn">ping</button>
-                        <button class="shortcut-btn" data-command="clear" id="cmdClearBtn">clear</button>
-                    </div>
-                </div>
-
-                <!-- Hardware/Pipeline Monitor -->
-                <div class="stats-widget" id="telemetryStatsWidget">
-                    <div class="widget-title">
-                        <span>Local Pipeline Monitor</span>
-                        <span class="led pulse" aria-hidden="true"></span>
-                    </div>
-                    
-                    <div class="stat-row">
-                        <div class="stat-info">
-                            <span class="stat-label">Model Context Memory</span>
-                            <span class="stat-value" id="memValueText">2.1 GB / 8.0 GB</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-progress" id="memBar" style="width: 26%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="stat-row">
-                        <div class="stat-info">
-                            <span class="stat-label">Neural Core (ANE) Load</span>
-                            <span class="stat-value" id="cpuValueText">8%</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-progress green" id="cpuBar" style="width: 8%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="stat-row">
-                        <div class="stat-info">
-                            <span class="stat-label">Audio Pipeline Capture</span>
-                            <span class="stat-value">Webhooks Standby</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-progress magenta" style="width: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Right Column: Projects Matrix Explorer -->
-            <section class="workspace" aria-label="AI Experiment Explorer">
-                
-                <!-- Category filtering bar -->
-                <div class="filter-bar" id="projectFilterBar">
-                    <div class="filter-tags" role="tablist">
-                        <button class="filter-tag active" data-category="all" role="tab" aria-selected="true" id="filterAllBtn">All Hubs</button>
-                        <button class="filter-tag" data-category="portfolio" role="tab" aria-selected="false" id="filterMlBtn">Portfolio &amp; Bio</button>
-                        <button class="filter-tag" data-category="gunzino" role="tab" aria-selected="false" id="filterAgentsBtn">Gunzino Apps</button>
-                        <button class="filter-tag" data-category="linkedin" role="tab" aria-selected="false" id="filterPipelinesBtn">LinkedIn &amp; Career</button>
-                    </div>
-                </div>
-
-                <!-- Grid layout of interactive project modules -->
-                <div class="project-grid" id="projectGrid">
-                    <!-- Cards injected dynamically via app.js -->
-                </div>
-            </section>
-            
-        </main>
-
-        <!-- Project Diagnostic Modal Details Drawer -->
-        <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalHeaderTitle">
-            <div class="modal-content" id="modalContent">
-                <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close Diagnostics Panel">×</button>
-                
-                <div class="modal-header-section">
-                    <div class="modal-header-bg"></div>
-                    <span class="modal-header-tag" id="modalHeaderTag">Category</span>
-                    <h2 class="modal-header-title" id="modalHeaderTitle">Project Name</h2>
-                    <div class="modal-header-status" id="modalHeaderStatusText">
-                        <span class="led pulse" aria-hidden="true"></span>
-                        Status: Active
-                    </div>
-                </div>
-                
-                <div class="modal-body-section">
-                    <div>
-                        <h4 class="detail-section-title">Telemetry &amp; Specs</h4>
-                        <div class="detail-grid" id="modalStatsGrid">
-                            <!-- Items injected dynamically -->
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="detail-section-title">Key Architectural Capabilities</h4>
-                        <div class="key-features-list" id="modalFeaturesList">
-                            <!-- Capabilities injected dynamically -->
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="detail-section-title">Simulated Flow Architecture</h4>
-                        <pre class="architecture-box" id="modalArchitectureBox"></pre>
-                    </div>
-                </div>
-                
-                <div class="modal-actions">
-                    <button class="btn btn-secondary" id="modalCancelBtn" onclick="document.getElementById('modalOverlay').classList.remove('active')">Dismiss</button>
-                    <a href="#" target="_blank" class="btn btn-primary" id="modalActionBtn">Explore Source</a>
-                </div>
-            </div>
+      <!-- Dashboard Header -->
+      <header>
+        <div class="brand" id="brandContainer">
+          <div class="brand-logo" aria-hidden="true">F</div>
+          <div class="brand-text">
+            <h1>Fascinaiting</h1>
+            <span>AI &amp; On-Device ML Workspace</span>
+          </div>
         </div>
 
-        <!-- Dashboard Footer -->
-        <footer>
-            <span>SYSTEM DIRECTORY: /Users/gunnarhostetler/Fascinaiting</span>
-            <div class="footer-links">
-                <a href="https://gunzino.me" target="_blank" class="footer-link" id="footGunzinoLink">Gunzino Publishing</a>
-                <a href="mailto:Gunnarguy@me.com" class="footer-link" id="footMailLink">Gunnarguy@me.com</a>
-                <a href="https://github.com/Gunnarguy" target="_blank" class="footer-link" id="footGithubLink">GitHub Profile</a>
+        <div class="system-status" id="systemStatusPanel">
+          <div class="status-item">
+            <span class="led pulse" aria-hidden="true"></span>
+            <span>SYSTEM: ACTIVE</span>
+          </div>
+          <div class="status-item">
+            <span class="led orange pulse" aria-hidden="true"></span>
+            <span>LOCAL LLM: IDLE</span>
+          </div>
+          <div class="status-item">
+            <span class="led blue" aria-hidden="true"></span>
+            <span>HOST: MAC-STUDIO</span>
+          </div>
+        </div>
+
+        <nav aria-label="Main Navigation">
+          <a href="#" class="nav-link active" id="navWorkspaceLink"
+            >Workspace</a
+          >
+          <a
+            href="https://gunzino.me"
+            target="_blank"
+            class="nav-link"
+            id="navGunzinoLink"
+            >Gunzino Apps</a
+          >
+          <a
+            href="https://github.com/Gunnarguy"
+            target="_blank"
+            class="nav-link"
+            id="navGithubLink"
+            >GitHub</a
+          >
+        </nav>
+      </header>
+
+      <!-- Main Dashboard Split Layout -->
+      <main class="dashboard-grid" id="mainDashboard">
+        <!-- Left Column: Terminal & Resource Telemetry -->
+        <section class="sidebar" aria-label="Telemetry and Command Shell">
+          <!-- Terminal Shell Simulator -->
+          <div class="terminal-widget" id="terminalWidget">
+            <div class="terminal-header">
+              <div class="terminal-buttons" aria-hidden="true">
+                <span class="terminal-btn close"></span>
+                <span class="terminal-btn minimize"></span>
+                <span class="terminal-btn maximize"></span>
+              </div>
+              <div class="terminal-title">
+                TERMINAL SIMULATOR // STASH_SHELL
+              </div>
             </div>
-            <span>© 2026 Fascinaiting.me</span>
-        </footer>
+
+            <div class="terminal-body" id="terminalBody">
+              <!-- Command lines appended dynamically here -->
+              <div class="terminal-input-line">
+                <span class="terminal-prompt" aria-hidden="true"
+                  >guest@fascinaiting.me:~$</span
+                >
+                <input
+                  type="text"
+                  id="terminalInput"
+                  class="terminal-input"
+                  placeholder="Type command..."
+                  autocomplete="off"
+                  aria-label="Terminal Command Input"
+                />
+              </div>
+            </div>
+
+            <div class="terminal-shortcuts" id="terminalShortcuts">
+              <button class="shortcut-btn" data-command="help" id="cmdHelpBtn">
+                help
+              </button>
+              <button
+                class="shortcut-btn"
+                data-command="about"
+                id="cmdAboutBtn"
+              >
+                about
+              </button>
+              <button
+                class="shortcut-btn"
+                data-command="projects"
+                id="cmdProjectsBtn"
+              >
+                projects
+              </button>
+              <button
+                class="shortcut-btn"
+                data-command="telemetry"
+                id="cmdTelemetryBtn"
+              >
+                telemetry
+              </button>
+              <button class="shortcut-btn" data-command="ping" id="cmdPingBtn">
+                ping
+              </button>
+              <button
+                class="shortcut-btn"
+                data-command="clear"
+                id="cmdClearBtn"
+              >
+                clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Hardware/Pipeline Monitor -->
+          <div class="stats-widget" id="telemetryStatsWidget">
+            <div class="widget-title">
+              <span>Local Pipeline Monitor</span>
+              <span class="led pulse" aria-hidden="true"></span>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-info">
+                <span class="stat-label">Model Context Memory</span>
+                <span class="stat-value" id="memValueText"
+                  >2.1 GB / 8.0 GB</span
+                >
+              </div>
+              <div class="stat-bar">
+                <div class="stat-progress" id="memBar" style="width: 26%"></div>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-info">
+                <span class="stat-label">Neural Core (ANE) Load</span>
+                <span class="stat-value" id="cpuValueText">8%</span>
+              </div>
+              <div class="stat-bar">
+                <div
+                  class="stat-progress green"
+                  id="cpuBar"
+                  style="width: 8%"
+                ></div>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-info">
+                <span class="stat-label">Audio Pipeline Capture</span>
+                <span class="stat-value">Webhooks Standby</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-progress magenta" style="width: 100%"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Column: Projects Matrix Explorer -->
+        <section class="workspace" aria-label="AI Experiment Explorer">
+          <!-- Category filtering bar -->
+          <div class="filter-bar" id="projectFilterBar">
+            <div class="filter-tags" role="tablist">
+              <button
+                class="filter-tag active"
+                data-category="all"
+                role="tab"
+                aria-selected="true"
+                id="filterAllBtn"
+              >
+                All Hubs
+              </button>
+              <button
+                class="filter-tag"
+                data-category="portfolio"
+                role="tab"
+                aria-selected="false"
+                id="filterMlBtn"
+              >
+                Portfolio &amp; Bio
+              </button>
+              <button
+                class="filter-tag"
+                data-category="gunzino"
+                role="tab"
+                aria-selected="false"
+                id="filterAgentsBtn"
+              >
+                Gunzino Apps
+              </button>
+              <button
+                class="filter-tag"
+                data-category="linkedin"
+                role="tab"
+                aria-selected="false"
+                id="filterPipelinesBtn"
+              >
+                LinkedIn &amp; Career
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid layout of interactive project modules -->
+          <div class="project-grid" id="projectGrid">
+            <!-- Cards injected dynamically via app.js -->
+          </div>
+        </section>
+      </main>
+
+      <!-- Project Diagnostic Modal Details Drawer -->
+      <div
+        class="modal-overlay"
+        id="modalOverlay"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalHeaderTitle"
+      >
+        <div class="modal-content" id="modalContent">
+          <button
+            class="modal-close-btn"
+            id="modalCloseBtn"
+            aria-label="Close Diagnostics Panel"
+          >
+            ×
+          </button>
+
+          <div class="modal-header-section">
+            <div class="modal-header-bg"></div>
+            <span class="modal-header-tag" id="modalHeaderTag">Category</span>
+            <h2 class="modal-header-title" id="modalHeaderTitle">
+              Project Name
+            </h2>
+            <div class="modal-header-status" id="modalHeaderStatusText">
+              <span class="led pulse" aria-hidden="true"></span>
+              Status: Active
+            </div>
+          </div>
+
+          <div class="modal-body-section">
+            <div>
+              <h3 class="detail-section-title">Telemetry &amp; Specs</h3>
+              <div class="detail-grid" id="modalStatsGrid">
+                <!-- Items injected dynamically -->
+              </div>
+            </div>
+
+            <div>
+              <h3 class="detail-section-title">
+                Key Architectural Capabilities
+              </h3>
+              <div class="key-features-list" id="modalFeaturesList">
+                <!-- Capabilities injected dynamically -->
+              </div>
+            </div>
+
+            <div>
+              <h3 class="detail-section-title">Simulated Flow Architecture</h3>
+              <pre class="architecture-box" id="modalArchitectureBox"></pre>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              class="btn btn-secondary"
+              id="modalCancelBtn"
+              onclick="
+                document
+                  .getElementById('modalOverlay')
+                  .classList.remove('active')
+              "
+            >
+              Dismiss
+            </button>
+            <a
+              href="#"
+              target="_blank"
+              class="btn btn-primary"
+              id="modalActionBtn"
+              >Explore Source</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Footer -->
+      <footer>
+        <span>SYSTEM DIRECTORY: /Users/gunnarhostetler/Fascinaiting</span>
+        <div class="footer-links">
+          <a
+            href="https://gunzino.me"
+            target="_blank"
+            class="footer-link"
+            id="footGunzinoLink"
+            >Gunzino Publishing</a
+          >
+          <a
+            href="mailto:Gunnarguy@me.com"
+            class="footer-link"
+            id="footMailLink"
+            >Gunnarguy@me.com</a
+          >
+          <a
+            href="https://github.com/Gunnarguy"
+            target="_blank"
+            class="footer-link"
+            id="footGithubLink"
+            >GitHub Profile</a
+          >
+        </div>
+        <span>© 2026 Fascinaiting.me</span>
+      </footer>
     </div>
 
     <!-- Script loading -->
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
