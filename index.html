@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Optimization -->
-    <title>Fascinaiting | Repo Systems Showcase</title>
+    <title>Fascinaiting | Presence Hub</title>
     <meta
       name="description"
-      content="Gunnar Hostetler's repo showcase for ops dashboards, native utilities, technical sandboxes, and offbeat product experiments."
+      content="Gunnar Hostetler's public directory for portfolio, app catalog, LinkedIn, GitHub, and contact routes."
     />
     <meta
       name="keywords"
-      content="SwiftUI, Flask, Vite, operations dashboard, iOS utilities, computer vision, job matching, hiking planner, GitHub Pages"
+      content="Gunnar Hostetler, portfolio, iOS apps, app support, LinkedIn, GitHub, contact, GitHub Pages"
     />
-    <meta property="og:title" content="Fascinaiting | Repo Systems Showcase" />
+    <meta property="og:title" content="Fascinaiting | Presence Hub" />
     <meta
       property="og:description"
-      content="Interactive project console for Gunnar Hostetler's ops tools, native utilities, and technical sandboxes."
+      content="Public link console for Gunnar Hostetler's portfolio, app catalog, LinkedIn, GitHub, and contact routes."
     />
     <meta property="og:type" content="website" />
     <meta
@@ -26,17 +26,15 @@
     />
 
     <!-- Theme and Fonts -->
-    <link rel="stylesheet" href="styles.css?v=20260531c" />
+    <link rel="stylesheet" href="styles.css?v=20260531d" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "WebSite",
         "name": "Fascinaiting",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Web Browser",
-        "description": "Interactive project console for Gunnar Hostetler's ops tools, native utilities, and technical sandboxes.",
+        "description": "Public link console for Gunnar Hostetler's portfolio, app catalog, LinkedIn, GitHub, and contact routes.",
         "url": "https://gunnarguy.github.io/Fascinaiting/"
       }
     </script>
@@ -100,7 +98,7 @@
           <div class="brand-logo" aria-hidden="true">F</div>
           <div class="brand-text">
             <h1>Fascinaiting</h1>
-            <span>Repo Systems &amp; Sandbox Console</span>
+            <span>Presence Hub &amp; Link Console</span>
           </div>
         </div>
 
@@ -111,7 +109,7 @@
           </div>
           <div class="status-item">
             <span class="led orange pulse" aria-hidden="true"></span>
-            <span>REPO INDEX: HOT</span>
+            <span>ROUTES: CURATED</span>
           </div>
           <div class="status-item">
             <span class="led blue" aria-hidden="true"></span>
@@ -222,13 +220,13 @@
           <!-- Hardware/Pipeline Monitor -->
           <div class="stats-widget" id="telemetryStatsWidget">
             <div class="widget-title">
-              <span>Showcase Signal Monitor</span>
+              <span>Presence Signal Monitor</span>
               <span class="led pulse" aria-hidden="true"></span>
             </div>
 
             <div class="stat-row">
               <div class="stat-info">
-                <span class="stat-label">Repo Index Cache</span>
+                <span class="stat-label">Public Link Cache</span>
                 <span class="stat-value" id="memValueText"
                   >2.1 GB / 8.0 GB</span
                 >
@@ -254,7 +252,7 @@
 
             <div class="stat-row">
               <div class="stat-info">
-                <span class="stat-label">External Sources</span>
+                <span class="stat-label">Public Surfaces</span>
                 <span class="stat-value">Feeds Online</span>
               </div>
               <div class="stat-bar">
@@ -265,7 +263,7 @@
         </section>
 
         <!-- Right Column: Projects Matrix Explorer -->
-        <section class="workspace" aria-label="Repository Showcase Explorer">
+        <section class="workspace" aria-label="Public Presence Explorer">
           <!-- Category filtering bar -->
           <div class="filter-bar" id="projectFilterBar">
             <div class="filter-tags" role="tablist">
@@ -276,34 +274,34 @@
                 aria-selected="true"
                 id="filterAllBtn"
               >
-                All Projects
+                All Links
               </button>
               <button
                 class="filter-tag"
-                data-category="ops"
+                data-category="portfolio"
                 role="tab"
                 aria-selected="false"
                 id="filterOpsBtn"
               >
-                Ops &amp; Systems
+                Portfolio &amp; Bio
               </button>
               <button
                 class="filter-tag"
-                data-category="native"
+                data-category="apps"
                 role="tab"
                 aria-selected="false"
                 id="filterNativeBtn"
               >
-                Native Utilities
+                App Catalog
               </button>
               <button
                 class="filter-tag"
-                data-category="sandbox"
+                data-category="career"
                 role="tab"
                 aria-selected="false"
                 id="filterSandboxBtn"
               >
-                Sandboxes &amp; Play
+                Career &amp; Contact
               </button>
             </div>
           </div>
@@ -315,7 +313,7 @@
         </section>
       </main>
 
-      <!-- Project Diagnostic Modal Details Drawer -->
+      <!-- Presence Route Details Drawer -->
       <div
         class="modal-overlay"
         id="modalOverlay"
@@ -336,7 +334,7 @@
             <div class="modal-header-bg"></div>
             <span class="modal-header-tag" id="modalHeaderTag">Category</span>
             <h2 class="modal-header-title" id="modalHeaderTitle">
-              Project Name
+              Destination
             </h2>
             <div class="modal-header-status" id="modalHeaderStatusText">
               <span class="led pulse" aria-hidden="true"></span>
@@ -346,7 +344,7 @@
 
           <div class="modal-body-section">
             <div>
-              <h3 class="detail-section-title">Telemetry &amp; Specs</h3>
+              <h3 class="detail-section-title">Context &amp; Signal</h3>
               <div class="detail-grid" id="modalStatsGrid">
                 <!-- Items injected dynamically -->
               </div>
@@ -354,7 +352,7 @@
 
             <div>
               <h3 class="detail-section-title">
-                Key Architectural Capabilities
+                Why This Link Exists
               </h3>
               <div class="key-features-list" id="modalFeaturesList">
                 <!-- Capabilities injected dynamically -->
@@ -362,7 +360,7 @@
             </div>
 
             <div>
-              <h3 class="detail-section-title">Simulated Flow Architecture</h3>
+              <h3 class="detail-section-title">Route Flow</h3>
               <pre class="architecture-box" id="modalArchitectureBox"></pre>
             </div>
           </div>
@@ -420,6 +418,6 @@
     </div>
 
     <!-- Script loading -->
-    <script src="app.js?v=20260531c"></script>
+    <script src="app.js?v=20260531d"></script>
   </body>
 </html>

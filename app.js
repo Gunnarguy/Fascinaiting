@@ -1,4 +1,4 @@
-const ASSET_VERSION = "20260531c";
+const ASSET_VERSION = "20260531d";
 
 function forceFreshStylesheet() {
   const versionedHref = `styles.css?v=${ASSET_VERSION}`;
@@ -22,256 +22,151 @@ function forceFreshStylesheet() {
 
 forceFreshStylesheet();
 
-// Project Metadata for the Fascinaiting multi-repo showcase
+// Public presence routes for the Fascinaiting hub
 const PROJECTS = [
   {
-    id: "orhub",
-    tag: "ops",
-    title: "ORHub",
+    id: "portfolio-main",
+    tag: "portfolio",
+    title: "Portfolio Homepage",
     status: "active",
     statusClass: "pulse",
-    desc: "SwiftUI operations console for live operating-room activity, combining a status dashboard, an interactive 2D floor map, and a LiDAR-backed AR overlay.",
-    tech: ["SwiftUI", "WebSockets", "REST API", "RealityKit", "LiDAR"],
+    desc: "The main professional portfolio: first-person career story, healthcare operations context, and the most relevant shipped software work.",
+    tech: ["Portfolio", "Career Narrative", "Case Studies", "GitHub Pages"],
     stats: {
-      "Surface Modes": "Live hub + map + AR overlay",
-      "Data Feeds": "REST and WebSocket room updates",
-      "Clinical Context": "VA operating-room visibility",
-      "Device Target": "LiDAR iPhone/iPad for AR",
+      "Primary URL": "gunnarguy.me",
+      "Audience": "Recruiters, collaborators, hiring teams",
+      "Signal": "Clinical ops plus iOS/AI shipping proof",
+      "Best Entry": "Start here",
     },
     features: [
-      "Live room-state dashboard with connectivity indicators and drill-in detail views.",
-      "Tappable 2D floor-plan visualization shading rooms by current status.",
-      "RealityKit overlay that anchors room telemetry to a LiDAR scan.",
-      "Launch-time endpoint switching between bundled sample data and live services.",
+      "Frames Gunnar's work through healthcare operations, shipped iOS apps, and practical AI tooling.",
+      "Keeps the polished public case studies in one place instead of exposing every side experiment.",
+      "Links out to App Store, GitHub, and contact surfaces from the cleaner main portfolio.",
+      "Serves as the default link for anyone who needs the full professional context quickly.",
     ],
-    diagram: `[REST + WebSocket feeds] ──> [Shared AppState] ──> [Live Hub + Floor Map]
-                                                     │
-                                                     ▼
-                                            [RealityKit AR Overlay]`,
-    link: "https://github.com/Gunnarguy/ORHub",
-    linkLabel: "View ORHub Source",
+    diagram: "[Visitor] -> [Portfolio homepage] -> [Career story + selected shipped work]\n                                  |\n                                  v\n                           [Contact / GitHub / App Store]",
+    link: "https://gunnarguy.me",
+    linkLabel: "Open Portfolio",
   },
   {
-    id: "pushapp",
-    tag: "native",
-    title: "PushApp",
-    status: "active",
-    statusClass: "pulse",
-    desc: "Production-grade iOS implementation of the Pushscroll concept: block addictive apps with Screen Time shields, then require camera-verified push-ups to unlock them.",
-    tech: [
-      "SwiftUI",
-      "Vision",
-      "FamilyControls",
-      "ManagedSettings",
-      "SwiftData",
-    ],
-    stats: {
-      "Unlock Loop": "Camera-verified push-up reps",
-      "OS Hooks": "FamilyControls + DeviceActivity",
-      Architecture: "3-extension Screen Time stack",
-      "Language Mode": "Swift 6 strict concurrency",
-    },
-    features: [
-      "Pose-validation state machine built on VNDetectHumanBodyPoseRequest.",
-      "Native iOS shields and activity monitors that relock apps after earned time expires.",
-      "Analytics-ready architecture spanning the full restriction-to-reward funnel.",
-      "End-to-end SwiftUI product surface instead of a prototype or concept demo.",
-    ],
-    diagram: `[Blocked apps] ──> [FamilyControls Shield] ──> [Vision Pose Validator]
-                                                      │
-                                                      ▼
-                                             [Earned Unlock Minutes]`,
-    link: "https://github.com/Gunnarguy/PushApp",
-    linkLabel: "View PushApp Source",
-  },
-  {
-    id: "linkedout",
-    tag: "sandbox",
-    title: "LinkedOut",
-    status: "streaming",
-    statusClass: "pulse",
-    desc: "Swipe-based job discovery app that ingests listings from five remote boards, scores them with LLMs against a user profile, and ranks the best matches in a native iOS deck.",
-    tech: ["SwiftUI", "FastAPI", "Gemini", "OpenAI", "Render"],
-    stats: {
-      "Job Sources": "5 remote APIs",
-      "Ranking Layer": "Gemini / OpenAI scoring",
-      "Client UX": "Swipe deck + saved matches",
-      Backend: "FastAPI dedup and ingest",
-    },
-    features: [
-      "Aggregates roles from Remotive, Himalayas, HN, Jobicy, and RemoteOK.",
-      "Deduplicates inbound listings before LLM relevance scoring runs.",
-      "Packages the results into a native swipe UI instead of a static job board.",
-      "Keeps the matching logic open to prompt tuning and profile experimentation.",
-    ],
-    diagram: `[5 job APIs] ──> [Dedup + Ingest Pipeline] ──> [LLM Match Score]
-                                              │
-                                              ▼
-                                     [Native Swipe Deck]`,
-    link: "https://github.com/Gunnarguy/LinkedOut",
-    linkLabel: "View LinkedOut Source",
-  },
-  {
-    id: "chickenplans",
-    tag: "ops",
-    title: "ChickenPlans",
-    status: "active",
-    statusClass: "pulse",
-    desc: "Live-data weekend planner built for dog-friendly exploration, combining maps, Overpass API discovery, GPX imports, weather-aware scheduling, and Fi collar context.",
-    tech: ["Python", "Flask", "Leaflet", "Overpass API", "Fi"],
-    stats: {
-      "Map Stack": "Leaflet explorer UI",
-      Discovery: "Overpass API live queries",
-      Planner: "Weather-aware trip scheduler",
-      "Dog Signal": "Fi collar telemetry",
-    },
-    features: [
-      "Interactive map for trails, parks, dog parks, boutiques, and weekend stops.",
-      "Zero-hardcoded discovery driven by live POI queries instead of a static list.",
-      "Imports GPX or CSV history and renders elevation-aware adventure context.",
-      "Adds dog-first details like leash rules, off-leash status, and pet suitability.",
-    ],
-    diagram: `[Overpass API + GPX] ──> [Flask Planner] ──> [Leaflet Explorer]
-                                                 │
-                                                 ▼
-                                       [Dog-friendly trip picks]`,
-    link: "https://github.com/Gunnarguy/ChickenPlans",
-    linkLabel: "View ChickenPlans Source",
-  },
-  {
-    id: "ddg-pct",
-    tag: "ops",
-    title: "DDG-PCT Mission Control",
+    id: "portfolio-narrative",
+    tag: "portfolio",
+    title: "Narrative & Background",
     status: "ready",
     statusClass: "blue",
-    desc: "Interactive planning dashboard for a Burney Falls to Castle Crags PCT section hike, turning an original route document into GPS-accurate logistics and daily visual breakdowns.",
-    tech: ["Vite", "GPX", "Elevation Data", "Maps", "Planning"],
+    desc: "A direct route into the professional narrative: operating-room support, on-site ownership, and how that turned into software building.",
+    tech: ["Healthcare Ops", "iOS", "AI Tooling", "Writing"],
     stats: {
-      "Route Span": "Burney Falls to Castle Crags",
-      "Plan Length": "52 miles over 6 days",
-      "Source Input": "Original hike planning doc",
-      Focus: "GPS-accurate logistics",
+      "Context": "OR support and surgical workflows",
+      "Role Signal": "High-agency builder",
+      "Tone": "Concrete, first-person, lived-in",
+      "Use Case": "Background before outreach calls",
     },
     features: [
-      "Transforms a family planning document into a navigable mission-control dashboard.",
-      "Tracks day-by-day mileage, route segments, and terrain expectations.",
-      "Keeps logistics grounded in GPX-derived route data instead of rough estimates.",
-      "Packages a personal outdoor plan like an operational briefing tool.",
+      "Highlights the real hospital workflow context behind the software work.",
+      "Explains the transition from clinical technical support into self-directed app development.",
+      "Keeps the public story focused on useful constraints instead of novelty projects.",
+      "Works as a quick credibility layer before deeper portfolio review.",
     ],
-    diagram: `[Planning doc + GPX] ──> [Route Visualizer] ──> [Daily breakdown]
-                                                   │
-                                                   ▼
-                                        [Logistics + elevation checks]`,
-    link: "https://github.com/Gunnarguy/DDG-PCT",
-    linkLabel: "View DDG-PCT Source",
+    diagram: "[Clinical work] -> [Workflow pain points] -> [Software projects]\n                                      |\n                                      v\n                              [Clear public narrative]",
+    link: "https://gunnarguy.me#about",
+    linkLabel: "Read Background",
   },
   {
-    id: "audio-clean-check",
-    tag: "native",
-    title: "AudioCleanCheck",
+    id: "gunzino-catalog",
+    tag: "apps",
+    title: "Gunzino App Catalog",
     status: "active",
     statusClass: "pulse",
-    desc: "Guided microphone quality tester for iPhone, iPad, and Apple Watch that compares before-and-after recordings to quantify whether cleaning the ports improved clarity.",
-    tech: ["Vite", "Web Audio", "DSP", "Drag and Drop", "Apple Watch"],
+    desc: "The cleaner app-facing portal for shipped app pages, support docs, privacy pages, and product-specific links.",
+    tech: ["App Store", "Support", "Privacy", "Static Site"],
     stats: {
-      "Test Flow": "Before / after recording compare",
-      "Output Lock": "Built-in speakers enforced",
-      Modes: "iPhone + Apple Watch panels",
-      Delivery: "Vite web interface",
+      "Primary URL": "gunzino.me",
+      "Purpose": "App support and release surfaces",
+      "Visibility": "Public, polished app pages",
+      "Content Policy": "Show shipped apps, not every experiment",
     },
     features: [
-      "Guided workflow for generating a repeatable before-and-after microphone test.",
-      "Locks the Mac output path to prevent AirPods or external devices from skewing the result.",
-      "Includes a dedicated Apple Watch path for importing and comparing voice memos.",
-      "Surfaces audible cleanliness changes as a measurable frequency-response difference.",
+      "Routes visitors to app pages that are intended to be public.",
+      "Keeps privacy, support, and product metadata in a clean app catalog.",
+      "Separates polished app surfaces from private or offbeat sandbox work.",
+      "Gives App Review and users stable support URLs.",
     ],
-    diagram: `[Reference signal] ──> [Before/After recordings] ──> [Frequency comparison]
-                                                      │
-                                                      ▼
-                                             [Cleaning delta]`,
-    link: "https://github.com/Gunnarguy/audio-clean-check",
-    linkLabel: "View AudioCleanCheck Source",
+    diagram: "[App user] -> [Gunzino catalog] -> [Support / privacy / app pages]\n                                 |\n                                 v\n                         [Public product surfaces only]",
+    link: "https://gunzino.me",
+    linkLabel: "Open Gunzino",
   },
   {
-    id: "visionbud",
-    tag: "sandbox",
-    title: "VisionBud",
-    status: "dormant",
-    statusClass: "orange",
-    desc: "Edge computer vision experiments for Raspberry Pi and Apple hardware, focused on live object tracking, YOLO inference, and hardware-triggered automation loops.",
-    tech: ["Python", "OpenCV", "YOLOv8", "Raspberry Pi", "CoreML"],
+    id: "github-profile",
+    tag: "career",
+    title: "GitHub Profile",
+    status: "connected",
+    statusClass: "pulse",
+    desc: "A source-code route for people who want activity, repos, and implementation evidence without making this page a raw experiment directory.",
+    tech: ["GitHub", "Source Review", "Commits", "Public Repos"],
     stats: {
-      Runtime: "Realtime edge inference",
-      Hardware: "Pi 4 + Apple Silicon",
-      Loop: "Object detection and triggers",
-      Focus: "Computer-vision automation",
+      "Primary URL": "github.com/Gunnarguy",
+      "Best For": "Technical validation",
+      "Scope": "Public repositories only",
+      "Positioning": "Evidence, not a landing page",
     },
     features: [
-      "Realtime camera parsing with OpenCV pre-processing and accelerated inference paths.",
-      "YOLO-driven object detection loops tuned for lightweight edge environments.",
-      "GPIO or automation trigger flow based on matched objects in the camera frame.",
-      "Explores the boundary between hobby robotics and practical local AI utilities.",
+      "Keeps source-code discovery available for technical reviewers.",
+      "Avoids turning Fascinaiting into a showcase of every small or unfinished repo.",
+      "Lets visitors self-select into deeper code review if they actually want it.",
+      "Preserves the portfolio as the main narrative surface.",
     ],
-    diagram: `[Camera feed] ──> [OpenCV prep] ──> [YOLOv8 inference]
-                                            │
-                                            ▼
-                                 [Trigger or automation output]`,
-    link: "https://github.com/Gunnarguy/VisionBud",
-    linkLabel: "View VisionBud Source",
+    diagram: "[Reviewer] -> [GitHub profile] -> [Repos + commit history]\n                              |\n                              v\n                       [Technical evidence layer]",
+    link: "https://github.com/Gunnarguy",
+    linkLabel: "Open GitHub",
   },
   {
-    id: "wowca",
-    tag: "native",
-    title: "Classic Era Assistant",
+    id: "linkedin-profile",
+    tag: "career",
+    title: "LinkedIn Profile",
+    status: "connected",
+    statusClass: "pulse",
+    desc: "The professional-network route for experience, endorsements, work history, and outreach.",
+    tech: ["LinkedIn", "Career", "Experience", "Outreach"],
+    stats: {
+      "Primary URL": "linkedin.com/in/gunnar-hostetler",
+      "Best For": "Recruiters and professional contacts",
+      "Signal": "Work history and network context",
+      "Action": "Connect or message",
+    },
+    features: [
+      "Gives hiring and networking contacts the conventional professional profile.",
+      "Keeps work history and recommendations on the platform people expect.",
+      "Complements the portfolio without duplicating every detail.",
+      "Provides a straightforward contact path.",
+    ],
+    diagram: "[Professional contact] -> [LinkedIn] -> [Experience + messaging]\n                                   |\n                                   v\n                              [Outreach path]",
+    link: "https://www.linkedin.com/in/gunnar-hostetler/",
+    linkLabel: "Open LinkedIn",
+  },
+  {
+    id: "contact-route",
+    tag: "career",
+    title: "Contact Route",
     status: "ready",
     statusClass: "blue",
-    desc: "Offline-first item and spell database for Classic Era, shipping a SwiftUI client plus a reproducible data pipeline that generates the app's local SQLite bundle.",
-    tech: ["SwiftUI", "SQLite", "Offline Search", "visionOS", "Data Pipeline"],
+    desc: "A direct path to contact details and the main portfolio contact section without exposing side-project clutter.",
+    tech: ["Email", "Portfolio", "Outreach", "Availability"],
     stats: {
-      Mode: "Offline-first game reference",
-      Platforms: "iOS, iPadOS, visionOS",
-      "Data Store": "Generated SQLite bundle",
-      Lookup: "Instant local search",
+      "Primary URL": "gunnarguy.me#contact",
+      "Best For": "Direct outreach",
+      "Surface": "Portfolio contact section",
+      "Noise Level": "Low",
     },
     features: [
-      "Keeps a large item and spell corpus available with zero network dependency.",
-      "Pairs the native client with a rebuildable content pipeline instead of hand-managed data.",
-      "Targets Apple platforms beyond iPhone, including iPad and visionOS.",
-      "Treats a game companion app with the same rigor as a serious utility product.",
+      "Routes serious outreach to the portfolio contact section.",
+      "Keeps this page focused as a compact directory instead of a resume replacement.",
+      "Avoids sending people into unfinished or overly specific experiment pages.",
+      "Pairs naturally with LinkedIn and GitHub for follow-up context.",
     ],
-    diagram: `[Game data pipeline] ──> [SQLite bundle] ──> [SwiftUI reference client]
-                                                     │
-                                                     ▼
-                                            [Offline search + lookup]`,
-    link: "https://github.com/Gunnarguy/WoWCA",
-    linkLabel: "View Classic Era Assistant",
-  },
-  {
-    id: "warcraftlogs",
-    tag: "native",
-    title: "WarcraftLogs Client",
-    status: "ready",
-    statusClass: "blue",
-    desc: "Native iOS client for browsing WarcraftLogs raid data with OAuth, biometrics, bookmarks, widgets, and share-extension entry points.",
-    tech: ["SwiftUI", "OAuth", "WidgetKit", "Biometrics", "Notifications"],
-    stats: {
-      Auth: "OAuth + Face ID / Touch ID",
-      "Entry Points": "App, widget, share extension",
-      Focus: "Raid-log browsing",
-      Platform: "Native iOS",
-    },
-    features: [
-      "Wraps WarcraftLogs browsing in native navigation rather than a plain web wrapper.",
-      "Adds authentication hardening through biometrics and session handling.",
-      "Supports bookmarks and recents for faster return to active logs.",
-      "Extends the experience with widgets, notifications, and URL share intake.",
-    ],
-    diagram: `[WarcraftLogs API] ──> [OAuth session] ──> [Native browse + bookmarks]
-                                                  │
-                                                  ▼
-                                         [Widgets + share extension]`,
-    link: "https://github.com/Gunnarguy/WarcraftLogs",
-    linkLabel: "View WarcraftLogs Source",
+    diagram: "[Visitor] -> [Contact route] -> [Email / LinkedIn / portfolio]\n                                |\n                                v\n                         [Low-friction next step]",
+    link: "https://gunnarguy.me#contact",
+    linkLabel: "Go to Contact",
   },
 ];
 
@@ -293,7 +188,7 @@ class TerminalSimulator {
         action: () => this.showAbout(),
       },
       projects: {
-        desc: "Print the current showcase matrix",
+        desc: "Print the current presence routes",
         action: () => this.showProjects(),
       },
       telemetry: {
@@ -361,11 +256,11 @@ class TerminalSimulator {
     this.writeLine("Local Memory Indexing: Complete", "term-output-system");
     this.writeLine("--------------------------------------------");
     this.writeLine(
-      "Welcome to the multi-repo systems showcase.",
+      "Welcome to the public presence hub.",
       "term-output-accent",
     );
     this.writeLine(
-      "Type <span class='term-output-accent'>help</span> to view available operations, or click project cards on the right.",
+      "Type <span class='term-output-accent'>help</span> to view available operations, or choose a route on the right.",
     );
     this.writeLine("--------------------------------------------");
   }
@@ -402,13 +297,13 @@ class TerminalSimulator {
   showAbout() {
     this.writeLine("CREATOR: Gunnar Hostetler", "term-output-accent");
     this.writeLine(
-      "NIGHTS : Building Swift apps, ops dashboards, and weirdly practical prototypes.",
+      "NIGHTS : Building shipped iOS apps and practical AI tools.",
     );
     this.writeLine(
       "DAYS   : Hospital Operations & Stryker intraoperative VA specialist.",
     );
     this.writeLine(
-      "GOAL   : Ship original software that feels specific, useful, and unmistakably mine.",
+      "GOAL   : Keep the public trail clear, specific, and useful.",
     );
     this.writeLine(
       "GitHub : <a href='https://github.com/Gunnarguy' target='_blank' style='color:#00f2fe;'>github.com/Gunnarguy</a>",
@@ -416,13 +311,13 @@ class TerminalSimulator {
   }
 
   showProjects() {
-    this.writeLine("FETCHING LOCAL REPOS DATA...", "term-output-system");
+    this.writeLine("FETCHING PUBLIC ROUTES...", "term-output-system");
     this.writeLine(
       "-------------------------------------------------------------------------------------",
       "term-output-system",
     );
     this.writeLine(
-      " PROJECT NAME             │ CATEGORY             │ STATUS     │ TECH",
+      " ROUTE NAME               │ CATEGORY             │ STATUS     │ CONTEXT",
       "term-output-system",
     );
     this.writeLine(
@@ -446,21 +341,21 @@ class TerminalSimulator {
     const cpu = Math.floor(Math.random() * 25) + 5;
     const memory = (Math.random() * 2 + 1.2).toFixed(1);
     const temp = Math.floor(Math.random() * 15) + 38;
-    this.writeLine("READING SHOWCASE TELEMETRY...", "term-output-system");
+    this.writeLine("READING PRESENCE HUB TELEMETRY...", "term-output-system");
     this.writeLine(
-      `  [Ops Dashboards]     : 3 indexed (ORHub, ChickenPlans, DDG-PCT)`,
+      `  [Portfolio Routes]  : 2 indexed (homepage, narrative)`,
       "term-output-info",
     );
     this.writeLine(
-      `  [Native Clients]     : 4 indexed (PushApp, AudioCleanCheck, WoWCA, WCL)`,
+      `  [App Surface]       : 1 catalog route (Gunzino)`,
       "term-output-info",
     );
     this.writeLine(
-      `  [Sandbox Queue]      : 2 staged (LinkedOut, VisionBud)`,
+      `  [Career Links]      : 3 routes (GitHub, LinkedIn, contact)`,
       "term-output-info",
     );
     this.writeLine(
-      `  [Remote Feeds]       : job APIs, GPX routes, and OR sockets nominal`,
+      `  [Public Scope]      : polished surfaces only`,
       "term-output-info",
     );
     this.writeLine(
