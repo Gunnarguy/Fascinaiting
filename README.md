@@ -11,12 +11,15 @@ This repository hosts the static frontend for **[fascinaiting.me](https://fascin
 
 ## Showcased Projects
 
-1. **OpenIntelligence Engine:** On-device local RAG engine using Swift/CoreML.
-2. **OpenResponses Agent Client:** Streaming real-time agent console implementing WebSocket connection and system computer-use.
-3. **PlaudBlender Core:** Voice intelligence processing pipeline targeting Qdrant vector databases.
-4. **OpenCone Vector Client:** Mobile Pinecone client with embedded search capability.
-5. **MCP Core Servers:** Model Context Protocol configurations connecting LLMs to secure workspace resources.
-6. **VisionBud & Edge AI:** Raspberry Pi camera object-tracking automations using OpenCV and YOLO.
+1. **Portfolio Homepage:** Dynamic resume website highlighting professional and SwiftUI projects.
+2. **Narrative & Bio:** Background narrative detailing surgical tech support operations at Stanford VA.
+3. **Gunzino App Store Portal:** App landing and publisher platform support site.
+4. **OpenIntelligence Portal:** Mobile app details for the fully offline Swift/CoreML search utility.
+5. **OpenResponses Portal:** Desktop real-time assistant and custom Model Context Protocol client portal.
+6. **OpenCone Portal:** Mobile REST client for Pinecone Vector Database index queries.
+7. **LinkedIn Profile:** Professional network and recommendations gateway.
+8. **Clinical Operations Experience:** Detailed background information highlighting Stryker specialist workflows.
+9. **LinkedOut/LunkedIn Concepts:** Swipe-gesture developer job listing sandbox experiments.
 
 ## Stack & Design
 
