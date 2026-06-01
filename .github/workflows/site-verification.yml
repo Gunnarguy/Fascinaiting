@@ -1,0 +1,183 @@
+name: Site Verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  source:
+    name: Source Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enforce asset version bumps
+        env:
+          VERIFY_DIFF_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          set -euo pipefail
+
+          base="$VERIFY_DIFF_BASE"
+          if [[ -z "$base" || "$base" == "0000000000000000000000000000000000000000" ]] || ! git rev-parse --verify "$base^{commit}" >/dev/null 2>&1; then
+            echo "No valid diff base for asset version enforcement."
+            exit 0
+          fi
+
+          styles_files=(index.html 404.html)
+
+          extract_current() {
+            grep -Eo "$2" "$1" | head -n 1
+          }
+
+          extract_base() {
+            git show "$base:$1" 2>/dev/null | grep -Eo "$2" | head -n 1 || true
+          }
+
+          uniform_ref() {
+            local label="$1"
+            local regex="$2"
+            shift 2
+            local expected=""
+            local current=""
+            local file
+
+            for file in "$@"; do
+              current="$(extract_current "$file" "$regex")"
+              if [[ -z "$current" ]]; then
+                echo "::error::Missing $label reference in $file"
+                exit 1
+              fi
+
+              if [[ -z "$expected" ]]; then
+                expected="$current"
+              elif [[ "$current" != "$expected" ]]; then
+                echo "::error::$label token mismatch in $file ($current vs $expected)"
+                exit 1
+              fi
+            done
+
+            printf '%s\n' "$expected"
+          }
+
+          base_uniform_ref() {
+            local regex="$1"
+            shift
+            local expected=""
+            local current=""
+            local file
+
+            for file in "$@"; do
+              current="$(extract_base "$file" "$regex")"
+              if [[ -z "$current" ]]; then
+                return 0
+              fi
+
+              if [[ -z "$expected" ]]; then
+                expected="$current"
+              elif [[ "$current" != "$expected" ]]; then
+                echo "::error::Base token mismatch in $file ($current vs $expected)"
+                exit 1
+              fi
+            done
+
+            printf '%s\n' "$expected"
+          }
+
+          current_style_ref="$(uniform_ref 'styles.css' 'styles\.css\?v=[^"]+' "${styles_files[@]}")"
+          current_app_ref="$(extract_current index.html 'app\.js\?v=[^"]+')"
+          current_js_stmt="$(extract_current app.js 'ASSET_VERSION = "[^"]+"')"
+
+          current_style_token="${current_style_ref#styles.css?v=}"
+          current_app_token="${current_app_ref#app.js?v=}"
+          current_js_token="${current_js_stmt#ASSET_VERSION = \"}"
+          current_js_token="${current_js_token%\"}"
+
+          if [[ "$current_style_token" != "$current_app_token" || "$current_style_token" != "$current_js_token" ]]; then
+            echo "::error::Fascinaiting asset tokens are inconsistent (styles=$current_style_token app=$current_app_token js=$current_js_token)"
+            exit 1
+          fi
+
+          echo "Shared asset token: $current_style_token"
+
+          if git diff --name-only "$base" HEAD -- styles.css app.js | grep -q .; then
+            base_style_ref="$(base_uniform_ref 'styles\.css\?v=[^"]+' "${styles_files[@]}")"
+            base_app_ref="$(extract_base index.html 'app\.js\?v=[^"]+')"
+            base_js_stmt="$(extract_base app.js 'ASSET_VERSION = "[^"]+"')"
+
+            base_style_token="${base_style_ref#styles.css?v=}"
+            base_app_token="${base_app_ref#app.js?v=}"
+            base_js_token="${base_js_stmt#ASSET_VERSION = \"}"
+            base_js_token="${base_js_token%\"}"
+
+            if [[ -n "$base_style_token" && "$base_style_token" == "$current_style_token" ]]; then
+              echo "::error::styles.css or app.js changed without bumping the shared asset token"
+              exit 1
+            fi
+
+            if [[ -n "$base_app_token" && "$base_app_token" == "$current_app_token" ]]; then
+              echo "::error::app.js changed without bumping the script tag token in index.html"
+              exit 1
+            fi
+
+            if [[ -n "$base_js_token" && "$base_js_token" == "$current_js_token" ]]; then
+              echo "::error::styles.css or app.js changed without bumping ASSET_VERSION in app.js"
+              exit 1
+            fi
+
+            echo "Shared asset token: ${base_style_token:-<none>} -> $current_style_token"
+          fi
+
+      - name: Verify source
+        run: ./scripts/verify-site.sh source
+
+  live:
+    name: Live Pages Checks
+    if: ${{ github.event_name != 'pull_request' }}
+    needs: source
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pages: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Verify deployed site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAGES_BUILD_ATTEMPTS: 60
+          PAGES_BUILD_SLEEP_SECONDS: 10
+        run: ./scripts/verify-site.sh ci-live
