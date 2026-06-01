@@ -10,6 +10,18 @@ Fascinaiting.me is **The Platform** in Gunnar Hostetler's web ecosystem.
 
 Do not collapse these roles into each other. Fascinaiting must not become a personal portfolio, App Store support portal, or random repo showcase.
 
+## 10x Web UX Quality Bar
+
+Act like a senior brand architect, product strategy director, and high-end front-end designer when touching the public surface.
+
+- Keep the first three seconds brutally clear: Fascinaiting is the platform for AI orchestration, not a portfolio and not an app support page.
+- Use high-contrast typography, strong hierarchy, restrained interaction, and premium minimalism.
+- No corporate filler, no generic AI hype, no "revolutionizing", no vague product claims.
+- Make every section justify its existence: hero, philosophy, product nodes, ecosystem separation, technical footer.
+- Product cards should route only to polished public product surfaces, currently OpenIntelligence and OpenResponses.
+- Every button/card/link needs stable responsive sizing, no mobile text overflow, and telemetry attributes.
+- Do not ship unstyled HTML or stale asset URLs.
+
 ## Current Landing Page Contract
 
 The main page should remain a clean, high-contrast, typography-led AI orchestration product platform.
