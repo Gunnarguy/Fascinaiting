@@ -1,29 +1,30 @@
-# Fascinaiting.me // AI & On-Device ML Dashboard
+# Fascinaiting.me // AI Orchestration Platform
 
-This repository hosts the static frontend for **[fascinaiting.me](https://fascinaiting.me)** — a high-fidelity, interactive sandbox dashboard showcasing Gunnar Hostetler's on-device machine learning experiments, tools, and pipelines.
+This repository hosts the static frontend for **[fascinaiting.me](https://fascinaiting.me)**, Gunnar Hostetler's forward-facing AI orchestration brand for local AI engines, automated data pipelines, and native software utilities.
 
-## Features
+## Purpose
 
-- **Interactive Terminal Simulator:** An in-browser mock console where users can run diagnostic utilities like `help`, `about`, `projects`, `telemetry`, and `ping`.
-- **Sandbox Matrix Grid:** A categorized, responsive portfolio layout separating on-device ML work, AI workspace agents, and data pipelines.
-- **Detail Diagnostic Drawers:** Dynamic overlays presenting technical specifications, latency footprints, key features, and mock flow architecture diagrams for each project.
-- **System Telemetry Bar:** Simulated resource tracker illustrating Neural Core (ANE) loads and active memory index spaces.
+Fascinaiting is the platform node in the ecosystem:
 
-## Showcased Projects
+- **Gunnarguy.me** is the creator profile and professional portfolio.
+- **Gunzino.me** is the publisher and app support/storefront node.
+- **Fascinaiting.me** is the product and AI orchestration brand.
 
-1. **Portfolio Homepage:** Dynamic resume website highlighting professional and SwiftUI projects.
-2. **Narrative & Bio:** Background narrative detailing surgical tech support operations at Stanford VA.
-3. **Gunzino App Store Portal:** App landing and publisher platform support site.
-4. **OpenIntelligence Portal:** Mobile app details for the fully offline Swift/CoreML search utility.
-5. **OpenResponses Portal:** Desktop real-time assistant and custom Model Context Protocol client portal.
-6. **OpenCone Portal:** Mobile REST client for Pinecone Vector Database index queries.
-7. **LinkedIn Profile:** Professional network and recommendations gateway.
-8. **Clinical Operations Experience:** Detailed background information highlighting Stryker specialist workflows.
-9. **LinkedOut/LunkedIn Concepts:** Swipe-gesture developer job listing sandbox experiments.
+## Landing Page Structure
 
-## Stack & Design
+- **Hero:** Bold first-screen positioning for high-agency systems orchestration.
+- **Philosophy:** Two-column breakdown of building real software with AI-assisted orchestration instead of bloated demos.
+- **Product Nodes:** Focused cards for OpenIntelligence and OpenResponses as outbound app/product funnels.
+- **Ecosystem Matrix:** Clear separation between creator, publisher, and platform web properties.
+- **Technical Footer:** Systems status, developer profile, support hub, and privacy architecture links.
 
-- **Core:** Pure HTML5 structure, semantic elements.
-- **Style:** Vanilla CSS3, dark mode cybernetic dashboard theme, glassmorphism, responsive grid layout.
-- **Interactivity:** Vanilla ES6+ Javascript event management and terminal emulator engine.
-- **Deployment:** GitHub Pages configured with custom CNAME domain.
+## Telemetry
+
+Every meaningful button, link, and product card uses `data-track`, `data-track-group`, and where useful `data-track-value` attributes. The shared GA4 click listener in `index.html` captures these interactions as `ui_interaction_event`.
+
+## Stack
+
+- **Core:** Static HTML5.
+- **Style:** Vanilla CSS with high-contrast typography and responsive layouts.
+- **Interactivity:** Small vanilla JavaScript helper for cache-busting stylesheets, smooth scroll, and reveal states.
+- **Deployment:** GitHub Pages with custom CNAME domain.

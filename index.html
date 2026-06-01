@@ -3,30 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- SEO Optimization -->
-    <title>Fascinaiting | Presence Hub</title>
+    <title>Fascinaiting | AI Orchestration Platform</title>
     <meta
       name="description"
-      content="Gunnar Hostetler's public directory for portfolio, app catalog, LinkedIn, GitHub, and contact routes."
+      content="Fascinaiting is Gunnar Hostetler's forward-facing AI orchestration platform for local AI engines, automated data pipelines, and native software utilities."
     />
     <meta
       name="keywords"
-      content="Gunnar Hostetler, portfolio, iOS apps, app support, LinkedIn, GitHub, contact, GitHub Pages"
+      content="Fascinaiting, AI orchestration, local AI, automation, data pipelines, native software, OpenIntelligence, OpenResponses"
     />
-    <meta property="og:title" content="Fascinaiting | Presence Hub" />
+    <meta property="og:title" content="Fascinaiting | AI Orchestration Platform" />
     <meta
       property="og:description"
-      content="Public link console for Gunnar Hostetler's portfolio, app catalog, LinkedIn, GitHub, and contact routes."
+      content="High-agency systems orchestration for local AI engines, automated data pipelines, and native software utilities that actually work."
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://gunnarguy.github.io/Fascinaiting/ios-app-screenshot.png"
-    />
-
-    <!-- Theme and Fonts -->
-    <link rel="stylesheet" href="styles.css?v=20260531d" />
+    <meta property="og:url" content="https://fascinaiting.me/" />
+    <meta property="og:image" content="https://fascinaiting.me/ios-app-screenshot.png" />
+    <link rel="stylesheet" href="styles.css?v=20260531e" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <script type="application/ld+json">
@@ -34,8 +28,13 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Fascinaiting",
-        "description": "Public link console for Gunnar Hostetler's portfolio, app catalog, LinkedIn, GitHub, and contact routes.",
-        "url": "https://gunnarguy.github.io/Fascinaiting/"
+        "description": "AI orchestration platform for local AI engines, automated data pipelines, and native software utilities.",
+        "url": "https://fascinaiting.me/",
+        "creator": {
+          "@type": "Person",
+          "name": "Gunnar Hostetler",
+          "url": "https://gunnarguy.me/"
+        }
       }
     </script>
 
@@ -53,7 +52,6 @@
       }
       gtag("js", new Date());
 
-      // Configured to ensure compatibility with Ads Account 450-937-9845
       gtag("config", "G-8CQD5KZ06Y", {
         send_page_view: true,
         enhanced_measurement: true,
@@ -91,333 +89,290 @@
     <!-- ====================================================================== -->
   </head>
   <body>
-    <div class="container">
-      <!-- Dashboard Header -->
-      <header>
-        <div class="brand" id="brandContainer">
-          <div class="brand-logo" aria-hidden="true">F</div>
-          <div class="brand-text">
-            <h1>Fascinaiting</h1>
-            <span>Presence Hub &amp; Link Console</span>
-          </div>
-        </div>
+    <a
+      class="skip-link"
+      href="#main"
+      data-track="skip_to_main_click"
+      data-track-group="landing_page_engagement"
+      >Skip to main content</a
+    >
 
-        <div class="system-status" id="systemStatusPanel">
-          <div class="status-item">
-            <span class="led pulse" aria-hidden="true"></span>
-            <span>SYSTEM: ACTIVE</span>
-          </div>
-          <div class="status-item">
-            <span class="led orange pulse" aria-hidden="true"></span>
-            <span>ROUTES: CURATED</span>
-          </div>
-          <div class="status-item">
-            <span class="led blue" aria-hidden="true"></span>
-            <span>HOST: GITHUB-PAGES</span>
-          </div>
-        </div>
-
-        <nav aria-label="Main Navigation">
-          <a href="#" class="nav-link active" id="navWorkspaceLink"
-            >Workspace</a
-          >
-          <a
-            href="https://gunnarguy.me"
-            target="_blank"
-            class="nav-link"
-            id="navPortfolioLink"
-            >Portfolio</a
-          >
-          <a
-            href="https://www.linkedin.com/in/gunnar-hostetler/"
-            target="_blank"
-            class="nav-link"
-            id="navLinkedInLink"
-            >LinkedIn</a
-          >
-          <a
-            href="https://github.com/Gunnarguy"
-            target="_blank"
-            class="nav-link"
-            id="navGithubLink"
-            >GitHub</a
-          >
-        </nav>
-      </header>
-
-      <!-- Main Dashboard Split Layout -->
-      <main class="dashboard-grid" id="mainDashboard">
-        <!-- Left Column: Terminal & Resource Telemetry -->
-        <section class="sidebar" aria-label="Telemetry and Command Shell">
-          <!-- Terminal Shell Simulator -->
-          <div class="terminal-widget" id="terminalWidget">
-            <div class="terminal-header">
-              <div class="terminal-buttons" aria-hidden="true">
-                <span class="terminal-btn close"></span>
-                <span class="terminal-btn minimize"></span>
-                <span class="terminal-btn maximize"></span>
-              </div>
-              <div class="terminal-title">
-                TERMINAL SIMULATOR // STASH_SHELL
-              </div>
-            </div>
-
-            <div class="terminal-body" id="terminalBody">
-              <!-- Command lines appended dynamically here -->
-              <div class="terminal-input-line">
-                <span class="terminal-prompt" aria-hidden="true"
-                  >guest@fascinaiting.me:~$</span
-                >
-                <input
-                  type="text"
-                  id="terminalInput"
-                  class="terminal-input"
-                  placeholder="Type command..."
-                  autocomplete="off"
-                  aria-label="Terminal Command Input"
-                />
-              </div>
-            </div>
-
-            <div class="terminal-shortcuts" id="terminalShortcuts">
-              <button class="shortcut-btn" data-command="help" id="cmdHelpBtn">
-                help
-              </button>
-              <button
-                class="shortcut-btn"
-                data-command="about"
-                id="cmdAboutBtn"
-              >
-                about
-              </button>
-              <button
-                class="shortcut-btn"
-                data-command="projects"
-                id="cmdProjectsBtn"
-              >
-                projects
-              </button>
-              <button
-                class="shortcut-btn"
-                data-command="telemetry"
-                id="cmdTelemetryBtn"
-              >
-                telemetry
-              </button>
-              <button class="shortcut-btn" data-command="ping" id="cmdPingBtn">
-                ping
-              </button>
-              <button
-                class="shortcut-btn"
-                data-command="clear"
-                id="cmdClearBtn"
-              >
-                clear
-              </button>
-            </div>
-          </div>
-
-          <!-- Hardware/Pipeline Monitor -->
-          <div class="stats-widget" id="telemetryStatsWidget">
-            <div class="widget-title">
-              <span>Presence Signal Monitor</span>
-              <span class="led pulse" aria-hidden="true"></span>
-            </div>
-
-            <div class="stat-row">
-              <div class="stat-info">
-                <span class="stat-label">Public Link Cache</span>
-                <span class="stat-value" id="memValueText"
-                  >2.1 GB / 8.0 GB</span
-                >
-              </div>
-              <div class="stat-bar">
-                <div class="stat-progress" id="memBar" style="width: 26%"></div>
-              </div>
-            </div>
-
-            <div class="stat-row">
-              <div class="stat-info">
-                <span class="stat-label">Dashboard Load</span>
-                <span class="stat-value" id="cpuValueText">8%</span>
-              </div>
-              <div class="stat-bar">
-                <div
-                  class="stat-progress green"
-                  id="cpuBar"
-                  style="width: 8%"
-                ></div>
-              </div>
-            </div>
-
-            <div class="stat-row">
-              <div class="stat-info">
-                <span class="stat-label">Public Surfaces</span>
-                <span class="stat-value">Feeds Online</span>
-              </div>
-              <div class="stat-bar">
-                <div class="stat-progress magenta" style="width: 100%"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Right Column: Projects Matrix Explorer -->
-        <section class="workspace" aria-label="Public Presence Explorer">
-          <!-- Category filtering bar -->
-          <div class="filter-bar" id="projectFilterBar">
-            <div class="filter-tags" role="tablist">
-              <button
-                class="filter-tag active"
-                data-category="all"
-                role="tab"
-                aria-selected="true"
-                id="filterAllBtn"
-              >
-                All Links
-              </button>
-              <button
-                class="filter-tag"
-                data-category="portfolio"
-                role="tab"
-                aria-selected="false"
-                id="filterOpsBtn"
-              >
-                Portfolio &amp; Bio
-              </button>
-              <button
-                class="filter-tag"
-                data-category="apps"
-                role="tab"
-                aria-selected="false"
-                id="filterNativeBtn"
-              >
-                App Catalog
-              </button>
-              <button
-                class="filter-tag"
-                data-category="career"
-                role="tab"
-                aria-selected="false"
-                id="filterSandboxBtn"
-              >
-                Career &amp; Contact
-              </button>
-            </div>
-          </div>
-
-          <!-- Grid layout of interactive project modules -->
-          <div class="project-grid" id="projectGrid">
-            <!-- Cards injected dynamically via app.js -->
-          </div>
-        </section>
-      </main>
-
-      <!-- Presence Route Details Drawer -->
-      <div
-        class="modal-overlay"
-        id="modalOverlay"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modalHeaderTitle"
+    <header class="site-header" id="top">
+      <a
+        class="brand-mark"
+        href="#top"
+        aria-label="Fascinaiting home"
+        data-track="nav_brand_click"
+        data-track-group="landing_page_engagement"
+        data-scroll-target="top"
       >
-        <div class="modal-content" id="modalContent">
-          <button
-            class="modal-close-btn"
-            id="modalCloseBtn"
-            aria-label="Close Diagnostics Panel"
-          >
-            ×
-          </button>
+        <span class="brand-glyph" aria-hidden="true">F</span>
+        <span class="brand-copy">
+          <strong>Fascinaiting</strong>
+          <span>AI orchestration platform</span>
+        </span>
+      </a>
 
-          <div class="modal-header-section">
-            <div class="modal-header-bg"></div>
-            <span class="modal-header-tag" id="modalHeaderTag">Category</span>
-            <h2 class="modal-header-title" id="modalHeaderTitle">
-              Destination
-            </h2>
-            <div class="modal-header-status" id="modalHeaderStatusText">
-              <span class="led pulse" aria-hidden="true"></span>
-              Status: Active
-            </div>
-          </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a
+          href="#philosophy"
+          data-track="nav_philosophy_click"
+          data-track-group="landing_page_engagement"
+          data-scroll-target="philosophy"
+          >Philosophy</a
+        >
+        <a
+          href="#systems"
+          data-track="nav_systems_click"
+          data-track-group="landing_page_engagement"
+          data-scroll-target="systems"
+          >Systems</a
+        >
+        <a
+          href="#ecosystem"
+          data-track="nav_ecosystem_click"
+          data-track-group="landing_page_engagement"
+          data-scroll-target="ecosystem"
+          >Ecosystem</a
+        >
+        <a
+          href="https://gunzino.me"
+          data-track="nav_support_hub_click"
+          data-track-group="outbound_navigation"
+          data-track-value="gunzino"
+          >Support Hub</a
+        >
+      </nav>
+    </header>
 
-          <div class="modal-body-section">
-            <div>
-              <h3 class="detail-section-title">Context &amp; Signal</h3>
-              <div class="detail-grid" id="modalStatsGrid">
-                <!-- Items injected dynamically -->
-              </div>
-            </div>
-
-            <div>
-              <h3 class="detail-section-title">
-                Why This Link Exists
-              </h3>
-              <div class="key-features-list" id="modalFeaturesList">
-                <!-- Capabilities injected dynamically -->
-              </div>
-            </div>
-
-            <div>
-              <h3 class="detail-section-title">Route Flow</h3>
-              <pre class="architecture-box" id="modalArchitectureBox"></pre>
-            </div>
-          </div>
-
-          <div class="modal-actions">
-            <button
-              class="btn btn-secondary"
-              id="modalCancelBtn"
-              onclick="
-                document
-                  .getElementById('modalOverlay')
-                  .classList.remove('active')
-              "
-            >
-              Dismiss
-            </button>
+    <main id="main">
+      <section class="hero-section" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">The Platform</p>
+          <h1 id="hero-title">Fascinaiting</h1>
+          <p class="hero-subheadline">
+            High-agency systems orchestration. We build local AI engines,
+            automated data pipelines, and native software utilities that actually
+            work.
+          </p>
+          <div class="hero-action-row">
             <a
-              href="#"
-              target="_blank"
-              class="btn btn-primary"
-              id="modalActionBtn"
-              >Explore Source</a
+              class="button button-primary"
+              href="#systems"
+              data-track="hero_explore_click"
+              data-track-group="landing_page_engagement"
+              data-scroll-target="systems"
+              >Explore the Systems</a
             >
           </div>
         </div>
-      </div>
 
-      <!-- Dashboard Footer -->
-      <footer>
-        <span>SYSTEM DIRECTORY: /Users/gunnarhostetler/Fascinaiting</span>
-        <div class="footer-links">
-          <a
-            href="https://gunzino.me"
-            target="_blank"
-            class="footer-link"
-            id="footGunzinoLink"
-            >Gunzino Publishing</a
-          >
-          <a
-            href="mailto:Gunnarguy@me.com"
-            class="footer-link"
-            id="footMailLink"
-            >Gunnarguy@me.com</a
-          >
-          <a
-            href="https://github.com/Gunnarguy"
-            target="_blank"
-            class="footer-link"
-            id="footGithubLink"
-            >GitHub Profile</a
-          >
+        <div class="hero-visual" aria-label="Fascinaiting orchestration diagram">
+          <div class="signal-header">
+            <span>runtime.map</span>
+            <span>live intent</span>
+          </div>
+          <div class="signal-grid">
+            <div class="signal-node node-primary">Local AI</div>
+            <div class="signal-line"></div>
+            <div class="signal-node">Pipelines</div>
+            <div class="signal-node">Native UI</div>
+            <div class="signal-line"></div>
+            <div class="signal-node node-accent">Telemetry</div>
+          </div>
+          <pre class="manifest-block"><code>platform:
+  posture: raw_product
+  audience: builders
+  surface: interactive_systems
+  constraint: no_fluff
+  output: software_that_runs</code></pre>
         </div>
-        <span>© 2026 Fascinaiting.me</span>
-      </footer>
-    </div>
+      </section>
 
-    <!-- Script loading -->
-    <script src="app.js?v=20260531d"></script>
+      <section class="philosophy-section" id="philosophy" aria-labelledby="philosophy-title">
+        <div class="code-panel" aria-label="Systems orchestration code visual">
+          <div class="panel-topline">
+            <span>orchestrator.ts</span>
+            <span>execution layer</span>
+          </div>
+          <pre><code>const platform = orchestrate({
+  model: "local-first when possible",
+  pipeline: ["ingest", "chunk", "reason", "act"],
+  interface: "native utility",
+  failureMode: "visible, recoverable, logged",
+});
+
+platform.ship({
+  bias: "working software",
+  overhead: "low",
+  telemetry: "every important click",
+});</code></pre>
+        </div>
+
+        <div class="philosophy-copy">
+          <p class="eyebrow">The practical shift</p>
+          <h2 id="philosophy-title">Built, Not Just Scripted.</h2>
+          <p>
+            We do not write syntax by hand just to check boxes. We orchestrate
+            complex applications from the ground up, using cutting-edge AI
+            integration to remove the friction of standard development without
+            turning the product into a bloated demo.
+          </p>
+          <p>
+            The result is lightweight, fast native software engineered for clear
+            execution: local context where it matters, automation where it saves
+            real time, and interfaces that expose the system instead of hiding it.
+          </p>
+        </div>
+      </section>
+
+      <section class="systems-section" id="systems" aria-labelledby="systems-title">
+        <div class="section-heading">
+          <p class="eyebrow">Active product nodes</p>
+          <h2 id="systems-title">Two surfaces worth sending people to.</h2>
+          <p>
+            Fascinaiting stays focused on the platform story. The app details and
+            user-support surfaces live where they belong: in the product ecosystem.
+          </p>
+        </div>
+
+        <div class="product-grid">
+          <a
+            class="product-card"
+            href="https://gunzino.me/openintelligence/"
+            data-track="grid_openintelligence_click"
+            data-track-group="landing_page_engagement"
+            data-track-value="OpenIntelligence"
+          >
+            <span class="product-index">01</span>
+            <h3>OpenIntelligence</h3>
+            <p>
+              Native on-device Retrieval-Augmented Generation engine built for
+              the Apple ecosystem. Clean local context, zero data leaks.
+            </p>
+            <span class="product-cta">View Architecture -></span>
+          </a>
+
+          <a
+            class="product-card"
+            href="https://gunzino.me/openresponses/"
+            data-track="grid_openresponses_click"
+            data-track-group="landing_page_engagement"
+            data-track-value="OpenResponses"
+          >
+            <span class="product-index">02</span>
+            <h3>OpenResponses</h3>
+            <p>
+              Advanced operational automation and instant execution layer.
+              Designed to handle swift system orchestration without operational
+              overhead.
+            </p>
+            <span class="product-cta">View Asset Store -></span>
+          </a>
+        </div>
+      </section>
+
+      <section class="ecosystem-section" id="ecosystem" aria-labelledby="ecosystem-title">
+        <div class="section-heading compact">
+          <p class="eyebrow">Clean separation</p>
+          <h2 id="ecosystem-title">Three sites, three jobs.</h2>
+        </div>
+
+        <div class="ecosystem-grid">
+          <article class="ecosystem-card">
+            <span class="site-role">The Creator</span>
+            <h3>Gunnarguy.me</h3>
+            <p>
+              Personal software engineer portfolio, high-agency builder identity,
+              and professional technical anchor.
+            </p>
+            <a
+              href="https://gunnarguy.me"
+              data-track="matrix_gunnarguy_click"
+              data-track-group="outbound_navigation"
+              data-track-value="gunnarguy"
+              >Developer Profile -></a
+            >
+          </article>
+
+          <article class="ecosystem-card">
+            <span class="site-role">The Publisher</span>
+            <h3>Gunzino.me</h3>
+            <p>
+              App storefront node, product landing page ecosystem, and legal
+              infrastructure anchor for app support and review.
+            </p>
+            <a
+              href="https://gunzino.me"
+              data-track="matrix_gunzino_click"
+              data-track-group="outbound_navigation"
+              data-track-value="gunzino"
+              >Support Hub -></a
+            >
+          </article>
+
+          <article class="ecosystem-card active">
+            <span class="site-role">The Platform</span>
+            <h3>Fascinaiting.me</h3>
+            <p>
+              Forward-facing brand for advanced AI orchestration, raw product
+              initiatives, and feature-intent testing.
+            </p>
+            <a
+              href="#systems"
+              data-track="matrix_fascinaiting_click"
+              data-track-group="landing_page_engagement"
+              data-scroll-target="systems"
+              >Explore Systems -></a
+            >
+          </article>
+        </div>
+      </section>
+
+      <section class="status-section" id="status" aria-labelledby="status-title">
+        <div>
+          <p class="eyebrow">Telemetry posture</p>
+          <h2 id="status-title">Every meaningful click is instrumented.</h2>
+        </div>
+        <div class="status-rail">
+          <span>GA4 listener active</span>
+          <span>Feature intent tracked</span>
+          <span>Outbound routes tagged</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a
+        href="#status"
+        data-track="footer_status_click"
+        data-track-group="landing_page_engagement"
+        data-scroll-target="status"
+        >Systems Status</a
+      >
+      <a
+        href="https://gunnarguy.me"
+        data-track="footer_developer_profile_click"
+        data-track-group="outbound_navigation"
+        data-track-value="gunnarguy"
+        >Developer Profile</a
+      >
+      <a
+        href="https://gunzino.me/support.html"
+        data-track="footer_support_hub_click"
+        data-track-group="outbound_navigation"
+        data-track-value="gunzino_support"
+        >Support Hub</a
+      >
+      <a
+        href="https://gunzino.me/openintelligence/privacy/"
+        data-track="footer_privacy_architecture_click"
+        data-track-group="outbound_navigation"
+        data-track-value="privacy_architecture"
+        >Privacy Architecture</a
+      >
+    </footer>
+
+    <script src="app.js?v=20260531e"></script>
   </body>
 </html>
