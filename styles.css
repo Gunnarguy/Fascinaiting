@@ -10,7 +10,8 @@
   --line-strong: rgba(255, 255, 255, 0.22);
   --acid: #d7ff38;
   --cyan: #1fd4ff;
-  --font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display:
+    "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   --max: 1180px;
 }
@@ -29,10 +30,23 @@ body {
   background:
     linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    radial-gradient(circle at 70% 0%, rgba(31, 212, 255, 0.13), transparent 32rem),
-    radial-gradient(circle at 20% 20%, rgba(215, 255, 56, 0.08), transparent 28rem),
+    radial-gradient(
+      circle at 70% 0%,
+      rgba(31, 212, 255, 0.13),
+      transparent 32rem
+    ),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(215, 255, 56, 0.08),
+      transparent 28rem
+    ),
     var(--bg);
-  background-size: 44px 44px, 44px 44px, auto, auto, auto;
+  background-size:
+    44px 44px,
+    44px 44px,
+    auto,
+    auto,
+    auto;
   color: var(--text);
   font-family: var(--font-display);
   line-height: 1.5;
@@ -134,7 +148,10 @@ main,
 .ecosystem-card a {
   color: var(--muted);
   text-decoration: none;
-  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
 .site-nav a {
@@ -373,7 +390,11 @@ h1 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(215, 255, 56, 0.12), transparent 55%);
+  background: linear-gradient(
+    135deg,
+    rgba(215, 255, 56, 0.12),
+    transparent 55%
+  );
   opacity: 0;
   transition: opacity 180ms ease;
   pointer-events: none;
@@ -502,7 +523,9 @@ html[data-runtime="ready"] .ecosystem-card,
 html[data-runtime="ready"] .status-section {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 420ms ease, transform 420ms ease;
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
 }
 
 html[data-runtime="ready"] .is-visible {
