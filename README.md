@@ -7,7 +7,7 @@ This repository hosts the static frontend for **[fascinaiting.me](https://fascin
 Fascinaiting is the platform node in the ecosystem:
 
 - **Gunnarguy.me** is the creator profile and professional portfolio.
-- **Gunzino.me** is the publisher and app support/storefront node.
+- **Gunzino.me** is the publisher site for product pages, support, and privacy/legal surfaces.
 - **Fascinaiting.me** is the product and AI orchestration brand.
 
 ## Landing Page Structure

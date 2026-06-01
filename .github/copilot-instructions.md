@@ -5,7 +5,7 @@
 Fascinaiting.me is **The Platform** in Gunnar Hostetler's web ecosystem.
 
 - **Gunnarguy.me** = The Creator: personal software engineer portfolio, case studies, professional identity.
-- **Gunzino.me** = The Publisher: iOS app storefront, app support, privacy/legal endpoints, App Store user surfaces.
+- **Gunzino.me** = The Publisher: publisher site for product landing pages, support, privacy/legal endpoints, and App Store review/user surfaces.
 - **Fascinaiting.me** = The Platform: forward-facing AI orchestration brand for local AI engines, automated data pipelines, native software utilities, and raw product initiatives.
 
 Do not collapse these roles into each other. Fascinaiting must not become a personal portfolio, App Store support portal, or random repo showcase.
