@@ -26,7 +26,7 @@
       property="og:image"
       content="https://fascinaiting.me/ios-app-screenshot.png"
     />
-    <link rel="stylesheet" href="styles.css?v=20260531e" />
+    <link rel="stylesheet" href="styles.css?v=20260603a" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <script type="application/ld+json">
@@ -186,7 +186,10 @@
           <p class="eyebrow">The Platform</p>
           <h1 id="hero-title">Fascinaiting</h1>
           <p class="hero-subheadline">
-            Systems orchestration - building because I can't NOT build.
+            High-agency AI orchestration and local-first software. Shipped to the App Store, built for real-world clinical and automation workflows.
+          </p>
+          <p class="hero-subheadline" style="font-size: 1rem; color: var(--muted); margin-top: -1rem; margin-bottom: 2rem;">
+            I am Gunnar Hostetler. By day, I support surgical technology for Stanford surgeons at the VA in Palo Alto, CA. By night, I act as an orchestrator and builder, designing SwiftUI apps and mapping systems while partnering with AI—my software engineer—to write and refine the code.
           </p>
           <div class="hero-action-row">
             <a
@@ -197,31 +200,55 @@
               data-scroll-target="systems"
               >Explore the Systems</a
             >
+            <a
+              class="button button-secondary"
+              href="https://gunnarguy.me"
+              target="_blank"
+              rel="noopener"
+              data-track="hero_profile_click"
+              data-track-group="outbound_navigation"
+              data-track-value="gunnarguy"
+              >View Personal Portfolio</a
+            >
           </div>
         </div>
 
-        <div
-          class="hero-visual"
-          aria-label="Fascinaiting orchestration diagram"
-        >
-          <div class="signal-header">
-            <span>runtime.map</span>
-            <span>live intent</span>
+        <div class="playground-container" id="playground" aria-label="OpenIntelligence 29-step pipeline debugger">
+          <div class="playground-header">
+            <div class="playground-title">
+              <span id="playground-pipeline-name">Query-to-Response Pipeline (23 Steps)</span>
+              <span>OpenIntelligence Pipeline Trace</span>
+            </div>
+            <button class="console-btn" id="run-pipeline-btn" data-track="playground_run_pipeline" data-track-group="playground_interaction">Execute Query Pipeline</button>
           </div>
-          <div class="signal-grid">
-            <div class="signal-node node-primary">Local AI</div>
-            <div class="signal-line"></div>
-            <div class="signal-node">Pipelines</div>
-            <div class="signal-node">Native UI</div>
-            <div class="signal-line"></div>
-            <div class="signal-node node-accent">Telemetry</div>
+
+          <div class="playground-tabs">
+            <button class="playground-tab active" data-track-id="query" data-track="playground_tab_query" data-track-group="playground_interaction">Query Pipeline (23 steps)</button>
+            <button class="playground-tab" data-track-id="ingestion" data-track="playground_tab_ingestion" data-track-group="playground_interaction">Ingestion Pipeline (6 steps)</button>
           </div>
-          <pre class="manifest-block"><code>platform:
-  posture: raw_product
-  audience: builders
-  surface: interactive_systems
-  constraint: no_fluff
-  output: software_that_runs</code></pre>
+
+          <div class="debugger-progress-bar">
+            <div class="debugger-progress-fill" id="debugger-progress-fill"></div>
+          </div>
+
+          <div class="debugger-steps-container" id="debugger-steps-container">
+            <!-- Populated dynamically via app.js -->
+          </div>
+
+          <div class="metrics-panel">
+            <div class="metric-item">
+              <div class="metric-value" id="metric-latency">-- ms</div>
+              <div class="metric-label">Engine Latency</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="metric-rate">--</div>
+              <div class="metric-label">Throughput / Rate</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value" id="metric-score">--%</div>
+              <div class="metric-label">Platt Confidence</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -250,18 +277,13 @@ platform.ship({
         </div>
 
         <div class="philosophy-copy">
-          <p class="eyebrow">The practical shift</p>
+          <p class="eyebrow">Autonomy in Action</p>
           <h2 id="philosophy-title">Built, Not Just Scripted.</h2>
           <p>
-            I do not write syntax by hand. I orchestrate
-            complex applications from the ground up, using AI
-            as my companion to remove the friction of standard/traditional development.
+            I work inside surgical environments at the VA Palo Alto Health Care System, providing intraoperative support across eight operating rooms. In the OR, technical failure is not an abstract bug—it has immediate stakes. That workflow obsession directly shapes my software.
           </p>
           <p>
-            The result is lightweight, fast native software engineered for clear
-            execution: local context where it matters, automation where it saves
-            real time, and interfaces that expose the system instead of hiding
-            it.
+            I am not a software engineer, and I don't write raw syntax by hand—I utilize AI as my software engineer. Instead, I act as the systems architect, mapping out the logic, the schemas, the inputs, and the edge cases. I design local AI systems, PDF parsing pipelines, and direct database storage utilities, using AI to turn those blueprints into working code.
           </p>
         </div>
       </section>
@@ -273,45 +295,217 @@ platform.ship({
       >
         <div class="section-heading">
           <p class="eyebrow">Active product nodes</p>
-          <h2 id="systems-title">Two surfaces worth sending people to.</h2>
+          <h2 id="systems-title">Five shipped surfaces worth exploring.</h2>
           <p>
-            Fascinaiting stays focused on the platform story that is created by one developer.
+            Each application represents a direct response to a real-world workflow limit. Built in SwiftUI, optimized for the Apple ecosystem, and engineered with granular local-first principles.
           </p>
         </div>
 
         <div class="product-grid">
-          <a
-            class="product-card"
-            href="https://gunzino.me/openintelligence/"
-            data-track="grid_openintelligence_click"
-            data-track-group="landing_page_engagement"
-            data-track-value="OpenIntelligence"
-          >
-            <span class="product-index">01</span>
-            <h3>OpenIntelligence</h3>
-            <p>
-            Apple Silicon on-device Retrieval-Augmented Generation engine built for
-              the Apple ecosystem. Runs completely offline using the hardware of Apple Intelligence capable devices.
-            </p>
-            <span class="product-cta">View Architecture -></span>
-          </a>
+          <!-- OpenClinic -->
+          <article class="product-card">
+            <div class="product-card-top">
+              <div class="product-header-row">
+                <img class="product-icon-img" src="assets/openclinic_icon.png" alt="OpenClinic Icon" />
+                <span class="product-index">01</span>
+              </div>
+              <h3>OpenClinic</h3>
+              <p class="product-tagline">Clinical Workspace & Local RAG</p>
+              <p>
+                Provider-facing charting workspace for iOS, iPadOS, and macOS. Ingests patient charts via SMART on FHIR and integrates local model retrieval paths for grounded, private clinical workflows.
+              </p>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-tag">SwiftUI</span>
+              <span class="tech-tag">SwiftData</span>
+              <span class="tech-tag">FHIR</span>
+              <span class="tech-tag">Apple Models</span>
+            </div>
+            <div class="product-links">
+              <a
+                class="product-cta"
+                href="https://gunzino.me/openclinic/"
+                data-track="grid_openclinic_click"
+                data-track-group="landing_page_engagement"
+                data-track-value="OpenClinic"
+                >Learn More -></a
+              >
+              <a
+                class="product-cta product-cta-secondary"
+                href="https://github.com/Gunnarguy/OpenClinic"
+                target="_blank"
+                rel="noopener"
+                data-track="grid_openclinic_github"
+                data-track-group="outbound_navigation"
+                data-track-value="OpenClinic"
+                >GitHub</a
+              >
+            </div>
+          </article>
 
-          <a
-            class="product-card"
-            href="https://gunzino.me/openresponses/"
-            data-track="grid_openresponses_click"
-            data-track-group="landing_page_engagement"
-            data-track-value="OpenResponses"
-          >
-            <span class="product-index">02</span>
-            <h3>OpenResponses</h3>
-            <p>
-              Advanced operational automation and instant execution layer.
-              Designed to handle swift system orchestration without operational
-              overhead.
-            </p>
-            <span class="product-cta">View Asset Store -></span>
-          </a>
+          <!-- OpenIntelligence -->
+          <article class="product-card">
+            <div class="product-card-top">
+              <div class="product-header-row">
+                <img class="product-icon-img" src="assets/openintelligence_icon.png" alt="OpenIntelligence Icon" />
+                <span class="product-index">02</span>
+              </div>
+              <h3>OpenIntelligence</h3>
+              <p class="product-tagline">Offline Document Agentic RAG</p>
+              <p>
+                Offline-first RAG engine combining a local 3B model, PDFKit, and Vision OCR. Utilizes a recursive reasoning loop to bypass context limits, providing evidence-backed answers in airplane mode.
+              </p>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-tag">SwiftUI</span>
+              <span class="tech-tag">CoreML</span>
+              <span class="tech-tag">PDFKit</span>
+              <span class="tech-tag">Vision OCR</span>
+            </div>
+            <div class="product-links">
+              <a
+                class="product-cta"
+                href="https://gunzino.me/openintelligence/"
+                data-track="grid_openintelligence_click"
+                data-track-group="landing_page_engagement"
+                data-track-value="OpenIntelligence"
+                >Learn More -></a
+              >
+              <a
+                class="product-cta product-cta-secondary"
+                href="https://github.com/Gunnarguy/OpenIntelligence"
+                target="_blank"
+                rel="noopener"
+                data-track="grid_openintelligence_github"
+                data-track-group="outbound_navigation"
+                data-track-value="OpenIntelligence"
+                >GitHub</a
+              >
+            </div>
+          </article>
+
+          <!-- OpenResponses -->
+          <article class="product-card">
+            <div class="product-card-top">
+              <div class="product-header-row">
+                <img class="product-icon-img" src="assets/openresponses_icon.png" alt="OpenResponses Icon" />
+                <span class="product-index">03</span>
+              </div>
+              <h3>OpenResponses</h3>
+              <p class="product-tagline">Direct Responses API & MCP Broker</p>
+              <p>
+                Native SwiftUI tool calling interface for `/v1/responses`. Streams completions and reasoning traces, offering web search, browser execution, and secure remote Model Context Protocol links.
+              </p>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-tag">SwiftUI</span>
+              <span class="tech-tag">OpenAI API</span>
+              <span class="tech-tag">MCP</span>
+              <span class="tech-tag">Event Streams</span>
+            </div>
+            <div class="product-links">
+              <a
+                class="product-cta"
+                href="https://gunzino.me/openresponses/"
+                data-track="grid_openresponses_click"
+                data-track-group="landing_page_engagement"
+                data-track-value="OpenResponses"
+                >Learn More -></a
+              >
+              <a
+                class="product-cta product-cta-secondary"
+                href="https://github.com/Gunnarguy/OpenResponses"
+                target="_blank"
+                rel="noopener"
+                data-track="grid_openresponses_github"
+                data-track-group="outbound_navigation"
+                data-track-value="OpenResponses"
+                >GitHub</a
+              >
+            </div>
+          </article>
+
+          <!-- OpenCone -->
+          <article class="product-card">
+            <div class="product-card-top">
+              <div class="product-header-row">
+                <img class="product-icon-img" src="assets/opencone_icon.png" alt="OpenCone Icon" />
+                <span class="product-index">04</span>
+              </div>
+              <h3>OpenCone</h3>
+              <p class="product-tagline">Cloud-Hybrid OCR & Vector Search</p>
+              <p>
+                SwiftUI document indexer that processes files locally with PDFKit and Vision, then coordinates embedding and search payloads with OpenAI and Pinecone serverless indexes.
+              </p>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-tag">SwiftUI</span>
+              <span class="tech-tag">OpenAI Embeddings</span>
+              <span class="tech-tag">Pinecone</span>
+              <span class="tech-tag">OCR</span>
+            </div>
+            <div class="product-links">
+              <a
+                class="product-cta"
+                href="https://gunzino.me/opencone/"
+                data-track="grid_opencone_click"
+                data-track-group="landing_page_engagement"
+                data-track-value="OpenCone"
+                >Learn More -></a
+              >
+              <a
+                class="product-cta product-cta-secondary"
+                href="https://github.com/Gunnarguy/OpenCone"
+                target="_blank"
+                rel="noopener"
+                data-track="grid_opencone_github"
+                data-track-group="outbound_navigation"
+                data-track-value="OpenCone"
+                >GitHub</a
+              >
+            </div>
+          </article>
+
+          <!-- OpenAssistant -->
+          <article class="product-card">
+            <div class="product-card-top">
+              <div class="product-header-row">
+                <img class="product-icon-img" src="assets/openassistant_icon.png" alt="OpenAssistant Icon" />
+                <span class="product-index">05</span>
+              </div>
+              <h3>OpenAssistant</h3>
+              <p class="product-tagline">Legacy Assistants API Dashboard</p>
+              <p>
+                My first shipped App Store product, built to coordinate OpenAI Assistant threads, vector uploads, and file search. Kept active for support and reference.
+              </p>
+            </div>
+            <div class="tech-tags">
+              <span class="tech-tag">SwiftUI</span>
+              <span class="tech-tag">Assistants API</span>
+              <span class="tech-tag">Vector Stores</span>
+              <span class="tech-tag">App Store</span>
+            </div>
+            <div class="product-links">
+              <a
+                class="product-cta"
+                href="https://gunzino.me/openassistant/"
+                data-track="grid_openassistant_click"
+                data-track-group="landing_page_engagement"
+                data-track-value="OpenAssistant"
+                >Learn More -></a
+              >
+              <a
+                class="product-cta product-cta-secondary"
+                href="https://github.com/Gunnarguy/OpenAssistant"
+                target="_blank"
+                rel="noopener"
+                data-track="grid_openassistant_github"
+                data-track-group="outbound_navigation"
+                data-track-value="OpenAssistant"
+                >GitHub</a
+              >
+            </div>
+          </article>
         </div>
       </section>
 
@@ -330,15 +524,14 @@ platform.ship({
             <span class="site-role">The Creator</span>
             <h3>Gunnarguy.me</h3>
             <p>
-              Personal product engineer portfolio, builder
-              identity, and professional technical anchor.
+              Personal builder portfolio, high-agency creator identity, and professional technical anchor.
             </p>
             <a
               href="https://gunnarguy.me"
               data-track="matrix_gunnarguy_click"
               data-track-group="outbound_navigation"
               data-track-value="gunnarguy"
-              >Developer Profile -></a
+              >Personal Portfolio -></a
             >
           </article>
 
@@ -346,8 +539,7 @@ platform.ship({
             <span class="site-role">The Publisher</span>
             <h3>Gunzino.me</h3>
             <p>
-              Publisher site for product landing pages, support routes, and
-              review-facing legal infrastructure.
+              Publisher site for product landing pages, support routes, and review-facing legal infrastructure.
             </p>
             <a
               href="https://gunzino.me"
@@ -362,8 +554,7 @@ platform.ship({
             <span class="site-role">The Platform</span>
             <h3>Fascinaiting.me</h3>
             <p>
-              Forward-facing brand for advanced AI orchestration, raw product
-              initiatives, and feature-intent testing.
+              Interactive hub for AI orchestration, active script experiments, live runtime simulations, and feature testing.
             </p>
             <a
               href="#systems"
@@ -406,7 +597,7 @@ platform.ship({
         data-track="footer_developer_profile_click"
         data-track-group="outbound_navigation"
         data-track-value="gunnarguy"
-        >Developer Profile</a
+        >Personal Portfolio</a
       >
       <a
         href="https://gunzino.me/support.html"
@@ -424,6 +615,6 @@ platform.ship({
       >
     </footer>
 
-    <script src="app.js?v=20260531e"></script>
+    <script src="app.js?v=20260603a"></script>
   </body>
 </html>
