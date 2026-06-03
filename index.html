@@ -26,7 +26,7 @@
       property="og:image"
       content="https://fascinaiting.me/ios-app-screenshot.png"
     />
-    <link rel="stylesheet" href="styles.css?v=20260603b" />
+    <link rel="stylesheet" href="styles.css?v=20260603c" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <script type="application/ld+json">
@@ -271,7 +271,20 @@
               <div class="hud-meta">
                 <span class="hud-file" id="hud-file">File: --</span>
               </div>
-              <p class="hud-desc" id="hud-desc">Click on any node in the architectural diagram above to inspect how that processing step operates inside the native Swift engine.</p>
+              <div class="hud-content-grid">
+                <div class="hud-section">
+                  <div class="hud-section-title"><span class="section-icon">📋</span> WHAT IT DOES</div>
+                  <p class="hud-desc" id="hud-what">Click on any node in the architectural diagram above to inspect how that processing step operates inside the native Swift engine.</p>
+                </div>
+                <div class="hud-section">
+                  <div class="hud-section-title"><span class="section-icon">💡</span> WHY IT MATTERS</div>
+                  <p class="hud-desc" id="hud-why">Understanding each phase of on-device RAG is critical to optimizing memory, latency, and context limitations.</p>
+                </div>
+                <div class="hud-section">
+                  <div class="hud-section-title"><span class="section-icon">⚙️</span> HOW IT WORKS</div>
+                  <p class="hud-desc" id="hud-how">Select a node to see technical implementation details, Swift API methods, and algorithmic settings.</p>
+                </div>
+              </div>
               <div class="hud-log-container">
                 <div class="hud-log-title">Runtime Log Trace</div>
                 <pre class="hud-log" id="hud-log">No active log trace.</pre>
@@ -644,6 +657,6 @@ platform.ship({
       >
     </footer>
 
-    <script src="app.js?v=20260603b"></script>
+    <script src="app.js?v=20260603c"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-const ASSET_VERSION = "20260603b";
+const ASSET_VERSION = "20260603c";
 
 function forceFreshStylesheet() {
   const versionedHref = `styles.css?v=${ASSET_VERSION}`;
@@ -84,6 +84,9 @@ const DEBUGGER_TRACKS = {
         name: "Parse",
         file: "DocumentProcessor.swift",
         desc: "Extract raw text from PDF, XML, text, or CSV. Adaptively triggers Vision OCR at 6x scale when scanning page images.",
+        what: "Extracts raw text, structural layout, and metadata from documents (PDF, DOCX, TXT, CSV) using PDFKit and Office ZIP parsers.",
+        why: "Scanned pages, image charts, or low-contrast text blocks must trigger OCR dynamically to avoid indexing empty metadata.",
+        how: "Utilizes PDFDocument and fallbacks to Vision OCR rendering page images at 6x scale to accurately capture small spec markings.",
         log: "[PDFKit] Parsed case_report_v2.pdf. 12 text pages identified.\n[Vision OCR] Low confidence detected on Page 4. Triggering OCR fallbacks at 6x render scale."
       },
       {
@@ -95,6 +98,9 @@ const DEBUGGER_TRACKS = {
         name: "Chunk",
         file: "SemanticChunker.swift",
         desc: "Deconstruct raw text into logically cohesive chunks (typically <=310 words) based on page sentinels and section title markers.",
+        what: "Splits raw parsed text into smaller, overlapping chunks while retaining heading context and layout hierarchies.",
+        why: "Local CoreML context budgets are strictly limited. Feeding full documents directly will cause memory overflows or attention dilution.",
+        how: "Uses sentence boundary detection to create blocks <=310 words, prepending section/page headers to keep local context alive.",
         log: "[SemanticChunker] Split text into 18 chunks.\n[Structure] Markdown section titles mapped. Adjacent chunk siblings grouped."
       },
       {
@@ -106,6 +112,9 @@ const DEBUGGER_TRACKS = {
         name: "NER",
         file: "NLTagger (NaturalLanguage)",
         desc: "Identify primary entities and metadata via NLTagger Named Entity Recognition (NER), normalising keys to PascalCase variables.",
+        what: "Extracts named entities (locations, model numbers, parts) from chunks using NaturalLanguage's tagger.",
+        why: "Standardizing keys allows deterministic keyword queries and maps variations (e.g. 'Tower 3' vs 'tower-3') to single variables.",
+        how: "Invokes NLTagger(tagSchemes: [.nameType]) to tag entities, normalizing matches to PascalCase format via regex utilities.",
         log: "[NLTagger] Extracted entities: 'Stryker Tower 3', 'VA Palo Alto', 'Stanford Endoscopy'.\n[PascalCase] Normalizing variables: 'strykerTower3', 'vaPaloAlto'."
       },
       {
@@ -117,6 +126,9 @@ const DEBUGGER_TRACKS = {
         name: "Tokens",
         file: "BertTokenizer",
         desc: "Validate extracted text segments against BertTokenizer context constraints to prevent context window overflow.",
+        what: "Tokenizes text chunks into WordPiece sub-tokens and validates that the chunk fits the embedding model size limit.",
+        why: "CoreML embedding models crash or truncate text silently if the input vector size exceeds 512 tokens.",
+        how: "Runs a local WordPiece vocabulary lookup, asserting that chunk tokens do not exceed the 510 token model budget limit.",
         log: "[BertTokenizer] Max chunk size verified (all blocks <=510 tokens).\n[Validation] 18/18 chunks verified."
       },
       {
@@ -128,6 +140,9 @@ const DEBUGGER_TRACKS = {
         name: "Embed",
         file: "EmbeddingService.swift",
         desc: "Convert text chunks into dense 384-dimensional mathematical vectors using local MiniLM model running on Apple Silicon.",
+        what: "Encodes tokenized text chunks into dense 384-dimensional mathematical vectors representing semantic concepts.",
+        why: "Semantic search uses vector similarity to find concepts that share meaning rather than literal spelling matches.",
+        how: "Runs on-device inference using a compiled MiniLM CoreML model, accelerated by Apple Silicon Neural Engine (BNNS).",
         log: "[MiniLM] Generated 18 vector tensors (384-dim).\n[Apple Silicon] Inferences accelerated via BNNS framework."
       },
       {
@@ -139,6 +154,9 @@ const DEBUGGER_TRACKS = {
         name: "Index",
         file: "SQLiteFullTextService.swift",
         desc: "Write vectors into local binary container databases (BNNS) and index metadata under isolated container ids inside SQLite tables.",
+        what: "Saves generated vectors to memory-mapped files and records chunk metadata in a SQLite FTS5 table.",
+        why: "Provides fast, transactional local search. SQLite FTS5 indexes literal keywords; MMAP files handle vector searches.",
+        how: "Appends float arrays directly to binary file streams and registers document offsets inside SQLite tables.",
         log: "[VectorStore] Vectors persisted to local _vectors.bin and precomputed _norms.bin.\n[SQLite] Index metadata written to tables 'documents', 'chunks', and 'document_pages'."
       }
     ]
@@ -157,6 +175,9 @@ const DEBUGGER_TRACKS = {
         name: "Corpus Analysis",
         file: "OpenIntelligenceEngine.swift",
         desc: "Scan local container vocabulary caches to determine word distribution and terminology matches.",
+        what: "Scans active document vocabularies to determine word distribution and checks if the database is populated.",
+        why: "Prevents search failures on empty databases and helps calibrate keyword weights before search execution.",
+        how: "Reads SQLite database statistics and counts indexed terms in the target document container.",
         log: "[VocabCache] Scanned. Found 12 matching index keywords."
       },
       {
@@ -166,8 +187,11 @@ const DEBUGGER_TRACKS = {
         next: [2],
         badge: "Step 1",
         name: "Query Parsing",
-        file: "OpenIntelligenceEngine.swift",
+        file: "QueryParser.swift",
         desc: "Resolve pronoun ambiguities and extract query entities via Named Entity Recognition (NER).",
+        what: "Resolves pronoun ambiguities (like 'it') and extracts key entities from the user's raw input.",
+        why: "Users often ask follow-up questions ('how much synthetic oil does it take?'). We must resolve 'it' to retrieve the right specs.",
+        how: "Applies rule-based parsing and queries NLTagger to resolve core pronouns against previous conversation history state.",
         log: "[QueryParser] Entities: 'Stryker Tower 3'. Pronouns resolved: None."
       },
       {
@@ -179,6 +203,9 @@ const DEBUGGER_TRACKS = {
         name: "Query Expansion",
         file: "QueryRewriterService.swift",
         desc: "Expand query terms using the container vocabulary to increase retrieval recall.",
+        what: "Generates query synonyms using the local container vocabulary to capture different phrasing variants.",
+        why: "Standard search fails if query terms differ slightly from the text (e.g. searching 'quarts' when document says 'capacity').",
+        how: "Intersects query terms with the vocabulary list to build alternate FTS5 match query strings in QueryRewriterService.",
         log: "[Expansion] Expanded query: 'Stryker Tower 3 capacity specification quarts par levels'."
       },
       {
@@ -190,6 +217,9 @@ const DEBUGGER_TRACKS = {
         name: "Classifier",
         file: "QueryEnhancementService.swift",
         desc: "Classify query intent (lookup, procedure, compare, summarize) to select the correct downstream routing logic.",
+        what: "Classifies query intent (factual lookup, instruction lookup, summarize) to select the correct routing logic.",
+        why: "Simple lookups need direct details; summary queries require parent summaries. Routing correctly saves cycles.",
+        how: "Runs rule-based heuristics inside QueryEnhancementService to set the retrieval logic pipeline modes.",
         log: "[Classifier] Intent: 'lookup' (factual specification query). Subtype: Device capability."
       },
       {
@@ -201,6 +231,9 @@ const DEBUGGER_TRACKS = {
         name: "Query Embedding",
         file: "EmbeddingService.swift",
         desc: "Generate 384-dimensional dense vector representation of expanded query.",
+        what: "Generates a 384-dimensional dense vector representing the expanded search query.",
+        why: "Enables vector search by projecting the query into the same mathematical space as document chunks.",
+        how: "Runs local MiniLM model on Apple Silicon Neural Engine, executing quick vector generation in EmbeddingService.",
         log: "[EmbeddingService] Generated vector tensor (384-dim) via local MiniLM."
       },
       {
@@ -212,6 +245,9 @@ const DEBUGGER_TRACKS = {
         name: "RAPTOR Routing",
         file: "QueryRouterService.swift",
         desc: "Decide whether query requires summary-level overview blocks or raw factual details.",
+        what: "Selects whether to query detail-level chunks or high-level parent summarizations.",
+        why: "Speeds up overview questions by routing to pre-summarized parent blocks rather than individual sentences.",
+        how: "Compares intent classification against query complexity inside QueryRouterService to set index scan targets.",
         log: "[RAPTOR] Query complexity: standard. Routing to raw chunk database (bypassing L1 summaries)."
       },
       {
@@ -223,6 +259,9 @@ const DEBUGGER_TRACKS = {
         name: "Vector Search",
         file: "RAGEngine.swift",
         desc: "Execute semantic cosine similarity match using local 384-dimensional document vectors on Apple Silicon.",
+        what: "Performs semantic search to find chunks with the most similar meaning to the query vector.",
+        why: "Retrieves chunks that are conceptually related, even if they use completely different keywords or phrasing.",
+        how: "Computes cosine similarity across memory-mapped vector bin files using Apple Silicon Accelerate framework.",
         log: "[VectorSearch] Searched 18 vectors. Computed cosine distance.\n[Apple Silicon] BNNS Matrix Multiplication execution completed."
       },
       {
@@ -234,6 +273,9 @@ const DEBUGGER_TRACKS = {
         name: "Keyword Search",
         file: "SQLiteFullTextService.swift",
         desc: "Run high-velocity keyword lookup against local SQLite FTS5 index using BM25 relevance scoring criteria.",
+        what: "Runs traditional keyword search on the local SQLite FTS5 database.",
+        why: "Exact details (like serial numbers or part specifications) must match exactly; semantic search often misses literal specifications.",
+        how: "Runs a standard BM25 ranking query inside the SQLite FTS5 virtual tables.",
         log: "[BM25] Searched SQLite FTS5 index. Retrieved 12 candidate records."
       },
       {
@@ -245,6 +287,9 @@ const DEBUGGER_TRACKS = {
         name: "Hybrid RRF Merge",
         file: "RAGEngine.swift",
         desc: "Merge vector and keyword candidates using Reciprocal Rank Fusion (RRF) to combine semantic and lexical signals.",
+        what: "Merges candidate rankings from both vector and keyword searches.",
+        why: "Combines the strengths of semantic search (general meaning) and keyword search (exact specifics).",
+        how: "Applies the Reciprocal Rank Fusion (RRF) algorithm to rank candidates without normalizing scores.",
         log: "[RRF] Merged candidates from vector & BM25 indices.\n[RRF Core] Ranked top candidate (RRF score: 0.962)."
       },
       {
@@ -256,6 +301,9 @@ const DEBUGGER_TRACKS = {
         name: "Rerank",
         file: "ReRankerModel.mlpackage",
         desc: "Rescore top candidates using local TinyBERT ms-marco model to measure precise query-chunk relevance pairs.",
+        what: "Rescores the top 30 merged candidates using a local cross-encoder model.",
+        why: "Initial search is fast but coarse. Reranking uses a slower, highly precise relevance model to select best candidates.",
+        how: "Runs on-device inference using local TinyBERT ms-marco model (ReRankerModel.mlpackage).",
         log: "[TinyBERT] Reranked 30 candidates. Candidate #1 score: 0.892 (file: 'stryker_spec.pdf')."
       },
       {
@@ -267,6 +315,9 @@ const DEBUGGER_TRACKS = {
         name: "Low-Conf Filter",
         file: "RetrievalPolicyService.swift",
         desc: "Discard candidates that fall below the dynamic similarity floor.",
+        what: "Filters out retrieved chunks that score below a dynamic similarity threshold.",
+        why: "Feeding irrelevant data to the LLM increases token costs and risks generating false or hallucinated answers.",
+        how: "Discards any candidates scoring below the similarity floor (default 0.65) in RetrievalPolicyService.",
         log: "[Filter] Dropped 12 candidates below similarity floor (0.65)."
       },
       {
@@ -278,6 +329,9 @@ const DEBUGGER_TRACKS = {
         name: "Source Diversity",
         file: "RAGEngine.swift",
         desc: "Balance candidates to prevent retrieval saturation from a single source document.",
+        what: "Balances retrieved chunks to ensure multiple source documents are represented.",
+        why: "Avoids retrieval saturation where all chunks come from a single file, missing context from others.",
+        how: "Applies a source document count cap inside RAGEngine to prune excessive matches from single files.",
         log: "[Diversity] Source coverage balanced. 3 independent documents represented."
       },
       {
@@ -289,6 +343,9 @@ const DEBUGGER_TRACKS = {
         name: "MMR Diversify",
         file: "RAGEngine.swift",
         desc: "Apply Maximal Marginal Relevance (lambda=0.6) to reduce redundancy in adjacent context.",
+        what: "Applies Maximal Marginal Relevance (MMR) to deduplicate highly similar retrieved paragraphs.",
+        why: "Sending duplicate info wastes the context window and doesn't provide new information.",
+        how: "Applies a cosine distance penalty (lambda=0.6) to penalize candidates highly similar to already-selected ones.",
         log: "[MMR] Redundancy penalty applied. Selected 6 distinct segments."
       },
       {
@@ -300,6 +357,9 @@ const DEBUGGER_TRACKS = {
         name: "ParentDoc",
         file: "ParentDocumentService.swift",
         desc: "Expand matched chunks to include adjacent sibling chunks (+-5 siblings) from the same section or page.",
+        what: "Expands retrieved chunks to include surrounding page/section sibling chunks.",
+        why: "Chunks are small (300 words). Adjacent paragraphs provide complete section context for coherent answers.",
+        how: "Queries local database for adjacent chunk IDs (+-5 siblings) within ParentDocumentService.",
         log: "[ParentDoc] Expanded context window. Total chunks: 11 (2,250 tokens)."
       },
       {
@@ -311,6 +371,9 @@ const DEBUGGER_TRACKS = {
         name: "Compression",
         file: "ContextualCompressionService.swift",
         desc: "Apply LLM sentence-level filter, retaining only query-relevant sentences and discarding the rest.",
+        what: "Extracts only query-relevant sentences from retrieved chunks, discarding the rest.",
+        why: "Saves up to 60% of the token limit and prevents irrelevant details from diluting the LLM's attention.",
+        how: "Runs a fast sentence-level similarity filter inside ContextualCompressionService.",
         log: "[Compression] Removed irrelevant sentences. Token size reduced: 2,250 -> 612 (72.8% savings)."
       },
       {
@@ -322,6 +385,9 @@ const DEBUGGER_TRACKS = {
         name: "Graph Pack",
         file: "ContextPackingService.swift",
         desc: "Verify that total context size fits Apple FoundationModels session token budget.",
+        what: "Packs compressed context chunks to fit the Apple FoundationModels token budget.",
+        why: "Exceeding 4,096 tokens causes crash or truncation errors in on-device Apple LLMs.",
+        how: "Checks total tokens inside ContextPackingService, trimming lower-ranked items if they exceed limits.",
         log: "[ContextPack] Budget check: 612 context tokens + 100 prompt tokens = 712 / 4,096. Status: OK."
       },
       {
@@ -333,6 +399,9 @@ const DEBUGGER_TRACKS = {
         name: "Context Assembly",
         file: "RAGEngine.swift",
         desc: "Apply 'Lost-in-Middle' reordering to place the most relevant chunks at the start and end of prompt.",
+        what: "Reorders chunks to place the most relevant at the very start and end of the context window.",
+        why: "Mitigates the 'Lost-in-Middle' effect where LLMs ignore information in the middle of long prompts.",
+        how: "Interleaves chunks inside RAGEngine so they follow: [1st, 3rd, 5th, ..., 4th, 2nd] order.",
         log: "[Lost-in-Middle] Interleaved context: [Chunk 1, Chunk 3, Chunk 5, Chunk 4, Chunk 2]."
       },
       {
@@ -344,6 +413,9 @@ const DEBUGGER_TRACKS = {
         name: "ExtSummarize",
         file: "RAGEngine.swift",
         desc: "Execute extractive summary calculations if query intent is classified as summarize.",
+        what: "Extracts summary sentences directly from context if the query intent is summary.",
+        why: "Speeds up overview questions by skipping expensive generative reasoning steps.",
+        how: "Scores sentences based on query relevance and selects the top-scoring sentences as the summary.",
         log: "[Summarization] Step bypassed (intent is lookup)."
       },
       {
@@ -355,6 +427,9 @@ const DEBUGGER_TRACKS = {
         name: "ExtQA",
         file: "RAGEngine.swift",
         desc: "Run high-precision factual lookups on candidates for lookup intent queries.",
+        what: "Executes exact fact lookups for factual lookup intent queries.",
+        why: "Ensures absolute precision for numbers (such as capacities or tolerances) by locating specific words.",
+        how: "Identifies precise token coordinates for target details using a local lookup engine.",
         log: "[ExtractiveQA] Located precise target tokens: 'capacity = 5.3 quarts'."
       },
       {
@@ -366,6 +441,9 @@ const DEBUGGER_TRACKS = {
         name: "Generation",
         file: "LanguageModelSession",
         desc: "Call Apple's LanguageModelSession locally on device to generate cited response draft.",
+        what: "Prompts the local Apple foundation LLM to write the response draft.",
+        why: "Synthesizes retrieved chunks into a natural, cohesive answer.",
+        how: "Calls Apple's on-device LanguageModelSession (iOS 26+).",
         log: "[LanguageModelSession] Invoking on-device LLM. Generated draft answer."
       },
       {
@@ -377,6 +455,9 @@ const DEBUGGER_TRACKS = {
         name: "Response Format",
         file: "RAGService.swift",
         desc: "Validate markdown syntax and confirm citation node mappings.",
+        what: "Validates markdown syntax and citation anchors in the generated response.",
+        why: "Ensures citation links and bullet lists render correctly in the SwiftUI chat interface.",
+        how: "Runs regex checks inside RAGService to verify markdown structure and format.",
         log: "[ResponseFormat] Markdown nodes validated. Citations verified against source indices."
       },
       {
@@ -388,6 +469,9 @@ const DEBUGGER_TRACKS = {
         name: "Groundedness",
         file: "ContextualCompressionService.swift",
         desc: "Assess response groundedness to detect potential hallucinations or prior-knowledge leaks.",
+        what: "Verifies that the generated claims are backed by the retrieved context chunks.",
+        why: "Detects hallucinations where the model leaks pre-trained assumptions or wrong facts.",
+        how: "Evaluates sentence overlap inside ContextualCompressionService to flag ungrounded claims.",
         log: "[QualityService] Groundedness check complete. Score: 0.942."
       },
       {
@@ -399,6 +483,9 @@ const DEBUGGER_TRACKS = {
         name: "Verification",
         file: "VerificationGateService.swift",
         desc: "Run post-generation verification checks (hallucination risk, spec-sniper check, domain isolation, etc.).",
+        what: "Runs the response through 9 verification checks (Gates A-I).",
+        why: "Ensures safety, domain isolation, anti-hallucination, and completeness before presenting the answer.",
+        how: "Asserts pass/fail on Gates A-I inside VerificationGateService.",
         log: "[VerificationGate] Running Gates A-I.\nHallucination Gate: Pass\nSpec-sniper check: Pass\nDomain isolation: Pass"
       },
       {
@@ -410,6 +497,9 @@ const DEBUGGER_TRACKS = {
         name: "Calibrate",
         file: "ConfidenceCalibrationService.swift",
         desc: "Apply Platt scaling to calibrate raw verification scores into a final trust rating.",
+        what: "Calibrates verification scores into a final confidence percentage.",
+        why: "Provides a reliable signal to the user on whether the retrieved source answers the question.",
+        how: "Applies Platt scaling inside ConfidenceCalibrationService.",
         log: "[Calibration] Confidence calibrated. Rating: 99.4% (Grounded)."
       },
       {
@@ -421,6 +511,9 @@ const DEBUGGER_TRACKS = {
         name: "Response Package",
         file: "RAGService.swift",
         desc: "Compile final response object with citations, source details, and performance metrics.",
+        what: "Compiles the final answer, citation lists, and telemetry metrics.",
+        why: "Organizes debug metrics (latency, tokens) alongside the answer payload.",
+        how: "Packages data into a StructuredResponse struct in RAGService.",
         log: "[ResponsePackage] Compiled final StructuredResponse payload."
       },
       {
@@ -432,6 +525,9 @@ const DEBUGGER_TRACKS = {
         name: "Render UI",
         file: "ResponseDetailsView.swift",
         desc: "Render response in SwiftUI chat bubbles with citation highlights and source file link buttons.",
+        what: "Renders the response in chat bubbles with clickable citations.",
+        why: "Delivers an elegant chat UI where claims link directly to source file pages.",
+        how: "Renders custom views in ResponseDetailsView.swift.",
         log: "[UI] Citations parsed. Response rendered successfully."
       }
     ]
@@ -587,13 +683,17 @@ function selectNode(idx) {
   const badge = document.getElementById("hud-badge");
   const title = document.getElementById("hud-title");
   const file = document.getElementById("hud-file");
-  const desc = document.getElementById("hud-desc");
+  const whatEl = document.getElementById("hud-what");
+  const whyEl = document.getElementById("hud-why");
+  const howEl = document.getElementById("hud-how");
   const log = document.getElementById("hud-log");
 
   if (badge) badge.textContent = step.badge;
   if (title) title.textContent = step.name;
   if (file) file.textContent = `File: ${step.file || "N/A"}`;
-  if (desc) desc.textContent = step.desc;
+  if (whatEl) whatEl.textContent = step.what || step.desc || "N/A";
+  if (whyEl) whyEl.textContent = step.why || "N/A";
+  if (howEl) howEl.textContent = step.how || "N/A";
   if (log) {
     log.textContent = step.log;
     log.scrollTop = log.scrollHeight;
@@ -631,13 +731,17 @@ function updatePlaygroundUI(trackName) {
   const badge = document.getElementById("hud-badge");
   const title = document.getElementById("hud-title");
   const file = document.getElementById("hud-file");
-  const desc = document.getElementById("hud-desc");
+  const whatEl = document.getElementById("hud-what");
+  const whyEl = document.getElementById("hud-why");
+  const howEl = document.getElementById("hud-how");
   const log = document.getElementById("hud-log");
 
   if (badge) badge.textContent = "Step --";
   if (title) title.textContent = "Select a node to inspect";
   if (file) file.textContent = "File: --";
-  if (desc) desc.textContent = "Click on any node in the architectural diagram above to inspect how that processing step operates inside the native Swift engine.";
+  if (whatEl) whatEl.textContent = "Click on any node in the architectural diagram above to inspect how that processing step operates inside the native Swift engine.";
+  if (whyEl) whyEl.textContent = "Understanding each phase of on-device RAG is critical to optimizing memory, latency, and context limitations.";
+  if (howEl) howEl.textContent = "Select a node to see technical implementation details, Swift API methods, and algorithmic settings.";
   if (log) log.textContent = "No active log trace.";
 
   // Set action button state
@@ -733,6 +837,7 @@ function runPipeline() {
 
       runBtn.disabled = false;
       runBtn.textContent = activeDebuggerTrack === "ingestion" ? "Run Ingestion" : "Execute Query Pipeline";
+
       // Update connections layout at completion
       drawConnections();
       return;
@@ -804,8 +909,6 @@ function initPlayground() {
   // Initial draw: default to query execution pipeline
   switchTrack("query");
 }
-
-/* ====================================================================== */
 
 forceFreshStylesheet();
 

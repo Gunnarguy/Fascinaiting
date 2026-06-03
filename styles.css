@@ -640,6 +640,47 @@ h1 {
   line-height: 1.45;
 }
 
+.hud-content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.hud-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.hud-section-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1px solid rgba(0, 184, 212, 0.15);
+  padding-bottom: 0.25rem;
+}
+
+.section-icon {
+  font-size: 0.75rem;
+}
+
+@media (max-width: 990px) {
+  .hud-content-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
 .hud-log-container {
   display: flex;
   flex-direction: column;
