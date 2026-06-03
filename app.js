@@ -1,4 +1,4 @@
-const ASSET_VERSION = "20260603c";
+const ASSET_VERSION = "20260603d";
 
 function forceFreshStylesheet() {
   const versionedHref = `styles.css?v=${ASSET_VERSION}`;
@@ -71,15 +71,29 @@ function stampRuntimeReady() {
 
 const DEBUGGER_TRACKS = {
   ingestion: {
-    name: "Document Ingestion Pipeline (6 Steps)",
+    name: "Document Ingestion Pipeline (6 Steps + I/O)",
     metrics: { latency: "84ms", rate: "3.2 MB/s", score: "98.2%" },
-    stages: ["1. Ingest", "2. Route", "3. Validate", "4. Embed", "5. Store"],
+    stages: ["0. Input", "1. Ingest", "2. Route", "3. Validate", "4. Embed", "5. Store", "6. Output"],
     steps: [
       {
         stageIdx: 0,
         gridX: 0.5,
-        gridY: 0.5,
+        gridY: 1.5,
         next: [1],
+        badge: "Input",
+        name: "Upload Document",
+        file: "UIDocumentPickerViewController",
+        desc: "User selects a document or provides raw text to ingest into the workspace sandbox.",
+        what: "Receives raw file streams, URLs, or text inputs from the user interface.",
+        why: "Initializes the workspace ingestion pipeline session and grants sandboxed read permission.",
+        how: "Triggers UIDocumentPickerViewController or imports data, initiating the ingestion session.",
+        log: "[Input] User selected 'case_report_v2.pdf' (1.4 MB). Sandboxed file read access granted."
+      },
+      {
+        stageIdx: 1,
+        gridX: 0.5,
+        gridY: 0.5,
+        next: [2],
         badge: "Step 1",
         name: "Parse",
         file: "DocumentProcessor.swift",
@@ -90,10 +104,10 @@ const DEBUGGER_TRACKS = {
         log: "[PDFKit] Parsed case_report_v2.pdf. 12 text pages identified.\n[Vision OCR] Low confidence detected on Page 4. Triggering OCR fallbacks at 6x render scale."
       },
       {
-        stageIdx: 0,
+        stageIdx: 1,
         gridX: 0.5,
         gridY: 2.5,
-        next: [2],
+        next: [3],
         badge: "Step 2",
         name: "Chunk",
         file: "SemanticChunker.swift",
@@ -104,10 +118,10 @@ const DEBUGGER_TRACKS = {
         log: "[SemanticChunker] Split text into 18 chunks.\n[Structure] Markdown section titles mapped. Adjacent chunk siblings grouped."
       },
       {
-        stageIdx: 1,
+        stageIdx: 2,
         gridX: 0.5,
         gridY: 1.5,
-        next: [3],
+        next: [4],
         badge: "Step 3",
         name: "NER",
         file: "NLTagger (NaturalLanguage)",
@@ -118,10 +132,10 @@ const DEBUGGER_TRACKS = {
         log: "[NLTagger] Extracted entities: 'Stryker Tower 3', 'VA Palo Alto', 'Stanford Endoscopy'.\n[PascalCase] Normalizing variables: 'strykerTower3', 'vaPaloAlto'."
       },
       {
-        stageIdx: 2,
+        stageIdx: 3,
         gridX: 0.5,
         gridY: 1.5,
-        next: [4],
+        next: [5],
         badge: "Step 4",
         name: "Tokens",
         file: "BertTokenizer",
@@ -132,10 +146,10 @@ const DEBUGGER_TRACKS = {
         log: "[BertTokenizer] Max chunk size verified (all blocks <=510 tokens).\n[Validation] 18/18 chunks verified."
       },
       {
-        stageIdx: 3,
+        stageIdx: 4,
         gridX: 0.5,
         gridY: 1.5,
-        next: [5],
+        next: [6],
         badge: "Step 5",
         name: "Embed",
         file: "EmbeddingService.swift",
@@ -146,10 +160,10 @@ const DEBUGGER_TRACKS = {
         log: "[MiniLM] Generated 18 vector tensors (384-dim).\n[Apple Silicon] Inferences accelerated via BNNS framework."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.5,
         gridY: 1.5,
-        next: [],
+        next: [7],
         badge: "Step 6",
         name: "Index",
         file: "SQLiteFullTextService.swift",
@@ -158,19 +172,47 @@ const DEBUGGER_TRACKS = {
         why: "Provides fast, transactional local search. SQLite FTS5 indexes literal keywords; MMAP files handle vector searches.",
         how: "Appends float arrays directly to binary file streams and registers document offsets inside SQLite tables.",
         log: "[VectorStore] Vectors persisted to local _vectors.bin and precomputed _norms.bin.\n[SQLite] Index metadata written to tables 'documents', 'chunks', and 'document_pages'."
+      },
+      {
+        stageIdx: 6,
+        gridX: 0.5,
+        gridY: 1.5,
+        next: [],
+        badge: "Output",
+        name: "Stored Container",
+        file: "StorageManager.swift",
+        desc: "Finalize document indexing and write references to the encrypted local sqlite storage container.",
+        what: "Commits SQLite transactions and closes active file streams, completing the document index cycle.",
+        why: "Persists the compiled vector mappings and metadata indexes across app launches so they can be queried offline.",
+        how: "Calls StorageManager.finalizeSession() to persist changes to the on-device sandbox storage.",
+        log: "[Storage] Ingestion session finalized. Container 'case_report_v2' successfully updated. 18 new vectors stored."
       }
     ]
   },
   query: {
-    name: "Query-to-Response Pipeline (23 Steps)",
+    name: "Query-to-Response Pipeline (23 Steps + I/O)",
     metrics: { latency: "148ms", rate: "68 tok/s", score: "99.4%" },
-    stages: ["1. Analyze", "2. Route", "3. Search", "4. Optimize", "5. Cognitive"],
+    stages: ["0. Input", "1. Analyze", "2. Route", "3. Search", "4. Optimize", "5. Cognitive", "6. Output"],
     steps: [
       {
         stageIdx: 0,
         gridX: 0.5,
-        gridY: 0,
+        gridY: 1.5,
         next: [1],
+        badge: "Input",
+        name: "User Query",
+        file: "ChatScreen.swift",
+        desc: "User submits a natural language question via the SwiftUI chat bar, initiating currentQueryTask.",
+        what: "Captures natural language query from the SwiftUI message input bar.",
+        why: "Triggers the local query-response pipeline, canceling any in-flight task to avoid memory leaks.",
+        how: "Calls sendMessage() which cancels currentQueryTask and schedules a new Swift asynchronous Task.",
+        log: "[QueryInput] Received query: 'How many quarts of oil does the Stryker Tower 3 take?'"
+      },
+      {
+        stageIdx: 1,
+        gridX: 0.5,
+        gridY: 0,
+        next: [2],
         badge: "Step 0",
         name: "Corpus Analysis",
         file: "OpenIntelligenceEngine.swift",
@@ -181,10 +223,10 @@ const DEBUGGER_TRACKS = {
         log: "[VocabCache] Scanned. Found 12 matching index keywords."
       },
       {
-        stageIdx: 0,
+        stageIdx: 1,
         gridX: 0.5,
         gridY: 1,
-        next: [2],
+        next: [3],
         badge: "Step 1",
         name: "Query Parsing",
         file: "QueryParser.swift",
@@ -195,10 +237,10 @@ const DEBUGGER_TRACKS = {
         log: "[QueryParser] Entities: 'Stryker Tower 3'. Pronouns resolved: None."
       },
       {
-        stageIdx: 0,
+        stageIdx: 1,
         gridX: 0.5,
         gridY: 2,
-        next: [3],
+        next: [4],
         badge: "Step 1.5",
         name: "Query Expansion",
         file: "QueryRewriterService.swift",
@@ -209,10 +251,10 @@ const DEBUGGER_TRACKS = {
         log: "[Expansion] Expanded query: 'Stryker Tower 3 capacity specification quarts par levels'."
       },
       {
-        stageIdx: 0,
+        stageIdx: 1,
         gridX: 0.5,
         gridY: 3,
-        next: [4],
+        next: [5],
         badge: "Step 1.6",
         name: "Classifier",
         file: "QueryEnhancementService.swift",
@@ -223,10 +265,10 @@ const DEBUGGER_TRACKS = {
         log: "[Classifier] Intent: 'lookup' (factual specification query). Subtype: Device capability."
       },
       {
-        stageIdx: 1,
+        stageIdx: 2,
         gridX: 0.5,
-        gridY: 1,
-        next: [5],
+        gridY: 1.0,
+        next: [6],
         badge: "Step 2",
         name: "Query Embedding",
         file: "EmbeddingService.swift",
@@ -237,10 +279,10 @@ const DEBUGGER_TRACKS = {
         log: "[EmbeddingService] Generated vector tensor (384-dim) via local MiniLM."
       },
       {
-        stageIdx: 1,
+        stageIdx: 2,
         gridX: 0.5,
         gridY: 2.5,
-        next: [6, 7],
+        next: [7, 8],
         badge: "Step 2.5",
         name: "RAPTOR Routing",
         file: "QueryRouterService.swift",
@@ -251,10 +293,10 @@ const DEBUGGER_TRACKS = {
         log: "[RAPTOR] Query complexity: standard. Routing to raw chunk database (bypassing L1 summaries)."
       },
       {
-        stageIdx: 2,
+        stageIdx: 3,
         gridX: 0.2,
         gridY: 0.5,
-        next: [8],
+        next: [9],
         badge: "Step 3a",
         name: "Vector Search",
         file: "RAGEngine.swift",
@@ -265,10 +307,10 @@ const DEBUGGER_TRACKS = {
         log: "[VectorSearch] Searched 18 vectors. Computed cosine distance.\n[Apple Silicon] BNNS Matrix Multiplication execution completed."
       },
       {
-        stageIdx: 2,
+        stageIdx: 3,
         gridX: 0.2,
         gridY: 2.5,
-        next: [8],
+        next: [9],
         badge: "Step 3b",
         name: "Keyword Search",
         file: "SQLiteFullTextService.swift",
@@ -279,10 +321,10 @@ const DEBUGGER_TRACKS = {
         log: "[BM25] Searched SQLite FTS5 index. Retrieved 12 candidate records."
       },
       {
-        stageIdx: 2,
+        stageIdx: 3,
         gridX: 0.8,
         gridY: 1.5,
-        next: [9],
+        next: [10],
         badge: "Step 3c",
         name: "Hybrid RRF Merge",
         file: "RAGEngine.swift",
@@ -293,10 +335,10 @@ const DEBUGGER_TRACKS = {
         log: "[RRF] Merged candidates from vector & BM25 indices.\n[RRF Core] Ranked top candidate (RRF score: 0.962)."
       },
       {
-        stageIdx: 2,
+        stageIdx: 3,
         gridX: 0.5,
         gridY: 3.5,
-        next: [10],
+        next: [11],
         badge: "Step 4",
         name: "Rerank",
         file: "ReRankerModel.mlpackage",
@@ -307,10 +349,10 @@ const DEBUGGER_TRACKS = {
         log: "[TinyBERT] Reranked 30 candidates. Candidate #1 score: 0.892 (file: 'stryker_spec.pdf')."
       },
       {
-        stageIdx: 2,
+        stageIdx: 3,
         gridX: 0.5,
         gridY: 4.5,
-        next: [11],
+        next: [12],
         badge: "Step 4.3",
         name: "Low-Conf Filter",
         file: "RetrievalPolicyService.swift",
@@ -321,10 +363,10 @@ const DEBUGGER_TRACKS = {
         log: "[Filter] Dropped 12 candidates below similarity floor (0.65)."
       },
       {
-        stageIdx: 2,
+        stageIdx: 3,
         gridX: 0.5,
         gridY: 5.5,
-        next: [12],
+        next: [13],
         badge: "Step 4.4",
         name: "Source Diversity",
         file: "RAGEngine.swift",
@@ -335,10 +377,10 @@ const DEBUGGER_TRACKS = {
         log: "[Diversity] Source coverage balanced. 3 independent documents represented."
       },
       {
-        stageIdx: 2,
+        stageIdx: 3,
         gridX: 0.5,
         gridY: 6.5,
-        next: [13],
+        next: [14],
         badge: "Step 4.5",
         name: "MMR Diversify",
         file: "RAGEngine.swift",
@@ -349,10 +391,10 @@ const DEBUGGER_TRACKS = {
         log: "[MMR] Redundancy penalty applied. Selected 6 distinct segments."
       },
       {
-        stageIdx: 3,
+        stageIdx: 4,
         gridX: 0.5,
         gridY: 1.2,
-        next: [14],
+        next: [15],
         badge: "Step 4.6",
         name: "ParentDoc",
         file: "ParentDocumentService.swift",
@@ -363,10 +405,10 @@ const DEBUGGER_TRACKS = {
         log: "[ParentDoc] Expanded context window. Total chunks: 11 (2,250 tokens)."
       },
       {
-        stageIdx: 3,
+        stageIdx: 4,
         gridX: 0.5,
         gridY: 2.2,
-        next: [15],
+        next: [16],
         badge: "Step 4.7",
         name: "Compression",
         file: "ContextualCompressionService.swift",
@@ -377,10 +419,10 @@ const DEBUGGER_TRACKS = {
         log: "[Compression] Removed irrelevant sentences. Token size reduced: 2,250 -> 612 (72.8% savings)."
       },
       {
-        stageIdx: 3,
+        stageIdx: 4,
         gridX: 0.5,
         gridY: 3.2,
-        next: [16],
+        next: [17],
         badge: "Step 4.9",
         name: "Graph Pack",
         file: "ContextPackingService.swift",
@@ -391,10 +433,10 @@ const DEBUGGER_TRACKS = {
         log: "[ContextPack] Budget check: 612 context tokens + 100 prompt tokens = 712 / 4,096. Status: OK."
       },
       {
-        stageIdx: 3,
+        stageIdx: 4,
         gridX: 0.5,
         gridY: 4.2,
-        next: [17, 18],
+        next: [18, 19],
         badge: "Step 5",
         name: "Context Assembly",
         file: "RAGEngine.swift",
@@ -405,10 +447,10 @@ const DEBUGGER_TRACKS = {
         log: "[Lost-in-Middle] Interleaved context: [Chunk 1, Chunk 3, Chunk 5, Chunk 4, Chunk 2]."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.2,
         gridY: 0.5,
-        next: [19],
+        next: [20],
         badge: "Step 5.9a",
         name: "ExtSummarize",
         file: "RAGEngine.swift",
@@ -419,10 +461,10 @@ const DEBUGGER_TRACKS = {
         log: "[Summarization] Step bypassed (intent is lookup)."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.2,
         gridY: 2.5,
-        next: [19],
+        next: [20],
         badge: "Step 5.9b",
         name: "ExtQA",
         file: "RAGEngine.swift",
@@ -433,10 +475,10 @@ const DEBUGGER_TRACKS = {
         log: "[ExtractiveQA] Located precise target tokens: 'capacity = 5.3 quarts'."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.8,
         gridY: 1.5,
-        next: [20],
+        next: [21],
         badge: "Step 6",
         name: "Generation",
         file: "LanguageModelSession",
@@ -447,10 +489,10 @@ const DEBUGGER_TRACKS = {
         log: "[LanguageModelSession] Invoking on-device LLM. Generated draft answer."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.5,
         gridY: 3.0,
-        next: [21],
+        next: [22],
         badge: "Step 6.5",
         name: "Response Format",
         file: "RAGService.swift",
@@ -461,10 +503,10 @@ const DEBUGGER_TRACKS = {
         log: "[ResponseFormat] Markdown nodes validated. Citations verified against source indices."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.5,
         gridY: 4.0,
-        next: [22],
+        next: [23],
         badge: "Step 7",
         name: "Groundedness",
         file: "ContextualCompressionService.swift",
@@ -475,10 +517,10 @@ const DEBUGGER_TRACKS = {
         log: "[QualityService] Groundedness check complete. Score: 0.942."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.5,
         gridY: 5.0,
-        next: [23],
+        next: [24],
         badge: "Step 7.5",
         name: "Verification",
         file: "VerificationGateService.swift",
@@ -489,10 +531,10 @@ const DEBUGGER_TRACKS = {
         log: "[VerificationGate] Running Gates A-I.\nHallucination Gate: Pass\nSpec-sniper check: Pass\nDomain isolation: Pass"
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.5,
         gridY: 6.0,
-        next: [24],
+        next: [25],
         badge: "Step 8",
         name: "Calibrate",
         file: "ConfidenceCalibrationService.swift",
@@ -503,10 +545,10 @@ const DEBUGGER_TRACKS = {
         log: "[Calibration] Confidence calibrated. Rating: 99.4% (Grounded)."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.5,
         gridY: 7.0,
-        next: [25],
+        next: [26],
         badge: "Step 9",
         name: "Response Package",
         file: "RAGService.swift",
@@ -517,10 +559,10 @@ const DEBUGGER_TRACKS = {
         log: "[ResponsePackage] Compiled final StructuredResponse payload."
       },
       {
-        stageIdx: 4,
+        stageIdx: 5,
         gridX: 0.5,
         gridY: 8.0,
-        next: [],
+        next: [27],
         badge: "Step 10",
         name: "Render UI",
         file: "ResponseDetailsView.swift",
@@ -529,6 +571,20 @@ const DEBUGGER_TRACKS = {
         why: "Delivers an elegant chat UI where claims link directly to source file pages.",
         how: "Renders custom views in ResponseDetailsView.swift.",
         log: "[UI] Citations parsed. Response rendered successfully."
+      },
+      {
+        stageIdx: 6,
+        gridX: 0.5,
+        gridY: 1.5,
+        next: [],
+        badge: "Output",
+        name: "UI Response",
+        file: "ChatBubbleView.swift",
+        desc: "Deliver response payload to chat history list with grounded trust badge indicators.",
+        what: "Presents the final markdown response, source citations, and confidence metrics to the user.",
+        why: "Completes the user loop, rendering the verified answer alongside clear references to local documents.",
+        how: "Updates SwiftUI state, triggering animations that fade in the verified answer and source buttons.",
+        log: "[ChatUI] Response rendered successfully. Trust Level: Grounded (99.4%)."
       }
     ]
   }
@@ -556,6 +612,11 @@ function renderDebuggerDiagram(trackName) {
     newSvg.id = "diagram-svg";
     workspace.appendChild(newSvg);
   }
+
+  // Set dynamic sizing based on stage count
+  const stageCount = track.stages.length;
+  workspace.style.gridTemplateColumns = `repeat(${stageCount}, 1fr)`;
+  workspace.style.width = `${stageCount * 240}px`;
 
   // Draw columns/stages
   track.stages.forEach((stageName, stageIdx) => {
