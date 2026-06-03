@@ -26,7 +26,7 @@
       property="og:image"
       content="https://fascinaiting.me/ios-app-screenshot.png"
     />
-    <link rel="stylesheet" href="styles.css?v=20260603a" />
+    <link rel="stylesheet" href="styles.css?v=20260603b" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <script type="application/ld+json">
@@ -194,10 +194,10 @@
           <div class="hero-action-row">
             <a
               class="button button-primary"
-              href="#systems"
+              href="#playground"
               data-track="hero_explore_click"
               data-track-group="landing_page_engagement"
-              data-scroll-target="systems"
+              data-scroll-target="playground"
               >Explore the Systems</a
             >
             <a
@@ -212,8 +212,10 @@
             >
           </div>
         </div>
+      </section>
 
-        <div class="playground-container" id="playground" aria-label="OpenIntelligence 29-step pipeline debugger">
+      <section class="playground-section" id="pipeline-dashboard" aria-label="OpenIntelligence 29-step pipeline debugger">
+        <div class="playground-container" id="playground">
           <div class="playground-header">
             <div class="playground-title">
               <span id="playground-pipeline-name">Query-to-Response Pipeline (23 Steps)</span>
@@ -231,22 +233,49 @@
             <div class="debugger-progress-fill" id="debugger-progress-fill"></div>
           </div>
 
-          <div class="debugger-steps-container" id="debugger-steps-container">
-            <!-- Populated dynamically via app.js -->
+          <div class="diagram-canvas-wrapper">
+            <div class="diagram-workspace" id="diagram-workspace">
+              <svg class="diagram-svg" id="diagram-svg"></svg>
+              <!-- Populated dynamically via app.js -->
+            </div>
           </div>
 
-          <div class="metrics-panel">
-            <div class="metric-item">
-              <div class="metric-value" id="metric-latency">-- ms</div>
-              <div class="metric-label">Engine Latency</div>
+          <div class="playground-split-pane">
+            <div class="playground-metrics-pane">
+              <div class="metrics-panel">
+                <div class="metric-item">
+                  <div class="metric-value" id="metric-latency">-- ms</div>
+                  <div class="metric-label">Engine Latency</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-value" id="metric-rate">--</div>
+                  <div class="metric-label">Throughput / Rate</div>
+                </div>
+                <div class="metric-item">
+                  <div class="metric-value" id="metric-score">--%</div>
+                  <div class="metric-label">Platt Confidence</div>
+                </div>
+              </div>
+              <div class="pipeline-control-panel">
+                <span class="control-label">Simulation Speed</span>
+                <input type="range" id="simulation-speed" min="200" max="2500" value="800" step="100" class="speed-slider" aria-label="Simulation Speed Slider" />
+                <span id="simulation-speed-val" class="control-val">800ms</span>
+              </div>
             </div>
-            <div class="metric-item">
-              <div class="metric-value" id="metric-rate">--</div>
-              <div class="metric-label">Throughput / Rate</div>
-            </div>
-            <div class="metric-item">
-              <div class="metric-value" id="metric-score">--%</div>
-              <div class="metric-label">Platt Confidence</div>
+
+            <div class="inspector-hud" id="inspector-hud">
+              <div class="hud-header">
+                <span class="hud-step-badge" id="hud-badge">Step --</span>
+                <span class="hud-step-title" id="hud-title">Select a node to inspect</span>
+              </div>
+              <div class="hud-meta">
+                <span class="hud-file" id="hud-file">File: --</span>
+              </div>
+              <p class="hud-desc" id="hud-desc">Click on any node in the architectural diagram above to inspect how that processing step operates inside the native Swift engine.</p>
+              <div class="hud-log-container">
+                <div class="hud-log-title">Runtime Log Trace</div>
+                <pre class="hud-log" id="hud-log">No active log trace.</pre>
+              </div>
             </div>
           </div>
         </div>
@@ -615,6 +644,6 @@ platform.ship({
       >
     </footer>
 
-    <script src="app.js?v=20260603a"></script>
+    <script src="app.js?v=20260603b"></script>
   </body>
 </html>
