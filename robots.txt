@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Exclude 404 page from indexing (already has noindex meta, but standard practice)
+Disallow: /404.html
+
+Sitemap: https://fascinaiting.me/sitemap.xml
