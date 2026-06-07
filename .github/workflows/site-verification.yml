@@ -184,3 +184,8 @@ jobs:
           PAGES_BUILD_ATTEMPTS: 60
           PAGES_BUILD_SLEEP_SECONDS: 10
         run: ./scripts/verify-site.sh ci-live
+
+      - name: Ping IndexNow
+        run: |
+          echo "Pinging IndexNow..."
+          curl -fsSL "https://api.indexnow.org/indexnow?url=https://fascinaiting.me/&key=7df9a562ef6c478a87b8d7eb8f1ef92c"
