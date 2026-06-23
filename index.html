@@ -99,6 +99,7 @@
         transport_type: "beacon",
         debug_mode: GA_DEBUG_MODE,
       });
+      gtag("config", "AW-17079810778");
 
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", sendGaPageView, {
@@ -135,6 +136,11 @@
                   var href = interactiveTarget.getAttribute('href') || '';
                   if (href.includes('apps.apple.com')) {
                     gtag('event', 'click_app_store', { link_url: href });
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-17079810778/41mpCL_A-sMcENr1pNA_',
+                        'value': 1.0,
+                        'currency': 'USD'
+                    });
                   } else if (href.includes('github.com')) {
                     gtag('event', 'click_github', { link_url: href });
                   }
