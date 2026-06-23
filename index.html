@@ -161,6 +161,15 @@
         background: rgba(255,255,255,0.1) !important;
         box-shadow: 0 0 16px rgba(255,255,255,0.1);
       }
+      .capability-card {
+        transition: all 0.2s ease;
+      }
+      .capability-card:hover {
+        transform: translateY(-4px);
+        background: rgba(0, 242, 254, 0.05) !important;
+        border-color: rgba(0, 242, 254, 0.3) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 16px rgba(0, 242, 254, 0.1);
+      }
     </style>
     <!-- ====================================================================== -->
   </head>
@@ -219,9 +228,9 @@
       <section class="hero-section" aria-labelledby="hero-title" style="padding-bottom: 2rem;">
         <div class="hero-copy" style="max-width: 900px; margin: 0 auto; text-align: center;">
           <p class="eyebrow" style="margin-bottom: 1rem;">Apple Intelligence Agentic RAG</p>
-          <h1 id="hero-title" style="text-align: center; margin-bottom: 1.5rem;">Built, Not Just Scripted.</h1>
+          <h1 id="hero-title" style="text-align: center; margin-bottom: 1.5rem;">Unleash Apple Intelligence.</h1>
           <p class="hero-subheadline" style="text-align: center; margin-bottom: 2rem;">
-            I support surgical technology at the VA in Palo Alto. In my free time, I build iOS apps that solve real problems. <strong>OpenIntelligence</strong> is an agentic reasoning loop built around Apple's 3B foundation model to bypass the 4,096-token limit entirely.
+            An agentic reasoning loop built around Apple's 3B foundation model. Private Cloud Compute routing, native Vision OCR, and on-device Metal SIMD4 vector embeddings. Built to bypass token limits and answer exhaustively.
           </p>
           
           <div class="app-store-badges" style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem;">
@@ -234,6 +243,37 @@
               View Source on GitHub
             </a>
           </div>
+        </div>
+      </section>
+
+      <!-- CAPABILITIES GRID -->
+      <section class="capabilities-section" id="capabilities" style="padding: 2rem 0 4rem;">
+        <div class="capabilities-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+          
+          <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-microchip"></i></div>
+            <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">Agentic Reasoning Loop</h3>
+            <p style="color: var(--muted); font-size: 0.9rem;">Stitches together multiple reasoning sessions to overcome the 4,096-token limit, ensuring deep, exhaustive answers to complex queries.</p>
+          </article>
+
+          <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-cloud"></i></div>
+            <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">Private Cloud Compute</h3>
+            <p style="color: var(--muted); font-size: 0.9rem;">Dynamically routes massive documents to Apple's PCC, unlocking a 32K token window while keeping everyday queries running completely locally.</p>
+          </article>
+
+          <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-bolt"></i></div>
+            <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">Native Local RAG</h3>
+            <p style="color: var(--muted); font-size: 0.9rem;">Powered by SQLite FTS5 and Accelerated by threadgroup-level Metal pipelines across the CPU, GPU, and ANE.</p>
+          </article>
+
+          <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-file-pdf"></i></div>
+            <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">On-Device Ingestion</h3>
+            <p style="color: var(--muted); font-size: 0.9rem;">A built-in parser using PDFKit and Vision OCR extracts text from PDFs, DOCX, and raw photos, generating embeddings on the fly.</p>
+          </article>
+
         </div>
       </section>
 
