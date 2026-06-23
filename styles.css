@@ -1190,3 +1190,101 @@ html[data-runtime="ready"] .is-visible {
     padding: 0.4rem 0.6rem;
   }
 }
+
+/* Roadmap Section */
+.roadmap-section {
+  padding: 6rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 800px) {
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.roadmap-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.roadmap-column h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.roadmap-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.roadmap-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.05), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.roadmap-card:hover::before {
+  opacity: 1;
+}
+
+.roadmap-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 242, 254, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 242, 254, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.roadmap-card .card-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.roadmap-card .card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge.high { background: rgba(255, 69, 58, 0.1); color: #ff453a; }
+.badge.medium { background: rgba(255, 159, 10, 0.1); color: #ff9f0a; }
+.badge.low { background: rgba(142, 142, 147, 0.1); color: #8e8e93; }
+
+.badge.ios-macos-26-5-only { background: rgba(255, 159, 10, 0.1); color: #ff9f0a; }
+.badge.ios-macos-27-only { background: rgba(10, 132, 255, 0.1); color: #0a84ff; }
+.badge.all-26-5-27 { background: rgba(48, 209, 88, 0.1); color: #30d158; }

@@ -1917,9 +1917,64 @@ function initPlayground() {
 
 forceFreshStylesheet();
 
+// --- NOTION ROADMAP SYNC ---
+async function fetchRoadmap() {
+  try {
+    const response = await fetch('roadmap.json');
+    if (!response.ok) {
+      console.warn('Roadmap JSON not found. Run the GitHub sync action.');
+      return;
+    }
+    const data = await response.json();
+    
+    const inProgressCol = document.querySelector('#roadmap-inprogress .roadmap-cards');
+    const todoCol = document.querySelector('#roadmap-todo .roadmap-cards');
+    const shippedCol = document.querySelector('#roadmap-shipped .roadmap-cards');
+    
+    if (!inProgressCol || !todoCol || !shippedCol) return;
+
+    // Clear loading states
+    inProgressCol.innerHTML = '';
+    todoCol.innerHTML = '';
+    shippedCol.innerHTML = '';
+
+    data.items.forEach(item => {
+      // Create Card
+      const card = document.createElement('div');
+      card.className = 'roadmap-card';
+      
+      const badgeClass = item.priority.toLowerCase() === 'high' ? 'high' : 
+                         item.priority.toLowerCase() === 'medium' ? 'medium' : 'low';
+                         
+      const osBadgeClass = item.target_os.includes('26') ? 'ios-macos-26-5-only' : 
+                           item.target_os.includes('27') ? 'ios-macos-27-only' : 'all-26-5-27';
+
+      card.innerHTML = `
+        <div class="card-name">${item.name}</div>
+        <div class="card-meta">
+          <span class="badge ${badgeClass}">${item.priority}</span>
+          <span class="badge ${osBadgeClass}">${item.target_os.replace('iOS/macOS ', '')}</span>
+        </div>
+      `;
+
+      // Assign to column
+      if (item.status === 'In Progress') {
+        inProgressCol.appendChild(card);
+      } else if (item.status === 'Shipped' || item.status === 'Completed') {
+        shippedCol.appendChild(card);
+      } else {
+        todoCol.appendChild(card);
+      }
+    });
+  } catch (err) {
+    console.error('Failed to load roadmap:', err);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setupSmoothRouting();
   setupRevealState();
   initPlayground();
+  fetchRoadmap();
   stampRuntimeReady();
 });

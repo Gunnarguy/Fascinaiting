@@ -394,6 +394,31 @@
         </div>
       </section>
 
+      <!-- ROADMAP SECTION (Dynamically fetched from Notion) -->
+      <section class="roadmap-section" id="roadmap" aria-labelledby="roadmap-title">
+        <div class="section-heading">
+          <p class="eyebrow">Public Roadmap</p>
+          <h2 id="roadmap-title">What's Next</h2>
+          <p>This roadmap is synced automatically from our Notion database, giving you full transparency into what is currently being built and what has shipped.</p>
+        </div>
+        
+        <div class="roadmap-grid" id="roadmap-container">
+          <!-- Populated via app.js -->
+          <div class="roadmap-column" id="roadmap-inprogress">
+            <h3><span class="section-icon">🔨</span> In Progress</h3>
+            <div class="roadmap-cards"></div>
+          </div>
+          <div class="roadmap-column" id="roadmap-todo">
+            <h3><span class="section-icon">🔜</span> To Do</h3>
+            <div class="roadmap-cards"></div>
+          </div>
+          <div class="roadmap-column" id="roadmap-shipped">
+            <h3><span class="section-icon">✅</span> Shipped</h3>
+            <div class="roadmap-cards"></div>
+          </div>
+        </div>
+      </section>
+
       <!-- ECOSYSTEM / SUPPORT ROUTING -->
       <section class="ecosystem-section" id="support" aria-labelledby="ecosystem-title">
         <div class="section-heading compact">

@@ -1,0 +1,21 @@
+{
+  "last_updated": "2026-06-23T23:55:00.000Z",
+  "items": [
+    {
+      "id": "mock-1",
+      "name": "Live Notion Roadmap Sync Pipeline",
+      "status": "Shipped",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-23T23:55:00.000Z"
+    },
+    {
+      "id": "mock-2",
+      "name": "Syncing live data...",
+      "status": "In Progress",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-23T23:55:00.000Z"
+    }
+  ]
+}
