@@ -2973,7 +2973,7 @@ const DEBUGGER_TRACKS = {
   }
 };
 
-let activeDebuggerTrack = "standard";
+let activeDebuggerTrack = "standard_3b";
 let isRunning = false;
 let logInterval = null;
 let stepDuration = 800; // Default execution latency
