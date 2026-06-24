@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-24T01:34:09.783357Z",
+  "last_updated": "2026-06-24T02:30:17.200472Z",
   "items": [
     {
       "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
@@ -146,14 +146,6 @@
       "last_edited": "2026-06-22T03:18:00.000Z"
     },
     {
-      "id": "38649a74-d54f-8177-8204-c236ac56cefc",
-      "name": "OpenIntelligence v4.3 Release",
-      "status": "Shipped",
-      "target_os": "All (26.5 & 27)",
-      "priority": "High",
-      "last_edited": "2026-06-21T06:49:00.000Z"
-    },
-    {
       "id": "38649a74-d54f-81c3-98c4-cc2feeac0fbf",
       "name": "[Shortcuts] Fixed AppIntents string interpolation for Siri Screen Awareness",
       "status": "Shipped",
@@ -178,12 +170,12 @@
       "last_edited": "2026-06-21T03:01:00.000Z"
     },
     {
-      "id": "38549a74-d54f-81e7-b563-c7d2c11a2057",
-      "name": "Siri AppIntents: Screen Awareness",
+      "id": "38649a74-d54f-8177-8204-c236ac56cefc",
+      "name": "OpenIntelligence v4.3 Release",
       "status": "Shipped",
-      "target_os": "iOS/macOS 27+ Only",
+      "target_os": "All (26.5 & 27)",
       "priority": "High",
-      "last_edited": "2026-06-21T03:01:00.000Z"
+      "last_edited": "2026-06-21T06:49:00.000Z"
     },
     {
       "id": "38549a74-d54f-81fd-80f3-cba1e547b37f",
@@ -202,36 +194,12 @@
       "last_edited": "2026-06-20T23:16:00.000Z"
     },
     {
-      "id": "37f49a74-d54f-8108-84c2-cf634421452e",
-      "name": "More efficient and straightforward Private Cloud Compute (PCC) Routing",
-      "status": "Completed",
-      "target_os": "All",
-      "priority": "High",
-      "last_edited": "2026-06-18T20:28:00.000Z"
-    },
-    {
-      "id": "38049a74-d54f-8142-9589-e271d7bf613d",
-      "name": "Migrate to Native Evaluations Framework",
-      "status": "Completed",
-      "target_os": "All",
-      "priority": "Low",
-      "last_edited": "2026-06-18T20:28:00.000Z"
-    },
-    {
-      "id": "38149a74-d54f-81b1-a076-e601b8fb66aa",
-      "name": "Native LanguageModelSession Orchestration",
-      "status": "Completed",
-      "target_os": "iOS/macOS 27+ Only",
-      "priority": "Medium",
-      "last_edited": "2026-06-18T20:28:00.000Z"
-    },
-    {
-      "id": "38149a74-d54f-81a3-9687-c3e5bf3c263e",
-      "name": "App Intents & Siri Semantic Routing",
-      "status": "Completed",
+      "id": "38549a74-d54f-81e7-b563-c7d2c11a2057",
+      "name": "Siri AppIntents: Screen Awareness",
+      "status": "Shipped",
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
-      "last_edited": "2026-06-18T20:28:00.000Z"
+      "last_edited": "2026-06-21T03:01:00.000Z"
     },
     {
       "id": "38149a74-d54f-8116-9cd5-f5ab6aac5014",
@@ -250,12 +218,44 @@
       "last_edited": "2026-06-16T17:00:00.000Z"
     },
     {
+      "id": "38149a74-d54f-81a3-9687-c3e5bf3c263e",
+      "name": "App Intents & Siri Semantic Routing",
+      "status": "Completed",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "High",
+      "last_edited": "2026-06-18T20:28:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-81b1-a076-e601b8fb66aa",
+      "name": "Native LanguageModelSession Orchestration",
+      "status": "Completed",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "Medium",
+      "last_edited": "2026-06-18T20:28:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-8142-9589-e271d7bf613d",
+      "name": "Migrate to Native Evaluations Framework",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "Low",
+      "last_edited": "2026-06-18T20:28:00.000Z"
+    },
+    {
       "id": "37f49a74-d54f-81b0-aeb5-f3ad08d4e087",
       "name": "Native Vision Framework Fallback for Media",
       "status": "Completed",
       "target_os": "All",
       "priority": "High",
       "last_edited": "2026-06-14T20:56:00.000Z"
+    },
+    {
+      "id": "37f49a74-d54f-8108-84c2-cf634421452e",
+      "name": "More efficient and straightforward Private Cloud Compute (PCC) Routing",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-18T20:28:00.000Z"
     }
   ]
 }
