@@ -283,9 +283,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Embed",
-      "2. Retrieve",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
@@ -660,9 +660,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Embed",
-      "2. Retrieve",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
@@ -1054,9 +1054,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Embed",
-      "2. Retrieve",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
@@ -1413,9 +1413,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Multi-Hop",
-      "2. Iterate",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
@@ -1785,9 +1785,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Multi-Hop",
-      "2. Iterate",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
@@ -2174,9 +2174,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Multi-Hop",
-      "2. Iterate",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
@@ -2528,9 +2528,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Intent",
-      "2. Sweep",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
@@ -2884,9 +2884,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Intent",
-      "2. Sweep",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
@@ -3257,9 +3257,9 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Intent",
-      "2. Sweep",
-      "3. Assemble",
+      "1. Analysis",
+      "2. Retrieval",
+      "3. Assembly",
       "4. Inference",
       "5. Verify",
       "6. Output"
