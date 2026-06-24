@@ -1532,7 +1532,6 @@ standard: {
     ]
 }
 };
-};
 
 let activeDebuggerTrack = "standard";
 let isRunning = false;
