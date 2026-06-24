@@ -1669,6 +1669,78 @@ function drawConnections() {
   });
 }
 
+function highlightCode(code) {
+  return code
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/(\/\/.*)/g, '<span class="code-comment">$1</span>')
+    .replace(/(".*?")/g, '<span class="code-string">$1</span>')
+    .replace(/(#\w+)/g, '<span class="code-preprocessor">$1</span>')
+    .replace(/\b(import|class|struct|let|var|func|return|if|else|guard|try|await|throws|init|weak|self|device|kernel|void|uint|float|float32|for|in|while|do)\b/g, '<span class="code-keyword">$1</span>')
+    .replace(/\b(Int|Float|Double|String|Bool|URL|Data|PDFDocument|PDFPage|UIDocumentPickerViewController|NLTagger|NaturalLanguage|Workspace|TelemetryWrapper|SQLiteDatabase|Float32|Metal|Device|CommandQueue|Buffer|Texture)\b/g, '<span class="code-type">$1</span>')
+    .replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="code-number">$1</span>');
+}
+
+function getEngineCode(step) {
+  const file = step.file || "";
+  const name = step.name || "";
+  
+  if (file.includes("DocumentPicker") || name.includes("Upload")) {
+    return `import UIKit\n\n// Initialize sandboxed file picker\nlet picker = UIDocumentPickerViewController(\n    forOpeningContentTypes: [.pdf, .text, .data]\n)\npicker.delegate = self\npresent(picker, animated: true)\n\n// Callback on selection\nfunc documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {\n    guard let url = urls.first else { return }\n    let sandboxGranted = url.startAccessingSecurityScopedResource()\n    engine.ingest(url: url)\n}`;
+  }
+  
+  if (file.includes("DocumentProcessor")) {
+    return `import PDFKit\nimport Vision\n\n// Process document and fall back to high-res Vision OCR if needed\nlet document = PDFDocument(url: fileURL)\nvar rawText = ""\n\nfor i in 0..<document.pageCount {\n    if let page = document.page(at: i) {\n        let pageText = page.string ?? ""\n        if pageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {\n            // Scan page using Vision Framework at high-contrast scale\n            rawText += try await performVisionOCR(page: page, scale: 6.0)\n        } else {\n            rawText += pageText\n        }\n    }\n}`;
+  }
+  
+  if (file.includes("SemanticChunker")) {
+    return `// Split raw text into context-aware semantic fragments\nlet chunker = SemanticChunker(maxWordsPerChunk: 310)\nlet sentences = TextUtils.splitSentences(text: rawText)\n\nvar currentChunk: [String] = []\nfor sentence in sentences {\n    currentChunk.append(sentence)\n    if currentChunk.wordCount >= 310 || sentence.isSectionMarker {\n        let chunk = Chunk(sentences: currentChunk, context: activeSectionHeader)\n        workspace.register(chunk)\n        currentChunk.removeAll()\n    }\n}`;
+  }
+  
+  if (file.includes("NLTagger")) {
+    return `import NaturalLanguage\n\n// Extract Named Entities (Locations, Models, Organizations)\nlet tagger = NLTagger(tagSchemes: [.nameType])\ntagger.string = chunk.text\n\ntagger.enumerateTags(in: tagger.string!.startIndex..<tagger.string!.endIndex,\n                     scheme: .nameType, options: [.omitWhitespace, .joinNames]) { tag, range in\n    if let tag = tag {\n        let entity = String(tagger.string![range])\n        let normalizedKey = StringNormalizer.toPascalCase(entity)\n        chunk.metadata[tag.rawValue] = normalizedKey\n    }\n    return true\n}`;
+  }
+  
+  if (file.includes("SQLite") || file.includes("FTS5") || name.includes("Index")) {
+    return `// Create virtual FTS5 table with Porter Stemming tokenizer\ntry db.execute("""\n  CREATE VIRTUAL TABLE IF NOT EXISTS doc_index USING fts5(\n    chunk_id, \n    content, \n    entities, \n    tokenize='porter'\n  );\n""")\n\n// Insert values\ntry db.execute("""\n  INSERT INTO doc_index (chunk_id, content, entities) \n  VALUES (?, ?, ?);\n""", [chunk.id, chunk.text, chunk.entities.joined(separator: ", ")])`;
+  }
+  
+  if (file.includes("Metal") || file.includes("Shader") || name.includes("Metal") || name.includes("Matrix")) {
+    return `#include <metal_stdlib>\nusing namespace metal;\n\n// Kernel shader executing parallelized matrix multiplications on Apple Silicon GPU\nkernel void matrix_multiply_embeddings(\n    device const float* inputs      [[ buffer(0) ]],\n    device const float* weights     [[ buffer(1) ]],\n    device float* outputs           [[ buffer(2) ]],\n    uint2 id                        [[ thread_position_in_grid ]]) \n{\n    float sum = 0.0;\n    for (int k = 0; k < 128; k++) {\n        sum += inputs[id.y * 128 + k] * weights[k * 128 + id.x];\n    }\n    outputs[id.y * 128 + id.x] = sum;\n}`;
+  }
+  
+  if (file.includes("Token") || name.includes("Token")) {
+    return `// Run tokenizer model and construct vocabulary indices\nlet tokenizer = BPETokenizer(vocabulary: localVocab)\nlet inputTokens = tokenizer.encode(text: query.text)\n\n// Context limit check\nguard inputTokens.count <= 2048 else {\n    throw EngineError.contextOverflow\n}`;
+  }
+  
+  if (name.includes("Embedding") || file.includes("CoreML") || file.includes("MLModel")) {
+    return `import CoreML\n\n// Query local ML embedding model via Neural Engine (ANE)\nlet config = MLModelConfiguration()\nconfig.computeUnits = .all // Allows CPU, GPU, and Neural Engine (ANE)\nlet embeddingModel = try MobileBERTEmbeddings(configuration: config)\n\nlet inputFeatures = try MLMultiArray(shape: [1, 512], dataType: .float32)\nlet output = try embeddingModel.prediction(input: inputFeatures)\nlet vector: [Float32] = output.embeddings.toArray()`;
+  }
+  
+  if (name.includes("RAG") || name.includes("Vector") || file.includes("Vector")) {
+    return `// Vector Cosine Similarity Search on SQLite float arrays\nfunc cosineSimilarity(_ a: [Float32], _ b: [Float32]) -> Float32 {\n    let dotProduct = zip(a, b).map(*).reduce(0, +)\n    let magnitudeA = sqrt(a.map { $0 * $0 }.reduce(0, +))\n    let magnitudeB = sqrt(b.map { $0 * $0 }.reduce(0, +))\n    return dotProduct / (magnitudeA * magnitudeB)\n}\n\nlet results = workspace.vectors.map {\n    (chunkId: $0.id, score: cosineSimilarity(queryVector, $0.vector))\n}.sorted { $0.score > $1.score }`;
+  }
+  
+  if (name.includes("Prune") || name.includes("Filter")) {
+    return `// Apply threshold-based similarity pruning to prevent context bloat\nlet similarityThreshold: Float32 = 0.72\nlet prunedResults = searchResults.filter { $0.score >= similarityThreshold }\n\n// Deduplicate redundant siblings\nlet uniqueContext = ContextDeduplicator.removeSiblings(prunedResults)\nlet contextBlocks = uniqueContext.prefix(5) // Limit to top 5 blocks`;
+  }
+  
+  if (name.includes("Format") || name.includes("Context")) {
+    return `// Format unified LLM prompt payload incorporating system instructions and search context\nvar prompt = "<|system|>\\nUse the following reference blocks to answer: \\n"\nfor (idx, block) in contextBlocks.enumerated() {\n    prompt += "Block [\\(idx + 1)]:\\n\\(block.text)\\n"\n}\nprompt += "<|user|>\\n\\(userQuery)\\n<|assistant|>\\n"`;
+  }
+  
+  if (name.includes("LLM") || file.includes("LanguageModel") || file.includes("Session")) {
+    return `import Foundation\n\n// Initialize LanguageModelSession and begin model streaming\nlet session = LanguageModelSession(modelName: "AFM-3B-Instruct")\nlet responseStream = try await session.generateStream(prompt: prompt)\n\nfor try await token in responseStream {\n    print("Token: \\(token)")\n    ui.append(token: token)\n}`;
+  }
+  
+  if (file.includes("Calibrator") || name.includes("Calibration")) {
+    return `// Confidence scale and temperature adjustment based on entropy\nlet calibrator = ConfidenceCalibrator()\nlet confidence = calibrator.calculateEntropy(logits: predictionLogits)\n\n// Scale logits temperature dynamically to prevent hallucination\nlet scaledLogits = predictionLogits.map { $0 / (confidence > 0.85 ? 1.0 : 1.25) }\nlet finalToken = MathUtils.softmax(scaledLogits)`;
+  }
+  
+  return `import Foundation\n\n// Implementation for ${name}\nclass ${name.replace(/\s+/g, "")}Service {\n    let file = "${file}"\n    \n    func execute(context: Context) async throws -> Result {\n        print("[Trace] Running ${name}...")\n        // Engine trace operations\n        return .success\n    }\n}`;
+}
+
 function selectNode(idx) {
   const track = DEBUGGER_TRACKS[activeDebuggerTrack];
   const step = track.steps[idx];
@@ -1691,6 +1763,7 @@ function selectNode(idx) {
   const whyEl = document.getElementById("hud-why");
   const howEl = document.getElementById("hud-how");
   const log = document.getElementById("hud-log");
+  const codeEl = document.getElementById("hud-code");
 
   if (badge) badge.textContent = step.badge;
   if (title) title.textContent = step.name;
@@ -1701,6 +1774,10 @@ function selectNode(idx) {
   if (log) {
     log.textContent = step.log;
     log.scrollTop = log.scrollHeight;
+  }
+  if (codeEl) {
+    const rawCode = getEngineCode(step);
+    codeEl.innerHTML = highlightCode(rawCode);
   }
 }
 
@@ -1747,6 +1824,8 @@ function updatePlaygroundUI(trackName) {
   if (whyEl) whyEl.textContent = "Understanding each phase of on-device RAG is critical to optimizing memory, latency, and context limitations.";
   if (howEl) howEl.textContent = "Select a node to see technical implementation details, Swift API methods, and algorithmic settings.";
   if (log) log.textContent = "No active log trace.";
+  const codeEl = document.getElementById("hud-code");
+  if (codeEl) codeEl.innerHTML = '<span class="code-comment">// Select a step to inspect source code.</span>';
 
   // Set action button state
   const runBtn = document.getElementById("run-pipeline-btn");
