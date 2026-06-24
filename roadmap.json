@@ -1,21 +1,261 @@
 {
-  "last_updated": "2026-06-23T23:55:00.000Z",
+  "last_updated": "2026-06-24T01:34:09.783357Z",
   "items": [
     {
-      "id": "mock-1",
-      "name": "Live Notion Roadmap Sync Pipeline",
-      "status": "Shipped",
-      "target_os": "All",
-      "priority": "High",
-      "last_edited": "2026-06-23T23:55:00.000Z"
+      "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
+      "name": "Refine Document Ingestion Live Activity (Dynamic Island + Apple Watch)",
+      "status": "In Progress",
+      "target_os": "All (26.5 & 27)",
+      "priority": "Medium",
+      "last_edited": "2026-06-20T18:31:00.000Z"
     },
     {
-      "id": "mock-2",
-      "name": "Syncing live data...",
+      "id": "37f49a74-d54f-81c5-9fdd-caabf961aa5b",
+      "name": "iOS/macOS 27 Beta Support",
       "status": "In Progress",
       "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-14T20:56:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-81db-88cd-c310e399df51",
+      "name": "Interactive Deep Think Live Activities",
+      "status": "To Do",
+      "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
-      "last_edited": "2026-06-23T23:55:00.000Z"
+      "last_edited": "2026-06-16T16:45:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-81a0-ae61-ce8fce69ad2a",
+      "name": "Core AI (.aimodel) & Zero-Copy Memory",
+      "status": "To Do",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "High",
+      "last_edited": "2026-06-16T16:45:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-8184-8afb-da00132c9d19",
+      "name": "Multi-Modal Verification (Vision OCR)",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-16T16:23:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-815a-8d73-d53fa3398e1c",
+      "name": "PCC Escalation Transparency UI",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-16T16:23:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-81d6-b065-f74b4e5039bf",
+      "name": "Local Deep Think Tracing UI",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-16T16:23:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-81b9-8e39-f0843fdcbe0d",
+      "name": "Interactive Citation-to-Source Highlighting",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-16T16:23:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-811f-87a8-e0a63e53e91e",
+      "name": "Visualizing the 7 Verification Gates",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-16T16:23:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-81dc-ae32-fce70ba7751b",
+      "name": "Implement View Entity Annotations (Contextual Screen Awareness)",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-15T04:52:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-813f-bf66-c1cdc4062c27",
+      "name": "Migrate TinyBERT to Core AI Framework",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-15T04:52:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-8159-83e4-f0a8c76b3846",
+      "name": "Adopt UIWritingToolsCoordinator (Native Text Summarize)",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-15T04:52:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-8114-936b-e3c4e4ffca9e",
+      "name": "Implement SpotlightSearchTool (LLM Core Spotlight)",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-15T04:52:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-81b1-b0a0-da47386fc905",
+      "name": "Refine Shortcut Functionality (v4.2)",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-15T04:42:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-8135-abc9-c44bb6a53371",
+      "name": "Apple Notes Integration (NotebookLM Style)",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-15T04:40:00.000Z"
+    },
+    {
+      "id": "37f49a74-d54f-817a-bb16-f922b88556b7",
+      "name": "Dynamic Profiles",
+      "status": "To Do",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-14T20:56:00.000Z"
+    },
+    {
+      "id": "38749a74-d54f-8117-a730-d56568386d6a",
+      "name": "[Orchestration] Offloaded synchronous file operations to prevent MainActor deadlocks",
+      "status": "Shipped",
+      "target_os": "All",
+      "priority": "Low",
+      "last_edited": "2026-06-22T03:46:00.000Z"
+    },
+    {
+      "id": "38749a74-d54f-81a9-b9dd-ee9223c435bd",
+      "name": "[Orchestration] Disabled extractive override to force LLM generation for RAG queries",
+      "status": "Shipped",
+      "target_os": "All",
+      "priority": "Low",
+      "last_edited": "2026-06-22T03:18:00.000Z"
+    },
+    {
+      "id": "38649a74-d54f-8177-8204-c236ac56cefc",
+      "name": "OpenIntelligence v4.3 Release",
+      "status": "Shipped",
+      "target_os": "All (26.5 & 27)",
+      "priority": "High",
+      "last_edited": "2026-06-21T06:49:00.000Z"
+    },
+    {
+      "id": "38649a74-d54f-81c3-98c4-cc2feeac0fbf",
+      "name": "[Shortcuts] Fixed AppIntents string interpolation for Siri Screen Awareness",
+      "status": "Shipped",
+      "target_os": "All",
+      "priority": "Low",
+      "last_edited": "2026-06-21T03:21:00.000Z"
+    },
+    {
+      "id": "38649a74-d54f-8177-9218-c666656d5652",
+      "name": "ADM 3 Image Playground Integration",
+      "status": "Shipped",
+      "target_os": "All (26.5 & 27)",
+      "priority": "High",
+      "last_edited": "2026-06-21T03:01:00.000Z"
+    },
+    {
+      "id": "38649a74-d54f-81b3-82dc-c85c63817ae8",
+      "name": "AFM 3 Architecture Routing (3B, 20B, Cloud Pro)",
+      "status": "Shipped",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "High",
+      "last_edited": "2026-06-21T03:01:00.000Z"
+    },
+    {
+      "id": "38549a74-d54f-81e7-b563-c7d2c11a2057",
+      "name": "Siri AppIntents: Screen Awareness",
+      "status": "Shipped",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "High",
+      "last_edited": "2026-06-21T03:01:00.000Z"
+    },
+    {
+      "id": "38549a74-d54f-81fd-80f3-cba1e547b37f",
+      "name": "Manual Foundation Model Override Selector",
+      "status": "Shipped",
+      "target_os": "All (26.5 & 27)",
+      "priority": "Medium",
+      "last_edited": "2026-06-20T23:25:00.000Z"
+    },
+    {
+      "id": "38549a74-d54f-813b-b0db-fccdb911d9f9",
+      "name": "[Orchestration] AFM 3 Advanced Integration",
+      "status": "Shipped",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "High",
+      "last_edited": "2026-06-20T23:16:00.000Z"
+    },
+    {
+      "id": "37f49a74-d54f-8108-84c2-cf634421452e",
+      "name": "More efficient and straightforward Private Cloud Compute (PCC) Routing",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-18T20:28:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-8142-9589-e271d7bf613d",
+      "name": "Migrate to Native Evaluations Framework",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "Low",
+      "last_edited": "2026-06-18T20:28:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-81b1-a076-e601b8fb66aa",
+      "name": "Native LanguageModelSession Orchestration",
+      "status": "Completed",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "Medium",
+      "last_edited": "2026-06-18T20:28:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-81a3-9687-c3e5bf3c263e",
+      "name": "App Intents & Siri Semantic Routing",
+      "status": "Completed",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "High",
+      "last_edited": "2026-06-18T20:28:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-8116-9cd5-f5ab6aac5014",
+      "name": "Interactive Citation-to-Source Highlighting",
+      "status": "Completed",
+      "target_os": "All (26.5 & 27)",
+      "priority": "High",
+      "last_edited": "2026-06-16T17:00:00.000Z"
+    },
+    {
+      "id": "38149a74-d54f-8104-a282-cfc834b9dce6",
+      "name": "Visualizing the 7 Verification Gates",
+      "status": "Completed",
+      "target_os": "All (26.5 & 27)",
+      "priority": "High",
+      "last_edited": "2026-06-16T17:00:00.000Z"
+    },
+    {
+      "id": "37f49a74-d54f-81b0-aeb5-f3ad08d4e087",
+      "name": "Native Vision Framework Fallback for Media",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-14T20:56:00.000Z"
     }
   ]
 }

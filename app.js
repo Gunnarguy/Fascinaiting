@@ -1945,7 +1945,7 @@ async function fetchRoadmap() {
       const badgeClass = item.priority.toLowerCase() === 'high' ? 'high' : 
                          item.priority.toLowerCase() === 'medium' ? 'medium' : 'low';
                          
-      const osBadgeClass = item.target_os.includes('26') ? 'ios-macos-26-5-only' : 
+      const osBadgeClass = item.target_os.includes('26.5 Only') ? 'ios-macos-26-5-only' : 
                            item.target_os.includes('27') ? 'ios-macos-27-only' : 'all-26-5-27';
 
       card.innerHTML = `
