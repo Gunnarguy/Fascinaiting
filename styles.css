@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 :root {
-  --bg: #05070c;
-  --panel: rgba(11, 19, 32, 0.75);
-  --panel-solid: #0d131f;
-  --text: #f3f4f6;
-  --muted: #a1a8b9;
-  --quiet: #64748b;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.18);
+  --bg: #0d1117;
+  --panel: rgba(22, 27, 34, 0.75);
+  --panel-solid: #161b22;
+  --text: #c9d1d9;
+  --muted: #8b949e;
+  --quiet: #6e7681;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.2);
   --cyan: #00f2fe;
   --teal: #00b8d4;
   --success: #00ffaa;
@@ -36,7 +36,7 @@ body {
     linear-gradient(90deg, rgba(0, 242, 254, 0.015) 1px, transparent 1px),
     radial-gradient(circle at 80% 10%, rgba(0, 242, 254, 0.18), transparent 45rem),
     radial-gradient(circle at 15% 45%, rgba(0, 184, 212, 0.12), transparent 38rem),
-    radial-gradient(circle at 50% 80%, rgba(13, 19, 31, 0.8), transparent 50rem),
+    radial-gradient(circle at 50% 80%, rgba(22, 27, 34, 0.8), transparent 50rem),
     var(--bg);
   background-size: 32px 32px, 32px 32px, auto, auto, auto, auto;
   color: var(--text);
