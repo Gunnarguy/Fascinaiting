@@ -2813,7 +2813,7 @@ const DEBUGGER_TRACKS = {
           2
         ],
         "badge": "Step 1",
-        "name": "Maximum Mode Router",
+        "name": "Threshold Pruning Bypass",
         "file": "EngineSDK.swift",
         "desc": "Enable exhaustive retrieval routines.",
         "log": "Maximum thresholds enabled.",
