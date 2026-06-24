@@ -1415,3 +1415,170 @@ html[data-runtime="ready"] .is-visible {
 .code-call { color: #d2a8ff; }
 .code-preprocessor { color: #ff7b72; }
 .code-keyword-secondary { color: #ff7b72; }
+
+/* ==========================================================================
+   MOBILE UX 10X RESPONSIVENESS OVERHAUL
+   ========================================================================== */
+
+/* 1. Global Navigation & Hero Resizing */
+@media (max-width: 900px) {
+  /* Navigation: Let it wrap nicely */
+  .site-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+  
+  /* Hero Font Resizing */
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  .hero-subheadline {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-subheadline {
+    font-size: 1.05rem;
+  }
+  .hero-section {
+    padding-top: 1.5rem;
+    gap: 1.5rem;
+  }
+  /* Ensure app store badges wrap elegantly */
+  .app-store-badges {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 1.5rem;
+  }
+  .app-store-badges a {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+}
+
+/* 2. Playground Controls & Trace Visualizer (Tablets & Mobile) */
+@media (max-width: 1080px) {
+  /* Stack the playground split pane */
+  .playground-split-pane {
+    grid-template-columns: 1fr; /* Switch from 2 columns to 1 */
+    gap: 1rem;
+  }
+
+  /* Metrics Panel layout adjustment */
+  .playground-metrics-pane {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .metrics-panel {
+    flex-direction: row;
+    flex: 1;
+    min-width: 300px;
+    justify-content: space-around;
+  }
+  
+  .pipeline-control-panel {
+    flex: 1;
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Reduce playground padding for screen real estate */
+  .playground-container {
+    padding: 1.25rem;
+  }
+  .playground-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  #run-pipeline-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .control-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .control-group {
+    width: 100%;
+  }
+  .segmented-control {
+    display: flex;
+    width: 100%;
+  }
+  .segmented-control .segment {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .playground-container {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  .playground-title {
+    font-size: 0.9rem;
+  }
+  .playground-title span:last-child {
+    font-size: 1.2rem;
+  }
+  .metrics-panel {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .metric-item {
+    flex: 1 1 45%;
+    padding: 0.75rem;
+  }
+}
+
+/* 3. HUD Inspector Refinements */
+@media (max-width: 800px) {
+  .hud-content-grid {
+    grid-template-columns: 1fr; /* Stack What, Why, How */
+    gap: 0.75rem;
+  }
+  .hud-code {
+    font-size: 0.62rem;
+    padding: 0.6rem 0.8rem;
+    min-height: 80px;
+  }
+}
+
+/* 4. Roadmap and Section padding */
+@media (max-width: 650px) {
+  .roadmap-section, .capabilities-section, .media-showcase {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .roadmap-card {
+    padding: 1rem;
+  }
+  .capabilities-grid, .video-grid {
+    gap: 1.25rem;
+  }
+}
+
+/* Scrollbar cues for SVG diagram wrapper on mobile */
+@media (max-width: 900px) {
+  .diagram-canvas-wrapper {
+    box-shadow: inset -20px 0 20px -20px rgba(0, 242, 254, 0.4), inset 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+}
