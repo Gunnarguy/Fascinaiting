@@ -2330,17 +2330,18 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Route",
-      "2. Assemble",
-      "3. Inference",
-      "4. Verify",
-      "5. Output"
+      "1. Intent",
+      "2. Sweep",
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
         "stageIdx": 0,
         "gridX": 0.5,
-        "gridY": 0.5,
+        "gridY": 2.0,
         "next": [
           1
         ],
@@ -2356,13 +2357,13 @@ const DEBUGGER_TRACKS = {
       },
       {
         "stageIdx": 1,
-        "gridX": 0.5,
-        "gridY": 0.5,
+        "gridX": 0.2,
+        "gridY": 1.0,
         "next": [
-          2
+          3
         ],
-        "badge": "Step 1",
-        "name": "Maximum Mode Router",
+        "badge": "Step 1a",
+        "name": "Threshold Pruning Bypass",
         "file": "EngineSDK.swift",
         "desc": "Enable exhaustive retrieval routines.",
         "log": "Maximum thresholds enabled.",
@@ -2372,30 +2373,141 @@ const DEBUGGER_TRACKS = {
         "code": "ragConfig.similarityThreshold = 0.10 // Extremely loose\nragConfig.maxChunks = 250 // Exhaustive"
       },
       {
-        "stageIdx": 2,
+        "stageIdx": 1,
         "gridX": 0.5,
-        "gridY": 0.5,
-        "next": [
-          3
-        ],
-        "badge": "Step 2",
-        "name": "Deep Hybrid Sweep",
-        "file": "RAGEngine.swift",
-        "desc": "Exhaustive retrieval across entire corpus.",
-        "log": "Retrieved 150 items.",
-        "what": "Retrieves massive amounts of chunks across the entire workspace.",
-        "why": "Maximum mode leaves no stone unturned.",
-        "how": "Executes standard hybrid search but returns top 250 instead of top 15.",
-        "code": "let results = try await hybridSearch(query, limit: 250)"
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 1.5,
+        "gridY": 2.0,
         "next": [
           4
         ],
-        "badge": "Step 2.1",
+        "badge": "Step 1b",
+        "name": "Multi-hop Intent",
+        "file": "QueryEnhancement.swift",
+        "desc": "Deconstruct into 5 sub-queries.",
+        "log": "Sub-queries mapped.",
+        "what": "Deconstructs a complex query into multiple sub-queries.",
+        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
+        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
+        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 3.0,
+        "next": [
+          5
+        ],
+        "badge": "Step 1c",
+        "name": "Semantic Expansion",
+        "file": "QueryEnhancement.swift",
+        "desc": "Expand synonyms for maximum net-casting.",
+        "log": "Keywords expanded.",
+        "what": "Expands sub-queries using a local dictionary of synonyms.",
+        "why": "Catches edge cases where documents use different terminology than the user.",
+        "how": "Appends 2-3 semantic equivalents to the BM25 search string.",
+        "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)"
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.1,
+        "gridY": 0.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2a",
+        "name": "Vector Sweep",
+        "file": "RAGEngine.swift",
+        "desc": "Exhaustive retrieval across entire corpus.",
+        "log": "Retrieved 500 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.35,
+        "gridY": 1.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 2b",
+        "name": "BM25 Sweep",
+        "file": "SQLiteFTS5",
+        "desc": "Massive exact keyword sweep.",
+        "log": "Retrieved 300 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.65,
+        "gridY": 2.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 2c",
+        "name": "Knowledge Graph Traversal",
+        "file": "GraphDB.swift",
+        "desc": "Entity extraction and relation sweep.",
+        "log": "Traversed 50 nodes.",
+        "what": "Extracts named entities and traverses local SQLite relations.",
+        "why": "Vector search is bad at exact relationships (e.g. 'Who is the CEO of X').",
+        "how": "Uses Spacy/NLTK style entity extraction mapped to SQLite tables.",
+        "code": "let entities = NER.extract(query)\nfor entity in entities {\n    graphDB.traverse(from: entity, depth: 2)\n}"
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.9,
+        "gridY": 3.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 2d",
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Reciprocal Rank Fusion merging 850 items.",
+        "log": "Indices merged.",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.1,
+        "gridY": 2.0,
+        "next": [
+          12
+        ],
+        "badge": "Step 3a",
+        "name": "Cross-Encoder Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Deep scoring.",
+        "log": "Rescored 850 items.",
+        "what": "Deeply scores retrieved chunks against the exact query.",
+        "why": "Vectors only measure semantic distance. Cross-encoders measure logical relevance.",
+        "how": "Passes (Query + Chunk) into a TinyBERT classification head.",
+        "code": "let score = try await crossEncoder.predict([query, chunk])\nchunk.relevance = score"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.3,
+        "gridY": 1.0,
+        "next": [
+          13
+        ],
+        "badge": "Step 3b",
+        "name": "FlashRank",
+        "file": "ReRanker.swift",
+        "desc": "Secondary pass.",
+        "log": "Top 100 isolated.",
+        "what": "A secondary, ultra-fast reranking pass.",
+        "why": "Used to break ties among the top 50 highly-relevant chunks.",
+        "how": "Uses a quantized ranking model.",
+        "code": "let finalRank = try await flashRank.rerank(top50)"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.0,
+        "next": [
+          14
+        ],
+        "badge": "Step 3c",
         "name": "Sibling Expansion",
         "file": "ParentDocumentService",
         "desc": "Fetch massive contiguous blocks.",
@@ -2406,13 +2518,13 @@ const DEBUGGER_TRACKS = {
         "code": "func expandContext(chunkIds: [Int]) -> [Chunk] {\n    var expanded: Set<Int> = []\n    for id in chunkIds {\n        expanded.insert(id - 1)\n        expanded.insert(id)\n        expanded.insert(id + 1)\n    }\n    return db.fetchChunks(ids: Array(expanded))\n}"
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
+        "stageIdx": 3,
+        "gridX": 0.7,
+        "gridY": 3.0,
         "next": [
-          5
+          15
         ],
-        "badge": "Step 2.2",
+        "badge": "Step 3d",
         "name": "Lost-in-Middle",
         "file": "ContextPacking.swift",
         "desc": "Reorder massive 32K context.",
@@ -2423,25 +2535,25 @@ const DEBUGGER_TRACKS = {
         "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}"
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 3.5,
+        "stageIdx": 3,
+        "gridX": 0.9,
+        "gridY": 2.0,
         "next": [
-          6
+          16
         ],
-        "badge": "Step 2.3",
+        "badge": "Step 3e",
         "name": "32K Context Packing",
         "file": "ContextPacking.swift",
         "desc": "Pack massive context up to 32,000 tokens.",
-        "log": "Packed 28,000 tokens."
+        "log": "Packed 31,500 tokens."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          7,
-          8
+          14,
+          15
         ],
         "badge": "Step A",
         "name": "LoRA Injection (3B)",
@@ -2454,11 +2566,11 @@ const DEBUGGER_TRACKS = {
         "code": "let config = MLModelConfiguration()\nlet adapterURL = URL(fileURLWithPath: \"rag_citation_adapter.mlmodelc\")\ntry config.addParameterWeights(adapterURL)\nlet model = try MLModel(contentsOf: baseModelURL, configuration: config)"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          10
+          17
         ],
         "badge": "Step B",
         "name": "Draft Generation",
@@ -2471,11 +2583,11 @@ const DEBUGGER_TRACKS = {
         "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          11
+          18
         ],
         "badge": "Step C",
         "name": "Parallel Verification",
@@ -2488,11 +2600,11 @@ const DEBUGGER_TRACKS = {
         "code": "let verificationLogits = try await baseModel.forward(draftTokens)\nlet accepted = verifySequence(draftTokens, against: verificationLogits)\nif !accepted { \n    // Fall back to sequential generation\n}"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          13
+          20
         ],
         "badge": "Step D",
         "name": "Guided Generation",
@@ -2505,26 +2617,60 @@ const DEBUGGER_TRACKS = {
         "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)"
       },
       {
-        "stageIdx": 4,
-        "gridX": 0.5,
-        "gridY": 0.5,
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 1.0,
         "next": [
-          11
+          23
         ],
-        "badge": "Step 4",
-        "name": "Massive Verification",
+        "badge": "Step 5a",
+        "name": "Fact-Check Sweep",
         "file": "VerificationGates.swift",
-        "desc": "Sweep entire 32K context across Gates A-I.",
-        "log": "Verified.",
-        "what": "Runs the Verification Gates over a massive 32,000 token context.",
-        "why": "Hallucination risk is highest when the context window is totally saturated.",
-        "how": "Batches verification sweeps.",
-        "code": "try await VerificationGateService.sweep(answer: answer, massiveContext: context)"
+        "desc": "Multi-agent fact checking against retrieved context.",
+        "log": "Facts verified.",
+        "what": "Multi-agent fact checking against retrieved context.",
+        "why": "Ensures the generated answer doesn't invent numbers or dates.",
+        "how": "Uses a secondary prompt pass: 'Does this text align with this context?'",
+        "code": "let result = verificationAgent.check(claims, against: context)"
       },
       {
         "stageIdx": 5,
         "gridX": 0.5,
-        "gridY": 0.5,
+        "gridY": 2.0,
+        "next": [
+          24
+        ],
+        "badge": "Step 5b",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGates.swift",
+        "desc": "Check for self-contradictory logic.",
+        "log": "Logic verified.",
+        "what": "Checks if the answer contradicts itself.",
+        "why": "Complex multi-hop reasoning can sometimes lead to conflicting statements.",
+        "how": "Analyzes the polarity of statements in the answer.",
+        "code": "let isConsistent = logicEngine.verifyConsistency(answer)"
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 3.0,
+        "next": [
+          25
+        ],
+        "badge": "Step 5c",
+        "name": "Hallucination Pass",
+        "file": "VerificationGates.swift",
+        "desc": "Final check for ungrounded information.",
+        "log": "Citations verified.",
+        "what": "Final check for ungrounded information.",
+        "why": "Catches any external knowledge the LLM hallucinated.",
+        "how": "Ensures every claim has a valid citation marker.",
+        "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}"
+      },
+      {
+        "stageIdx": 6,
+        "gridX": 0.5,
+        "gridY": 2.0,
         "next": [],
         "badge": "Output",
         "name": "Verified Response",
@@ -2547,17 +2693,18 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Route",
-      "2. Assemble",
-      "3. Inference",
-      "4. Verify",
-      "5. Output"
+      "1. Intent",
+      "2. Sweep",
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
         "stageIdx": 0,
         "gridX": 0.5,
-        "gridY": 0.5,
+        "gridY": 2.0,
         "next": [
           1
         ],
@@ -2573,13 +2720,13 @@ const DEBUGGER_TRACKS = {
       },
       {
         "stageIdx": 1,
-        "gridX": 0.5,
-        "gridY": 0.5,
+        "gridX": 0.2,
+        "gridY": 1.0,
         "next": [
-          2
+          3
         ],
-        "badge": "Step 1",
-        "name": "Maximum Mode Router",
+        "badge": "Step 1a",
+        "name": "Threshold Pruning Bypass",
         "file": "EngineSDK.swift",
         "desc": "Enable exhaustive retrieval routines.",
         "log": "Maximum thresholds enabled.",
@@ -2589,30 +2736,141 @@ const DEBUGGER_TRACKS = {
         "code": "ragConfig.similarityThreshold = 0.10 // Extremely loose\nragConfig.maxChunks = 250 // Exhaustive"
       },
       {
-        "stageIdx": 2,
+        "stageIdx": 1,
         "gridX": 0.5,
-        "gridY": 0.5,
-        "next": [
-          3
-        ],
-        "badge": "Step 2",
-        "name": "Deep Hybrid Sweep",
-        "file": "RAGEngine.swift",
-        "desc": "Exhaustive retrieval across entire corpus.",
-        "log": "Retrieved 150 items.",
-        "what": "Retrieves massive amounts of chunks across the entire workspace.",
-        "why": "Maximum mode leaves no stone unturned.",
-        "how": "Executes standard hybrid search but returns top 250 instead of top 15.",
-        "code": "let results = try await hybridSearch(query, limit: 250)"
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 1.5,
+        "gridY": 2.0,
         "next": [
           4
         ],
-        "badge": "Step 2.1",
+        "badge": "Step 1b",
+        "name": "Multi-hop Intent",
+        "file": "QueryEnhancement.swift",
+        "desc": "Deconstruct into 5 sub-queries.",
+        "log": "Sub-queries mapped.",
+        "what": "Deconstructs a complex query into multiple sub-queries.",
+        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
+        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
+        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 3.0,
+        "next": [
+          5
+        ],
+        "badge": "Step 1c",
+        "name": "Semantic Expansion",
+        "file": "QueryEnhancement.swift",
+        "desc": "Expand synonyms for maximum net-casting.",
+        "log": "Keywords expanded.",
+        "what": "Expands sub-queries using a local dictionary of synonyms.",
+        "why": "Catches edge cases where documents use different terminology than the user.",
+        "how": "Appends 2-3 semantic equivalents to the BM25 search string.",
+        "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)"
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.1,
+        "gridY": 0.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2a",
+        "name": "Vector Sweep",
+        "file": "RAGEngine.swift",
+        "desc": "Exhaustive retrieval across entire corpus.",
+        "log": "Retrieved 500 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.35,
+        "gridY": 1.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 2b",
+        "name": "BM25 Sweep",
+        "file": "SQLiteFTS5",
+        "desc": "Massive exact keyword sweep.",
+        "log": "Retrieved 300 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.65,
+        "gridY": 2.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 2c",
+        "name": "Knowledge Graph Traversal",
+        "file": "GraphDB.swift",
+        "desc": "Entity extraction and relation sweep.",
+        "log": "Traversed 50 nodes.",
+        "what": "Extracts named entities and traverses local SQLite relations.",
+        "why": "Vector search is bad at exact relationships (e.g. 'Who is the CEO of X').",
+        "how": "Uses Spacy/NLTK style entity extraction mapped to SQLite tables.",
+        "code": "let entities = NER.extract(query)\nfor entity in entities {\n    graphDB.traverse(from: entity, depth: 2)\n}"
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.9,
+        "gridY": 3.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 2d",
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Reciprocal Rank Fusion merging 850 items.",
+        "log": "Indices merged.",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.1,
+        "gridY": 2.0,
+        "next": [
+          12
+        ],
+        "badge": "Step 3a",
+        "name": "Cross-Encoder Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Deep scoring.",
+        "log": "Rescored 850 items.",
+        "what": "Deeply scores retrieved chunks against the exact query.",
+        "why": "Vectors only measure semantic distance. Cross-encoders measure logical relevance.",
+        "how": "Passes (Query + Chunk) into a TinyBERT classification head.",
+        "code": "let score = try await crossEncoder.predict([query, chunk])\nchunk.relevance = score"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.3,
+        "gridY": 1.0,
+        "next": [
+          13
+        ],
+        "badge": "Step 3b",
+        "name": "FlashRank",
+        "file": "ReRanker.swift",
+        "desc": "Secondary pass.",
+        "log": "Top 100 isolated.",
+        "what": "A secondary, ultra-fast reranking pass.",
+        "why": "Used to break ties among the top 50 highly-relevant chunks.",
+        "how": "Uses a quantized ranking model.",
+        "code": "let finalRank = try await flashRank.rerank(top50)"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.0,
+        "next": [
+          14
+        ],
+        "badge": "Step 3c",
         "name": "Sibling Expansion",
         "file": "ParentDocumentService",
         "desc": "Fetch massive contiguous blocks.",
@@ -2623,13 +2881,13 @@ const DEBUGGER_TRACKS = {
         "code": "func expandContext(chunkIds: [Int]) -> [Chunk] {\n    var expanded: Set<Int> = []\n    for id in chunkIds {\n        expanded.insert(id - 1)\n        expanded.insert(id)\n        expanded.insert(id + 1)\n    }\n    return db.fetchChunks(ids: Array(expanded))\n}"
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
+        "stageIdx": 3,
+        "gridX": 0.7,
+        "gridY": 3.0,
         "next": [
-          5
+          15
         ],
-        "badge": "Step 2.2",
+        "badge": "Step 3d",
         "name": "Lost-in-Middle",
         "file": "ContextPacking.swift",
         "desc": "Reorder massive 32K context.",
@@ -2640,24 +2898,24 @@ const DEBUGGER_TRACKS = {
         "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}"
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 3.5,
+        "stageIdx": 3,
+        "gridX": 0.9,
+        "gridY": 2.0,
         "next": [
-          6
+          16
         ],
-        "badge": "Step 2.3",
+        "badge": "Step 3e",
         "name": "32K Context Packing",
         "file": "ContextPacking.swift",
         "desc": "Pack massive context up to 32,000 tokens.",
-        "log": "Packed 28,000 tokens."
+        "log": "Packed 31,500 tokens."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          7
+          14
         ],
         "badge": "Step A",
         "name": "NAND Flash Paging",
@@ -2670,12 +2928,12 @@ const DEBUGGER_TRACKS = {
         "code": "let weightBuffer = try MLMultiArray(shape: [shape], dataType: .float16)\n// Weights are mapped, not explicitly loaded\nweightBuffer.withUnsafeMutableBytes { ptr in\n    mmap(ptr.baseAddress, ptr.count, PROT_READ, MAP_SHARED, fd, 0)\n}"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          9,
-          10
+          16,
+          17
         ],
         "badge": "Step B",
         "name": "MoE Expert Router",
@@ -2688,11 +2946,11 @@ const DEBUGGER_TRACKS = {
         "code": "let gatingLogits = gatingLayer.forward(hiddenState)\nlet top2Experts = gatingLogits.topK(2)\n\nvar output = zeros()\nfor expert in top2Experts {\n    let expertOut = experts[expert.index].forward(hiddenState)\n    output += expertOut * expert.weight\n}"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
-          12
+          19
         ],
         "badge": "Step C",
         "name": "Draft Generation",
@@ -2705,11 +2963,11 @@ const DEBUGGER_TRACKS = {
         "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
-          13
+          20
         ],
         "badge": "Step D",
         "name": "MoE Verification",
@@ -2722,11 +2980,11 @@ const DEBUGGER_TRACKS = {
         "code": "let verificationLogits = try await moeModel.forward(draftTokens)"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
-          15
+          22
         ],
         "badge": "Step E",
         "name": "Guided Generation",
@@ -2739,26 +2997,60 @@ const DEBUGGER_TRACKS = {
         "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)"
       },
       {
-        "stageIdx": 4,
-        "gridX": 0.5,
-        "gridY": 0.5,
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 1.0,
         "next": [
-          12
+          24
         ],
-        "badge": "Step 4",
-        "name": "Massive Verification",
+        "badge": "Step 5a",
+        "name": "Fact-Check Sweep",
         "file": "VerificationGates.swift",
-        "desc": "Sweep entire 32K context across Gates A-I.",
-        "log": "Verified.",
-        "what": "Runs the Verification Gates over a massive 32,000 token context.",
-        "why": "Hallucination risk is highest when the context window is totally saturated.",
-        "how": "Batches verification sweeps.",
-        "code": "try await VerificationGateService.sweep(answer: answer, massiveContext: context)"
+        "desc": "Multi-agent fact checking against retrieved context.",
+        "log": "Facts verified.",
+        "what": "Multi-agent fact checking against retrieved context.",
+        "why": "Ensures the generated answer doesn't invent numbers or dates.",
+        "how": "Uses a secondary prompt pass: 'Does this text align with this context?'",
+        "code": "let result = verificationAgent.check(claims, against: context)"
       },
       {
         "stageIdx": 5,
         "gridX": 0.5,
-        "gridY": 0.5,
+        "gridY": 2.0,
+        "next": [
+          25
+        ],
+        "badge": "Step 5b",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGates.swift",
+        "desc": "Check for self-contradictory logic.",
+        "log": "Logic verified.",
+        "what": "Checks if the answer contradicts itself.",
+        "why": "Complex multi-hop reasoning can sometimes lead to conflicting statements.",
+        "how": "Analyzes the polarity of statements in the answer.",
+        "code": "let isConsistent = logicEngine.verifyConsistency(answer)"
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 3.0,
+        "next": [
+          26
+        ],
+        "badge": "Step 5c",
+        "name": "Hallucination Pass",
+        "file": "VerificationGates.swift",
+        "desc": "Final check for ungrounded information.",
+        "log": "Citations verified.",
+        "what": "Final check for ungrounded information.",
+        "why": "Catches any external knowledge the LLM hallucinated.",
+        "how": "Ensures every claim has a valid citation marker.",
+        "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}"
+      },
+      {
+        "stageIdx": 6,
+        "gridX": 0.5,
+        "gridY": 2.0,
         "next": [],
         "badge": "Output",
         "name": "Verified Response",
@@ -2781,17 +3073,18 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Route",
-      "2. Assemble",
-      "3. Inference",
-      "4. Verify",
-      "5. Output"
+      "1. Intent",
+      "2. Sweep",
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
         "stageIdx": 0,
         "gridX": 0.5,
-        "gridY": 0.5,
+        "gridY": 2.0,
         "next": [
           1
         ],
@@ -2807,12 +3100,12 @@ const DEBUGGER_TRACKS = {
       },
       {
         "stageIdx": 1,
-        "gridX": 0.5,
-        "gridY": 0.5,
+        "gridX": 0.2,
+        "gridY": 1.0,
         "next": [
-          2
+          3
         ],
-        "badge": "Step 1",
+        "badge": "Step 1a",
         "name": "Threshold Pruning Bypass",
         "file": "EngineSDK.swift",
         "desc": "Enable exhaustive retrieval routines.",
@@ -2823,30 +3116,141 @@ const DEBUGGER_TRACKS = {
         "code": "ragConfig.similarityThreshold = 0.10 // Extremely loose\nragConfig.maxChunks = 250 // Exhaustive"
       },
       {
-        "stageIdx": 2,
+        "stageIdx": 1,
         "gridX": 0.5,
-        "gridY": 0.5,
-        "next": [
-          3
-        ],
-        "badge": "Step 2",
-        "name": "Deep Hybrid Sweep",
-        "file": "RAGEngine.swift",
-        "desc": "Exhaustive retrieval across entire corpus.",
-        "log": "Retrieved 150 items.",
-        "what": "Retrieves massive amounts of chunks across the entire workspace.",
-        "why": "Maximum mode leaves no stone unturned.",
-        "how": "Executes standard hybrid search but returns top 250 instead of top 15.",
-        "code": "let results = try await hybridSearch(query, limit: 250)"
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 1.5,
+        "gridY": 2.0,
         "next": [
           4
         ],
-        "badge": "Step 2.1",
+        "badge": "Step 1b",
+        "name": "Multi-hop Intent",
+        "file": "QueryEnhancement.swift",
+        "desc": "Deconstruct into 5 sub-queries.",
+        "log": "Sub-queries mapped.",
+        "what": "Deconstructs a complex query into multiple sub-queries.",
+        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
+        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
+        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 3.0,
+        "next": [
+          5
+        ],
+        "badge": "Step 1c",
+        "name": "Semantic Expansion",
+        "file": "QueryEnhancement.swift",
+        "desc": "Expand synonyms for maximum net-casting.",
+        "log": "Keywords expanded.",
+        "what": "Expands sub-queries using a local dictionary of synonyms.",
+        "why": "Catches edge cases where documents use different terminology than the user.",
+        "how": "Appends 2-3 semantic equivalents to the BM25 search string.",
+        "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)"
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.1,
+        "gridY": 0.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2a",
+        "name": "Vector Sweep",
+        "file": "RAGEngine.swift",
+        "desc": "Exhaustive retrieval across entire corpus.",
+        "log": "Retrieved 500 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.35,
+        "gridY": 1.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 2b",
+        "name": "BM25 Sweep",
+        "file": "SQLiteFTS5",
+        "desc": "Massive exact keyword sweep.",
+        "log": "Retrieved 300 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.65,
+        "gridY": 2.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 2c",
+        "name": "Knowledge Graph Traversal",
+        "file": "GraphDB.swift",
+        "desc": "Entity extraction and relation sweep.",
+        "log": "Traversed 50 nodes.",
+        "what": "Extracts named entities and traverses local SQLite relations.",
+        "why": "Vector search is bad at exact relationships (e.g. 'Who is the CEO of X').",
+        "how": "Uses Spacy/NLTK style entity extraction mapped to SQLite tables.",
+        "code": "let entities = NER.extract(query)\nfor entity in entities {\n    graphDB.traverse(from: entity, depth: 2)\n}"
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.9,
+        "gridY": 3.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 2d",
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Reciprocal Rank Fusion merging 850 items.",
+        "log": "Indices merged.",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.1,
+        "gridY": 2.0,
+        "next": [
+          12
+        ],
+        "badge": "Step 3a",
+        "name": "Cross-Encoder Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Deep scoring.",
+        "log": "Rescored 850 items.",
+        "what": "Deeply scores retrieved chunks against the exact query.",
+        "why": "Vectors only measure semantic distance. Cross-encoders measure logical relevance.",
+        "how": "Passes (Query + Chunk) into a TinyBERT classification head.",
+        "code": "let score = try await crossEncoder.predict([query, chunk])\nchunk.relevance = score"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.3,
+        "gridY": 1.0,
+        "next": [
+          13
+        ],
+        "badge": "Step 3b",
+        "name": "FlashRank",
+        "file": "ReRanker.swift",
+        "desc": "Secondary pass.",
+        "log": "Top 100 isolated.",
+        "what": "A secondary, ultra-fast reranking pass.",
+        "why": "Used to break ties among the top 50 highly-relevant chunks.",
+        "how": "Uses a quantized ranking model.",
+        "code": "let finalRank = try await flashRank.rerank(top50)"
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.0,
+        "next": [
+          14
+        ],
+        "badge": "Step 3c",
         "name": "Sibling Expansion",
         "file": "ParentDocumentService",
         "desc": "Fetch massive contiguous blocks.",
@@ -2857,13 +3261,13 @@ const DEBUGGER_TRACKS = {
         "code": "func expandContext(chunkIds: [Int]) -> [Chunk] {\n    var expanded: Set<Int> = []\n    for id in chunkIds {\n        expanded.insert(id - 1)\n        expanded.insert(id)\n        expanded.insert(id + 1)\n    }\n    return db.fetchChunks(ids: Array(expanded))\n}"
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
+        "stageIdx": 3,
+        "gridX": 0.7,
+        "gridY": 3.0,
         "next": [
-          5
+          15
         ],
-        "badge": "Step 2.2",
+        "badge": "Step 3d",
         "name": "Lost-in-Middle",
         "file": "ContextPacking.swift",
         "desc": "Reorder massive 32K context.",
@@ -2874,24 +3278,24 @@ const DEBUGGER_TRACKS = {
         "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}"
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 3.5,
+        "stageIdx": 3,
+        "gridX": 0.9,
+        "gridY": 2.0,
         "next": [
-          6
+          16
         ],
-        "badge": "Step 2.3",
+        "badge": "Step 3e",
         "name": "32K Context Packing",
         "file": "ContextPacking.swift",
         "desc": "Pack massive context up to 32,000 tokens.",
-        "log": "Packed 28,000 tokens."
+        "log": "Packed 31,500 tokens."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          7
+          14
         ],
         "badge": "Step A",
         "name": "PCC Escalate",
@@ -2904,11 +3308,11 @@ const DEBUGGER_TRACKS = {
         "code": "if contextTokenCount > 4096 {\n    let session = PrivateCloudComputeSession()\n    try await session.authenticate()\n}"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          9
+          16
         ],
         "badge": "Step B",
         "name": "Secure Payload Transfer",
@@ -2921,11 +3325,11 @@ const DEBUGGER_TRACKS = {
         "code": "let encryptedPayload = try Crypto.encrypt(payload: context, using: pccPublicKey)\nlet request = URLRequest(url: pccEndpoint)\nrequest.httpBody = encryptedPayload\nlet response = try await URLSession.shared.data(for: request)"
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          11
+          18
         ],
         "badge": "Step C",
         "name": "Cloud GPU Execution",
@@ -2938,26 +3342,60 @@ const DEBUGGER_TRACKS = {
         "code": "// (Server-Side Execution)\n// The payload is decrypted in the secure enclave, processed, and streamed back."
       },
       {
-        "stageIdx": 4,
-        "gridX": 0.5,
-        "gridY": 0.5,
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 1.0,
         "next": [
-          10
+          22
         ],
-        "badge": "Step 4",
-        "name": "Massive Verification",
+        "badge": "Step 5a",
+        "name": "Fact-Check Sweep",
         "file": "VerificationGates.swift",
-        "desc": "Sweep entire 32K context across Gates A-I.",
-        "log": "Verified.",
-        "what": "Runs the Verification Gates over a massive 32,000 token context.",
-        "why": "Hallucination risk is highest when the context window is totally saturated.",
-        "how": "Batches verification sweeps.",
-        "code": "try await VerificationGateService.sweep(answer: answer, massiveContext: context)"
+        "desc": "Multi-agent fact checking against retrieved context.",
+        "log": "Facts verified.",
+        "what": "Multi-agent fact checking against retrieved context.",
+        "why": "Ensures the generated answer doesn't invent numbers or dates.",
+        "how": "Uses a secondary prompt pass: 'Does this text align with this context?'",
+        "code": "let result = verificationAgent.check(claims, against: context)"
       },
       {
         "stageIdx": 5,
         "gridX": 0.5,
-        "gridY": 0.5,
+        "gridY": 2.0,
+        "next": [
+          23
+        ],
+        "badge": "Step 5b",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGates.swift",
+        "desc": "Check for self-contradictory logic.",
+        "log": "Logic verified.",
+        "what": "Checks if the answer contradicts itself.",
+        "why": "Complex multi-hop reasoning can sometimes lead to conflicting statements.",
+        "how": "Analyzes the polarity of statements in the answer.",
+        "code": "let isConsistent = logicEngine.verifyConsistency(answer)"
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 3.0,
+        "next": [
+          24
+        ],
+        "badge": "Step 5c",
+        "name": "Hallucination Pass",
+        "file": "VerificationGates.swift",
+        "desc": "Final check for ungrounded information.",
+        "log": "Citations verified.",
+        "what": "Final check for ungrounded information.",
+        "why": "Catches any external knowledge the LLM hallucinated.",
+        "how": "Ensures every claim has a valid citation marker.",
+        "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}"
+      },
+      {
+        "stageIdx": 6,
+        "gridX": 0.5,
+        "gridY": 2.0,
         "next": [],
         "badge": "Output",
         "name": "Verified Response",
