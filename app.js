@@ -1910,8 +1910,8 @@ function initPlayground() {
   // Watch for resize events to adjust connections SVG
   window.addEventListener("resize", drawConnections);
 
-  // Initial draw: default to query execution pipeline
-  switchTrack("query");
+  // Initial draw: default to standard execution pipeline
+  switchTrack("standard");
 }
 
 forceFreshStylesheet();
