@@ -499,7 +499,7 @@ const DEBUGGER_TRACKS = {
         "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -517,7 +517,7 @@ const DEBUGGER_TRACKS = {
         "code": "let config = MLModelConfiguration()\nlet adapterURL = URL(fileURLWithPath: \"rag_citation_adapter.mlmodelc\")\ntry config.addParameterWeights(adapterURL)\nlet model = try MLModel(contentsOf: baseModelURL, configuration: config)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
@@ -534,7 +534,7 @@ const DEBUGGER_TRACKS = {
         "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
@@ -551,7 +551,7 @@ const DEBUGGER_TRACKS = {
         "code": "let verificationLogits = try await baseModel.forward(draftTokens)\nlet accepted = verifySequence(draftTokens, against: verificationLogits)\nif !accepted { \n    // Fall back to sequential generation\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
@@ -568,13 +568,13 @@ const DEBUGGER_TRACKS = {
         "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
           18
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
         "desc": "Check claims against context.",
@@ -585,14 +585,14 @@ const DEBUGGER_TRACKS = {
         "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
           19,
           20
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
         "desc": "Contradiction and hallucination checks.",
@@ -603,7 +603,7 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [],
@@ -618,7 +618,7 @@ const DEBUGGER_TRACKS = {
         "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -635,7 +635,7 @@ const DEBUGGER_TRACKS = {
         "code": "ui.render(text: generatedAnswer, citations: resolvedCitations)"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -876,7 +876,7 @@ const DEBUGGER_TRACKS = {
         "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -893,7 +893,7 @@ const DEBUGGER_TRACKS = {
         "code": "let weightBuffer = try MLMultiArray(shape: [shape], dataType: .float16)\n// Weights are mapped, not explicitly loaded\nweightBuffer.withUnsafeMutableBytes { ptr in\n    mmap(ptr.baseAddress, ptr.count, PROT_READ, MAP_SHARED, fd, 0)\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
@@ -911,7 +911,7 @@ const DEBUGGER_TRACKS = {
         "code": "let gatingLogits = gatingLayer.forward(hiddenState)\nlet top2Experts = gatingLogits.topK(2)\n\nvar output = zeros()\nfor expert in top2Experts {\n    let expertOut = experts[expert.index].forward(hiddenState)\n    output += expertOut * expert.weight\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
@@ -928,7 +928,7 @@ const DEBUGGER_TRACKS = {
         "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -945,7 +945,7 @@ const DEBUGGER_TRACKS = {
         "code": "let verificationLogits = try await moeModel.forward(draftTokens)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
@@ -962,13 +962,13 @@ const DEBUGGER_TRACKS = {
         "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
           19
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
         "desc": "Check claims against context.",
@@ -979,14 +979,14 @@ const DEBUGGER_TRACKS = {
         "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
           20,
           21
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
         "desc": "Contradiction and hallucination checks.",
@@ -997,7 +997,7 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [],
@@ -1012,7 +1012,7 @@ const DEBUGGER_TRACKS = {
         "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -1029,7 +1029,7 @@ const DEBUGGER_TRACKS = {
         "code": "ui.render(text: generatedAnswer, citations: resolvedCitations)"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -1270,7 +1270,7 @@ const DEBUGGER_TRACKS = {
         "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -1287,7 +1287,7 @@ const DEBUGGER_TRACKS = {
         "code": "if contextTokenCount > 4096 {\n    let session = PrivateCloudComputeSession()\n    try await session.authenticate()\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
@@ -1304,7 +1304,7 @@ const DEBUGGER_TRACKS = {
         "code": "let encryptedPayload = try Crypto.encrypt(payload: context, using: pccPublicKey)\nlet request = URLRequest(url: pccEndpoint)\nrequest.httpBody = encryptedPayload\nlet response = try await URLSession.shared.data(for: request)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
@@ -1321,13 +1321,13 @@ const DEBUGGER_TRACKS = {
         "code": "// (Server-Side Execution)\n// The payload is decrypted in the secure enclave, processed, and streamed back."
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
           17
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
         "desc": "Check claims against context.",
@@ -1338,14 +1338,14 @@ const DEBUGGER_TRACKS = {
         "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
           18,
           19
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
         "desc": "Contradiction and hallucination checks.",
@@ -1356,7 +1356,7 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [],
@@ -1371,7 +1371,7 @@ const DEBUGGER_TRACKS = {
         "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -1388,7 +1388,7 @@ const DEBUGGER_TRACKS = {
         "code": "ui.render(text: generatedAnswer, citations: resolvedCitations)"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -1624,7 +1624,7 @@ const DEBUGGER_TRACKS = {
         "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -1642,7 +1642,7 @@ const DEBUGGER_TRACKS = {
         "code": "let config = MLModelConfiguration()\nlet adapterURL = URL(fileURLWithPath: \"rag_citation_adapter.mlmodelc\")\ntry config.addParameterWeights(adapterURL)\nlet model = try MLModel(contentsOf: baseModelURL, configuration: config)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
@@ -1659,7 +1659,7 @@ const DEBUGGER_TRACKS = {
         "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
@@ -1676,7 +1676,7 @@ const DEBUGGER_TRACKS = {
         "code": "let verificationLogits = try await baseModel.forward(draftTokens)\nlet accepted = verifySequence(draftTokens, against: verificationLogits)\nif !accepted { \n    // Fall back to sequential generation\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
@@ -1693,13 +1693,13 @@ const DEBUGGER_TRACKS = {
         "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
           18
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
         "desc": "Check claims against context.",
@@ -1710,14 +1710,14 @@ const DEBUGGER_TRACKS = {
         "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
           19,
           20
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
         "desc": "Contradiction and hallucination checks.",
@@ -1728,7 +1728,7 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [],
@@ -1743,7 +1743,7 @@ const DEBUGGER_TRACKS = {
         "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -1760,7 +1760,7 @@ const DEBUGGER_TRACKS = {
         "code": "ui.renderStream(deepThinkSession.stream)"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -1996,7 +1996,7 @@ const DEBUGGER_TRACKS = {
         "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -2013,7 +2013,7 @@ const DEBUGGER_TRACKS = {
         "code": "let weightBuffer = try MLMultiArray(shape: [shape], dataType: .float16)\n// Weights are mapped, not explicitly loaded\nweightBuffer.withUnsafeMutableBytes { ptr in\n    mmap(ptr.baseAddress, ptr.count, PROT_READ, MAP_SHARED, fd, 0)\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
@@ -2031,7 +2031,7 @@ const DEBUGGER_TRACKS = {
         "code": "let gatingLogits = gatingLayer.forward(hiddenState)\nlet top2Experts = gatingLogits.topK(2)\n\nvar output = zeros()\nfor expert in top2Experts {\n    let expertOut = experts[expert.index].forward(hiddenState)\n    output += expertOut * expert.weight\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
@@ -2048,7 +2048,7 @@ const DEBUGGER_TRACKS = {
         "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -2065,7 +2065,7 @@ const DEBUGGER_TRACKS = {
         "code": "let verificationLogits = try await moeModel.forward(draftTokens)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
@@ -2082,13 +2082,13 @@ const DEBUGGER_TRACKS = {
         "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
           19
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
         "desc": "Check claims against context.",
@@ -2099,14 +2099,14 @@ const DEBUGGER_TRACKS = {
         "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
           20,
           21
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
         "desc": "Contradiction and hallucination checks.",
@@ -2117,7 +2117,7 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [],
@@ -2132,7 +2132,7 @@ const DEBUGGER_TRACKS = {
         "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -2149,7 +2149,7 @@ const DEBUGGER_TRACKS = {
         "code": "ui.renderStream(deepThinkSession.stream)"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -2385,7 +2385,7 @@ const DEBUGGER_TRACKS = {
         "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -2402,7 +2402,7 @@ const DEBUGGER_TRACKS = {
         "code": "if contextTokenCount > 4096 {\n    let session = PrivateCloudComputeSession()\n    try await session.authenticate()\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
@@ -2419,7 +2419,7 @@ const DEBUGGER_TRACKS = {
         "code": "let encryptedPayload = try Crypto.encrypt(payload: context, using: pccPublicKey)\nlet request = URLRequest(url: pccEndpoint)\nrequest.httpBody = encryptedPayload\nlet response = try await URLSession.shared.data(for: request)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
@@ -2436,13 +2436,13 @@ const DEBUGGER_TRACKS = {
         "code": "// (Server-Side Execution)\n// The payload is decrypted in the secure enclave, processed, and streamed back."
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
           17
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
         "desc": "Check claims against context.",
@@ -2453,14 +2453,14 @@ const DEBUGGER_TRACKS = {
         "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
           18,
           19
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
         "desc": "Contradiction and hallucination checks.",
@@ -2471,7 +2471,7 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [],
@@ -2486,7 +2486,7 @@ const DEBUGGER_TRACKS = {
         "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -2503,7 +2503,7 @@ const DEBUGGER_TRACKS = {
         "code": "ui.renderStream(deepThinkSession.stream)"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -2739,7 +2739,7 @@ const DEBUGGER_TRACKS = {
         "log": "Packed 31,500 tokens."
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -2757,7 +2757,7 @@ const DEBUGGER_TRACKS = {
         "code": "let config = MLModelConfiguration()\nlet adapterURL = URL(fileURLWithPath: \"rag_citation_adapter.mlmodelc\")\ntry config.addParameterWeights(adapterURL)\nlet model = try MLModel(contentsOf: baseModelURL, configuration: config)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
@@ -2774,7 +2774,7 @@ const DEBUGGER_TRACKS = {
         "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
@@ -2791,7 +2791,7 @@ const DEBUGGER_TRACKS = {
         "code": "let verificationLogits = try await baseModel.forward(draftTokens)\nlet accepted = verifySequence(draftTokens, against: verificationLogits)\nif !accepted { \n    // Fall back to sequential generation\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
@@ -2808,13 +2808,13 @@ const DEBUGGER_TRACKS = {
         "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
           24
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Fact-Check Sweep",
         "file": "VerificationGates.swift",
         "desc": "Multi-agent fact checking against retrieved context.",
@@ -2825,13 +2825,13 @@ const DEBUGGER_TRACKS = {
         "code": "let result = verificationAgent.check(claims, against: context)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
           25
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Contradiction Sweep",
         "file": "VerificationGates.swift",
         "desc": "Check for self-contradictory logic.",
@@ -2842,13 +2842,13 @@ const DEBUGGER_TRACKS = {
         "code": "let isConsistent = logicEngine.verifyConsistency(answer)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
           26
         ],
-        "badge": "Step 6c",
+        "badge": "Step 5c",
         "name": "Hallucination Pass",
         "file": "VerificationGates.swift",
         "desc": "Final check for ungrounded information.",
@@ -2859,7 +2859,7 @@ const DEBUGGER_TRACKS = {
         "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [],
@@ -3095,7 +3095,7 @@ const DEBUGGER_TRACKS = {
         "log": "Packed 31,500 tokens."
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -3112,7 +3112,7 @@ const DEBUGGER_TRACKS = {
         "code": "let weightBuffer = try MLMultiArray(shape: [shape], dataType: .float16)\n// Weights are mapped, not explicitly loaded\nweightBuffer.withUnsafeMutableBytes { ptr in\n    mmap(ptr.baseAddress, ptr.count, PROT_READ, MAP_SHARED, fd, 0)\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
@@ -3130,7 +3130,7 @@ const DEBUGGER_TRACKS = {
         "code": "let gatingLogits = gatingLayer.forward(hiddenState)\nlet top2Experts = gatingLogits.topK(2)\n\nvar output = zeros()\nfor expert in top2Experts {\n    let expertOut = experts[expert.index].forward(hiddenState)\n    output += expertOut * expert.weight\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
@@ -3147,7 +3147,7 @@ const DEBUGGER_TRACKS = {
         "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
@@ -3164,7 +3164,7 @@ const DEBUGGER_TRACKS = {
         "code": "let verificationLogits = try await moeModel.forward(draftTokens)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
@@ -3181,13 +3181,13 @@ const DEBUGGER_TRACKS = {
         "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
           25
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Fact-Check Sweep",
         "file": "VerificationGates.swift",
         "desc": "Multi-agent fact checking against retrieved context.",
@@ -3198,13 +3198,13 @@ const DEBUGGER_TRACKS = {
         "code": "let result = verificationAgent.check(claims, against: context)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
           26
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Contradiction Sweep",
         "file": "VerificationGates.swift",
         "desc": "Check for self-contradictory logic.",
@@ -3215,13 +3215,13 @@ const DEBUGGER_TRACKS = {
         "code": "let isConsistent = logicEngine.verifyConsistency(answer)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
           27
         ],
-        "badge": "Step 6c",
+        "badge": "Step 5c",
         "name": "Hallucination Pass",
         "file": "VerificationGates.swift",
         "desc": "Final check for ungrounded information.",
@@ -3232,7 +3232,7 @@ const DEBUGGER_TRACKS = {
         "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [],
@@ -3468,7 +3468,7 @@ const DEBUGGER_TRACKS = {
         "log": "Packed 31,500 tokens."
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
@@ -3485,7 +3485,7 @@ const DEBUGGER_TRACKS = {
         "code": "if contextTokenCount > 4096 {\n    let session = PrivateCloudComputeSession()\n    try await session.authenticate()\n}"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
@@ -3502,7 +3502,7 @@ const DEBUGGER_TRACKS = {
         "code": "let encryptedPayload = try Crypto.encrypt(payload: context, using: pccPublicKey)\nlet request = URLRequest(url: pccEndpoint)\nrequest.httpBody = encryptedPayload\nlet response = try await URLSession.shared.data(for: request)"
       },
       {
-        "stageIdx": 5,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
@@ -3519,13 +3519,13 @@ const DEBUGGER_TRACKS = {
         "code": "// (Server-Side Execution)\n// The payload is decrypted in the secure enclave, processed, and streamed back."
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
           23
         ],
-        "badge": "Step 6a",
+        "badge": "Step 5a",
         "name": "Fact-Check Sweep",
         "file": "VerificationGates.swift",
         "desc": "Multi-agent fact checking against retrieved context.",
@@ -3536,13 +3536,13 @@ const DEBUGGER_TRACKS = {
         "code": "let result = verificationAgent.check(claims, against: context)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
           24
         ],
-        "badge": "Step 6b",
+        "badge": "Step 5b",
         "name": "Contradiction Sweep",
         "file": "VerificationGates.swift",
         "desc": "Check for self-contradictory logic.",
@@ -3553,13 +3553,13 @@ const DEBUGGER_TRACKS = {
         "code": "let isConsistent = logicEngine.verifyConsistency(answer)"
       },
       {
-        "stageIdx": 6,
+        "stageIdx": 5,
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
           25
         ],
-        "badge": "Step 6c",
+        "badge": "Step 5c",
         "name": "Hallucination Pass",
         "file": "VerificationGates.swift",
         "desc": "Final check for ungrounded information.",
@@ -3570,7 +3570,7 @@ const DEBUGGER_TRACKS = {
         "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}"
       },
       {
-        "stageIdx": 7,
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [],
