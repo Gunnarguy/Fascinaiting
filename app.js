@@ -3464,8 +3464,8 @@ function initPlayground() {
   // Watch for resize events to adjust connections SVG
   window.addEventListener("resize", drawConnections);
 
-  // Initial draw: default to standard execution pipeline
-  switchTrack("standard");
+  // Initial draw: default to standard_3b execution pipeline
+  updateTrack();
 }
 
 forceFreshStylesheet();
