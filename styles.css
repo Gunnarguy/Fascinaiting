@@ -383,7 +383,7 @@ h1 {
 .diagram-workspace {
   position: relative;
   width: 1260px;
-  height: 460px;
+  height: 650px;
   padding: 1.5rem 1rem;
   display: grid;
   grid-template-columns: repeat(5, 1fr);

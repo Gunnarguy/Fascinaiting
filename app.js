@@ -1600,7 +1600,7 @@ function renderDebuggerDiagram(trackName) {
     const gridX = step.gridX !== undefined ? step.gridX : 0.5;
     const gridY = step.gridY !== undefined ? step.gridY : idx;
     node.style.left = `calc(${gridX * 100}% - ${nodeWidth / 2}px)`;
-    node.style.top = `${gridY * 42 + 20}px`;
+    node.style.top = `${gridY * 65 + 20}px`;
 
     // Click handler to inspect node
     node.addEventListener("click", () => {
