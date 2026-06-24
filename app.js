@@ -94,7 +94,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "Upload Document",
         "file": "UIDocumentPickerViewController",
-        "desc": "User selects a document or provides raw text.",
+        "desc": "User selects a document.",
         "log": "File read access granted."
       },
       {
@@ -108,7 +108,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 1",
         "name": "Complexity Pre-Scan",
         "file": "PageComplexityAnalyzer.swift",
-        "desc": "Adaptive scan to check if page needs OCR.",
+        "desc": "Adaptive scan.",
         "log": "Routed to split extractors."
       },
       {
@@ -134,7 +134,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 1b",
         "name": "Native PDFKit",
         "file": "DocumentProcessor.swift",
-        "desc": "Extract raw text from digital pages.",
+        "desc": "Extract raw text.",
         "log": "Text extracted."
       },
       {
@@ -173,8 +173,8 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2b",
         "name": "Lexical Indexer",
-        "file": "SQLiteFullTextService.swift",
-        "desc": "Write metadata into SQLite FTS5.",
+        "file": "SQLiteFTS5",
+        "desc": "Write metadata.",
         "log": "Index metadata written."
       },
       {
@@ -191,11 +191,11 @@ const DEBUGGER_TRACKS = {
     ]
   },
   "standard_3b": {
-    "name": "Standard Mode (3B AFM Core)",
+    "name": "Standard Strategy [3B AFM Core]",
     "metrics": {
-      "latency": "240ms",
-      "rate": "135 tok/s",
-      "score": "98.7%"
+      "latency": "380ms",
+      "rate": "90 tok/s",
+      "score": "99.1%"
     },
     "stages": [
       "0. Input",
@@ -229,7 +229,7 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1",
         "name": "Intent Formulation",
-        "file": "QueryEnhancementService.swift",
+        "file": "QueryEnhancement.swift",
         "desc": "Resolve pronouns and expand.",
         "log": "Intent resolved."
       },
@@ -238,11 +238,11 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          4
+          5
         ],
         "badge": "Step 1a",
         "name": "Query Embed",
-        "file": "EmbeddingService.swift",
+        "file": "Embedding.swift",
         "desc": "Generate query vector.",
         "log": "Vector generated."
       },
@@ -251,11 +251,11 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          5
+          6
         ],
         "badge": "Step 1b",
         "name": "Keyword Extract",
-        "file": "QueryEnhancementService.swift",
+        "file": "QueryEnhancement.swift",
         "desc": "Extract BM25 terms.",
         "log": "Keywords extracted."
       },
@@ -319,7 +319,7 @@ const DEBUGGER_TRACKS = {
           9,
           10
         ],
-        "badge": "Step 3a",
+        "badge": "Step A",
         "name": "LoRA Injection (3B)",
         "file": "SystemLanguageModel",
         "desc": "Inject RAG task adapter into 3B Base Model.",
@@ -330,9 +330,9 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          11
+          12
         ],
-        "badge": "Step 3b",
+        "badge": "Step B",
         "name": "Draft Generation",
         "file": "SpeculativeDecoding",
         "desc": "48M Draft Model candidate tokens.",
@@ -343,9 +343,9 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          11
+          13
         ],
-        "badge": "Step 3c",
+        "badge": "Step C",
         "name": "Parallel Verification",
         "file": "SpeculativeDecoding",
         "desc": "3B Base Model verifies sequence.",
@@ -356,9 +356,9 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          12
+          15
         ],
-        "badge": "Step 3d",
+        "badge": "Step D",
         "name": "Guided Generation",
         "file": "ConstrainedDecoding",
         "desc": "Ensure exact citation schemas.",
@@ -416,7 +416,7 @@ const DEBUGGER_TRACKS = {
     ]
   },
   "standard_20b": {
-    "name": "Standard Mode (20B AFM Advanced)",
+    "name": "Standard Strategy [20B AFM Advanced]",
     "metrics": {
       "latency": "380ms",
       "rate": "90 tok/s",
@@ -454,7 +454,7 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1",
         "name": "Intent Formulation",
-        "file": "QueryEnhancementService.swift",
+        "file": "QueryEnhancement.swift",
         "desc": "Resolve pronouns and expand.",
         "log": "Intent resolved."
       },
@@ -463,11 +463,11 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          4
+          5
         ],
         "badge": "Step 1a",
         "name": "Query Embed",
-        "file": "EmbeddingService.swift",
+        "file": "Embedding.swift",
         "desc": "Generate query vector.",
         "log": "Vector generated."
       },
@@ -476,11 +476,11 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          5
+          6
         ],
         "badge": "Step 1b",
         "name": "Keyword Extract",
-        "file": "QueryEnhancementService.swift",
+        "file": "QueryEnhancement.swift",
         "desc": "Extract BM25 terms.",
         "log": "Keywords extracted."
       },
@@ -543,7 +543,7 @@ const DEBUGGER_TRACKS = {
         "next": [
           9
         ],
-        "badge": "Step 3a",
+        "badge": "Step A",
         "name": "NAND Flash Paging",
         "file": "UnifiedMemory",
         "desc": "Stream 20B weights from NVMe.",
@@ -554,10 +554,10 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          10,
-          11
+          11,
+          12
         ],
-        "badge": "Step 3b",
+        "badge": "Step B",
         "name": "MoE Expert Router",
         "file": "SparseMoE.swift",
         "desc": "Activate 2.8B parameters for query.",
@@ -568,9 +568,9 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
-          12
+          14
         ],
-        "badge": "Step 3c",
+        "badge": "Step C",
         "name": "Draft Generation",
         "file": "SpeculativeDecoding",
         "desc": "48M Draft Model sequence.",
@@ -581,9 +581,9 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
-          12
+          15
         ],
-        "badge": "Step 3d",
+        "badge": "Step D",
         "name": "MoE Verification",
         "file": "SpeculativeDecoding",
         "desc": "20B Base verifies sequence.",
@@ -594,9 +594,9 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
-          13
+          17
         ],
-        "badge": "Step 3e",
+        "badge": "Step E",
         "name": "Guided Generation",
         "file": "ConstrainedDecoding",
         "desc": "Ensure exact citation schemas.",
@@ -613,7 +613,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 4",
         "name": "Semantic Grounding",
         "file": "VerificationGates.swift",
-        "desc": "Verify claims.",
+        "desc": "Verify claims exist in context.",
         "log": "Gate PASS."
       },
       {
@@ -653,18 +653,229 @@ const DEBUGGER_TRACKS = {
       }
     ]
   },
-  "deepthink_3b": {
-    "name": "Deep Think Mode (3B AFM Core)",
+  "standard_cloud": {
+    "name": "Standard Strategy [PCC Cloud Pro]",
     "metrics": {
-      "latency": "980ms",
+      "latency": "380ms",
       "rate": "90 tok/s",
-      "score": "99.4%"
+      "score": "99.1%"
+    },
+    "stages": [
+      "0. Input",
+      "1. Retrieve",
+      "2. Assemble",
+      "3. AFM Inference",
+      "4. Verify",
+      "5. Output"
+    ],
+    "steps": [
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2,
+          3
+        ],
+        "badge": "Step 1",
+        "name": "Intent Formulation",
+        "file": "QueryEnhancement.swift",
+        "desc": "Resolve pronouns and expand.",
+        "log": "Intent resolved."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 1a",
+        "name": "Query Embed",
+        "file": "Embedding.swift",
+        "desc": "Generate query vector.",
+        "log": "Vector generated."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 1b",
+        "name": "Keyword Extract",
+        "file": "QueryEnhancement.swift",
+        "desc": "Extract BM25 terms.",
+        "log": "Keywords extracted."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.2,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2a",
+        "name": "Metal Vector Search",
+        "file": "RAGEngine.swift",
+        "desc": "SIMD4 Cosine Similarity.",
+        "log": "Found Top 30 vectors."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.8,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2b",
+        "name": "BM25 Search",
+        "file": "SQLiteFTS5",
+        "desc": "Exact keyword lookup.",
+        "log": "Found 12 matching rows."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2.1",
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Reciprocal Rank Fusion.",
+        "log": "Indices merged."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 2.2",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Assemble parent-chunks.",
+        "log": "Packed tokens."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          9
+        ],
+        "badge": "Step A",
+        "name": "PCC Escalate",
+        "file": "CloudFoundationModel",
+        "desc": "Escalate to Apple Private Cloud Compute.",
+        "log": "Establishing secure enclave."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          11
+        ],
+        "badge": "Step B",
+        "name": "Secure Payload Transfer",
+        "file": "PCCSecurity.swift",
+        "desc": "Transmit encrypted 32K token buffer.",
+        "log": "Payload received by PCC."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          13
+        ],
+        "badge": "Step C",
+        "name": "Cloud GPU Execution",
+        "file": "NVIDIA Enclave",
+        "desc": "Execute on Google Cloud GPU compute nodes.",
+        "log": "Execution complete. Streaming back."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          12,
+          13
+        ],
+        "badge": "Step 4",
+        "name": "Semantic Grounding",
+        "file": "VerificationGates.swift",
+        "desc": "Verify claims exist in context.",
+        "log": "Gate PASS."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [],
+        "badge": "Fail",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGates.swift",
+        "desc": "Hallucination check.",
+        "log": "ABSTAIN."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          14
+        ],
+        "badge": "Pass",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGates.swift",
+        "desc": "No logical contradictions.",
+        "log": "Gate PASS."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Final Response",
+        "file": "UI",
+        "desc": "Render with citation markers.",
+        "log": "Response delivered."
+      }
+    ]
+  },
+  "deepthink_3b": {
+    "name": "Deep Think Strategy [3B AFM Core]",
+    "metrics": {
+      "latency": "1.8s",
+      "rate": "64 tok/s",
+      "score": "99.8%"
     },
     "stages": [
       "0. Input",
       "1. Multi-Hop",
       "2. Iterate",
-      "3. AFM Inference",
+      "3. Inference",
       "4. 8-Gates",
       "5. Output"
     ],
@@ -701,7 +912,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          4
+          5
         ],
         "badge": "Step 1a",
         "name": "Vector Embeddings",
@@ -714,7 +925,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          5
+          6
         ],
         "badge": "Step 1b",
         "name": "Keyword Extract",
@@ -782,49 +993,49 @@ const DEBUGGER_TRACKS = {
           9,
           10
         ],
-        "badge": "Step 3a",
+        "badge": "Step A",
         "name": "LoRA Injection (3B)",
         "file": "SystemLanguageModel",
-        "desc": "Inject deep reasoning logic adapter.",
-        "log": "Loaded RAG_Reasoning_LoRA."
+        "desc": "Inject RAG task adapter into 3B Base Model.",
+        "log": "Loaded Adapter."
       },
       {
         "stageIdx": 3,
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          11
+          12
         ],
-        "badge": "Step 3b",
+        "badge": "Step B",
         "name": "Draft Generation",
         "file": "SpeculativeDecoding",
-        "desc": "Draft model predicts reasoning chain.",
-        "log": "Drafting chain of thought."
+        "desc": "48M Draft Model candidate tokens.",
+        "log": "Drafting sequence."
       },
       {
         "stageIdx": 3,
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          11
+          13
         ],
-        "badge": "Step 3c",
+        "badge": "Step C",
         "name": "Parallel Verification",
         "file": "SpeculativeDecoding",
         "desc": "3B Base Model verifies sequence.",
-        "log": "Sequence verified."
+        "log": "Candidates verified."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          12
+          15
         ],
-        "badge": "Step 3d",
+        "badge": "Step D",
         "name": "Guided Generation",
         "file": "ConstrainedDecoding",
-        "desc": "Schema enforcement.",
+        "desc": "Ensure exact citation schemas.",
         "log": "Schema enforced."
       },
       {
@@ -854,7 +1065,7 @@ const DEBUGGER_TRACKS = {
     ]
   },
   "deepthink_20b": {
-    "name": "Deep Think Mode (20B AFM Advanced)",
+    "name": "Deep Think Strategy [20B AFM Advanced]",
     "metrics": {
       "latency": "1.8s",
       "rate": "64 tok/s",
@@ -864,7 +1075,7 @@ const DEBUGGER_TRACKS = {
       "0. Input",
       "1. Multi-Hop",
       "2. Iterate",
-      "3. AFM Inference",
+      "3. Inference",
       "4. 8-Gates",
       "5. Output"
     ],
@@ -901,7 +1112,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          4
+          5
         ],
         "badge": "Step 1a",
         "name": "Vector Embeddings",
@@ -914,7 +1125,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          5
+          6
         ],
         "badge": "Step 1b",
         "name": "Keyword Extract",
@@ -981,7 +1192,7 @@ const DEBUGGER_TRACKS = {
         "next": [
           9
         ],
-        "badge": "Step 3a",
+        "badge": "Step A",
         "name": "NAND Flash Paging",
         "file": "UnifiedMemory",
         "desc": "Stream 20B weights from NVMe.",
@@ -992,13 +1203,13 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          10,
-          11
+          11,
+          12
         ],
-        "badge": "Step 3b",
+        "badge": "Step B",
         "name": "MoE Expert Router",
         "file": "SparseMoE.swift",
-        "desc": "Activate 2.8B parameters.",
+        "desc": "Activate 2.8B parameters for query.",
         "log": "MoE active."
       },
       {
@@ -1006,38 +1217,38 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
-          12
+          14
         ],
-        "badge": "Step 3c",
+        "badge": "Step C",
         "name": "Draft Generation",
         "file": "SpeculativeDecoding",
-        "desc": "Draft model predicts reasoning chain.",
-        "log": "Drafting chain of thought."
+        "desc": "48M Draft Model sequence.",
+        "log": "Drafting sequence."
       },
       {
         "stageIdx": 3,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
-          12
+          15
         ],
-        "badge": "Step 3d",
+        "badge": "Step D",
         "name": "MoE Verification",
         "file": "SpeculativeDecoding",
-        "desc": "Active MoE parameters verify sequence.",
-        "log": "Sequence verified by MoE."
+        "desc": "20B Base verifies sequence.",
+        "log": "Candidates verified."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
-          13
+          17
         ],
-        "badge": "Step 3e",
+        "badge": "Step E",
         "name": "Guided Generation",
         "file": "ConstrainedDecoding",
-        "desc": "Schema enforcement.",
+        "desc": "Ensure exact citation schemas.",
         "log": "Schema enforced."
       },
       {
@@ -1066,8 +1277,194 @@ const DEBUGGER_TRACKS = {
       }
     ]
   },
-  "maximum": {
-    "name": "Maximum Mode (Private Cloud Compute - 32K Context)",
+  "deepthink_cloud": {
+    "name": "Deep Think Strategy [PCC Cloud Pro]",
+    "metrics": {
+      "latency": "1.8s",
+      "rate": "64 tok/s",
+      "score": "99.8%"
+    },
+    "stages": [
+      "0. Input",
+      "1. Multi-Hop",
+      "2. Iterate",
+      "3. Inference",
+      "4. 8-Gates",
+      "5. Output"
+    ],
+    "steps": [
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2,
+          3
+        ],
+        "badge": "Step 1",
+        "name": "Multi-hop Intent",
+        "file": "QueryEnhancement.swift",
+        "desc": "Deconstruct complex query.",
+        "log": "Split into 3 sub-queries."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 1a",
+        "name": "Vector Embeddings",
+        "file": "Embedding.swift",
+        "desc": "Embed all 3 sub-queries.",
+        "log": "Vectors generated."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 1b",
+        "name": "Keyword Extract",
+        "file": "QueryEnhancement.swift",
+        "desc": "Extract for 3 sub-queries.",
+        "log": "Keywords generated."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.2,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2a",
+        "name": "Iterative Vector",
+        "file": "RAGEngine.swift",
+        "desc": "Search across sub-queries.",
+        "log": "Aggregated 90 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.8,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2b",
+        "name": "Iterative BM25",
+        "file": "SQLiteFTS5",
+        "desc": "Search across sub-queries.",
+        "log": "Aggregated 40 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2.1",
+        "name": "Cross-Encoder",
+        "file": "ReRanker.swift",
+        "desc": "Rescore 130 items.",
+        "log": "Filtered to Top 15."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 2.2",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Parent-chunk resolution.",
+        "log": "Packed 3900 tokens."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          9
+        ],
+        "badge": "Step A",
+        "name": "PCC Escalate",
+        "file": "CloudFoundationModel",
+        "desc": "Escalate to Apple Private Cloud Compute.",
+        "log": "Establishing secure enclave."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          11
+        ],
+        "badge": "Step B",
+        "name": "Secure Payload Transfer",
+        "file": "PCCSecurity.swift",
+        "desc": "Transmit encrypted 32K token buffer.",
+        "log": "Payload received by PCC."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          13
+        ],
+        "badge": "Step C",
+        "name": "Cloud GPU Execution",
+        "file": "NVIDIA Enclave",
+        "desc": "Execute on Google Cloud GPU compute nodes.",
+        "log": "Execution complete. Streaming back."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          12
+        ],
+        "badge": "Step 4",
+        "name": "8-Gate Verification",
+        "file": "VerificationGates.swift",
+        "desc": "Logic, math, and hallucination sweeps.",
+        "log": "Executing 8 parallel gates."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Synthesized Response",
+        "file": "UI",
+        "desc": "Render multi-paragraph verified response.",
+        "log": "Response Delivered."
+      }
+    ]
+  },
+  "maximum_3b": {
+    "name": "Maximum Strategy [3B AFM Core]",
     "metrics": {
       "latency": "3.5s",
       "rate": "30 tok/s",
@@ -1076,9 +1473,9 @@ const DEBUGGER_TRACKS = {
     "stages": [
       "0. Input",
       "1. Route",
-      "2. Search",
-      "3. PCC Pack",
-      "4. Cloud Gen",
+      "2. Sweep",
+      "3. Inference",
+      "4. Verify",
       "5. Output"
     ],
     "steps": [
@@ -1103,10 +1500,10 @@ const DEBUGGER_TRACKS = {
           2
         ],
         "badge": "Step 1",
-        "name": "PCC Router",
-        "file": "EngineSDKCompatibility.swift",
-        "desc": "Escalate to Apple Private Cloud Compute.",
-        "log": "Tier: PCC Cloud Pro."
+        "name": "Maximum Mode Router",
+        "file": "EngineSDK.swift",
+        "desc": "Enable exhaustive retrieval routines.",
+        "log": "Maximum thresholds enabled."
       },
       {
         "stageIdx": 2,
@@ -1122,30 +1519,376 @@ const DEBUGGER_TRACKS = {
         "log": "Retrieved 150 items."
       },
       {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          4
+        ],
+        "badge": "Step 2.1",
+        "name": "32K Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Pack massive context up to 32,000 tokens.",
+        "log": "Packed 28,000 tokens."
+      },
+      {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          4
+          5,
+          6
         ],
-        "badge": "Step 3",
-        "name": "32K Context Packing",
-        "file": "ContextPacking.swift",
-        "desc": "Pack massive context up to 32,000 tokens.",
-        "log": "Packed 28,000 tokens securely."
+        "badge": "Step A",
+        "name": "LoRA Injection (3B)",
+        "file": "SystemLanguageModel",
+        "desc": "Inject RAG task adapter into 3B Base Model.",
+        "log": "Loaded Adapter."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          8
+        ],
+        "badge": "Step B",
+        "name": "Draft Generation",
+        "file": "SpeculativeDecoding",
+        "desc": "48M Draft Model candidate tokens.",
+        "log": "Drafting sequence."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          9
+        ],
+        "badge": "Step C",
+        "name": "Parallel Verification",
+        "file": "SpeculativeDecoding",
+        "desc": "3B Base Model verifies sequence.",
+        "log": "Candidates verified."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          11
+        ],
+        "badge": "Step D",
+        "name": "Guided Generation",
+        "file": "ConstrainedDecoding",
+        "desc": "Ensure exact citation schemas.",
+        "log": "Schema enforced."
       },
       {
         "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          5
+          9
         ],
         "badge": "Step 4",
-        "name": "PCC Execution",
+        "name": "Massive Verification",
+        "file": "VerificationGates.swift",
+        "desc": "Sweep entire 32K context.",
+        "log": "Verified."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Verified Response",
+        "file": "UI",
+        "desc": "Stream final verified answer.",
+        "log": "Response Delivered."
+      }
+    ]
+  },
+  "maximum_20b": {
+    "name": "Maximum Strategy [20B AFM Advanced]",
+    "metrics": {
+      "latency": "3.5s",
+      "rate": "30 tok/s",
+      "score": "99.9%"
+    },
+    "stages": [
+      "0. Input",
+      "1. Route",
+      "2. Sweep",
+      "3. Inference",
+      "4. Verify",
+      "5. Output"
+    ],
+    "steps": [
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2
+        ],
+        "badge": "Step 1",
+        "name": "Maximum Mode Router",
+        "file": "EngineSDK.swift",
+        "desc": "Enable exhaustive retrieval routines.",
+        "log": "Maximum thresholds enabled."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          3
+        ],
+        "badge": "Step 2",
+        "name": "Deep Hybrid Sweep",
+        "file": "RAGEngine.swift",
+        "desc": "Exhaustive retrieval across entire corpus.",
+        "log": "Retrieved 150 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          4
+        ],
+        "badge": "Step 2.1",
+        "name": "32K Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Pack massive context up to 32,000 tokens.",
+        "log": "Packed 28,000 tokens."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          5
+        ],
+        "badge": "Step A",
+        "name": "NAND Flash Paging",
+        "file": "UnifiedMemory",
+        "desc": "Stream 20B weights from NVMe.",
+        "log": "Paging active."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          7,
+          8
+        ],
+        "badge": "Step B",
+        "name": "MoE Expert Router",
+        "file": "SparseMoE.swift",
+        "desc": "Activate 2.8B parameters for query.",
+        "log": "MoE active."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [
+          10
+        ],
+        "badge": "Step C",
+        "name": "Draft Generation",
+        "file": "SpeculativeDecoding",
+        "desc": "48M Draft Model sequence.",
+        "log": "Drafting sequence."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          11
+        ],
+        "badge": "Step D",
+        "name": "MoE Verification",
+        "file": "SpeculativeDecoding",
+        "desc": "20B Base verifies sequence.",
+        "log": "Candidates verified."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          13
+        ],
+        "badge": "Step E",
+        "name": "Guided Generation",
+        "file": "ConstrainedDecoding",
+        "desc": "Ensure exact citation schemas.",
+        "log": "Schema enforced."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 4",
+        "name": "Massive Verification",
+        "file": "VerificationGates.swift",
+        "desc": "Sweep entire 32K context.",
+        "log": "Verified."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Verified Response",
+        "file": "UI",
+        "desc": "Stream final verified answer.",
+        "log": "Response Delivered."
+      }
+    ]
+  },
+  "maximum_cloud": {
+    "name": "Maximum Strategy [PCC Cloud Pro]",
+    "metrics": {
+      "latency": "3.5s",
+      "rate": "30 tok/s",
+      "score": "99.9%"
+    },
+    "stages": [
+      "0. Input",
+      "1. Route",
+      "2. Sweep",
+      "3. Inference",
+      "4. Verify",
+      "5. Output"
+    ],
+    "steps": [
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2
+        ],
+        "badge": "Step 1",
+        "name": "Maximum Mode Router",
+        "file": "EngineSDK.swift",
+        "desc": "Enable exhaustive retrieval routines.",
+        "log": "Maximum thresholds enabled."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          3
+        ],
+        "badge": "Step 2",
+        "name": "Deep Hybrid Sweep",
+        "file": "RAGEngine.swift",
+        "desc": "Exhaustive retrieval across entire corpus.",
+        "log": "Retrieved 150 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          4
+        ],
+        "badge": "Step 2.1",
+        "name": "32K Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Pack massive context up to 32,000 tokens.",
+        "log": "Packed 28,000 tokens."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          5
+        ],
+        "badge": "Step A",
+        "name": "PCC Escalate",
         "file": "CloudFoundationModel",
-        "desc": "Secure enclave generation on Google Cloud NVIDIA GPUs.",
-        "log": "Executing in PCC Secure Enclave."
+        "desc": "Escalate to Apple Private Cloud Compute.",
+        "log": "Establishing secure enclave."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
+        "badge": "Step B",
+        "name": "Secure Payload Transfer",
+        "file": "PCCSecurity.swift",
+        "desc": "Transmit encrypted 32K token buffer.",
+        "log": "Payload received by PCC."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          9
+        ],
+        "badge": "Step C",
+        "name": "Cloud GPU Execution",
+        "file": "NVIDIA Enclave",
+        "desc": "Execute on Google Cloud GPU compute nodes.",
+        "log": "Execution complete. Streaming back."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 4",
+        "name": "Massive Verification",
+        "file": "VerificationGates.swift",
+        "desc": "Sweep entire 32K context.",
+        "log": "Verified."
       },
       {
         "stageIdx": 5,
@@ -1472,14 +2215,7 @@ function switchTrack(trackName) {
 
   activeDebuggerTrack = trackName;
 
-  // Toggle active tab buttons
-  document.querySelectorAll(".playground-tab").forEach((btn) => {
-    if (btn.dataset.trackId === trackName) {
-      btn.classList.add("active");
-    } else {
-      btn.classList.remove("active");
-    }
-  });
+  // We no longer toggle single buttons here, we manage segmented controls in initPlayground.
 
   updatePlaygroundUI(trackName);
 }
@@ -1595,16 +2331,58 @@ function setupSpeedSlider() {
   }
 }
 
+let currentStrategy = 'standard';
+let currentTarget = '3b';
+
 function initPlayground() {
-  // Bind tab click events
-  document.querySelectorAll(".playground-tab").forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const trackId = tab.dataset.trackId;
-      if (trackId) {
-        switchTrack(trackId);
-      }
+  const stratBtns = document.querySelectorAll('#strategy-control .segment');
+  const targetBtns = document.querySelectorAll('#target-control .segment');
+  const ingestBtn = document.getElementById('ingestion-btn');
+
+  function updateTrack() {
+    if (currentStrategy === 'ingestion') {
+      switchTrack('ingestion');
+    } else {
+      switchTrack(`${currentStrategy}_${currentTarget}`);
+    }
+  }
+
+  stratBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentStrategy = btn.dataset.strategy;
+      stratBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      ingestBtn.classList.remove('active');
+      updateTrack();
     });
   });
+
+  targetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentTarget = btn.dataset.target;
+      targetBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // If we were on ingestion, default back to standard
+      if (currentStrategy === 'ingestion') {
+        currentStrategy = 'standard';
+        stratBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('#strategy-control .segment[data-strategy="standard"]').classList.add('active');
+        ingestBtn.classList.remove('active');
+      }
+      
+      updateTrack();
+    });
+  });
+
+  if (ingestBtn) {
+    ingestBtn.addEventListener('click', () => {
+      currentStrategy = 'ingestion';
+      stratBtns.forEach(b => b.classList.remove('active'));
+      ingestBtn.classList.add('active');
+      updateTrack();
+    });
+  }
 
   // Bind run button click
   const runBtn = document.getElementById("run-pipeline-btn");

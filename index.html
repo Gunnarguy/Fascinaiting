@@ -37,7 +37,7 @@
       name="twitter:image"
       content="https://fascinaiting.me/ios-app-screenshot.png"
     />
-    <link rel="stylesheet" href="styles.css?v=20260624a" />
+    <link rel="stylesheet" href="styles.css?v=20260624b" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <script type="application/ld+json">
@@ -325,13 +325,26 @@
             <button class="console-btn" id="run-pipeline-btn" data-track="playground_run_pipeline" data-track-group="playground_interaction">Execute Engine Trace</button>
           </div>
 
-          <div class="playground-tabs">
-            <button class="playground-tab active" data-track-id="standard_3b" data-track="playground_tab_standard_3b" data-track-group="playground_interaction">Standard (3B)</button>
-            <button class="playground-tab" data-track-id="standard_20b" data-track="playground_tab_standard_20b" data-track-group="playground_interaction">Standard (20B)</button>
-            <button class="playground-tab" data-track-id="deepthink_3b" data-track="playground_tab_deepthink_3b" data-track-group="playground_interaction">Deep Think (3B)</button>
-            <button class="playground-tab" data-track-id="deepthink_20b" data-track="playground_tab_deepthink_20b" data-track-group="playground_interaction">Deep Think (20B)</button>
-            <button class="playground-tab" data-track-id="maximum" data-track="playground_tab_maximum" data-track-group="playground_interaction">Maximum (Cloud)</button>
-            <button class="playground-tab" data-track-id="ingestion" data-track="playground_tab_ingestion" data-track-group="playground_interaction">Ingestion</button>
+          <div class="control-panel">
+            <div class="control-group">
+              <span class="control-label">Pipeline Strategy</span>
+              <div class="segmented-control" id="strategy-control">
+                <button class="segment active" data-strategy="standard">Standard</button>
+                <button class="segment" data-strategy="deepthink">Deep Think</button>
+                <button class="segment" data-strategy="maximum">Maximum</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <span class="control-label">Execution Target</span>
+              <div class="segmented-control" id="target-control">
+                <button class="segment active" data-target="3b">3B Core</button>
+                <button class="segment" data-target="20b">20B MoE</button>
+                <button class="segment" data-target="cloud">Cloud Pro</button>
+              </div>
+            </div>
+            <div class="control-group ingestion-group">
+              <button class="segment standalone" id="ingestion-btn" data-track-id="ingestion">View Ingestion Pipeline</button>
+            </div>
           </div>
 
           <div class="debugger-progress-bar">
@@ -517,7 +530,7 @@
       >
     </footer>
 
-    <script src="app.js?v=20260624a"></script>
+    <script src="app.js?v=20260624b"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   </body>
 </html>
