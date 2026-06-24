@@ -317,14 +317,14 @@ const DEBUGGER_TRACKS = {
           3
         ],
         "badge": "Step 1",
-        "name": "Intent Formulation",
-        "file": "QueryEnhancement.swift",
-        "desc": "Resolve pronouns and expand.",
+        "name": "Query Analysis",
+        "file": "QueryExecutionPlanner.swift",
+        "desc": "Classifies intent and resolves pronouns.",
         "log": "Intent resolved.",
-        "what": "Resolves pronouns ('what is it?') and expands the query using chat history.",
-        "why": "Users often ask follow-up questions missing context. The retrieval engine needs the explicit nouns.",
-        "how": "Pre-processes the query against the last 3 conversation turns.",
-        "code": "func formulateIntent(query: String, history: [Message]) -> String {\n    if query.containsPronouns() {\n        return resolveContext(query, against: history)\n    }\n    return query\n}"
+        "what": "Classifies intent and resolves pronouns.",
+        "why": "Determines if the query is a lookup, procedure, or comparison.",
+        "how": "Uses QueryExecutionPlannerService to build an execution plan.",
+        "code": "let plan = await planner.buildPlan(for: query, profile: profile)"
       },
       {
         "stageIdx": 1,
@@ -675,14 +675,14 @@ const DEBUGGER_TRACKS = {
           3
         ],
         "badge": "Step 1",
-        "name": "Intent Formulation",
-        "file": "QueryEnhancement.swift",
-        "desc": "Resolve pronouns and expand.",
+        "name": "Query Analysis",
+        "file": "QueryExecutionPlanner.swift",
+        "desc": "Classifies intent and resolves pronouns.",
         "log": "Intent resolved.",
-        "what": "Resolves pronouns ('what is it?') and expands the query using chat history.",
-        "why": "Users often ask follow-up questions missing context. The retrieval engine needs the explicit nouns.",
-        "how": "Pre-processes the query against the last 3 conversation turns.",
-        "code": "func formulateIntent(query: String, history: [Message]) -> String {\n    if query.containsPronouns() {\n        return resolveContext(query, against: history)\n    }\n    return query\n}"
+        "what": "Classifies intent and resolves pronouns.",
+        "why": "Determines if the query is a lookup, procedure, or comparison.",
+        "how": "Uses QueryExecutionPlannerService to build an execution plan.",
+        "code": "let plan = await planner.buildPlan(for: query, profile: profile)"
       },
       {
         "stageIdx": 1,
@@ -1050,14 +1050,14 @@ const DEBUGGER_TRACKS = {
           3
         ],
         "badge": "Step 1",
-        "name": "Intent Formulation",
-        "file": "QueryEnhancement.swift",
-        "desc": "Resolve pronouns and expand.",
+        "name": "Query Analysis",
+        "file": "QueryExecutionPlanner.swift",
+        "desc": "Classifies intent and resolves pronouns.",
         "log": "Intent resolved.",
-        "what": "Resolves pronouns ('what is it?') and expands the query using chat history.",
-        "why": "Users often ask follow-up questions missing context. The retrieval engine needs the explicit nouns.",
-        "how": "Pre-processes the query against the last 3 conversation turns.",
-        "code": "func formulateIntent(query: String, history: [Message]) -> String {\n    if query.containsPronouns() {\n        return resolveContext(query, against: history)\n    }\n    return query\n}"
+        "what": "Classifies intent and resolves pronouns.",
+        "why": "Determines if the query is a lookup, procedure, or comparison.",
+        "how": "Uses QueryExecutionPlannerService to build an execution plan.",
+        "code": "let plan = await planner.buildPlan(for: query, profile: profile)"
       },
       {
         "stageIdx": 1,
@@ -1390,14 +1390,14 @@ const DEBUGGER_TRACKS = {
           3
         ],
         "badge": "Step 1",
-        "name": "Multi-hop Intent",
-        "file": "QueryEnhancement.swift",
+        "name": "Agentic Deconstruction",
+        "file": "QueryExecutionPlanner.swift",
         "desc": "Deconstruct complex query.",
         "log": "Split into 3 sub-queries.",
-        "what": "Deconstructs a complex query into multiple sub-queries.",
-        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
-        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
-        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+        "what": "Breaks the query into multiple sub-queries.",
+        "why": "Handles multi-hop logic by retrieving evidence for all facets.",
+        "how": "Uses QueryExecutionPlannerService with .agenticRetrieval mode.",
+        "code": "let subQueries = plan.subqueries"
       },
       {
         "stageIdx": 1,
@@ -1407,13 +1407,13 @@ const DEBUGGER_TRACKS = {
           5
         ],
         "badge": "Step 1a",
-        "name": "Vector Embeddings",
+        "name": "Batch Embedding",
         "file": "Embedding.swift",
         "desc": "Embed all 3 sub-queries.",
         "log": "Vectors generated.",
-        "what": "Embeds all 3 sub-queries into separate vectors.",
-        "why": "Needed to search different semantic spaces.",
-        "how": "Batches the embeddings to the GPU.",
+        "what": "Embeds all sub-queries simultaneously.",
+        "why": "Parallelization across GPU cores.",
+        "how": "Batches the embedding request to the MLModel.",
         "code": "let vectors = try await embeddingModel.batchPredict(subQueries)"
       },
       {
@@ -1424,14 +1424,14 @@ const DEBUGGER_TRACKS = {
           6
         ],
         "badge": "Step 1b",
-        "name": "Keyword Extract",
+        "name": "Batch Keyword Extract",
         "file": "QueryEnhancement.swift",
         "desc": "Extract for 3 sub-queries.",
         "log": "Keywords generated.",
-        "what": "Extracts raw keywords from the query for the BM25 lexical search.",
-        "why": "BM25 searches fail if fed too many stopwords ('the', 'and', 'is').",
-        "how": "Strips punctuation and stop words.",
-        "code": "let stopWords: Set<String> = [\"the\", \"is\", \"at\", \"which\", \"on\"]\nlet keywords = expandedQuery.components(separatedBy: .whitespaces)\n    .filter { !stopWords.contains($0.lowercased()) }\n    .joined(separator: \" \")"
+        "what": "Extracts keywords for all sub-queries.",
+        "why": "Prepares terms for parallel BM25 execution.",
+        "how": "Uses NLTokenizer and stop-word filtering.",
+        "code": "let keywords = subQueries.map { extractKeywords($0) }"
       },
       {
         "stageIdx": 2,
@@ -1545,8 +1545,8 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 3.3",
         "name": "Context Packing",
         "file": "ContextPacking.swift",
-        "desc": "Assemble up to 4K limits.",
-        "log": "Packed 3900 tokens.",
+        "desc": "Assemble up to 8K limits.",
+        "log": "Packed tokens.",
         "what": "Assembles the final context block while strictly adhering to the model's token limit.",
         "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
         "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
@@ -1631,7 +1631,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 5",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
-        "desc": "Deep logic, math, and hallucination sweeps.",
+        "desc": "Check claims against context.",
         "log": "Executing 9 parallel gates.",
         "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
         "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
@@ -1643,12 +1643,13 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          17
+          17,
+          18
         ],
         "badge": "Step 5.1",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
-        "desc": "Deep contradiction sweep.",
+        "desc": "Contradiction and hallucination checks.",
         "log": "Gates PASS.",
         "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
         "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
@@ -1656,19 +1657,51 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [],
+        "badge": "Fail",
+        "name": "Abstain",
+        "file": "UI",
+        "desc": "Engine determines evidence is weak.",
+        "log": "Refusal generated.",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          19
+        ],
+        "badge": "Pass",
+        "name": "Synthesized Response",
+        "file": "UI",
+        "desc": "No logical contradictions.",
+        "log": "Forwarding to UI.",
+        "what": "The final Deep Think response, often spanning multiple paragraphs.",
+        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
+        "how": "Streamed to the UI with multi-document citations.",
+        "code": "ui.renderStream(deepThinkSession.stream)"
+      },
+      {
         "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
         "badge": "Output",
-        "name": "Synthesized Response",
-        "file": "UI",
-        "desc": "Render multi-paragraph verified response.",
-        "log": "Response Delivered.",
-        "what": "The final Deep Think response, often spanning multiple paragraphs.",
-        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
-        "how": "Streamed to the UI with multi-document citations.",
-        "code": "ui.renderStream(deepThinkSession.stream)"
+        "name": "Final Response",
+        "file": "ChatScreen.swift",
+        "desc": "Render with citation markers.",
+        "log": "Response delivered.",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}"
       }
     ]
   },
@@ -1715,14 +1748,14 @@ const DEBUGGER_TRACKS = {
           3
         ],
         "badge": "Step 1",
-        "name": "Multi-hop Intent",
-        "file": "QueryEnhancement.swift",
+        "name": "Agentic Deconstruction",
+        "file": "QueryExecutionPlanner.swift",
         "desc": "Deconstruct complex query.",
         "log": "Split into 3 sub-queries.",
-        "what": "Deconstructs a complex query into multiple sub-queries.",
-        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
-        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
-        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+        "what": "Breaks the query into multiple sub-queries.",
+        "why": "Handles multi-hop logic by retrieving evidence for all facets.",
+        "how": "Uses QueryExecutionPlannerService with .agenticRetrieval mode.",
+        "code": "let subQueries = plan.subqueries"
       },
       {
         "stageIdx": 1,
@@ -1732,13 +1765,13 @@ const DEBUGGER_TRACKS = {
           5
         ],
         "badge": "Step 1a",
-        "name": "Vector Embeddings",
+        "name": "Batch Embedding",
         "file": "Embedding.swift",
         "desc": "Embed all 3 sub-queries.",
         "log": "Vectors generated.",
-        "what": "Embeds all 3 sub-queries into separate vectors.",
-        "why": "Needed to search different semantic spaces.",
-        "how": "Batches the embeddings to the GPU.",
+        "what": "Embeds all sub-queries simultaneously.",
+        "why": "Parallelization across GPU cores.",
+        "how": "Batches the embedding request to the MLModel.",
         "code": "let vectors = try await embeddingModel.batchPredict(subQueries)"
       },
       {
@@ -1749,14 +1782,14 @@ const DEBUGGER_TRACKS = {
           6
         ],
         "badge": "Step 1b",
-        "name": "Keyword Extract",
+        "name": "Batch Keyword Extract",
         "file": "QueryEnhancement.swift",
         "desc": "Extract for 3 sub-queries.",
         "log": "Keywords generated.",
-        "what": "Extracts raw keywords from the query for the BM25 lexical search.",
-        "why": "BM25 searches fail if fed too many stopwords ('the', 'and', 'is').",
-        "how": "Strips punctuation and stop words.",
-        "code": "let stopWords: Set<String> = [\"the\", \"is\", \"at\", \"which\", \"on\"]\nlet keywords = expandedQuery.components(separatedBy: .whitespaces)\n    .filter { !stopWords.contains($0.lowercased()) }\n    .joined(separator: \" \")"
+        "what": "Extracts keywords for all sub-queries.",
+        "why": "Prepares terms for parallel BM25 execution.",
+        "how": "Uses NLTokenizer and stop-word filtering.",
+        "code": "let keywords = subQueries.map { extractKeywords($0) }"
       },
       {
         "stageIdx": 2,
@@ -1870,8 +1903,8 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 3.3",
         "name": "Context Packing",
         "file": "ContextPacking.swift",
-        "desc": "Assemble up to 4K limits.",
-        "log": "Packed 3900 tokens.",
+        "desc": "Assemble up to 8K limits.",
+        "log": "Packed tokens.",
         "what": "Assembles the final context block while strictly adhering to the model's token limit.",
         "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
         "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
@@ -1973,7 +2006,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 5",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
-        "desc": "Deep logic, math, and hallucination sweeps.",
+        "desc": "Check claims against context.",
         "log": "Executing 9 parallel gates.",
         "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
         "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
@@ -1985,12 +2018,13 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          18
+          18,
+          19
         ],
         "badge": "Step 5.1",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
-        "desc": "Deep contradiction sweep.",
+        "desc": "Contradiction and hallucination checks.",
         "log": "Gates PASS.",
         "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
         "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
@@ -1998,19 +2032,51 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [],
+        "badge": "Fail",
+        "name": "Abstain",
+        "file": "UI",
+        "desc": "Engine determines evidence is weak.",
+        "log": "Refusal generated.",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          20
+        ],
+        "badge": "Pass",
+        "name": "Synthesized Response",
+        "file": "UI",
+        "desc": "No logical contradictions.",
+        "log": "Forwarding to UI.",
+        "what": "The final Deep Think response, often spanning multiple paragraphs.",
+        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
+        "how": "Streamed to the UI with multi-document citations.",
+        "code": "ui.renderStream(deepThinkSession.stream)"
+      },
+      {
         "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
         "badge": "Output",
-        "name": "Synthesized Response",
-        "file": "UI",
-        "desc": "Render multi-paragraph verified response.",
-        "log": "Response Delivered.",
-        "what": "The final Deep Think response, often spanning multiple paragraphs.",
-        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
-        "how": "Streamed to the UI with multi-document citations.",
-        "code": "ui.renderStream(deepThinkSession.stream)"
+        "name": "Final Response",
+        "file": "ChatScreen.swift",
+        "desc": "Render with citation markers.",
+        "log": "Response delivered.",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}"
       }
     ]
   },
@@ -2057,14 +2123,14 @@ const DEBUGGER_TRACKS = {
           3
         ],
         "badge": "Step 1",
-        "name": "Multi-hop Intent",
-        "file": "QueryEnhancement.swift",
+        "name": "Agentic Deconstruction",
+        "file": "QueryExecutionPlanner.swift",
         "desc": "Deconstruct complex query.",
         "log": "Split into 3 sub-queries.",
-        "what": "Deconstructs a complex query into multiple sub-queries.",
-        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
-        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
-        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+        "what": "Breaks the query into multiple sub-queries.",
+        "why": "Handles multi-hop logic by retrieving evidence for all facets.",
+        "how": "Uses QueryExecutionPlannerService with .agenticRetrieval mode.",
+        "code": "let subQueries = plan.subqueries"
       },
       {
         "stageIdx": 1,
@@ -2074,13 +2140,13 @@ const DEBUGGER_TRACKS = {
           5
         ],
         "badge": "Step 1a",
-        "name": "Vector Embeddings",
+        "name": "Batch Embedding",
         "file": "Embedding.swift",
         "desc": "Embed all 3 sub-queries.",
         "log": "Vectors generated.",
-        "what": "Embeds all 3 sub-queries into separate vectors.",
-        "why": "Needed to search different semantic spaces.",
-        "how": "Batches the embeddings to the GPU.",
+        "what": "Embeds all sub-queries simultaneously.",
+        "why": "Parallelization across GPU cores.",
+        "how": "Batches the embedding request to the MLModel.",
         "code": "let vectors = try await embeddingModel.batchPredict(subQueries)"
       },
       {
@@ -2091,14 +2157,14 @@ const DEBUGGER_TRACKS = {
           6
         ],
         "badge": "Step 1b",
-        "name": "Keyword Extract",
+        "name": "Batch Keyword Extract",
         "file": "QueryEnhancement.swift",
         "desc": "Extract for 3 sub-queries.",
         "log": "Keywords generated.",
-        "what": "Extracts raw keywords from the query for the BM25 lexical search.",
-        "why": "BM25 searches fail if fed too many stopwords ('the', 'and', 'is').",
-        "how": "Strips punctuation and stop words.",
-        "code": "let stopWords: Set<String> = [\"the\", \"is\", \"at\", \"which\", \"on\"]\nlet keywords = expandedQuery.components(separatedBy: .whitespaces)\n    .filter { !stopWords.contains($0.lowercased()) }\n    .joined(separator: \" \")"
+        "what": "Extracts keywords for all sub-queries.",
+        "why": "Prepares terms for parallel BM25 execution.",
+        "how": "Uses NLTokenizer and stop-word filtering.",
+        "code": "let keywords = subQueries.map { extractKeywords($0) }"
       },
       {
         "stageIdx": 2,
@@ -2212,8 +2278,8 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 3.3",
         "name": "Context Packing",
         "file": "ContextPacking.swift",
-        "desc": "Assemble up to 4K limits.",
-        "log": "Packed 3900 tokens.",
+        "desc": "Assemble up to 8K limits.",
+        "log": "Packed tokens.",
         "what": "Assembles the final context block while strictly adhering to the model's token limit.",
         "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
         "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
@@ -2280,7 +2346,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 5",
         "name": "Verification Gates A-I",
         "file": "VerificationGateService.swift",
-        "desc": "Deep logic, math, and hallucination sweeps.",
+        "desc": "Check claims against context.",
         "log": "Executing 9 parallel gates.",
         "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
         "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
@@ -2292,12 +2358,13 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          16
+          16,
+          17
         ],
         "badge": "Step 5.1",
         "name": "Negation & Overlap",
         "file": "VerificationGateService.swift",
-        "desc": "Deep contradiction sweep.",
+        "desc": "Contradiction and hallucination checks.",
         "log": "Gates PASS.",
         "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
         "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
@@ -2305,19 +2372,51 @@ const DEBUGGER_TRACKS = {
         "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}"
       },
       {
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [],
+        "badge": "Fail",
+        "name": "Abstain",
+        "file": "UI",
+        "desc": "Engine determines evidence is weak.",
+        "log": "Refusal generated.",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}"
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          18
+        ],
+        "badge": "Pass",
+        "name": "Synthesized Response",
+        "file": "UI",
+        "desc": "No logical contradictions.",
+        "log": "Forwarding to UI.",
+        "what": "The final Deep Think response, often spanning multiple paragraphs.",
+        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
+        "how": "Streamed to the UI with multi-document citations.",
+        "code": "ui.renderStream(deepThinkSession.stream)"
+      },
+      {
         "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
         "badge": "Output",
-        "name": "Synthesized Response",
-        "file": "UI",
-        "desc": "Render multi-paragraph verified response.",
-        "log": "Response Delivered.",
-        "what": "The final Deep Think response, often spanning multiple paragraphs.",
-        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
-        "how": "Streamed to the UI with multi-document citations.",
-        "code": "ui.renderStream(deepThinkSession.stream)"
+        "name": "Final Response",
+        "file": "ChatScreen.swift",
+        "desc": "Render with citation markers.",
+        "log": "Response delivered.",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}"
       }
     ]
   },
@@ -2341,7 +2440,7 @@ const DEBUGGER_TRACKS = {
       {
         "stageIdx": 0,
         "gridX": 0.5,
-        "gridY": 2.0,
+        "gridY": 3.0,
         "next": [
           1
         ],
@@ -2360,7 +2459,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
-          3
+          4
         ],
         "badge": "Step 1a",
         "name": "Threshold Pruning Bypass",
@@ -2377,24 +2476,24 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          4
+          5
         ],
         "badge": "Step 1b",
-        "name": "Multi-hop Intent",
-        "file": "QueryEnhancement.swift",
+        "name": "Agentic Deconstruction",
+        "file": "QueryExecutionPlanner.swift",
         "desc": "Deconstruct into 5 sub-queries.",
         "log": "Sub-queries mapped.",
-        "what": "Deconstructs a complex query into multiple sub-queries.",
-        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
-        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
-        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+        "what": "Breaks the query into multiple sub-queries.",
+        "why": "Handles multi-hop logic by retrieving evidence for all facets.",
+        "how": "Uses QueryExecutionPlannerService with .agenticRetrieval mode.",
+        "code": "let subQueries = plan.subqueries"
       },
       {
         "stageIdx": 1,
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
-          5
+          6
         ],
         "badge": "Step 1c",
         "name": "Semantic Expansion",
@@ -2407,11 +2506,45 @@ const DEBUGGER_TRACKS = {
         "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)"
       },
       {
+        "stageIdx": 1,
+        "gridX": 0.35,
+        "gridY": 4.0,
+        "next": [
+          9
+        ],
+        "badge": "Step 1d",
+        "name": "Batch Embedding",
+        "file": "Embedding.swift",
+        "desc": "Embed massive array of sub-queries.",
+        "log": "Vectors generated.",
+        "what": "Embeds all sub-queries simultaneously.",
+        "why": "Parallelization across GPU cores.",
+        "how": "Batches the embedding request to the MLModel.",
+        "code": "let vectors = try await embeddingModel.batchPredict(subQueries)"
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.65,
+        "gridY": 5.0,
+        "next": [
+          10
+        ],
+        "badge": "Step 1e",
+        "name": "Batch Keyword Extract",
+        "file": "QueryEnhancement.swift",
+        "desc": "Extract for expanded sub-queries.",
+        "log": "Keywords extracted.",
+        "what": "Extracts keywords for all sub-queries.",
+        "why": "Prepares terms for parallel BM25 execution.",
+        "how": "Uses NLTokenizer and stop-word filtering.",
+        "code": "let keywords = subQueries.map { extractKeywords($0) }"
+      },
+      {
         "stageIdx": 2,
         "gridX": 0.1,
         "gridY": 0.5,
         "next": [
-          7
+          10
         ],
         "badge": "Step 2a",
         "name": "Vector Sweep",
@@ -2424,7 +2557,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.35,
         "gridY": 1.5,
         "next": [
-          8
+          11
         ],
         "badge": "Step 2b",
         "name": "BM25 Sweep",
@@ -2437,7 +2570,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.65,
         "gridY": 2.5,
         "next": [
-          9
+          12
         ],
         "badge": "Step 2c",
         "name": "Knowledge Graph Traversal",
@@ -2454,7 +2587,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.9,
         "gridY": 3.5,
         "next": [
-          10
+          13
         ],
         "badge": "Step 2d",
         "name": "Hybrid RRF",
@@ -2471,7 +2604,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.1,
         "gridY": 2.0,
         "next": [
-          12
+          15
         ],
         "badge": "Step 3a",
         "name": "Cross-Encoder Rerank",
@@ -2488,7 +2621,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.3,
         "gridY": 1.0,
         "next": [
-          13
+          16
         ],
         "badge": "Step 3b",
         "name": "FlashRank",
@@ -2505,7 +2638,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          14
+          17
         ],
         "badge": "Step 3c",
         "name": "Sibling Expansion",
@@ -2522,7 +2655,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.7,
         "gridY": 3.0,
         "next": [
-          15
+          18
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
@@ -2539,7 +2672,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.9,
         "gridY": 2.0,
         "next": [
-          16
+          19
         ],
         "badge": "Step 3e",
         "name": "32K Context Packing",
@@ -2552,8 +2685,8 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          14,
-          15
+          16,
+          17
         ],
         "badge": "Step A",
         "name": "LoRA Injection (3B)",
@@ -2570,7 +2703,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          17
+          19
         ],
         "badge": "Step B",
         "name": "Draft Generation",
@@ -2587,7 +2720,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          18
+          20
         ],
         "badge": "Step C",
         "name": "Parallel Verification",
@@ -2604,7 +2737,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          20
+          22
         ],
         "badge": "Step D",
         "name": "Guided Generation",
@@ -2621,7 +2754,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
-          23
+          25
         ],
         "badge": "Step 5a",
         "name": "Fact-Check Sweep",
@@ -2638,7 +2771,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          24
+          26
         ],
         "badge": "Step 5b",
         "name": "Contradiction Sweep",
@@ -2655,7 +2788,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
-          25
+          27
         ],
         "badge": "Step 5c",
         "name": "Hallucination Pass",
@@ -2704,7 +2837,7 @@ const DEBUGGER_TRACKS = {
       {
         "stageIdx": 0,
         "gridX": 0.5,
-        "gridY": 2.0,
+        "gridY": 3.0,
         "next": [
           1
         ],
@@ -2723,7 +2856,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
-          3
+          4
         ],
         "badge": "Step 1a",
         "name": "Threshold Pruning Bypass",
@@ -2740,24 +2873,24 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          4
+          5
         ],
         "badge": "Step 1b",
-        "name": "Multi-hop Intent",
-        "file": "QueryEnhancement.swift",
+        "name": "Agentic Deconstruction",
+        "file": "QueryExecutionPlanner.swift",
         "desc": "Deconstruct into 5 sub-queries.",
         "log": "Sub-queries mapped.",
-        "what": "Deconstructs a complex query into multiple sub-queries.",
-        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
-        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
-        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+        "what": "Breaks the query into multiple sub-queries.",
+        "why": "Handles multi-hop logic by retrieving evidence for all facets.",
+        "how": "Uses QueryExecutionPlannerService with .agenticRetrieval mode.",
+        "code": "let subQueries = plan.subqueries"
       },
       {
         "stageIdx": 1,
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
-          5
+          6
         ],
         "badge": "Step 1c",
         "name": "Semantic Expansion",
@@ -2770,11 +2903,45 @@ const DEBUGGER_TRACKS = {
         "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)"
       },
       {
+        "stageIdx": 1,
+        "gridX": 0.35,
+        "gridY": 4.0,
+        "next": [
+          9
+        ],
+        "badge": "Step 1d",
+        "name": "Batch Embedding",
+        "file": "Embedding.swift",
+        "desc": "Embed massive array of sub-queries.",
+        "log": "Vectors generated.",
+        "what": "Embeds all sub-queries simultaneously.",
+        "why": "Parallelization across GPU cores.",
+        "how": "Batches the embedding request to the MLModel.",
+        "code": "let vectors = try await embeddingModel.batchPredict(subQueries)"
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.65,
+        "gridY": 5.0,
+        "next": [
+          10
+        ],
+        "badge": "Step 1e",
+        "name": "Batch Keyword Extract",
+        "file": "QueryEnhancement.swift",
+        "desc": "Extract for expanded sub-queries.",
+        "log": "Keywords extracted.",
+        "what": "Extracts keywords for all sub-queries.",
+        "why": "Prepares terms for parallel BM25 execution.",
+        "how": "Uses NLTokenizer and stop-word filtering.",
+        "code": "let keywords = subQueries.map { extractKeywords($0) }"
+      },
+      {
         "stageIdx": 2,
         "gridX": 0.1,
         "gridY": 0.5,
         "next": [
-          7
+          10
         ],
         "badge": "Step 2a",
         "name": "Vector Sweep",
@@ -2787,7 +2954,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.35,
         "gridY": 1.5,
         "next": [
-          8
+          11
         ],
         "badge": "Step 2b",
         "name": "BM25 Sweep",
@@ -2800,7 +2967,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.65,
         "gridY": 2.5,
         "next": [
-          9
+          12
         ],
         "badge": "Step 2c",
         "name": "Knowledge Graph Traversal",
@@ -2817,7 +2984,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.9,
         "gridY": 3.5,
         "next": [
-          10
+          13
         ],
         "badge": "Step 2d",
         "name": "Hybrid RRF",
@@ -2834,7 +3001,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.1,
         "gridY": 2.0,
         "next": [
-          12
+          15
         ],
         "badge": "Step 3a",
         "name": "Cross-Encoder Rerank",
@@ -2851,7 +3018,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.3,
         "gridY": 1.0,
         "next": [
-          13
+          16
         ],
         "badge": "Step 3b",
         "name": "FlashRank",
@@ -2868,7 +3035,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          14
+          17
         ],
         "badge": "Step 3c",
         "name": "Sibling Expansion",
@@ -2885,7 +3052,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.7,
         "gridY": 3.0,
         "next": [
-          15
+          18
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
@@ -2902,7 +3069,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.9,
         "gridY": 2.0,
         "next": [
-          16
+          19
         ],
         "badge": "Step 3e",
         "name": "32K Context Packing",
@@ -2915,7 +3082,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          14
+          16
         ],
         "badge": "Step A",
         "name": "NAND Flash Paging",
@@ -2932,8 +3099,8 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          16,
-          17
+          18,
+          19
         ],
         "badge": "Step B",
         "name": "MoE Expert Router",
@@ -2950,7 +3117,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
-          19
+          21
         ],
         "badge": "Step C",
         "name": "Draft Generation",
@@ -2967,7 +3134,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
-          20
+          22
         ],
         "badge": "Step D",
         "name": "MoE Verification",
@@ -2984,7 +3151,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
-          22
+          24
         ],
         "badge": "Step E",
         "name": "Guided Generation",
@@ -3001,7 +3168,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
-          24
+          26
         ],
         "badge": "Step 5a",
         "name": "Fact-Check Sweep",
@@ -3018,7 +3185,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          25
+          27
         ],
         "badge": "Step 5b",
         "name": "Contradiction Sweep",
@@ -3035,7 +3202,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
-          26
+          28
         ],
         "badge": "Step 5c",
         "name": "Hallucination Pass",
@@ -3084,7 +3251,7 @@ const DEBUGGER_TRACKS = {
       {
         "stageIdx": 0,
         "gridX": 0.5,
-        "gridY": 2.0,
+        "gridY": 3.0,
         "next": [
           1
         ],
@@ -3103,7 +3270,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
-          3
+          4
         ],
         "badge": "Step 1a",
         "name": "Threshold Pruning Bypass",
@@ -3120,24 +3287,24 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          4
+          5
         ],
         "badge": "Step 1b",
-        "name": "Multi-hop Intent",
-        "file": "QueryEnhancement.swift",
+        "name": "Agentic Deconstruction",
+        "file": "QueryExecutionPlanner.swift",
         "desc": "Deconstruct into 5 sub-queries.",
         "log": "Sub-queries mapped.",
-        "what": "Deconstructs a complex query into multiple sub-queries.",
-        "why": "A query like 'Did Apple's revenue grow faster than Microsoft's?' requires retrieving Apple data AND Microsoft data independently.",
-        "how": "Prompts a local fast model to generate a JSON array of sub-queries.",
-        "code": "let prompt = \"Deconstruct this into 3 atomic search queries: \\(query)\"\nlet subQueries = try await fastModel.generate(prompt)"
+        "what": "Breaks the query into multiple sub-queries.",
+        "why": "Handles multi-hop logic by retrieving evidence for all facets.",
+        "how": "Uses QueryExecutionPlannerService with .agenticRetrieval mode.",
+        "code": "let subQueries = plan.subqueries"
       },
       {
         "stageIdx": 1,
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
-          5
+          6
         ],
         "badge": "Step 1c",
         "name": "Semantic Expansion",
@@ -3150,11 +3317,45 @@ const DEBUGGER_TRACKS = {
         "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)"
       },
       {
+        "stageIdx": 1,
+        "gridX": 0.35,
+        "gridY": 4.0,
+        "next": [
+          9
+        ],
+        "badge": "Step 1d",
+        "name": "Batch Embedding",
+        "file": "Embedding.swift",
+        "desc": "Embed massive array of sub-queries.",
+        "log": "Vectors generated.",
+        "what": "Embeds all sub-queries simultaneously.",
+        "why": "Parallelization across GPU cores.",
+        "how": "Batches the embedding request to the MLModel.",
+        "code": "let vectors = try await embeddingModel.batchPredict(subQueries)"
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.65,
+        "gridY": 5.0,
+        "next": [
+          10
+        ],
+        "badge": "Step 1e",
+        "name": "Batch Keyword Extract",
+        "file": "QueryEnhancement.swift",
+        "desc": "Extract for expanded sub-queries.",
+        "log": "Keywords extracted.",
+        "what": "Extracts keywords for all sub-queries.",
+        "why": "Prepares terms for parallel BM25 execution.",
+        "how": "Uses NLTokenizer and stop-word filtering.",
+        "code": "let keywords = subQueries.map { extractKeywords($0) }"
+      },
+      {
         "stageIdx": 2,
         "gridX": 0.1,
         "gridY": 0.5,
         "next": [
-          7
+          10
         ],
         "badge": "Step 2a",
         "name": "Vector Sweep",
@@ -3167,7 +3368,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.35,
         "gridY": 1.5,
         "next": [
-          8
+          11
         ],
         "badge": "Step 2b",
         "name": "BM25 Sweep",
@@ -3180,7 +3381,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.65,
         "gridY": 2.5,
         "next": [
-          9
+          12
         ],
         "badge": "Step 2c",
         "name": "Knowledge Graph Traversal",
@@ -3197,7 +3398,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.9,
         "gridY": 3.5,
         "next": [
-          10
+          13
         ],
         "badge": "Step 2d",
         "name": "Hybrid RRF",
@@ -3214,7 +3415,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.1,
         "gridY": 2.0,
         "next": [
-          12
+          15
         ],
         "badge": "Step 3a",
         "name": "Cross-Encoder Rerank",
@@ -3231,7 +3432,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.3,
         "gridY": 1.0,
         "next": [
-          13
+          16
         ],
         "badge": "Step 3b",
         "name": "FlashRank",
@@ -3248,7 +3449,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          14
+          17
         ],
         "badge": "Step 3c",
         "name": "Sibling Expansion",
@@ -3265,7 +3466,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.7,
         "gridY": 3.0,
         "next": [
-          15
+          18
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
@@ -3282,7 +3483,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.9,
         "gridY": 2.0,
         "next": [
-          16
+          19
         ],
         "badge": "Step 3e",
         "name": "32K Context Packing",
@@ -3295,7 +3496,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          14
+          16
         ],
         "badge": "Step A",
         "name": "PCC Escalate",
@@ -3312,7 +3513,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          16
+          18
         ],
         "badge": "Step B",
         "name": "Secure Payload Transfer",
@@ -3329,7 +3530,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          18
+          20
         ],
         "badge": "Step C",
         "name": "Cloud GPU Execution",
@@ -3346,7 +3547,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.0,
         "next": [
-          22
+          24
         ],
         "badge": "Step 5a",
         "name": "Fact-Check Sweep",
@@ -3363,7 +3564,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.0,
         "next": [
-          23
+          25
         ],
         "badge": "Step 5b",
         "name": "Contradiction Sweep",
@@ -3380,7 +3581,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 3.0,
         "next": [
-          24
+          26
         ],
         "badge": "Step 5c",
         "name": "Hallucination Pass",
