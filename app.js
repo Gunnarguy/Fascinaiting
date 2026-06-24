@@ -191,7 +191,7 @@ const DEBUGGER_TRACKS = {
     ]
   },
   "standard": {
-    "name": "Standard Mode (Apple Foundation Models, On-Device)",
+    "name": "Standard RAG Mode (Apple Foundation Models, On-Device)",
     "metrics": {
       "latency": "312ms",
       "rate": "128 tok/s",
@@ -201,7 +201,7 @@ const DEBUGGER_TRACKS = {
       "0. Input",
       "1. Retrieve",
       "2. Assemble",
-      "3. Generate",
+      "3. AFM Inference",
       "4. Verify",
       "5. Output"
     ],
@@ -230,8 +230,8 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 1a",
         "name": "AFM Router",
         "file": "FoundationModelPreference.swift",
-        "desc": "Route to appropriate Apple Foundation Model tier.",
-        "log": "Tier: AFM 3 Core (3B On-Device)."
+        "desc": "Route to highest available on-device model (3B or 20B) based on hardware.",
+        "log": "Tier Selected: Optimal On-Device Base Model."
       },
       {
         "stageIdx": 1,
@@ -323,29 +323,69 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 2.2",
         "name": "Context Packing",
         "file": "ContextPackingService.swift",
-        "desc": "Assemble parent-chunks within 4K token budget.",
+        "desc": "Assemble parent-chunks within token budget.",
         "log": "Packed 2800 tokens into context window."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
-        "gridY": 1.0,
+        "gridY": 0.5,
         "next": [
           10
         ],
-        "badge": "Step 3",
-        "name": "On-Device AFM",
+        "badge": "Step 3a",
+        "name": "LoRA Adapter Injection",
         "file": "SystemLanguageModel",
-        "desc": "Execute prompt using Apple Foundation Model.",
-        "log": "LLM Draft Generated."
+        "desc": "Inject lightweight RAG task adapter into Base Model.",
+        "log": "Loaded RAG_Synthesis_LoRA (~160MB)."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3b",
+        "name": "Draft Generation",
+        "file": "SpeculativeDecoding",
+        "desc": "48M parameter Draft Model streams candidate tokens.",
+        "log": "Drafting candidate sequence."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          12
+        ],
+        "badge": "Step 3c",
+        "name": "Parallel Verification",
+        "file": "SpeculativeDecoding",
+        "desc": "Base Model verifies candidate sequence in single forward pass (2x speedup).",
+        "log": "Candidates verified."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          13,
+          14
+        ],
+        "badge": "Step 3d",
+        "name": "Guided Generation",
+        "file": "ConstrainedDecoding",
+        "desc": "Metal-level constrained decoding ensures exact citation schemas.",
+        "log": "Structured output enforced."
       },
       {
         "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.0,
         "next": [
-          11,
-          12
+          15,
+          16
         ],
         "badge": "Step 4",
         "name": "Gate: Semantic Grounding",
@@ -369,7 +409,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 2.0,
         "next": [
-          13
+          17
         ],
         "badge": "Pass",
         "name": "Contradiction Sweep",
@@ -391,7 +431,7 @@ const DEBUGGER_TRACKS = {
     ]
   },
   "deep": {
-    "name": "Deep Think Mode (20B AFM 3 Core Advanced)",
+    "name": "Deep Think Mode (Iterative Retrieval & 8-Gate Verification)",
     "metrics": {
       "latency": "1.2s",
       "rate": "64 tok/s",
@@ -399,10 +439,10 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Retrieve",
-      "2. Assemble",
-      "3. Generate",
-      "4. Verify",
+      "1. Multi-Hop",
+      "2. Iterate",
+      "3. AFM Inference",
+      "4. 8-Gates",
       "5. Output"
     ],
     "steps": [
@@ -429,8 +469,8 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 1",
         "name": "AFM Router",
         "file": "FoundationModelPreference.swift",
-        "desc": "Route to 20B advanced model.",
-        "log": "Tier: AFM 3 Core Advanced (20B)."
+        "desc": "Route to highest available on-device model (3B or 20B).",
+        "log": "Tier Selected: Optimal On-Device Base Model."
       },
       {
         "stageIdx": 1,
@@ -442,7 +482,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 1.1",
         "name": "Multi-hop Intent",
         "file": "QueryEnhancement.swift",
-        "desc": "Deconstruct complex query.",
+        "desc": "Deconstruct complex query into intermediate steps.",
         "log": "Query split into 3 sub-queries."
       },
       {
@@ -472,43 +512,70 @@ const DEBUGGER_TRACKS = {
         "log": "Rescored and filtered to Top 15."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 2,
         "gridX": 0.5,
-        "gridY": 1.0,
+        "gridY": 2.5,
         "next": [
           6
         ],
-        "badge": "Step 3",
+        "badge": "Step 2.2",
         "name": "Context Packing",
         "file": "ContextPacking.swift",
-        "desc": "Parent-chunk resolution within 4K limit.",
+        "desc": "Parent-chunk resolution.",
         "log": "Packed 3900 tokens."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          7,
+          8
+        ],
+        "badge": "Step 3a",
+        "name": "LoRA Adapter Injection",
+        "file": "SystemLanguageModel",
+        "desc": "Inject deep reasoning logic adapter.",
+        "log": "Loaded RAG_Reasoning_LoRA."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 3b",
+        "name": "Draft Generation",
+        "file": "SpeculativeDecoding",
+        "desc": "Draft model predicts reasoning chain.",
+        "log": "Drafting chain of thought."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 3c",
+        "name": "Parallel Verification",
+        "file": "SpeculativeDecoding",
+        "desc": "Base Model verifies sequence.",
+        "log": "Sequence verified."
       },
       {
         "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.0,
         "next": [
-          7
+          10
         ],
         "badge": "Step 4",
-        "name": "20B AFM Draft",
-        "file": "SystemLanguageModel",
-        "desc": "Generate extensive reasoning chain.",
-        "log": "Drafting..."
-      },
-      {
-        "stageIdx": 4,
-        "gridX": 0.5,
-        "gridY": 2.0,
-        "next": [
-          8
-        ],
-        "badge": "Step 4.1",
         "name": "8-Gate Verification",
         "file": "VerificationGates.swift",
         "desc": "Extensive logic, math, and hallucination sweeps.",
-        "log": "All 8 Gates Passed."
+        "log": "Executing 8 parallel gates."
       },
       {
         "stageIdx": 5,
@@ -518,7 +585,7 @@ const DEBUGGER_TRACKS = {
         "badge": "Output",
         "name": "Synthesized Response",
         "file": "UI",
-        "desc": "Render multi-paragraph response.",
+        "desc": "Render multi-paragraph verified response.",
         "log": "Response Delivered."
       }
     ]
