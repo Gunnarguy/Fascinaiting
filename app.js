@@ -70,1467 +70,553 @@ function stampRuntimeReady() {
 /* ====================================================================== */
 
 const DEBUGGER_TRACKS = {
-  ingestion: {
-    name: "Document Ingestion Pipeline (6 Steps + I/O)",
-    metrics: { latency: "84ms", rate: "3.2 MB/s", score: "98.2%" },
-    stages: ["0. Input", "1. Ingest", "2. Route", "3. Validate", "4. Embed", "5. Store", "6. Output"],
-    steps: [
+  "ingestion": {
+    "name": "Multi-Modal Ingestion Pipeline (Apple Silicon)",
+    "metrics": {
+      "latency": "84ms",
+      "rate": "3.2 MB/s",
+      "score": "98.2%"
+    },
+    "stages": [
+      "0. Input",
+      "1. Extract",
+      "2. Semantic Chunk",
+      "3. Embed",
+      "4. Output"
+    ],
+    "steps": [
       {
-        stageIdx: 0,
-        gridX: 0.5,
-        gridY: 1.5,
-        next: [1],
-        badge: "Input",
-        name: "Upload Document",
-        file: "UIDocumentPickerViewController",
-        desc: "User selects a document or provides raw text to ingest into the workspace sandbox.",
-        what: "Receives raw file streams, URLs, or text inputs from the user interface.",
-        why: "Initializes the workspace ingestion pipeline session and grants sandboxed read permission.",
-        how: "Triggers UIDocumentPickerViewController or imports data, initiating the ingestion session.",
-        log: "[Input] User selected 'case_report_v2.pdf' (1.4 MB). Sandboxed file read access granted."
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "Upload Document",
+        "file": "UIDocumentPickerViewController",
+        "desc": "User selects a document or provides raw text to ingest into the workspace sandbox.",
+        "log": "[Input] Sandboxed file read access granted."
       },
       {
-        stageIdx: 1,
-        gridX: 0.5,
-        gridY: 0.5,
-        next: [2],
-        badge: "Step 1",
-        name: "Parse",
-        file: "DocumentProcessor.swift",
-        desc: "Extract raw text from PDF, XML, text, or CSV. Adaptively triggers Vision OCR at 6x scale when scanning page images.",
-        what: "Extracts raw text, structural layout, and metadata from documents (PDF, DOCX, TXT, CSV) using PDFKit and Office ZIP parsers.",
-        why: "Scanned pages, image charts, or low-contrast text blocks must trigger OCR dynamically to avoid indexing empty metadata.",
-        how: "Utilizes PDFDocument and fallbacks to Vision OCR rendering page images at 6x scale to accurately capture small spec markings.",
-        log: "[PDFKit] Parsed case_report_v2.pdf. 12 text pages identified.\n[Vision OCR] Low confidence detected on Page 4. Triggering OCR fallbacks at 6x render scale."
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.0,
+        "next": [
+          3
+        ],
+        "badge": "Step 1a",
+        "name": "Complexity Pre-Scan",
+        "file": "PageComplexityAnalyzer.swift",
+        "desc": "Adaptive scan to check if page needs OCR or is clean text.",
+        "log": "Page is image-heavy. Routing to Vision OCR."
       },
       {
-        stageIdx: 1,
-        gridX: 0.5,
-        gridY: 2.5,
-        next: [3],
-        badge: "Step 2",
-        name: "Chunk",
-        file: "SemanticChunker.swift",
-        desc: "Deconstruct raw text into logically cohesive chunks (typically <=310 words) based on page sentinels and section title markers.",
-        what: "Splits raw parsed text into smaller, overlapping chunks while retaining heading context and layout hierarchies.",
-        why: "Local CoreML context budgets are strictly limited. Feeding full documents directly will cause memory overflows or attention dilution.",
-        how: "Uses sentence boundary detection to create blocks <=310 words, prepending section/page headers to keep local context alive.",
-        log: "[SemanticChunker] Split text into 18 chunks.\n[Structure] Markdown section titles mapped. Adjacent chunk siblings grouped."
+        "stageIdx": 1,
+        "gridX": 0.2,
+        "gridY": 1.0,
+        "next": [
+          4
+        ],
+        "badge": "Step 1b",
+        "name": "Vision OCR",
+        "file": "VisionFramework",
+        "desc": "Renders page at 6x scale for accurate small spec extraction.",
+        "log": "Low confidence text. Triggering Vision OCR at 6x scale."
       },
       {
-        stageIdx: 2,
-        gridX: 0.5,
-        gridY: 1.5,
-        next: [4],
-        badge: "Step 3",
-        name: "NER",
-        file: "NLTagger (NaturalLanguage)",
-        desc: "Identify primary entities and metadata via NLTagger Named Entity Recognition (NER), normalising keys to PascalCase variables.",
-        what: "Extracts named entities (locations, model numbers, parts) from chunks using NaturalLanguage's tagger.",
-        why: "Standardizing keys allows deterministic keyword queries and maps variations (e.g. 'Tower 3' vs 'tower-3') to single variables.",
-        how: "Invokes NLTagger(tagSchemes: [.nameType]) to tag entities, normalizing matches to PascalCase format via regex utilities.",
-        log: "[NLTagger] Extracted entities: 'Stryker Tower 3', 'VA Palo Alto', 'Stanford Endoscopy'.\n[PascalCase] Normalizing variables: 'strykerTower3', 'vaPaloAlto'."
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 1.0,
+        "next": [
+          4
+        ],
+        "badge": "Step 1c",
+        "name": "Native PDFKit",
+        "file": "DocumentProcessor.swift",
+        "desc": "Extract raw text from pure digital pages.",
+        "log": "Clean text extracted."
       },
       {
-        stageIdx: 3,
-        gridX: 0.5,
-        gridY: 1.5,
-        next: [5],
-        badge: "Step 4",
-        name: "Tokens",
-        file: "BertTokenizer",
-        desc: "Validate extracted text segments against BertTokenizer context constraints to prevent context window overflow.",
-        what: "Tokenizes text chunks into WordPiece sub-tokens and validates that the chunk fits the embedding model size limit.",
-        why: "CoreML embedding models crash or truncate text silently if the input vector size exceeds 512 tokens.",
-        how: "Runs a local WordPiece vocabulary lookup, asserting that chunk tokens do not exceed the 510 token model budget limit.",
-        log: "[BertTokenizer] Max chunk size verified (all blocks <=510 tokens).\n[Validation] 18/18 chunks verified."
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.0,
+        "next": [
+          5,
+          6
+        ],
+        "badge": "Step 2",
+        "name": "Semantic Chunker",
+        "file": "SemanticChunker.swift",
+        "desc": "Deconstruct raw text into logically cohesive chunks <=310 words.",
+        "log": "Split text into 18 chunks with structural metadata."
       },
       {
-        stageIdx: 4,
-        gridX: 0.5,
-        gridY: 1.5,
-        next: [6],
-        badge: "Step 5",
-        name: "Embed",
-        file: "EmbeddingService.swift",
-        desc: "Convert text chunks into dense 384-dimensional mathematical vectors using local MiniLM model running on Apple Silicon.",
-        what: "Encodes tokenized text chunks into dense 384-dimensional mathematical vectors representing semantic concepts.",
-        why: "Semantic search uses vector similarity to find concepts that share meaning rather than literal spelling matches.",
-        how: "Runs on-device inference using a compiled MiniLM CoreML model, accelerated by Apple Silicon Neural Engine (BNNS).",
-        log: "[MiniLM] Generated 18 vector tensors (384-dim).\n[Apple Silicon] Inferences accelerated via BNNS framework."
+        "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 0.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 3a",
+        "name": "Metal GPU Vectorizer",
+        "file": "GPUComputeService.swift",
+        "desc": "Convert text chunks into dense 384-dimensional mathematical vectors using SIMD4.",
+        "log": "[Metal] Accelerated 18 vectors via SIMD4 batch execution."
       },
       {
-        stageIdx: 5,
-        gridX: 0.5,
-        gridY: 1.5,
-        next: [7],
-        badge: "Step 6",
-        name: "Index",
-        file: "SQLiteFullTextService.swift",
-        desc: "Write vectors into local binary container databases (BNNS) and index metadata under isolated container ids inside SQLite tables.",
-        what: "Saves generated vectors to memory-mapped files and records chunk metadata in a SQLite FTS5 table.",
-        why: "Provides fast, transactional local search. SQLite FTS5 indexes literal keywords; MMAP files handle vector searches.",
-        how: "Appends float arrays directly to binary file streams and registers document offsets inside SQLite tables.",
-        log: "[VectorStore] Vectors persisted to local _vectors.bin and precomputed _norms.bin.\n[SQLite] Index metadata written to tables 'documents', 'chunks', and 'document_pages'."
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 3b",
+        "name": "Lexical Indexer",
+        "file": "SQLiteFullTextService.swift",
+        "desc": "Write metadata into SQLite FTS5 table.",
+        "log": "Index metadata written to SQLite FTS5."
       },
       {
-        stageIdx: 6,
-        gridX: 0.5,
-        gridY: 1.5,
-        next: [],
-        badge: "Output",
-        name: "Stored Container",
-        file: "StorageManager.swift",
-        desc: "Finalize document indexing and write references to the encrypted local sqlite storage container.",
-        what: "Commits SQLite transactions and closes active file streams, completing the document index cycle.",
-        why: "Persists the compiled vector mappings and metadata indexes across app launches so they can be queried offline.",
-        how: "Calls StorageManager.finalizeSession() to persist changes to the on-device sandbox storage.",
-        log: "[Storage] Ingestion session finalized. Container 'case_report_v2' successfully updated. 18 new vectors stored."
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 1.0,
+        "next": [],
+        "badge": "Output",
+        "name": "App Entities",
+        "file": "StorageManager.swift",
+        "desc": "Write references to encrypted local container and register App Entities for Siri.",
+        "log": "[Storage] Container updated. Siri Entities registered."
       }
     ]
   },
-standard: {
-    "name": "Standard Mode (32 Steps - Fast, Single Pass)",
+  "standard": {
+    "name": "Standard Mode (Apple Foundation Models, On-Device)",
     "metrics": {
-        "latency": "312ms",
-        "rate": "128 tok/s",
-        "score": "98.7%"
+      "latency": "312ms",
+      "rate": "128 tok/s",
+      "score": "98.7%"
     },
     "stages": [
-        "0. Input",
-        "1. Analyze",
-        "2. Search",
-        "3. Assemble",
-        "4. Generate",
-        "5. Verify",
-        "6. Output"
+      "0. Input",
+      "1. Retrieve",
+      "2. Assemble",
+      "3. Generate",
+      "4. Verify",
+      "5. Output"
     ],
     "steps": [
-        {
-            "stageIdx": 0,
-            "gridX": 0.5,
-            "gridY": 0.5,
-            "next": [
-                1
-            ],
-            "badge": "Input",
-            "name": "User Query",
-            "file": "ChatScreen.swift",
-            "desc": "User submits query.",
-            "log": "Received query."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 0.0,
-            "next": [
-                2
-            ],
-            "badge": "Step 1",
-            "name": "Corpus Analysis",
-            "file": "OpenIntelligenceEngine.swift",
-            "desc": "Scan vocab.",
-            "log": "Found 12 keywords."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 1.0,
-            "next": [
-                3
-            ],
-            "badge": "Step 1.1",
-            "name": "Memory Injection",
-            "file": "ConversationMemoryService.swift",
-            "desc": "Inject last 5 turns.",
-            "log": "Injected 5 turns."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 2.0,
-            "next": [
-                4
-            ],
-            "badge": "Step 1.2",
-            "name": "Query Parsing",
-            "file": "QueryParser.swift",
-            "desc": "Pronoun resolution.",
-            "log": "Pronouns resolved."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 3.0,
-            "next": [
-                5
-            ],
-            "badge": "Step 1.3",
-            "name": "Intent Classifier",
-            "file": "QueryEnhancementService.swift",
-            "desc": "Classify intent.",
-            "log": "Intent: lookup."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 4.0,
-            "next": [
-                6
-            ],
-            "badge": "Step 1.4",
-            "name": "Model Router",
-            "file": "FoundationModelPreference.swift",
-            "desc": "Route to tier.",
-            "log": "Tier: 3B Core."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 5.0,
-            "next": [
-                7
-            ],
-            "badge": "Step 1.5",
-            "name": "Query Embedding",
-            "file": "EmbeddingService.swift",
-            "desc": "Generate 384-dim vector.",
-            "log": "Generated vector."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 6.0,
-            "next": [
-                8,
-                9
-            ],
-            "badge": "Step 1.6",
-            "name": "RAPTOR Routing",
-            "file": "QueryRouterService.swift",
-            "desc": "Decide tree level.",
-            "log": "Routed to L1."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.2,
-            "gridY": 1.5,
-            "next": [
-                10
-            ],
-            "badge": "Step 2a",
-            "name": "Vector Search",
-            "file": "RAGEngine.swift",
-            "desc": "Cosine similarity.",
-            "log": "Top 30 vectors."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.2,
-            "gridY": 3.5,
-            "next": [
-                10
-            ],
-            "badge": "Step 2b",
-            "name": "BM25 Search",
-            "file": "SQLiteFullTextService.swift",
-            "desc": "Keyword lookup.",
-            "log": "Found 12 records."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.8,
-            "gridY": 2.5,
-            "next": [
-                11
-            ],
-            "badge": "Step 2.5",
-            "name": "Hybrid RRF",
-            "file": "RAGEngine.swift",
-            "desc": "Reciprocal Rank Fusion.",
-            "log": "Merged indices."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 4.0,
-            "next": [
-                12
-            ],
-            "badge": "Step 3",
-            "name": "ReRanker",
-            "file": "ReRankerModel.mlpackage",
-            "desc": "TinyBERT rescoring.",
-            "log": "Rescored 30 items."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 5.0,
-            "next": [
-                13
-            ],
-            "badge": "Step 3.1",
-            "name": "Low-Conf Filter",
-            "file": "RetrievalPolicyService.swift",
-            "desc": "Drop below 0.28.",
-            "log": "Dropped 8 outliers."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 6.0,
-            "next": [
-                14
-            ],
-            "badge": "Step 3.2",
-            "name": "Source Diversity",
-            "file": "RAGEngine.swift",
-            "desc": "Document capping.",
-            "log": "Balanced coverage."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 7.0,
-            "next": [
-                15
-            ],
-            "badge": "Step 3.3",
-            "name": "MMR Diversify",
-            "file": "RAGEngine.swift",
-            "desc": "Lambda: 0.60.",
-            "log": "Selected 8 diverse chunks."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 1.5,
-            "next": [
-                16
-            ],
-            "badge": "Step 4",
-            "name": "ParentDoc",
-            "file": "ParentDocumentService.swift",
-            "desc": "\u00b12 siblings.",
-            "log": "Expanded to 24 chunks."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 3.5,
-            "next": [
-                17
-            ],
-            "badge": "Step 4.1",
-            "name": "Graph Pack",
-            "file": "ContextPackingService.swift",
-            "desc": "Budget check.",
-            "log": "Fits in budget."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 5.5,
-            "next": [
-                18,
-                19
-            ],
-            "badge": "Step 4.2",
-            "name": "LIM Sort",
-            "file": "RAGEngine.swift",
-            "desc": "Lost-in-middle interleave.",
-            "log": "Array ordered."
-        },
-        {
-            "stageIdx": 4,
-            "gridX": 0.2,
-            "gridY": 1.5,
-            "next": [
-                20
-            ],
-            "badge": "Step 5a",
-            "name": "ExtQA / Summarize",
-            "file": "RAGEngine.swift",
-            "desc": "Direct fact lookup.",
-            "log": "Fact extracted."
-        },
-        {
-            "stageIdx": 4,
-            "gridX": 0.8,
-            "gridY": 1.5,
-            "next": [
-                20
-            ],
-            "badge": "Step 5b",
-            "name": "AFM Inference",
-            "file": "LanguageModelSession",
-            "desc": "Foundation model draft.",
-            "log": "Drafting..."
-        },
-        {
-            "stageIdx": 4,
-            "gridX": 0.5,
-            "gridY": 3.5,
-            "next": [
-                21
-            ],
-            "badge": "Step 5.5",
-            "name": "Format Check",
-            "file": "RAGService.swift",
-            "desc": "Regex formatting.",
-            "log": "Validated markdown."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 0.0,
-            "next": [
-                22
-            ],
-            "badge": "Gate A",
-            "name": "Retrieval Confidence",
-            "file": "VerificationGateService.swift",
-            "desc": "Check max(chunk_scores) >= \u03c4",
-            "log": "Gate A Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 1.0,
-            "next": [
-                23
-            ],
-            "badge": "Gate B",
-            "name": "Evidence Coverage",
-            "file": "VerificationGateService.swift",
-            "desc": "Claims trace to evidence.",
-            "log": "Gate B Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 2.0,
-            "next": [
-                24
-            ],
-            "badge": "Gate C",
-            "name": "Numeric Sanity",
-            "file": "VerificationGateService.swift",
-            "desc": "Numbers match source documents.",
-            "log": "Gate C Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 3.0,
-            "next": [
-                25
-            ],
-            "badge": "Gate D",
-            "name": "Contradiction Sweep",
-            "file": "VerificationGateService.swift",
-            "desc": "Detect conflicting evidence.",
-            "log": "Gate D Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 4.0,
-            "next": [
-                26
-            ],
-            "badge": "Gate E",
-            "name": "Semantic Grounding",
-            "file": "VerificationGateService.swift",
-            "desc": "Cosine similarity to source > 0.50.",
-            "log": "Gate E Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 5.0,
-            "next": [
-                27
-            ],
-            "badge": "Gate F",
-            "name": "Quote Faithfulness",
-            "file": "VerificationGateService.swift",
-            "desc": "Abbreviation cross-contamination check.",
-            "log": "Gate F Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 6.0,
-            "next": [
-                28
-            ],
-            "badge": "Gate G",
-            "name": "Generation Quality",
-            "file": "VerificationGateService.swift",
-            "desc": "Degeneration and repetition check.",
-            "log": "Gate G Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 7.0,
-            "next": [
-                29
-            ],
-            "badge": "Gate H",
-            "name": "Answer Completeness",
-            "file": "VerificationGateService.swift",
-            "desc": "Detect under-supported multi-hop answers.",
-            "log": "Gate H Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 8.0,
-            "next": [
-                30
-            ],
-            "badge": "Gate I",
-            "name": "Domain Isolation",
-            "file": "VerificationGateService.swift",
-            "desc": "Reject mixed-domain evidence synthesis.",
-            "log": "Gate I Passed (Threshold 0.5)."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 9.0,
-            "next": [
-                31
-            ],
-            "badge": "Step 6.9",
-            "name": "Calibration",
-            "file": "ConfidenceCalibrationService.swift",
-            "desc": "Platt scaling.",
-            "log": "Trust: 98.7%."
-        },
-        {
-            "stageIdx": 6,
-            "gridX": 0.5,
-            "gridY": 1.5,
-            "next": [],
-            "badge": "Output",
-            "name": "Response Package",
-            "file": "TelemetryWrapper.swift",
-            "desc": "Finalize package.",
-            "log": "Sent to engine."
-        }
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1,
+          2
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.2,
+        "gridY": 0.0,
+        "next": [
+          4
+        ],
+        "badge": "Step 1a",
+        "name": "AFM Router",
+        "file": "FoundationModelPreference.swift",
+        "desc": "Route to appropriate Apple Foundation Model tier.",
+        "log": "Tier: AFM 3 Core (3B On-Device)."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 1.0,
+        "next": [
+          3
+        ],
+        "badge": "Step 1b",
+        "name": "Intent Formulation",
+        "file": "QueryEnhancementService.swift",
+        "desc": "Resolve pronouns and generate expansion queries.",
+        "log": "Intent resolved. Expanded query generated."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 2.0,
+        "next": [
+          4,
+          5,
+          6
+        ],
+        "badge": "Step 1c",
+        "name": "Query Embed",
+        "file": "EmbeddingService.swift",
+        "desc": "Generate query vector.",
+        "log": "Vector generated."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2a",
+        "name": "Metal Vector Search",
+        "file": "RAGEngine.swift",
+        "desc": "SIMD4 Cosine Similarity on Apple Silicon.",
+        "log": "Found Top 30 vectors."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2b",
+        "name": "BM25 Search",
+        "file": "SQLiteFullTextService.swift",
+        "desc": "SQLite FTS5 exact keyword lookup.",
+        "log": "Found 12 matching rows."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.8,
+        "gridY": 3.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2c",
+        "name": "Visual Index",
+        "file": "VisualSearch.swift",
+        "desc": "Cross-reference parsed charts.",
+        "log": "Located 2 relevant figures."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 4.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 2.1",
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Reciprocal Rank Fusion merging.",
+        "log": "Indices merged."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 5.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 2.2",
+        "name": "Context Packing",
+        "file": "ContextPackingService.swift",
+        "desc": "Assemble parent-chunks within 4K token budget.",
+        "log": "Packed 2800 tokens into context window."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.0,
+        "next": [
+          10
+        ],
+        "badge": "Step 3",
+        "name": "On-Device AFM",
+        "file": "SystemLanguageModel",
+        "desc": "Execute prompt using Apple Foundation Model.",
+        "log": "LLM Draft Generated."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 1.0,
+        "next": [
+          11,
+          12
+        ],
+        "badge": "Step 4",
+        "name": "Gate: Semantic Grounding",
+        "file": "VerificationGateService.swift",
+        "desc": "Verify generated claims exist in retrieved context.",
+        "log": "Grounding Gate: PASS."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.2,
+        "gridY": 2.0,
+        "next": [],
+        "badge": "Fail",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGateService.swift",
+        "desc": "Detect hallucinated facts.",
+        "log": "Sweep detected hallucination. ABSTAIN."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.8,
+        "gridY": 2.0,
+        "next": [
+          13
+        ],
+        "badge": "Pass",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGateService.swift",
+        "desc": "Ensure no logical contradictions.",
+        "log": "Sweep: PASS. Proceeding to output."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Interactive Citations",
+        "file": "UI",
+        "desc": "Render response with mapped citation markers.",
+        "log": "Response delivered."
+      }
     ]
-},
-  deepthink: {
-    "name": "Deep Think Mode (35 Steps - Iterative LLM Routing)",
+  },
+  "deep": {
+    "name": "Deep Think Mode (20B AFM 3 Core Advanced)",
     "metrics": {
-        "latency": "1850ms",
-        "rate": "112 tok/s",
-        "score": "99.8%"
+      "latency": "1.2s",
+      "rate": "64 tok/s",
+      "score": "99.8%"
     },
     "stages": [
-        "0. Input",
-        "1. Analyze",
-        "2. Search",
-        "3. Assemble",
-        "4. Generate",
-        "5. Verify",
-        "6. Output"
+      "0. Input",
+      "1. Retrieve",
+      "2. Assemble",
+      "3. Generate",
+      "4. Verify",
+      "5. Output"
     ],
     "steps": [
-        {
-            "stageIdx": 0,
-            "gridX": 0.5,
-            "gridY": 0.5,
-            "next": [
-                1
-            ],
-            "badge": "Input",
-            "name": "User Query",
-            "file": "ChatScreen.swift",
-            "desc": "User submits query.",
-            "log": "Received query."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 0.0,
-            "next": [
-                2
-            ],
-            "badge": "Step 1",
-            "name": "Corpus Analysis",
-            "file": "OpenIntelligenceEngine.swift",
-            "desc": "Scan vocab.",
-            "log": "Scanned vocab."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 1.0,
-            "next": [
-                3
-            ],
-            "badge": "Step 1.1",
-            "name": "Memory Injection",
-            "file": "ConversationMemoryService.swift",
-            "desc": "Inject last 10 turns.",
-            "log": "Injected 10 turns."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 2.0,
-            "next": [
-                4
-            ],
-            "badge": "Step 1.2",
-            "name": "Query Parsing",
-            "file": "QueryParser.swift",
-            "desc": "Pronoun resolution.",
-            "log": "Pronouns resolved."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 3.0,
-            "next": [
-                5
-            ],
-            "badge": "Step 1.3",
-            "name": "HyDE Generator",
-            "file": "HyDE.swift",
-            "desc": "Hallucinate hypothesis.",
-            "log": "Generated hypothesis."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 4.0,
-            "next": [
-                6
-            ],
-            "badge": "Step 1.4",
-            "name": "Query Expansion",
-            "file": "QueryRewriterService.swift",
-            "desc": "8 variants.",
-            "log": "Expanded 8 synonyms."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 5.0,
-            "next": [
-                7
-            ],
-            "badge": "Step 1.5",
-            "name": "Intent Classifier",
-            "file": "QueryEnhancementService.swift",
-            "desc": "Classify.",
-            "log": "Intent identified."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 6.0,
-            "next": [
-                8
-            ],
-            "badge": "Step 1.6",
-            "name": "Model Router",
-            "file": "FoundationModelPreference.swift",
-            "desc": "Route tier.",
-            "log": "Tier: 20B Advanced."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 7.0,
-            "next": [
-                9
-            ],
-            "badge": "Step 1.7",
-            "name": "Agentic Loop Init",
-            "file": "AgenticOrchestrator.swift",
-            "desc": "Start iteration loop.",
-            "log": "Pass 1 started."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 8.0,
-            "next": [
-                10
-            ],
-            "badge": "Step 1.8",
-            "name": "Query Embedding",
-            "file": "EmbeddingService.swift",
-            "desc": "Vector gen.",
-            "log": "Generated vectors."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 9.0,
-            "next": [
-                11,
-                12
-            ],
-            "badge": "Step 1.9",
-            "name": "RAPTOR Routing",
-            "file": "QueryRouterService.swift",
-            "desc": "Tree routing.",
-            "log": "Routed to chunks."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.2,
-            "gridY": 1.5,
-            "next": [
-                13
-            ],
-            "badge": "Step 2a",
-            "name": "Vector Search",
-            "file": "RAGEngine.swift",
-            "desc": "Top 35 vectors.",
-            "log": "Found 35 vectors."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.2,
-            "gridY": 3.5,
-            "next": [
-                13
-            ],
-            "badge": "Step 2b",
-            "name": "BM25 Search",
-            "file": "SQLiteFullTextService.swift",
-            "desc": "Keywords.",
-            "log": "Found 18 records."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.8,
-            "gridY": 2.5,
-            "next": [
-                14
-            ],
-            "badge": "Step 2.5",
-            "name": "Hybrid RRF",
-            "file": "RAGEngine.swift",
-            "desc": "Merge.",
-            "log": "Merged indices."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 4.5,
-            "next": [
-                15
-            ],
-            "badge": "Step 3",
-            "name": "ReRanker",
-            "file": "ReRankerModel.mlpackage",
-            "desc": "Rescore.",
-            "log": "Rescored items."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 5.5,
-            "next": [
-                16
-            ],
-            "badge": "Step 3.1",
-            "name": "Low-Conf Filter",
-            "file": "RetrievalPolicyService.swift",
-            "desc": "Floor 0.25.",
-            "log": "Filtered bad chunks."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 6.5,
-            "next": [
-                17
-            ],
-            "badge": "Step 3.2",
-            "name": "Source Diversity",
-            "file": "RAGEngine.swift",
-            "desc": "Cap files.",
-            "log": "Capped source files."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 7.5,
-            "next": [
-                18
-            ],
-            "badge": "Step 3.3",
-            "name": "MMR Diversify",
-            "file": "RAGEngine.swift",
-            "desc": "Lambda 0.55.",
-            "log": "Applied MMR."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 1.0,
-            "next": [
-                19
-            ],
-            "badge": "Step 4",
-            "name": "ParentDoc",
-            "file": "ParentDocumentService.swift",
-            "desc": "\u00b13 siblings.",
-            "log": "Added context siblings."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 3.0,
-            "next": [
-                20
-            ],
-            "badge": "Step 4.1",
-            "name": "LLM Compression",
-            "file": "ContextualCompressionService.swift",
-            "desc": "Filter sentences.",
-            "log": "Stripped filler sentences."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 5.0,
-            "next": [
-                21
-            ],
-            "badge": "Step 4.2",
-            "name": "Graph Pack",
-            "file": "ContextPackingService.swift",
-            "desc": "Validate size.",
-            "log": "Budget fits."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 7.0,
-            "next": [
-                22
-            ],
-            "badge": "Step 4.3",
-            "name": "LIM Sort",
-            "file": "RAGEngine.swift",
-            "desc": "Interleave.",
-            "log": "Array interleaved."
-        },
-        {
-            "stageIdx": 4,
-            "gridX": 0.5,
-            "gridY": 1.5,
-            "next": [
-                23
-            ],
-            "badge": "Step 5",
-            "name": "AFM Inference",
-            "file": "LanguageModelSession",
-            "desc": "Draft.",
-            "log": "Draft generated."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 0.0,
-            "next": [
-                24
-            ],
-            "badge": "Gate A",
-            "name": "Retrieval Confidence",
-            "file": "VerificationGateService.swift",
-            "desc": "Check max(chunk_scores) >= \u03c4",
-            "log": "Gate A Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 1.0,
-            "next": [
-                25
-            ],
-            "badge": "Gate B",
-            "name": "Evidence Coverage",
-            "file": "VerificationGateService.swift",
-            "desc": "Claims trace to evidence.",
-            "log": "Gate B Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 2.0,
-            "next": [
-                26
-            ],
-            "badge": "Gate C",
-            "name": "Numeric Sanity",
-            "file": "VerificationGateService.swift",
-            "desc": "Numbers match source documents.",
-            "log": "Gate C Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 3.0,
-            "next": [
-                27
-            ],
-            "badge": "Gate D",
-            "name": "Contradiction Sweep",
-            "file": "VerificationGateService.swift",
-            "desc": "Detect conflicting evidence.",
-            "log": "Gate D Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 4.0,
-            "next": [
-                28
-            ],
-            "badge": "Gate E",
-            "name": "Semantic Grounding",
-            "file": "VerificationGateService.swift",
-            "desc": "Cosine similarity to source > 0.50.",
-            "log": "Gate E Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 5.0,
-            "next": [
-                29
-            ],
-            "badge": "Gate F",
-            "name": "Quote Faithfulness",
-            "file": "VerificationGateService.swift",
-            "desc": "Abbreviation cross-contamination check.",
-            "log": "Gate F Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 6.0,
-            "next": [
-                30
-            ],
-            "badge": "Gate G",
-            "name": "Generation Quality",
-            "file": "VerificationGateService.swift",
-            "desc": "Degeneration and repetition check.",
-            "log": "Gate G Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 7.0,
-            "next": [
-                31
-            ],
-            "badge": "Gate H",
-            "name": "Answer Completeness",
-            "file": "VerificationGateService.swift",
-            "desc": "Detect under-supported multi-hop answers.",
-            "log": "Gate H Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 8.0,
-            "next": [
-                32
-            ],
-            "badge": "Gate I",
-            "name": "Domain Isolation",
-            "file": "VerificationGateService.swift",
-            "desc": "Reject mixed-domain evidence synthesis.",
-            "log": "Gate I Passed (Threshold 0.6)."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 9.0,
-            "next": [
-                33
-            ],
-            "badge": "Step 6.9",
-            "name": "Calibration",
-            "file": "ConfidenceCalibrationService.swift",
-            "desc": "Platt scale.",
-            "log": "Trust: 99.8%."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 10.0,
-            "next": [
-                34
-            ],
-            "badge": "Step 6.10",
-            "name": "Citations",
-            "file": "GroundedAnswerView.swift",
-            "desc": "Markdown injection.",
-            "log": "Injected anchors."
-        },
-        {
-            "stageIdx": 6,
-            "gridX": 0.5,
-            "gridY": 1.5,
-            "next": [],
-            "badge": "Output",
-            "name": "Response Package",
-            "file": "TelemetryWrapper.swift",
-            "desc": "Finalize package.",
-            "log": "Sent to engine."
-        }
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2
+        ],
+        "badge": "Step 1",
+        "name": "AFM Router",
+        "file": "FoundationModelPreference.swift",
+        "desc": "Route to 20B advanced model.",
+        "log": "Tier: AFM 3 Core Advanced (20B)."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          3
+        ],
+        "badge": "Step 1.1",
+        "name": "Multi-hop Intent",
+        "file": "QueryEnhancement.swift",
+        "desc": "Deconstruct complex query.",
+        "log": "Query split into 3 sub-queries."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          4
+        ],
+        "badge": "Step 2",
+        "name": "Iterative Retrieval",
+        "file": "RAGEngine.swift",
+        "desc": "Recursive Vector & BM25 search across sub-queries.",
+        "log": "Aggregated 80 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 2.1",
+        "name": "Cross-Encoder",
+        "file": "ReRanker.swift",
+        "desc": "TinyBERT semantic rescoring of all 80 items.",
+        "log": "Rescored and filtered to Top 15."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.0,
+        "next": [
+          6
+        ],
+        "badge": "Step 3",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Parent-chunk resolution within 4K limit.",
+        "log": "Packed 3900 tokens."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 1.0,
+        "next": [
+          7
+        ],
+        "badge": "Step 4",
+        "name": "20B AFM Draft",
+        "file": "SystemLanguageModel",
+        "desc": "Generate extensive reasoning chain.",
+        "log": "Drafting..."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 2.0,
+        "next": [
+          8
+        ],
+        "badge": "Step 4.1",
+        "name": "8-Gate Verification",
+        "file": "VerificationGates.swift",
+        "desc": "Extensive logic, math, and hallucination sweeps.",
+        "log": "All 8 Gates Passed."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Synthesized Response",
+        "file": "UI",
+        "desc": "Render multi-paragraph response.",
+        "log": "Response Delivered."
+      }
     ]
-},
-  maximum: {
-    "name": "Maximum Mode (33 Steps - Unlimited Compute)",
+  },
+  "maximum": {
+    "name": "Maximum Mode (Private Cloud Compute - 32K Context)",
     "metrics": {
-        "latency": "6400ms",
-        "rate": "84 tok/s",
-        "score": "99.9%"
+      "latency": "3.5s",
+      "rate": "30 tok/s",
+      "score": "99.9%"
     },
     "stages": [
-        "0. Input",
-        "1. Analyze",
-        "2. Search",
-        "3. Assemble",
-        "4. Generate",
-        "5. Verify",
-        "6. Output"
+      "0. Input",
+      "1. Route",
+      "2. Search",
+      "3. PCC Pack",
+      "4. Cloud Gen",
+      "5. Output"
     ],
     "steps": [
-        {
-            "stageIdx": 0,
-            "gridX": 0.5,
-            "gridY": 0.5,
-            "next": [
-                1
-            ],
-            "badge": "Input",
-            "name": "User Query",
-            "file": "ChatScreen.swift",
-            "desc": "User submits query.",
-            "log": "Received query."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 0.0,
-            "next": [
-                2
-            ],
-            "badge": "Step 1",
-            "name": "Memory Injection",
-            "file": "ConversationMemoryService.swift",
-            "desc": "Inject 20 turns.",
-            "log": "Injected 20 turns."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 1.5,
-            "next": [
-                3
-            ],
-            "badge": "Step 1.1",
-            "name": "HyDE Generator",
-            "file": "HyDE.swift",
-            "desc": "Hypothesis.",
-            "log": "Hypothesis created."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 3.0,
-            "next": [
-                4
-            ],
-            "badge": "Step 1.2",
-            "name": "Query Expansion",
-            "file": "QueryRewriterService.swift",
-            "desc": "12 variants.",
-            "log": "Expanded 12 variants."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 4.5,
-            "next": [
-                5
-            ],
-            "badge": "Step 1.3",
-            "name": "Intent Classifier",
-            "file": "QueryEnhancementService.swift",
-            "desc": "Intent.",
-            "log": "Intent identified."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 6.0,
-            "next": [
-                6
-            ],
-            "badge": "Step 1.4",
-            "name": "Model Router",
-            "file": "FoundationModelPreference.swift",
-            "desc": "PCC Route.",
-            "log": "Tier: Private Cloud Compute."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 7.5,
-            "next": [
-                7
-            ],
-            "badge": "Step 1.5",
-            "name": "Unlimited Loop",
-            "file": "AgenticOrchestrator.swift",
-            "desc": "Iterative loop.",
-            "log": "Pass 1 started."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 9.0,
-            "next": [
-                8
-            ],
-            "badge": "Step 1.6",
-            "name": "Query Embedding",
-            "file": "EmbeddingService.swift",
-            "desc": "Vector gen.",
-            "log": "Vectors generated."
-        },
-        {
-            "stageIdx": 1,
-            "gridX": 0.5,
-            "gridY": 10.5,
-            "next": [
-                9,
-                10
-            ],
-            "badge": "Step 1.7",
-            "name": "RAPTOR Routing",
-            "file": "QueryRouterService.swift",
-            "desc": "Routing.",
-            "log": "Routed."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.2,
-            "gridY": 1.5,
-            "next": [
-                11
-            ],
-            "badge": "Step 2a",
-            "name": "Vector Search",
-            "file": "RAGEngine.swift",
-            "desc": "Top 50 vectors.",
-            "log": "Found 50 vectors."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.2,
-            "gridY": 4.5,
-            "next": [
-                11
-            ],
-            "badge": "Step 2b",
-            "name": "BM25 Search",
-            "file": "SQLiteFullTextService.swift",
-            "desc": "Keywords.",
-            "log": "Found records."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.8,
-            "gridY": 3.0,
-            "next": [
-                12
-            ],
-            "badge": "Step 2.5",
-            "name": "Hybrid RRF",
-            "file": "RAGEngine.swift",
-            "desc": "Merge.",
-            "log": "Merged indices."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 5.5,
-            "next": [
-                13
-            ],
-            "badge": "Step 3",
-            "name": "ReRanker",
-            "file": "ReRankerModel.mlpackage",
-            "desc": "Rescore.",
-            "log": "Rescored."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 7.0,
-            "next": [
-                14
-            ],
-            "badge": "Step 3.1",
-            "name": "Low-Conf Filter",
-            "file": "RetrievalPolicyService.swift",
-            "desc": "Floor 0.20.",
-            "log": "Broad filter."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 8.5,
-            "next": [
-                15
-            ],
-            "badge": "Step 3.2",
-            "name": "Source Diversity",
-            "file": "RAGEngine.swift",
-            "desc": "Cap files.",
-            "log": "Capped."
-        },
-        {
-            "stageIdx": 2,
-            "gridX": 0.5,
-            "gridY": 10.0,
-            "next": [
-                16
-            ],
-            "badge": "Step 3.3",
-            "name": "MMR Diversify",
-            "file": "RAGEngine.swift",
-            "desc": "Lambda 0.50.",
-            "log": "Maximum diversity."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 2.0,
-            "next": [
-                17
-            ],
-            "badge": "Step 4",
-            "name": "ParentDoc",
-            "file": "ParentDocumentService.swift",
-            "desc": "\u00b15 siblings.",
-            "log": "Massive context expansion."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 5.0,
-            "next": [
-                18
-            ],
-            "badge": "Step 4.1",
-            "name": "Graph Pack",
-            "file": "ContextPackingService.swift",
-            "desc": "No compression.",
-            "log": "Fit in 32K budget."
-        },
-        {
-            "stageIdx": 3,
-            "gridX": 0.5,
-            "gridY": 8.0,
-            "next": [
-                19
-            ],
-            "badge": "Step 4.2",
-            "name": "LIM Sort",
-            "file": "RAGEngine.swift",
-            "desc": "Interleave.",
-            "log": "Sorted."
-        },
-        {
-            "stageIdx": 4,
-            "gridX": 0.5,
-            "gridY": 1.5,
-            "next": [
-                20
-            ],
-            "badge": "Step 5",
-            "name": "AFM Inference",
-            "file": "LanguageModelSession",
-            "desc": "Temp 0.3.",
-            "log": "Strict deterministic generation."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 0.0,
-            "next": [
-                21
-            ],
-            "badge": "Gate A",
-            "name": "Retrieval Confidence",
-            "file": "VerificationGateService.swift",
-            "desc": "Check max(chunk_scores) >= \u03c4",
-            "log": "Gate A Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 1.0,
-            "next": [
-                22
-            ],
-            "badge": "Gate B",
-            "name": "Evidence Coverage",
-            "file": "VerificationGateService.swift",
-            "desc": "Claims trace to evidence.",
-            "log": "Gate B Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 2.0,
-            "next": [
-                23
-            ],
-            "badge": "Gate C",
-            "name": "Numeric Sanity",
-            "file": "VerificationGateService.swift",
-            "desc": "Numbers match source documents.",
-            "log": "Gate C Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 3.0,
-            "next": [
-                24
-            ],
-            "badge": "Gate D",
-            "name": "Contradiction Sweep",
-            "file": "VerificationGateService.swift",
-            "desc": "Detect conflicting evidence.",
-            "log": "Gate D Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 4.0,
-            "next": [
-                25
-            ],
-            "badge": "Gate E",
-            "name": "Semantic Grounding",
-            "file": "VerificationGateService.swift",
-            "desc": "Cosine similarity to source > 0.50.",
-            "log": "Gate E Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 5.0,
-            "next": [
-                26
-            ],
-            "badge": "Gate F",
-            "name": "Quote Faithfulness",
-            "file": "VerificationGateService.swift",
-            "desc": "Abbreviation cross-contamination check.",
-            "log": "Gate F Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 6.0,
-            "next": [
-                27
-            ],
-            "badge": "Gate G",
-            "name": "Generation Quality",
-            "file": "VerificationGateService.swift",
-            "desc": "Degeneration and repetition check.",
-            "log": "Gate G Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 7.0,
-            "next": [
-                28
-            ],
-            "badge": "Gate H",
-            "name": "Answer Completeness",
-            "file": "VerificationGateService.swift",
-            "desc": "Detect under-supported multi-hop answers.",
-            "log": "Gate H Passed."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 8.0,
-            "next": [
-                29
-            ],
-            "badge": "Gate I",
-            "name": "Domain Isolation",
-            "file": "VerificationGateService.swift",
-            "desc": "Reject mixed-domain evidence synthesis.",
-            "log": "Gate I Passed (Threshold 0.8)."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 9.0,
-            "next": [
-                30
-            ],
-            "badge": "Step 6.9",
-            "name": "Calibration",
-            "file": "ConfidenceCalibrationService.swift",
-            "desc": "Scale.",
-            "log": "Trust: 99.9%."
-        },
-        {
-            "stageIdx": 5,
-            "gridX": 0.5,
-            "gridY": 10.0,
-            "next": [
-                31
-            ],
-            "badge": "Step 6.10",
-            "name": "Citations",
-            "file": "GroundedAnswerView.swift",
-            "desc": "Anchors.",
-            "log": "Injected."
-        },
-        {
-            "stageIdx": 6,
-            "gridX": 0.5,
-            "gridY": 1.5,
-            "next": [],
-            "badge": "Output",
-            "name": "Response Package",
-            "file": "TelemetryWrapper.swift",
-            "desc": "Finalize package.",
-            "log": "Complete."
-        }
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2
+        ],
+        "badge": "Step 1",
+        "name": "PCC Router",
+        "file": "EngineSDKCompatibility.swift",
+        "desc": "Escalate to Apple Private Cloud Compute.",
+        "log": "Tier: PCC Cloud Pro."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          3
+        ],
+        "badge": "Step 2",
+        "name": "Deep Hybrid Sweep",
+        "file": "RAGEngine.swift",
+        "desc": "Exhaustive retrieval across entire corpus.",
+        "log": "Retrieved 150 items."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          4
+        ],
+        "badge": "Step 3",
+        "name": "32K Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Pack massive context up to 32,000 tokens.",
+        "log": "Packed 28,000 tokens securely."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 4",
+        "name": "PCC Execution",
+        "file": "CloudFoundationModel",
+        "desc": "Secure enclave generation using Cloud Pro model.",
+        "log": "Executing in Secure Enclave."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Verified Response",
+        "file": "UI",
+        "desc": "Stream final verified answer.",
+        "log": "Response Delivered."
+      }
     ]
-}
+  }
 };
 
 let activeDebuggerTrack = "standard";
