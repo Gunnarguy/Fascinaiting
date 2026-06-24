@@ -71,7 +71,7 @@ function stampRuntimeReady() {
 
 const DEBUGGER_TRACKS = {
   "ingestion": {
-    "name": "Multi-Modal Ingestion Pipeline (Apple Silicon)",
+    "name": "Ingestion Pipeline (Apple Silicon)",
     "metrics": {
       "latency": "84ms",
       "rate": "3.2 MB/s",
@@ -80,9 +80,8 @@ const DEBUGGER_TRACKS = {
     "stages": [
       "0. Input",
       "1. Extract",
-      "2. Semantic Chunk",
-      "3. Embed",
-      "4. Output"
+      "2. Vectorize",
+      "3. Output"
     ],
     "steps": [
       {
@@ -95,106 +94,107 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "Upload Document",
         "file": "UIDocumentPickerViewController",
-        "desc": "User selects a document or provides raw text to ingest into the workspace sandbox.",
-        "log": "[Input] Sandboxed file read access granted."
+        "desc": "User selects a document or provides raw text.",
+        "log": "File read access granted."
       },
       {
         "stageIdx": 1,
         "gridX": 0.5,
-        "gridY": 0.0,
+        "gridY": 0.5,
         "next": [
+          2,
           3
         ],
-        "badge": "Step 1a",
+        "badge": "Step 1",
         "name": "Complexity Pre-Scan",
         "file": "PageComplexityAnalyzer.swift",
-        "desc": "Adaptive scan to check if page needs OCR or is clean text.",
-        "log": "Page is image-heavy. Routing to Vision OCR."
+        "desc": "Adaptive scan to check if page needs OCR.",
+        "log": "Routed to split extractors."
       },
       {
         "stageIdx": 1,
         "gridX": 0.2,
-        "gridY": 1.0,
+        "gridY": 1.5,
         "next": [
           4
         ],
-        "badge": "Step 1b",
+        "badge": "Step 1a",
         "name": "Vision OCR",
         "file": "VisionFramework",
-        "desc": "Renders page at 6x scale for accurate small spec extraction.",
-        "log": "Low confidence text. Triggering Vision OCR at 6x scale."
+        "desc": "6x scale for accurate small spec extraction.",
+        "log": "Text extracted."
       },
       {
         "stageIdx": 1,
         "gridX": 0.8,
-        "gridY": 1.0,
+        "gridY": 1.5,
         "next": [
           4
         ],
-        "badge": "Step 1c",
+        "badge": "Step 1b",
         "name": "Native PDFKit",
         "file": "DocumentProcessor.swift",
-        "desc": "Extract raw text from pure digital pages.",
-        "log": "Clean text extracted."
+        "desc": "Extract raw text from digital pages.",
+        "log": "Text extracted."
       },
       {
-        "stageIdx": 2,
+        "stageIdx": 1,
         "gridX": 0.5,
-        "gridY": 1.0,
+        "gridY": 2.5,
         "next": [
           5,
           6
         ],
-        "badge": "Step 2",
+        "badge": "Step 1.1",
         "name": "Semantic Chunker",
         "file": "SemanticChunker.swift",
-        "desc": "Deconstruct raw text into logically cohesive chunks <=310 words.",
-        "log": "Split text into 18 chunks with structural metadata."
+        "desc": "Deconstruct raw text into chunks.",
+        "log": "Split into 18 chunks."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 2,
         "gridX": 0.2,
         "gridY": 0.5,
         "next": [
           7
         ],
-        "badge": "Step 3a",
+        "badge": "Step 2a",
         "name": "Metal GPU Vectorizer",
         "file": "GPUComputeService.swift",
-        "desc": "Convert text chunks into dense 384-dimensional mathematical vectors using SIMD4.",
-        "log": "[Metal] Accelerated 18 vectors via SIMD4 batch execution."
+        "desc": "SIMD4 batch execution.",
+        "log": "Accelerated 18 vectors."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 2,
         "gridX": 0.8,
-        "gridY": 1.5,
+        "gridY": 0.5,
         "next": [
           7
         ],
-        "badge": "Step 3b",
+        "badge": "Step 2b",
         "name": "Lexical Indexer",
         "file": "SQLiteFullTextService.swift",
-        "desc": "Write metadata into SQLite FTS5 table.",
-        "log": "Index metadata written to SQLite FTS5."
+        "desc": "Write metadata into SQLite FTS5.",
+        "log": "Index metadata written."
       },
       {
-        "stageIdx": 4,
+        "stageIdx": 3,
         "gridX": 0.5,
-        "gridY": 1.0,
+        "gridY": 0.5,
         "next": [],
         "badge": "Output",
         "name": "App Entities",
         "file": "StorageManager.swift",
-        "desc": "Write references to encrypted local container and register App Entities for Siri.",
-        "log": "[Storage] Container updated. Siri Entities registered."
+        "desc": "Register App Entities for Siri.",
+        "log": "Container updated."
       }
     ]
   },
-  "standard": {
-    "name": "Standard RAG Mode (Apple Foundation Models, On-Device)",
+  "standard_3b": {
+    "name": "Standard Mode (3B AFM Core)",
     "metrics": {
-      "latency": "312ms",
-      "rate": "128 tok/s",
+      "latency": "240ms",
+      "rate": "135 tok/s",
       "score": "98.7%"
     },
     "stages": [
@@ -211,8 +211,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          1,
-          2
+          1
         ],
         "badge": "Input",
         "name": "User Query",
@@ -222,122 +221,109 @@ const DEBUGGER_TRACKS = {
       },
       {
         "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2,
+          3
+        ],
+        "badge": "Step 1",
+        "name": "Intent Formulation",
+        "file": "QueryEnhancementService.swift",
+        "desc": "Resolve pronouns and expand.",
+        "log": "Intent resolved."
+      },
+      {
+        "stageIdx": 1,
         "gridX": 0.2,
-        "gridY": 0.0,
+        "gridY": 1.5,
         "next": [
           4
         ],
         "badge": "Step 1a",
-        "name": "AFM Router",
-        "file": "FoundationModelPreference.swift",
-        "desc": "Route to highest available on-device model (3B or 20B) based on hardware.",
-        "log": "Tier Selected: Optimal On-Device Base Model."
-      },
-      {
-        "stageIdx": 1,
-        "gridX": 0.8,
-        "gridY": 1.0,
-        "next": [
-          3
-        ],
-        "badge": "Step 1b",
-        "name": "Intent Formulation",
-        "file": "QueryEnhancementService.swift",
-        "desc": "Resolve pronouns and generate expansion queries.",
-        "log": "Intent resolved. Expanded query generated."
-      },
-      {
-        "stageIdx": 1,
-        "gridX": 0.5,
-        "gridY": 2.0,
-        "next": [
-          4,
-          5,
-          6
-        ],
-        "badge": "Step 1c",
         "name": "Query Embed",
         "file": "EmbeddingService.swift",
         "desc": "Generate query vector.",
         "log": "Vector generated."
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.2,
+        "stageIdx": 1,
+        "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          7
+          5
+        ],
+        "badge": "Step 1b",
+        "name": "Keyword Extract",
+        "file": "QueryEnhancementService.swift",
+        "desc": "Extract BM25 terms.",
+        "log": "Keywords extracted."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.2,
+        "gridY": 0.5,
+        "next": [
+          6
         ],
         "badge": "Step 2a",
         "name": "Metal Vector Search",
         "file": "RAGEngine.swift",
-        "desc": "SIMD4 Cosine Similarity on Apple Silicon.",
+        "desc": "SIMD4 Cosine Similarity.",
         "log": "Found Top 30 vectors."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.8,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2b",
+        "name": "BM25 Search",
+        "file": "SQLiteFTS5",
+        "desc": "Exact keyword lookup.",
+        "log": "Found 12 matching rows."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2.1",
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Reciprocal Rank Fusion.",
+        "log": "Indices merged."
       },
       {
         "stageIdx": 2,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          7
-        ],
-        "badge": "Step 2b",
-        "name": "BM25 Search",
-        "file": "SQLiteFullTextService.swift",
-        "desc": "SQLite FTS5 exact keyword lookup.",
-        "log": "Found 12 matching rows."
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.8,
-        "gridY": 3.5,
-        "next": [
-          7
-        ],
-        "badge": "Step 2c",
-        "name": "Visual Index",
-        "file": "VisualSearch.swift",
-        "desc": "Cross-reference parsed charts.",
-        "log": "Located 2 relevant figures."
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 4.5,
-        "next": [
           8
-        ],
-        "badge": "Step 2.1",
-        "name": "Hybrid RRF",
-        "file": "RAGEngine.swift",
-        "desc": "Reciprocal Rank Fusion merging.",
-        "log": "Indices merged."
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 5.5,
-        "next": [
-          9
         ],
         "badge": "Step 2.2",
         "name": "Context Packing",
-        "file": "ContextPackingService.swift",
-        "desc": "Assemble parent-chunks within token budget.",
-        "log": "Packed 2800 tokens into context window."
+        "file": "ContextPacking.swift",
+        "desc": "Assemble parent-chunks.",
+        "log": "Packed tokens."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
+          9,
           10
         ],
         "badge": "Step 3a",
-        "name": "LoRA Adapter Injection",
+        "name": "LoRA Injection (3B)",
         "file": "SystemLanguageModel",
-        "desc": "Inject lightweight RAG task adapter into Base Model.",
-        "log": "Loaded RAG_Synthesis_LoRA (~160MB)."
+        "desc": "Inject RAG task adapter into 3B Base Model.",
+        "log": "Loaded Adapter."
       },
       {
         "stageIdx": 3,
@@ -349,20 +335,20 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 3b",
         "name": "Draft Generation",
         "file": "SpeculativeDecoding",
-        "desc": "48M parameter Draft Model streams candidate tokens.",
-        "log": "Drafting candidate sequence."
+        "desc": "48M Draft Model candidate tokens.",
+        "log": "Drafting sequence."
       },
       {
         "stageIdx": 3,
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          12
+          11
         ],
         "badge": "Step 3c",
         "name": "Parallel Verification",
         "file": "SpeculativeDecoding",
-        "desc": "Base Model verifies candidate sequence in single forward pass (2x speedup).",
+        "desc": "3B Base Model verifies sequence.",
         "log": "Candidates verified."
       },
       {
@@ -370,68 +356,505 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          13,
-          14
+          12
         ],
         "badge": "Step 3d",
         "name": "Guided Generation",
         "file": "ConstrainedDecoding",
-        "desc": "Metal-level constrained decoding ensures exact citation schemas.",
-        "log": "Structured output enforced."
+        "desc": "Ensure exact citation schemas.",
+        "log": "Schema enforced."
       },
       {
         "stageIdx": 4,
         "gridX": 0.5,
-        "gridY": 1.0,
+        "gridY": 0.5,
         "next": [
-          15,
-          16
+          13,
+          14
         ],
         "badge": "Step 4",
-        "name": "Gate: Semantic Grounding",
-        "file": "VerificationGateService.swift",
-        "desc": "Verify generated claims exist in retrieved context.",
-        "log": "Grounding Gate: PASS."
+        "name": "Semantic Grounding",
+        "file": "VerificationGates.swift",
+        "desc": "Verify claims exist in context.",
+        "log": "Gate PASS."
       },
       {
         "stageIdx": 4,
         "gridX": 0.2,
-        "gridY": 2.0,
+        "gridY": 1.5,
         "next": [],
         "badge": "Fail",
         "name": "Contradiction Sweep",
-        "file": "VerificationGateService.swift",
-        "desc": "Detect hallucinated facts.",
-        "log": "Sweep detected hallucination. ABSTAIN."
+        "file": "VerificationGates.swift",
+        "desc": "Hallucination check.",
+        "log": "ABSTAIN."
       },
       {
         "stageIdx": 4,
         "gridX": 0.8,
-        "gridY": 2.0,
+        "gridY": 1.5,
         "next": [
-          17
+          15
         ],
         "badge": "Pass",
         "name": "Contradiction Sweep",
-        "file": "VerificationGateService.swift",
-        "desc": "Ensure no logical contradictions.",
-        "log": "Sweep: PASS. Proceeding to output."
+        "file": "VerificationGates.swift",
+        "desc": "No logical contradictions.",
+        "log": "Gate PASS."
       },
       {
         "stageIdx": 5,
         "gridX": 0.5,
-        "gridY": 1.5,
+        "gridY": 0.5,
         "next": [],
         "badge": "Output",
-        "name": "Interactive Citations",
+        "name": "Final Response",
         "file": "UI",
-        "desc": "Render response with mapped citation markers.",
+        "desc": "Render with citation markers.",
         "log": "Response delivered."
       }
     ]
   },
-  "deep": {
-    "name": "Deep Think Mode (Iterative Retrieval & 20B WWDC26 MoE Architecture)",
+  "standard_20b": {
+    "name": "Standard Mode (20B AFM Advanced)",
+    "metrics": {
+      "latency": "380ms",
+      "rate": "90 tok/s",
+      "score": "99.1%"
+    },
+    "stages": [
+      "0. Input",
+      "1. Retrieve",
+      "2. Assemble",
+      "3. AFM Inference",
+      "4. Verify",
+      "5. Output"
+    ],
+    "steps": [
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2,
+          3
+        ],
+        "badge": "Step 1",
+        "name": "Intent Formulation",
+        "file": "QueryEnhancementService.swift",
+        "desc": "Resolve pronouns and expand.",
+        "log": "Intent resolved."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          4
+        ],
+        "badge": "Step 1a",
+        "name": "Query Embed",
+        "file": "EmbeddingService.swift",
+        "desc": "Generate query vector.",
+        "log": "Vector generated."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 1b",
+        "name": "Keyword Extract",
+        "file": "QueryEnhancementService.swift",
+        "desc": "Extract BM25 terms.",
+        "log": "Keywords extracted."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.2,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2a",
+        "name": "Metal Vector Search",
+        "file": "RAGEngine.swift",
+        "desc": "SIMD4 Cosine Similarity.",
+        "log": "Found Top 30 vectors."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.8,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2b",
+        "name": "BM25 Search",
+        "file": "SQLiteFTS5",
+        "desc": "Exact keyword lookup.",
+        "log": "Found 12 matching rows."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2.1",
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Reciprocal Rank Fusion.",
+        "log": "Indices merged."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 2.2",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Assemble parent-chunks.",
+        "log": "Packed tokens."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 3a",
+        "name": "NAND Flash Paging",
+        "file": "UnifiedMemory",
+        "desc": "Stream 20B weights from NVMe.",
+        "log": "Paging active."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          10,
+          11
+        ],
+        "badge": "Step 3b",
+        "name": "MoE Expert Router",
+        "file": "SparseMoE.swift",
+        "desc": "Activate 2.8B parameters for query.",
+        "log": "MoE active."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [
+          12
+        ],
+        "badge": "Step 3c",
+        "name": "Draft Generation",
+        "file": "SpeculativeDecoding",
+        "desc": "48M Draft Model sequence.",
+        "log": "Drafting sequence."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          12
+        ],
+        "badge": "Step 3d",
+        "name": "MoE Verification",
+        "file": "SpeculativeDecoding",
+        "desc": "20B Base verifies sequence.",
+        "log": "Candidates verified."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          13
+        ],
+        "badge": "Step 3e",
+        "name": "Guided Generation",
+        "file": "ConstrainedDecoding",
+        "desc": "Ensure exact citation schemas.",
+        "log": "Schema enforced."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          14,
+          15
+        ],
+        "badge": "Step 4",
+        "name": "Semantic Grounding",
+        "file": "VerificationGates.swift",
+        "desc": "Verify claims.",
+        "log": "Gate PASS."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [],
+        "badge": "Fail",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGates.swift",
+        "desc": "Hallucination check.",
+        "log": "ABSTAIN."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          16
+        ],
+        "badge": "Pass",
+        "name": "Contradiction Sweep",
+        "file": "VerificationGates.swift",
+        "desc": "No logical contradictions.",
+        "log": "Gate PASS."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Final Response",
+        "file": "UI",
+        "desc": "Render with citation markers.",
+        "log": "Response delivered."
+      }
+    ]
+  },
+  "deepthink_3b": {
+    "name": "Deep Think Mode (3B AFM Core)",
+    "metrics": {
+      "latency": "980ms",
+      "rate": "90 tok/s",
+      "score": "99.4%"
+    },
+    "stages": [
+      "0. Input",
+      "1. Multi-Hop",
+      "2. Iterate",
+      "3. AFM Inference",
+      "4. 8-Gates",
+      "5. Output"
+    ],
+    "steps": [
+      {
+        "stageIdx": 0,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          1
+        ],
+        "badge": "Input",
+        "name": "User Query",
+        "file": "ChatScreen.swift",
+        "desc": "User submits query.",
+        "log": "Received query."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          2,
+          3
+        ],
+        "badge": "Step 1",
+        "name": "Multi-hop Intent",
+        "file": "QueryEnhancement.swift",
+        "desc": "Deconstruct complex query.",
+        "log": "Split into 3 sub-queries."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          4
+        ],
+        "badge": "Step 1a",
+        "name": "Vector Embeddings",
+        "file": "Embedding.swift",
+        "desc": "Embed all 3 sub-queries.",
+        "log": "Vectors generated."
+      },
+      {
+        "stageIdx": 1,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 1b",
+        "name": "Keyword Extract",
+        "file": "QueryEnhancement.swift",
+        "desc": "Extract for 3 sub-queries.",
+        "log": "Keywords generated."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.2,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2a",
+        "name": "Iterative Vector",
+        "file": "RAGEngine.swift",
+        "desc": "Search across sub-queries.",
+        "log": "Aggregated 90 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.8,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2b",
+        "name": "Iterative BM25",
+        "file": "SQLiteFTS5",
+        "desc": "Search across sub-queries.",
+        "log": "Aggregated 40 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
+        "badge": "Step 2.1",
+        "name": "Cross-Encoder",
+        "file": "ReRanker.swift",
+        "desc": "Rescore 130 items.",
+        "log": "Filtered to Top 15."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          8
+        ],
+        "badge": "Step 2.2",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Parent-chunk resolution.",
+        "log": "Packed 3900 tokens."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          9,
+          10
+        ],
+        "badge": "Step 3a",
+        "name": "LoRA Injection (3B)",
+        "file": "SystemLanguageModel",
+        "desc": "Inject deep reasoning logic adapter.",
+        "log": "Loaded RAG_Reasoning_LoRA."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 1.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3b",
+        "name": "Draft Generation",
+        "file": "SpeculativeDecoding",
+        "desc": "Draft model predicts reasoning chain.",
+        "log": "Drafting chain of thought."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 1.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3c",
+        "name": "Parallel Verification",
+        "file": "SpeculativeDecoding",
+        "desc": "3B Base Model verifies sequence.",
+        "log": "Sequence verified."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          12
+        ],
+        "badge": "Step 3d",
+        "name": "Guided Generation",
+        "file": "ConstrainedDecoding",
+        "desc": "Schema enforcement.",
+        "log": "Schema enforced."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          13
+        ],
+        "badge": "Step 4",
+        "name": "8-Gate Verification",
+        "file": "VerificationGates.swift",
+        "desc": "Logic, math, and hallucination sweeps.",
+        "log": "Executing 8 parallel gates."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [],
+        "badge": "Output",
+        "name": "Synthesized Response",
+        "file": "UI",
+        "desc": "Render multi-paragraph verified response.",
+        "log": "Response Delivered."
+      }
+    ]
+  },
+  "deepthink_20b": {
+    "name": "Deep Think Mode (20B AFM Advanced)",
     "metrics": {
       "latency": "1.8s",
       "rate": "64 tok/s",
@@ -464,59 +887,86 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          2
+          2,
+          3
         ],
         "badge": "Step 1",
-        "name": "AFM Router",
-        "file": "FoundationModelPreference.swift",
-        "desc": "Route to highest available on-device model (20B Advanced).",
-        "log": "Tier Selected: AFM 3 Core Advanced (20B)."
+        "name": "Multi-hop Intent",
+        "file": "QueryEnhancement.swift",
+        "desc": "Deconstruct complex query.",
+        "log": "Split into 3 sub-queries."
       },
       {
         "stageIdx": 1,
-        "gridX": 0.5,
+        "gridX": 0.2,
         "gridY": 1.5,
-        "next": [
-          3
-        ],
-        "badge": "Step 1.1",
-        "name": "Multi-hop Intent",
-        "file": "QueryEnhancement.swift",
-        "desc": "Deconstruct complex query into intermediate steps.",
-        "log": "Query split into 3 sub-queries."
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 0.5,
         "next": [
           4
         ],
-        "badge": "Step 2",
-        "name": "Iterative Retrieval",
-        "file": "RAGEngine.swift",
-        "desc": "Recursive Vector & BM25 search across sub-queries.",
-        "log": "Aggregated 80 items."
+        "badge": "Step 1a",
+        "name": "Vector Embeddings",
+        "file": "Embedding.swift",
+        "desc": "Embed all 3 sub-queries.",
+        "log": "Vectors generated."
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
+        "stageIdx": 1,
+        "gridX": 0.8,
         "gridY": 1.5,
         "next": [
           5
         ],
+        "badge": "Step 1b",
+        "name": "Keyword Extract",
+        "file": "QueryEnhancement.swift",
+        "desc": "Extract for 3 sub-queries.",
+        "log": "Keywords generated."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.2,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2a",
+        "name": "Iterative Vector",
+        "file": "RAGEngine.swift",
+        "desc": "Search across sub-queries.",
+        "log": "Aggregated 90 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.8,
+        "gridY": 0.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2b",
+        "name": "Iterative BM25",
+        "file": "SQLiteFTS5",
+        "desc": "Search across sub-queries.",
+        "log": "Aggregated 40 items."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          7
+        ],
         "badge": "Step 2.1",
         "name": "Cross-Encoder",
         "file": "ReRanker.swift",
-        "desc": "TinyBERT semantic rescoring of all 80 items.",
-        "log": "Rescored and filtered to Top 15."
+        "desc": "Rescore 130 items.",
+        "log": "Filtered to Top 15."
       },
       {
         "stageIdx": 2,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          6
+          8
         ],
         "badge": "Step 2.2",
         "name": "Context Packing",
@@ -529,48 +979,36 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          7
+          9
         ],
         "badge": "Step 3a",
         "name": "NAND Flash Paging",
-        "file": "UnifiedMemoryManager",
-        "desc": "Stream WWDC26 20B weights dynamically from NVMe flash storage.",
-        "log": "Paging weights to active memory."
+        "file": "UnifiedMemory",
+        "desc": "Stream 20B weights from NVMe.",
+        "log": "Paging active."
       },
       {
         "stageIdx": 3,
-        "gridX": 0.2,
+        "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          8
+          10,
+          11
         ],
         "badge": "Step 3b",
-        "name": "LoRA Adapter Injection",
-        "file": "SystemLanguageModel",
-        "desc": "Inject deep reasoning logic adapter.",
-        "log": "Loaded RAG_Reasoning_LoRA."
-      },
-      {
-        "stageIdx": 3,
-        "gridX": 0.8,
-        "gridY": 1.5,
-        "next": [
-          9
-        ],
-        "badge": "Step 3c",
         "name": "MoE Expert Router",
         "file": "SparseMoE.swift",
-        "desc": "Mixture of Experts routes to specific subnetworks (activating only 1-4B parameters).",
-        "log": "MoE Active Parameters: 2.8B."
+        "desc": "Activate 2.8B parameters.",
+        "log": "MoE active."
       },
       {
         "stageIdx": 3,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
-          10
+          12
         ],
-        "badge": "Step 3d",
+        "badge": "Step 3c",
         "name": "Draft Generation",
         "file": "SpeculativeDecoding",
         "desc": "Draft model predicts reasoning chain.",
@@ -581,31 +1019,44 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
-          11
+          12
+        ],
+        "badge": "Step 3d",
+        "name": "MoE Verification",
+        "file": "SpeculativeDecoding",
+        "desc": "Active MoE parameters verify sequence.",
+        "log": "Sequence verified by MoE."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          13
         ],
         "badge": "Step 3e",
-        "name": "Parallel Verification",
-        "file": "SpeculativeDecoding",
-        "desc": "Active MoE parameters verify sequence in parallel.",
-        "log": "Sequence verified by MoE."
+        "name": "Guided Generation",
+        "file": "ConstrainedDecoding",
+        "desc": "Schema enforcement.",
+        "log": "Schema enforced."
       },
       {
         "stageIdx": 4,
         "gridX": 0.5,
-        "gridY": 1.0,
+        "gridY": 0.5,
         "next": [
-          12
+          14
         ],
         "badge": "Step 4",
         "name": "8-Gate Verification",
         "file": "VerificationGates.swift",
-        "desc": "Extensive logic, math, and hallucination sweeps.",
+        "desc": "Logic, math, and hallucination sweeps.",
         "log": "Executing 8 parallel gates."
       },
       {
         "stageIdx": 5,
         "gridX": 0.5,
-        "gridY": 1.5,
+        "gridY": 0.5,
         "next": [],
         "badge": "Output",
         "name": "Synthesized Response",
