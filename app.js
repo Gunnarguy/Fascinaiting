@@ -1919,7 +1919,7 @@ forceFreshStylesheet();
 // --- NOTION ROADMAP SYNC ---
 async function fetchRoadmap() {
   try {
-    const response = await fetch('roadmap.json');
+    const response = await fetch(`roadmap.json?v=${new Date().getTime()}`);
     if (!response.ok) {
       console.warn('Roadmap JSON not found. Run the GitHub sync action.');
       return;
