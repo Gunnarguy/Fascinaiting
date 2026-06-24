@@ -80,8 +80,9 @@ const DEBUGGER_TRACKS = {
     "stages": [
       "0. Input",
       "1. Extract",
-      "2. Vectorize",
-      "3. Output"
+      "2. Process",
+      "3. Vectorize",
+      "4. Output"
     ],
     "steps": [
       {
@@ -120,8 +121,8 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1a",
         "name": "Vision OCR",
-        "file": "VisionFramework",
-        "desc": "6x scale for accurate small spec extraction.",
+        "file": "LayoutAwareExtractor",
+        "desc": "6x scale layout-aware extraction.",
         "log": "Text extracted."
       },
       {
@@ -133,8 +134,8 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1b",
         "name": "Native PDFKit",
-        "file": "DocumentProcessor.swift",
-        "desc": "Extract raw text.",
+        "file": "StructuredDocumentParser",
+        "desc": "Extract native text layer.",
         "log": "Text extracted."
       },
       {
@@ -142,14 +143,13 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          5,
-          6
+          5
         ],
         "badge": "Step 1.1",
-        "name": "Semantic Chunker",
-        "file": "SemanticChunker.swift",
-        "desc": "Deconstruct raw text into chunks.",
-        "log": "Split into 18 chunks."
+        "name": "Normalizer & OCR Repair",
+        "file": "TextNormalizer",
+        "desc": "Fix layout anomalies and hyphenation.",
+        "log": "Text repaired."
       },
       {
         "stageIdx": 2,
@@ -159,10 +159,10 @@ const DEBUGGER_TRACKS = {
           7
         ],
         "badge": "Step 2a",
-        "name": "Metal GPU Vectorizer",
-        "file": "GPUComputeService.swift",
-        "desc": "SIMD4 batch execution.",
-        "log": "Accelerated 18 vectors."
+        "name": "Entity Extraction",
+        "file": "NLTagger",
+        "desc": "Named Entity Recognition.",
+        "log": "Entities extracted."
       },
       {
         "stageIdx": 2,
@@ -172,13 +172,53 @@ const DEBUGGER_TRACKS = {
           7
         ],
         "badge": "Step 2b",
-        "name": "Lexical Indexer",
-        "file": "SQLiteFTS5",
-        "desc": "Write metadata.",
-        "log": "Index metadata written."
+        "name": "Structure-Aware Chunker",
+        "file": "SemanticChunker.swift",
+        "desc": "Preserve atomic tables/lists + Semantic chunks.",
+        "log": "Split into 18 chunks."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          8,
+          9
+        ],
+        "badge": "Step 2.1",
+        "name": "Token Boundary Enforcer",
+        "file": "BertTokenizer",
+        "desc": "Guarantee chunk sizes <= 510 tokens.",
+        "log": "Tokens verified."
       },
       {
         "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 0.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 3a",
+        "name": "Metal GPU Vectorizer",
+        "file": "CoreMLSentenceEmbeddingProvider",
+        "desc": "SIMD4 batch execution (384-dim).",
+        "log": "Accelerated 18 vectors."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 0.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 3b",
+        "name": "Lexical Indexer",
+        "file": "SQLiteFullTextService",
+        "desc": "FTS5 BM25 index write.",
+        "log": "Index metadata written."
+      },
+      {
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -199,11 +239,12 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Retrieve",
-      "2. Assemble",
-      "3. AFM Inference",
-      "4. Verify",
-      "5. Output"
+      "1. Embed",
+      "2. Retrieve",
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
@@ -299,25 +340,64 @@ const DEBUGGER_TRACKS = {
         "log": "Indices merged."
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
-        "next": [
-          8
-        ],
-        "badge": "Step 2.2",
-        "name": "Context Packing",
-        "file": "ContextPacking.swift",
-        "desc": "Assemble parent-chunks.",
-        "log": "Packed tokens."
-      },
-      {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          9,
+          8
+        ],
+        "badge": "Step 3",
+        "name": "TinyBERT Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Cross-Encoder / Heuristic Fallback.",
+        "log": "Rescored candidates."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 3.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch neighboring context chunks.",
+        "log": "Context expanded."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
           10
+        ],
+        "badge": "Step 3.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder high-relevance chunks to edges.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3.3",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Assemble up to 4K limits.",
+        "log": "Packed tokens."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          12,
+          13
         ],
         "badge": "Step A",
         "name": "LoRA Injection (3B)",
@@ -326,11 +406,11 @@ const DEBUGGER_TRACKS = {
         "log": "Loaded Adapter."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          12
+          15
         ],
         "badge": "Step B",
         "name": "Draft Generation",
@@ -339,11 +419,11 @@ const DEBUGGER_TRACKS = {
         "log": "Drafting sequence."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          13
+          16
         ],
         "badge": "Step C",
         "name": "Parallel Verification",
@@ -352,11 +432,11 @@ const DEBUGGER_TRACKS = {
         "log": "Candidates verified."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          15
+          18
         ],
         "badge": "Step D",
         "name": "Guided Generation",
@@ -365,51 +445,64 @@ const DEBUGGER_TRACKS = {
         "log": "Schema enforced."
       },
       {
-        "stageIdx": 4,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          13,
-          14
+          16
         ],
-        "badge": "Step 4",
-        "name": "Semantic Grounding",
-        "file": "VerificationGates.swift",
-        "desc": "Verify claims exist in context.",
-        "log": "Gate PASS."
-      },
-      {
-        "stageIdx": 4,
-        "gridX": 0.2,
-        "gridY": 1.5,
-        "next": [],
-        "badge": "Fail",
-        "name": "Contradiction Sweep",
-        "file": "VerificationGates.swift",
-        "desc": "Hallucination check.",
-        "log": "ABSTAIN."
-      },
-      {
-        "stageIdx": 4,
-        "gridX": 0.8,
-        "gridY": 1.5,
-        "next": [
-          15
-        ],
-        "badge": "Pass",
-        "name": "Contradiction Sweep",
-        "file": "VerificationGates.swift",
-        "desc": "No logical contradictions.",
-        "log": "Gate PASS."
+        "badge": "Step 5",
+        "name": "Verification Gates A-I",
+        "file": "VerificationGateService.swift",
+        "desc": "Check claims against context.",
+        "log": "Executing 9 parallel gates."
       },
       {
         "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          17,
+          18
+        ],
+        "badge": "Step 5.1",
+        "name": "Negation & Overlap",
+        "file": "VerificationGateService.swift",
+        "desc": "Contradiction and hallucination checks.",
+        "log": "Gates PASS."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [],
+        "badge": "Fail",
+        "name": "Abstain",
+        "file": "UI",
+        "desc": "Engine determines evidence is weak.",
+        "log": "Refusal generated."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          19
+        ],
+        "badge": "Pass",
+        "name": "Grounded Response",
+        "file": "UI",
+        "desc": "No logical contradictions.",
+        "log": "Forwarding to UI."
+      },
+      {
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
         "badge": "Output",
         "name": "Final Response",
-        "file": "UI",
+        "file": "ChatScreen.swift",
         "desc": "Render with citation markers.",
         "log": "Response delivered."
       }
@@ -424,11 +517,12 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Retrieve",
-      "2. Assemble",
-      "3. AFM Inference",
-      "4. Verify",
-      "5. Output"
+      "1. Embed",
+      "2. Retrieve",
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
@@ -524,24 +618,63 @@ const DEBUGGER_TRACKS = {
         "log": "Indices merged."
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
-        "next": [
-          8
-        ],
-        "badge": "Step 2.2",
-        "name": "Context Packing",
-        "file": "ContextPacking.swift",
-        "desc": "Assemble parent-chunks.",
-        "log": "Packed tokens."
-      },
-      {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
+          8
+        ],
+        "badge": "Step 3",
+        "name": "TinyBERT Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Cross-Encoder / Heuristic Fallback.",
+        "log": "Rescored candidates."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
           9
+        ],
+        "badge": "Step 3.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch neighboring context chunks.",
+        "log": "Context expanded."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 3.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder high-relevance chunks to edges.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3.3",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Assemble up to 4K limits.",
+        "log": "Packed tokens."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          12
         ],
         "badge": "Step A",
         "name": "NAND Flash Paging",
@@ -550,12 +683,12 @@ const DEBUGGER_TRACKS = {
         "log": "Paging active."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          11,
-          12
+          14,
+          15
         ],
         "badge": "Step B",
         "name": "MoE Expert Router",
@@ -564,11 +697,11 @@ const DEBUGGER_TRACKS = {
         "log": "MoE active."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
-          14
+          17
         ],
         "badge": "Step C",
         "name": "Draft Generation",
@@ -577,11 +710,11 @@ const DEBUGGER_TRACKS = {
         "log": "Drafting sequence."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
-          15
+          18
         ],
         "badge": "Step D",
         "name": "MoE Verification",
@@ -590,11 +723,11 @@ const DEBUGGER_TRACKS = {
         "log": "Candidates verified."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
-          17
+          20
         ],
         "badge": "Step E",
         "name": "Guided Generation",
@@ -603,51 +736,64 @@ const DEBUGGER_TRACKS = {
         "log": "Schema enforced."
       },
       {
-        "stageIdx": 4,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          14,
-          15
+          17
         ],
-        "badge": "Step 4",
-        "name": "Semantic Grounding",
-        "file": "VerificationGates.swift",
-        "desc": "Verify claims exist in context.",
-        "log": "Gate PASS."
-      },
-      {
-        "stageIdx": 4,
-        "gridX": 0.2,
-        "gridY": 1.5,
-        "next": [],
-        "badge": "Fail",
-        "name": "Contradiction Sweep",
-        "file": "VerificationGates.swift",
-        "desc": "Hallucination check.",
-        "log": "ABSTAIN."
-      },
-      {
-        "stageIdx": 4,
-        "gridX": 0.8,
-        "gridY": 1.5,
-        "next": [
-          16
-        ],
-        "badge": "Pass",
-        "name": "Contradiction Sweep",
-        "file": "VerificationGates.swift",
-        "desc": "No logical contradictions.",
-        "log": "Gate PASS."
+        "badge": "Step 5",
+        "name": "Verification Gates A-I",
+        "file": "VerificationGateService.swift",
+        "desc": "Check claims against context.",
+        "log": "Executing 9 parallel gates."
       },
       {
         "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          18,
+          19
+        ],
+        "badge": "Step 5.1",
+        "name": "Negation & Overlap",
+        "file": "VerificationGateService.swift",
+        "desc": "Contradiction and hallucination checks.",
+        "log": "Gates PASS."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [],
+        "badge": "Fail",
+        "name": "Abstain",
+        "file": "UI",
+        "desc": "Engine determines evidence is weak.",
+        "log": "Refusal generated."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          20
+        ],
+        "badge": "Pass",
+        "name": "Grounded Response",
+        "file": "UI",
+        "desc": "No logical contradictions.",
+        "log": "Forwarding to UI."
+      },
+      {
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
         "badge": "Output",
         "name": "Final Response",
-        "file": "UI",
+        "file": "ChatScreen.swift",
         "desc": "Render with citation markers.",
         "log": "Response delivered."
       }
@@ -662,11 +808,12 @@ const DEBUGGER_TRACKS = {
     },
     "stages": [
       "0. Input",
-      "1. Retrieve",
-      "2. Assemble",
-      "3. AFM Inference",
-      "4. Verify",
-      "5. Output"
+      "1. Embed",
+      "2. Retrieve",
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
@@ -762,24 +909,63 @@ const DEBUGGER_TRACKS = {
         "log": "Indices merged."
       },
       {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
-        "next": [
-          8
-        ],
-        "badge": "Step 2.2",
-        "name": "Context Packing",
-        "file": "ContextPacking.swift",
-        "desc": "Assemble parent-chunks.",
-        "log": "Packed tokens."
-      },
-      {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
+          8
+        ],
+        "badge": "Step 3",
+        "name": "TinyBERT Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Cross-Encoder / Heuristic Fallback.",
+        "log": "Rescored candidates."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
           9
+        ],
+        "badge": "Step 3.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch neighboring context chunks.",
+        "log": "Context expanded."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 3.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder high-relevance chunks to edges.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3.3",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Assemble up to 4K limits.",
+        "log": "Packed tokens."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          12
         ],
         "badge": "Step A",
         "name": "PCC Escalate",
@@ -788,11 +974,11 @@ const DEBUGGER_TRACKS = {
         "log": "Establishing secure enclave."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          11
+          14
         ],
         "badge": "Step B",
         "name": "Secure Payload Transfer",
@@ -801,11 +987,11 @@ const DEBUGGER_TRACKS = {
         "log": "Payload received by PCC."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          13
+          16
         ],
         "badge": "Step C",
         "name": "Cloud GPU Execution",
@@ -814,51 +1000,64 @@ const DEBUGGER_TRACKS = {
         "log": "Execution complete. Streaming back."
       },
       {
-        "stageIdx": 4,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          12,
-          13
+          15
         ],
-        "badge": "Step 4",
-        "name": "Semantic Grounding",
-        "file": "VerificationGates.swift",
-        "desc": "Verify claims exist in context.",
-        "log": "Gate PASS."
-      },
-      {
-        "stageIdx": 4,
-        "gridX": 0.2,
-        "gridY": 1.5,
-        "next": [],
-        "badge": "Fail",
-        "name": "Contradiction Sweep",
-        "file": "VerificationGates.swift",
-        "desc": "Hallucination check.",
-        "log": "ABSTAIN."
-      },
-      {
-        "stageIdx": 4,
-        "gridX": 0.8,
-        "gridY": 1.5,
-        "next": [
-          14
-        ],
-        "badge": "Pass",
-        "name": "Contradiction Sweep",
-        "file": "VerificationGates.swift",
-        "desc": "No logical contradictions.",
-        "log": "Gate PASS."
+        "badge": "Step 5",
+        "name": "Verification Gates A-I",
+        "file": "VerificationGateService.swift",
+        "desc": "Check claims against context.",
+        "log": "Executing 9 parallel gates."
       },
       {
         "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          16,
+          17
+        ],
+        "badge": "Step 5.1",
+        "name": "Negation & Overlap",
+        "file": "VerificationGateService.swift",
+        "desc": "Contradiction and hallucination checks.",
+        "log": "Gates PASS."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [],
+        "badge": "Fail",
+        "name": "Abstain",
+        "file": "UI",
+        "desc": "Engine determines evidence is weak.",
+        "log": "Refusal generated."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          18
+        ],
+        "badge": "Pass",
+        "name": "Grounded Response",
+        "file": "UI",
+        "desc": "No logical contradictions.",
+        "log": "Forwarding to UI."
+      },
+      {
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
         "badge": "Output",
         "name": "Final Response",
-        "file": "UI",
+        "file": "ChatScreen.swift",
         "desc": "Render with citation markers.",
         "log": "Response delivered."
       }
@@ -875,9 +1074,10 @@ const DEBUGGER_TRACKS = {
       "0. Input",
       "1. Multi-Hop",
       "2. Iterate",
-      "3. Inference",
-      "4. 8-Gates",
-      "5. Output"
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
@@ -967,31 +1167,70 @@ const DEBUGGER_TRACKS = {
           7
         ],
         "badge": "Step 2.1",
-        "name": "Cross-Encoder",
-        "file": "ReRanker.swift",
-        "desc": "Rescore 130 items.",
-        "log": "Filtered to Top 15."
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
-        "next": [
-          8
-        ],
-        "badge": "Step 2.2",
-        "name": "Context Packing",
-        "file": "ContextPacking.swift",
-        "desc": "Parent-chunk resolution.",
-        "log": "Packed 3900 tokens."
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Merge Multi-hop Indices.",
+        "log": "Indices merged."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          9,
+          8
+        ],
+        "badge": "Step 3",
+        "name": "TinyBERT Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Cross-Encoder Rescore 130 items.",
+        "log": "Filtered to Top 15."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          9
+        ],
+        "badge": "Step 3.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch neighboring context chunks.",
+        "log": "Context expanded."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
           10
+        ],
+        "badge": "Step 3.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder high-relevance chunks to edges.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3.3",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Assemble up to 4K limits.",
+        "log": "Packed 3900 tokens."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          12,
+          13
         ],
         "badge": "Step A",
         "name": "LoRA Injection (3B)",
@@ -1000,11 +1239,11 @@ const DEBUGGER_TRACKS = {
         "log": "Loaded Adapter."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          12
+          15
         ],
         "badge": "Step B",
         "name": "Draft Generation",
@@ -1013,11 +1252,11 @@ const DEBUGGER_TRACKS = {
         "log": "Drafting sequence."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          13
+          16
         ],
         "badge": "Step C",
         "name": "Parallel Verification",
@@ -1026,11 +1265,11 @@ const DEBUGGER_TRACKS = {
         "log": "Candidates verified."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          15
+          18
         ],
         "badge": "Step D",
         "name": "Guided Generation",
@@ -1039,20 +1278,33 @@ const DEBUGGER_TRACKS = {
         "log": "Schema enforced."
       },
       {
-        "stageIdx": 4,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          13
+          16
         ],
-        "badge": "Step 4",
-        "name": "8-Gate Verification",
-        "file": "VerificationGates.swift",
-        "desc": "Logic, math, and hallucination sweeps.",
-        "log": "Executing 8 parallel gates."
+        "badge": "Step 5",
+        "name": "Verification Gates A-I",
+        "file": "VerificationGateService.swift",
+        "desc": "Deep logic, math, and hallucination sweeps.",
+        "log": "Executing 9 parallel gates."
       },
       {
         "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          17
+        ],
+        "badge": "Step 5.1",
+        "name": "Negation & Overlap",
+        "file": "VerificationGateService.swift",
+        "desc": "Deep contradiction sweep.",
+        "log": "Gates PASS."
+      },
+      {
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -1075,9 +1327,10 @@ const DEBUGGER_TRACKS = {
       "0. Input",
       "1. Multi-Hop",
       "2. Iterate",
-      "3. Inference",
-      "4. 8-Gates",
-      "5. Output"
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
@@ -1167,30 +1420,69 @@ const DEBUGGER_TRACKS = {
           7
         ],
         "badge": "Step 2.1",
-        "name": "Cross-Encoder",
-        "file": "ReRanker.swift",
-        "desc": "Rescore 130 items.",
-        "log": "Filtered to Top 15."
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
-        "next": [
-          8
-        ],
-        "badge": "Step 2.2",
-        "name": "Context Packing",
-        "file": "ContextPacking.swift",
-        "desc": "Parent-chunk resolution.",
-        "log": "Packed 3900 tokens."
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Merge Multi-hop Indices.",
+        "log": "Indices merged."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
+          8
+        ],
+        "badge": "Step 3",
+        "name": "TinyBERT Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Cross-Encoder Rescore 130 items.",
+        "log": "Filtered to Top 15."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
           9
+        ],
+        "badge": "Step 3.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch neighboring context chunks.",
+        "log": "Context expanded."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 3.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder high-relevance chunks to edges.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3.3",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Assemble up to 4K limits.",
+        "log": "Packed 3900 tokens."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          12
         ],
         "badge": "Step A",
         "name": "NAND Flash Paging",
@@ -1199,12 +1491,12 @@ const DEBUGGER_TRACKS = {
         "log": "Paging active."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          11,
-          12
+          14,
+          15
         ],
         "badge": "Step B",
         "name": "MoE Expert Router",
@@ -1213,11 +1505,11 @@ const DEBUGGER_TRACKS = {
         "log": "MoE active."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
-          14
+          17
         ],
         "badge": "Step C",
         "name": "Draft Generation",
@@ -1226,11 +1518,11 @@ const DEBUGGER_TRACKS = {
         "log": "Drafting sequence."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
-          15
+          18
         ],
         "badge": "Step D",
         "name": "MoE Verification",
@@ -1239,11 +1531,11 @@ const DEBUGGER_TRACKS = {
         "log": "Candidates verified."
       },
       {
-        "stageIdx": 3,
+        "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
-          17
+          20
         ],
         "badge": "Step E",
         "name": "Guided Generation",
@@ -1252,20 +1544,33 @@ const DEBUGGER_TRACKS = {
         "log": "Schema enforced."
       },
       {
-        "stageIdx": 4,
+        "stageIdx": 5,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          14
+          17
         ],
-        "badge": "Step 4",
-        "name": "8-Gate Verification",
-        "file": "VerificationGates.swift",
-        "desc": "Logic, math, and hallucination sweeps.",
-        "log": "Executing 8 parallel gates."
+        "badge": "Step 5",
+        "name": "Verification Gates A-I",
+        "file": "VerificationGateService.swift",
+        "desc": "Deep logic, math, and hallucination sweeps.",
+        "log": "Executing 9 parallel gates."
       },
       {
         "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          18
+        ],
+        "badge": "Step 5.1",
+        "name": "Negation & Overlap",
+        "file": "VerificationGateService.swift",
+        "desc": "Deep contradiction sweep.",
+        "log": "Gates PASS."
+      },
+      {
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -1288,9 +1593,10 @@ const DEBUGGER_TRACKS = {
       "0. Input",
       "1. Multi-Hop",
       "2. Iterate",
-      "3. Inference",
-      "4. 8-Gates",
-      "5. Output"
+      "3. Assemble",
+      "4. Inference",
+      "5. Verify",
+      "6. Output"
     ],
     "steps": [
       {
@@ -1380,62 +1686,62 @@ const DEBUGGER_TRACKS = {
           7
         ],
         "badge": "Step 2.1",
-        "name": "Cross-Encoder",
-        "file": "ReRanker.swift",
-        "desc": "Rescore 130 items.",
-        "log": "Filtered to Top 15."
-      },
-      {
-        "stageIdx": 2,
-        "gridX": 0.5,
-        "gridY": 2.5,
-        "next": [
-          8
-        ],
-        "badge": "Step 2.2",
-        "name": "Context Packing",
-        "file": "ContextPacking.swift",
-        "desc": "Parent-chunk resolution.",
-        "log": "Packed 3900 tokens."
+        "name": "Hybrid RRF",
+        "file": "RAGEngine.swift",
+        "desc": "Merge Multi-hop Indices.",
+        "log": "Indices merged."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          9
+          8
         ],
-        "badge": "Step A",
-        "name": "PCC Escalate",
-        "file": "CloudFoundationModel",
-        "desc": "Escalate to Apple Private Cloud Compute.",
-        "log": "Establishing secure enclave."
+        "badge": "Step 3",
+        "name": "TinyBERT Rerank",
+        "file": "ReRanker.swift",
+        "desc": "Cross-Encoder Rescore 130 items.",
+        "log": "Filtered to Top 15."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          11
+          9
         ],
-        "badge": "Step B",
-        "name": "Secure Payload Transfer",
-        "file": "PCCSecurity.swift",
-        "desc": "Transmit encrypted 32K token buffer.",
-        "log": "Payload received by PCC."
+        "badge": "Step 3.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch neighboring context chunks.",
+        "log": "Context expanded."
       },
       {
         "stageIdx": 3,
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          13
+          10
         ],
-        "badge": "Step C",
-        "name": "Cloud GPU Execution",
-        "file": "NVIDIA Enclave",
-        "desc": "Execute on Google Cloud GPU compute nodes.",
-        "log": "Execution complete. Streaming back."
+        "badge": "Step 3.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder high-relevance chunks to edges.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3.3",
+        "name": "Context Packing",
+        "file": "ContextPacking.swift",
+        "desc": "Assemble up to 4K limits.",
+        "log": "Packed 3900 tokens."
       },
       {
         "stageIdx": 4,
@@ -1444,14 +1750,66 @@ const DEBUGGER_TRACKS = {
         "next": [
           12
         ],
-        "badge": "Step 4",
-        "name": "8-Gate Verification",
-        "file": "VerificationGates.swift",
-        "desc": "Logic, math, and hallucination sweeps.",
-        "log": "Executing 8 parallel gates."
+        "badge": "Step A",
+        "name": "PCC Escalate",
+        "file": "CloudFoundationModel",
+        "desc": "Escalate to Apple Private Cloud Compute.",
+        "log": "Establishing secure enclave."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          14
+        ],
+        "badge": "Step B",
+        "name": "Secure Payload Transfer",
+        "file": "PCCSecurity.swift",
+        "desc": "Transmit encrypted 32K token buffer.",
+        "log": "Payload received by PCC."
+      },
+      {
+        "stageIdx": 4,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          16
+        ],
+        "badge": "Step C",
+        "name": "Cloud GPU Execution",
+        "file": "NVIDIA Enclave",
+        "desc": "Execute on Google Cloud GPU compute nodes.",
+        "log": "Execution complete. Streaming back."
       },
       {
         "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 0.5,
+        "next": [
+          15
+        ],
+        "badge": "Step 5",
+        "name": "Verification Gates A-I",
+        "file": "VerificationGateService.swift",
+        "desc": "Deep logic, math, and hallucination sweeps.",
+        "log": "Executing 9 parallel gates."
+      },
+      {
+        "stageIdx": 5,
+        "gridX": 0.5,
+        "gridY": 1.5,
+        "next": [
+          16
+        ],
+        "badge": "Step 5.1",
+        "name": "Negation & Overlap",
+        "file": "VerificationGateService.swift",
+        "desc": "Deep contradiction sweep.",
+        "log": "Gates PASS."
+      },
+      {
+        "stageIdx": 6,
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [],
@@ -1473,7 +1831,7 @@ const DEBUGGER_TRACKS = {
     "stages": [
       "0. Input",
       "1. Route",
-      "2. Sweep",
+      "2. Assemble",
       "3. Inference",
       "4. Verify",
       "5. Output"
@@ -1526,6 +1884,32 @@ const DEBUGGER_TRACKS = {
           4
         ],
         "badge": "Step 2.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch massive contiguous blocks.",
+        "log": "Context expanded massively."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 2.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder massive 32K context.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2.3",
         "name": "32K Context Packing",
         "file": "ContextPacking.swift",
         "desc": "Pack massive context up to 32,000 tokens.",
@@ -1536,8 +1920,8 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          5,
-          6
+          7,
+          8
         ],
         "badge": "Step A",
         "name": "LoRA Injection (3B)",
@@ -1550,7 +1934,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          8
+          10
         ],
         "badge": "Step B",
         "name": "Draft Generation",
@@ -1563,7 +1947,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 1.5,
         "next": [
-          9
+          11
         ],
         "badge": "Step C",
         "name": "Parallel Verification",
@@ -1576,7 +1960,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          11
+          13
         ],
         "badge": "Step D",
         "name": "Guided Generation",
@@ -1589,12 +1973,12 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          9
+          11
         ],
         "badge": "Step 4",
         "name": "Massive Verification",
         "file": "VerificationGates.swift",
-        "desc": "Sweep entire 32K context.",
+        "desc": "Sweep entire 32K context across Gates A-I.",
         "log": "Verified."
       },
       {
@@ -1620,7 +2004,7 @@ const DEBUGGER_TRACKS = {
     "stages": [
       "0. Input",
       "1. Route",
-      "2. Sweep",
+      "2. Assemble",
       "3. Inference",
       "4. Verify",
       "5. Output"
@@ -1673,6 +2057,32 @@ const DEBUGGER_TRACKS = {
           4
         ],
         "badge": "Step 2.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch massive contiguous blocks.",
+        "log": "Context expanded massively."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 2.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder massive 32K context.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2.3",
         "name": "32K Context Packing",
         "file": "ContextPacking.swift",
         "desc": "Pack massive context up to 32,000 tokens.",
@@ -1683,7 +2093,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          5
+          7
         ],
         "badge": "Step A",
         "name": "NAND Flash Paging",
@@ -1696,8 +2106,8 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          7,
-          8
+          9,
+          10
         ],
         "badge": "Step B",
         "name": "MoE Expert Router",
@@ -1710,7 +2120,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.2,
         "gridY": 2.5,
         "next": [
-          10
+          12
         ],
         "badge": "Step C",
         "name": "Draft Generation",
@@ -1723,7 +2133,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.8,
         "gridY": 2.5,
         "next": [
-          11
+          13
         ],
         "badge": "Step D",
         "name": "MoE Verification",
@@ -1736,7 +2146,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 3.5,
         "next": [
-          13
+          15
         ],
         "badge": "Step E",
         "name": "Guided Generation",
@@ -1749,12 +2159,12 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          10
+          12
         ],
         "badge": "Step 4",
         "name": "Massive Verification",
         "file": "VerificationGates.swift",
-        "desc": "Sweep entire 32K context.",
+        "desc": "Sweep entire 32K context across Gates A-I.",
         "log": "Verified."
       },
       {
@@ -1780,7 +2190,7 @@ const DEBUGGER_TRACKS = {
     "stages": [
       "0. Input",
       "1. Route",
-      "2. Sweep",
+      "2. Assemble",
       "3. Inference",
       "4. Verify",
       "5. Output"
@@ -1833,6 +2243,32 @@ const DEBUGGER_TRACKS = {
           4
         ],
         "badge": "Step 2.1",
+        "name": "Sibling Expansion",
+        "file": "ParentDocumentService",
+        "desc": "Fetch massive contiguous blocks.",
+        "log": "Context expanded massively."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 2.5,
+        "next": [
+          5
+        ],
+        "badge": "Step 2.2",
+        "name": "Lost-in-Middle",
+        "file": "ContextPacking.swift",
+        "desc": "Reorder massive 32K context.",
+        "log": "LIM Reordering applied."
+      },
+      {
+        "stageIdx": 2,
+        "gridX": 0.5,
+        "gridY": 3.5,
+        "next": [
+          6
+        ],
+        "badge": "Step 2.3",
         "name": "32K Context Packing",
         "file": "ContextPacking.swift",
         "desc": "Pack massive context up to 32,000 tokens.",
@@ -1843,7 +2279,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          5
+          7
         ],
         "badge": "Step A",
         "name": "PCC Escalate",
@@ -1856,7 +2292,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 1.5,
         "next": [
-          7
+          9
         ],
         "badge": "Step B",
         "name": "Secure Payload Transfer",
@@ -1869,7 +2305,7 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 2.5,
         "next": [
-          9
+          11
         ],
         "badge": "Step C",
         "name": "Cloud GPU Execution",
@@ -1882,12 +2318,12 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          8
+          10
         ],
         "badge": "Step 4",
         "name": "Massive Verification",
         "file": "VerificationGates.swift",
-        "desc": "Sweep entire 32K context.",
+        "desc": "Sweep entire 32K context across Gates A-I.",
         "log": "Verified."
       },
       {
