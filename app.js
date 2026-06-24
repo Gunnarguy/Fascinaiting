@@ -431,9 +431,9 @@ const DEBUGGER_TRACKS = {
     ]
   },
   "deep": {
-    "name": "Deep Think Mode (Iterative Retrieval & 8-Gate Verification)",
+    "name": "Deep Think Mode (Iterative Retrieval & 20B WWDC26 MoE Architecture)",
     "metrics": {
-      "latency": "1.2s",
+      "latency": "1.8s",
       "rate": "64 tok/s",
       "score": "99.8%"
     },
@@ -469,8 +469,8 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 1",
         "name": "AFM Router",
         "file": "FoundationModelPreference.swift",
-        "desc": "Route to highest available on-device model (3B or 20B).",
-        "log": "Tier Selected: Optimal On-Device Base Model."
+        "desc": "Route to highest available on-device model (20B Advanced).",
+        "log": "Tier Selected: AFM 3 Core Advanced (20B)."
       },
       {
         "stageIdx": 1,
@@ -529,27 +529,26 @@ const DEBUGGER_TRACKS = {
         "gridX": 0.5,
         "gridY": 0.5,
         "next": [
-          7,
-          8
+          7
         ],
         "badge": "Step 3a",
-        "name": "LoRA Adapter Injection",
-        "file": "SystemLanguageModel",
-        "desc": "Inject deep reasoning logic adapter.",
-        "log": "Loaded RAG_Reasoning_LoRA."
+        "name": "NAND Flash Paging",
+        "file": "UnifiedMemoryManager",
+        "desc": "Stream WWDC26 20B weights dynamically from NVMe flash storage.",
+        "log": "Paging weights to active memory."
       },
       {
         "stageIdx": 3,
         "gridX": 0.2,
         "gridY": 1.5,
         "next": [
-          9
+          8
         ],
         "badge": "Step 3b",
-        "name": "Draft Generation",
-        "file": "SpeculativeDecoding",
-        "desc": "Draft model predicts reasoning chain.",
-        "log": "Drafting chain of thought."
+        "name": "LoRA Adapter Injection",
+        "file": "SystemLanguageModel",
+        "desc": "Inject deep reasoning logic adapter.",
+        "log": "Loaded RAG_Reasoning_LoRA."
       },
       {
         "stageIdx": 3,
@@ -559,17 +558,43 @@ const DEBUGGER_TRACKS = {
           9
         ],
         "badge": "Step 3c",
+        "name": "MoE Expert Router",
+        "file": "SparseMoE.swift",
+        "desc": "Mixture of Experts routes to specific subnetworks (activating only 1-4B parameters).",
+        "log": "MoE Active Parameters: 2.8B."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.2,
+        "gridY": 2.5,
+        "next": [
+          10
+        ],
+        "badge": "Step 3d",
+        "name": "Draft Generation",
+        "file": "SpeculativeDecoding",
+        "desc": "Draft model predicts reasoning chain.",
+        "log": "Drafting chain of thought."
+      },
+      {
+        "stageIdx": 3,
+        "gridX": 0.8,
+        "gridY": 2.5,
+        "next": [
+          11
+        ],
+        "badge": "Step 3e",
         "name": "Parallel Verification",
         "file": "SpeculativeDecoding",
-        "desc": "Base Model verifies sequence.",
-        "log": "Sequence verified."
+        "desc": "Active MoE parameters verify sequence in parallel.",
+        "log": "Sequence verified by MoE."
       },
       {
         "stageIdx": 4,
         "gridX": 0.5,
         "gridY": 1.0,
         "next": [
-          10
+          12
         ],
         "badge": "Step 4",
         "name": "8-Gate Verification",
@@ -668,8 +693,8 @@ const DEBUGGER_TRACKS = {
         "badge": "Step 4",
         "name": "PCC Execution",
         "file": "CloudFoundationModel",
-        "desc": "Secure enclave generation using Cloud Pro model.",
-        "log": "Executing in Secure Enclave."
+        "desc": "Secure enclave generation on Google Cloud NVIDIA GPUs.",
+        "log": "Executing in PCC Secure Enclave."
       },
       {
         "stageIdx": 5,
