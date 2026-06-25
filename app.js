@@ -99,6 +99,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Input",
         "name": "Upload Document",
+        "what": "Invokes the native iOS/macOS document picker allowing the user to select files.",
+        "why": "Sandboxed apps cannot read arbitrary files; we must rely on Security-Scoped URLs granted by the user.",
+        "how": "Uses UIDocumentPickerViewController and startAccessingSecurityScopedResource().",
+        "code": "import UIKit\n\nlet picker = UIDocumentPickerViewController(\n    forOpeningContentTypes: [.pdf, .text, .data]\n)\npicker.delegate = self\n\nfunc documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {\n    guard let url = urls.first else { return }\n    let granted = url.startAccessingSecurityScopedResource()\n    engine.ingest(url: url)\n}",
         "next": [
           1
         ],
@@ -114,6 +118,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1",
         "name": "Complexity Pre-Scan",
+        "what": "Determines the density of text and layout complexity before choosing an extraction path.",
+        "why": "Heavy OCR drains battery. Simple PDFs shouldn't be rendered to images if a native text layer exists.",
+        "how": "Scans the first 3 pages. If text density < threshold, flags for OCR.",
+        "code": "func analyzeComplexity(document: PDFDocument) -> ExtractionStrategy {\n    var textLength = 0\n    for i in 0..<min(3, document.pageCount) {\n        textLength += document.page(at: i)?.string?.count ?? 0\n    }\n    return textLength > 500 ? .nativeText : .visionOCR\n}",
         "next": [
           2,
           3
@@ -129,6 +137,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1a",
         "name": "Vision OCR",
+        "what": "Renders PDF pages as high-resolution images and runs Apple Vision Framework OCR.",
+        "why": "Extracts text from scanned documents or PDFs missing a native text layer.",
+        "how": "Scales the PDF page by 6x, renders to CGImage, and passes to VNRecognizeTextRequest.",
+        "code": "import Vision\n\nlet request = VNRecognizeTextRequest()\nrequest.recognitionLevel = .accurate\nrequest.usesLanguageCorrection = true\n\nlet handler = VNImageRequestHandler(cgImage: scaledPageImage, options: [:])\ntry handler.perform([request])\n\nlet extractedText = request.results?.compactMap { $0.topCandidates(1).first?.string }.joined(separator: \"\\n\")",
         "next": [
           4
         ],
@@ -143,6 +155,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1b",
         "name": "Native PDFKit",
+        "what": "Extracts the native text layer directly from the PDF.",
+        "why": "Fastest and most battery-efficient way to read digital documents.",
+        "how": "Iterates over PDFPage objects and accesses the .string property.",
+        "code": "import PDFKit\n\nvar rawText = \"\"\nfor i in 0..<document.pageCount {\n    if let page = document.page(at: i) {\n        rawText += page.string ?? \"\"\n    }\n}",
         "next": [
           4
         ],
@@ -158,6 +174,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1.1",
         "name": "Normalizer & OCR Repair",
+        "what": "Fixes hyphenation, spacing anomalies, and broken ligatures from OCR/PDF extraction.",
+        "why": "Raw extraction often splits words across lines (e.g., 'trans- action'), destroying semantic search accuracy.",
+        "how": "Uses Regular Expressions to collapse hyphenated line breaks and normalize whitespace.",
+        "code": "func normalizeText(_ raw: String) -> String {\n    var clean = raw\n    // Fix broken hyphenation across lines\n    clean = clean.replacingOccurrences(of: \"(?<=[a-z])-\\\\s*\\\\n\\\\s*(?=[a-z])\", with: \"\", options: .regularExpression)\n    // Normalize whitespace\n    clean = clean.replacingOccurrences(of: \"[ \\\\t]+\", with: \" \", options: .regularExpression)\n    return clean\n}",
         "next": [
           5,
           6
@@ -173,6 +193,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2a",
         "name": "Entity Extraction",
+        "what": "Identifies locations, organizations, and people in the text.",
+        "why": "Allows the lexical index to boost search relevance for proper nouns.",
+        "how": "Uses NLTagger with the .nameType scheme.",
+        "code": "import NaturalLanguage\n\nlet tagger = NLTagger(tagSchemes: [.nameType])\ntagger.string = chunkText\n\ntagger.enumerateTags(in: chunkText.startIndex..<chunkText.endIndex, scheme: .nameType, options: [.omitWhitespace]) { tag, range in\n    if let tag = tag {\n        let entity = String(chunkText[range])\n        metadata.append(entity)\n    }\n    return true\n}",
         "next": [
           7
         ],
@@ -187,6 +211,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2b",
         "name": "Structure-Aware Chunker",
+        "what": "Splits text into chunks while preserving atomic structures like tables and lists.",
+        "why": "Splitting a table halfway across chunks destroys the relationship between headers and cells.",
+        "how": "Scans for Markdown table syntax or bullet lists. If found, groups them into a single chunk.",
+        "code": "let sentences = TextUtils.splitSentences(text: text)\nvar chunks: [Chunk] = []\n\nfor sentence in sentences {\n    if sentence.isMarkdownTable() {\n        currentChunk.forceAppend(sentence)\n        continue\n    }\n    if currentChunk.wordCount >= 310 {\n        chunks.append(Chunk(currentChunk))\n        currentChunk.removeAll()\n    }\n}",
         "next": [
           7
         ],
@@ -202,6 +230,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2.1",
         "name": "Token Boundary Enforcer",
+        "what": "Ensures chunks do not exceed the embedding model's maximum sequence length.",
+        "why": "Core ML embedding models crash or truncate silently if fed more than 512 tokens.",
+        "how": "Runs the text through a local BPE tokenizer to verify length.",
+        "code": "let tokenizer = BPETokenizer(vocabulary: localVocab)\nfor chunk in chunks {\n    let tokens = tokenizer.encode(text: chunk.text)\n    guard tokens.count <= 510 else {\n        let subChunks = chunk.forceSplit()\n        // re-evaluate subChunks\n        continue\n    }\n}",
         "next": [
           8,
           9
@@ -217,6 +249,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3a",
         "name": "Metal GPU Vectorizer",
+        "what": "Generates 384-dimensional dense vectors using a Core ML model on the Apple Neural Engine.",
+        "why": "Enables semantic similarity search (finding meaning, not just exact keywords).",
+        "how": "Compiles inputs to MLMultiArray and predicts using MobileBERT.",
+        "code": "import CoreML\n\nlet config = MLModelConfiguration()\nconfig.computeUnits = .all // Allows ANE\nlet model = try MobileBERTEmbeddings(configuration: config)\n\nlet inputFeatures = try MLMultiArray(shape: [1, 512], dataType: .float32)\nlet output = try model.prediction(input: inputFeatures)\nlet vector: [Float32] = output.embeddings.toArray()",
         "next": [
           10
         ],
@@ -231,6 +267,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3b",
         "name": "Lexical Indexer",
+        "what": "Writes the chunk text and extracted entities to a SQLite FTS5 index.",
+        "why": "Lexical search (BM25) is mathematically perfect for finding exact keyword matches, serial numbers, or names.",
+        "how": "Uses a virtual FTS5 table with the Porter stemmer.",
+        "code": "try db.execute(\"\"\"\n  CREATE VIRTUAL TABLE IF NOT EXISTS doc_index USING fts5(\n    chunk_id, \n    content, \n    entities, \n    tokenize='porter'\n  );\n\"\"\")\n\ntry db.execute(\"\"\"\n  INSERT INTO doc_index (chunk_id, content, entities) \n  VALUES (?, ?, ?);\n\"\"\", [chunk.id, chunk.text, chunk.entities.joined(separator: \", \")])",
         "next": [
           10
         ],
@@ -243,6 +283,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "App Entities",
+        "what": "Registers the ingested document with the system for Siri and Spotlight.",
+        "why": "Allows users to ask Siri 'Summarize my physics notes in OpenIntelligence'.",
+        "how": "Updates the Core Data / SwiftData container tied to AppIntents.",
+        "code": "import AppIntents\n\nstruct DocumentEntity: AppEntity {\n    static let defaultQuery = DocumentQuery()\n    \n    var id: UUID\n    var title: String\n    var summary: String\n}\n\n// Index in Spotlight\nCSSearchableIndex.default().indexSearchableItems([item])",
         "next": [],
         "gridX": 0.5
       }
@@ -286,6 +330,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -302,10 +350,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1",
         "name": "Query Analysis",
-        "what": "Determines query intent (lookup vs complex) using NLP.",
-        "why": "Avoids running expensive generation loops for simple factual lookups.",
-        "how": "Assigns either .standardRetrieval or .thorough mode.",
-        "code": "let mode = QueryExecutionPlanner.determineMode(for: query.text)",
+        "what": "Classifies intent and resolves pronouns.",
+        "why": "Determines if the query is a lookup, procedure, or comparison.",
+        "how": "Uses QueryExecutionPlannerService to build an execution plan.",
+        "code": "let plan = await planner.buildPlan(for: query, profile: profile)",
         "next": [
           2,
           3,
@@ -336,10 +384,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1b",
         "name": "Query Embed",
-        "what": "Generates a 384-dimensional vector representing the query's semantic meaning.",
-        "why": "Necessary for finding contextually similar documents, even if words don't match.",
-        "how": "Runs local CoreML MiniLM-L6-v2 inference.",
-        "code": "let vector = try await embeddingProvider.embed(text: query.text)",
+        "what": "Converts the user's expanded query into a 384-dimensional vector.",
+        "why": "Required to calculate Cosine Similarity against the document chunks in the vector database.",
+        "how": "Runs the query through the same Core ML embedding model used during ingestion.",
+        "code": "let inputTokens = tokenizer.encode(text: expandedQuery)\nlet inputFeatures = try MLMultiArray(inputTokens)\nlet output = try embeddingModel.prediction(input: inputFeatures)\nlet queryVector = output.embeddings.toArray()",
         "next": [
           5
         ],
@@ -354,6 +402,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1c",
         "name": "Keyword Extract",
+        "what": "Extracts raw keywords from the query for the BM25 lexical search.",
+        "why": "BM25 searches fail if fed too many stopwords ('the', 'and', 'is').",
+        "how": "Strips punctuation and stop words.",
+        "code": "let stopWords: Set<String> = [\"the\", \"is\", \"at\", \"which\", \"on\"]\nlet keywords = expandedQuery.components(separatedBy: .whitespaces)\n    .filter { !stopWords.contains($0.lowercased()) }\n    .joined(separator: \" \")",
         "next": [
           6
         ],
@@ -368,10 +420,6 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2a",
         "name": "SIMD4 Vector Search",
-        "what": "Calculates cosine similarity between the query vector and all document vectors.",
-        "why": "SIMD4 instructions accelerate this 4x by computing 4 vectors per clock cycle.",
-        "how": "Metal performance shaders process the BNNS Vector Database.",
-        "code": "let topK = vectorDB.search(queryVector, k: 30, threshold: 0.28)",
         "next": [
           7
         ],
@@ -386,6 +434,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2b",
         "name": "BM25 Search",
+        "what": "Executes the exact keyword lookup against the SQLite FTS5 database.",
+        "why": "Catches exact matches (like IDs or names) that vector search might miss due to semantic drift.",
+        "how": "Runs a MATCH query ordered by the native bm25() function.",
+        "code": "let sql = \"\"\"\n    SELECT chunk_id, bm25(doc_index) as score \n    FROM doc_index \n    WHERE doc_index MATCH ? \n    ORDER BY score LIMIT 30\n\"\"\"\nlet results = try db.query(sql, [keywords])",
         "next": [
           7
         ],
@@ -400,10 +452,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2c",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           8
         ],
@@ -418,10 +470,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3a",
         "name": "TinyBERT Rerank",
-        "what": "A cross-encoder model that scores query-document pairs together.",
-        "why": "Dramatically improves accuracy by evaluating the query and context simultaneously, unlike bi-encoders.",
-        "how": "Passes pairs through a local TinyBERT CoreML model.",
-        "code": "let reranked = try await crossEncoder.rescore(query: query, candidates: fused)",
+        "what": "Uses a Cross-Encoder to rescore the top candidates by analyzing the query and chunk simultaneously.",
+        "why": "Vector search (Bi-Encoder) is fast but misses deep contextual nuance. Cross-Encoders are slow but highly accurate.",
+        "how": "Passes `[CLS] Query [SEP] Chunk [SEP]` to a TinyBERT Core ML model.",
+        "code": "let crossEncoderInput = \"[CLS] \\(query) [SEP] \\(chunk.text) [SEP]\"\nlet features = tokenizer.encode(crossEncoderInput)\nlet prediction = try crossEncoderModel.prediction(input: features)\nlet relevanceScore = prediction.logits[0].floatValue",
         "next": [
           9
         ],
@@ -464,10 +516,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
-        "what": "Reorders evidence chunks so the most relevant ones are at the edges (beginning and end) of the prompt.",
-        "why": "LLMs suffer from 'Lost in the Middle' syndrome, forgetting context placed in the center of long prompts.",
-        "how": "Sorts by relevance, alternates placement [1, 3, 5, 4, 2].",
-        "code": "let ordered = ContextPacking.lostInMiddleReorder(chunks)",
+        "what": "Reorders the assembled chunks so the most relevant evidence is at the beginning and end.",
+        "why": "LLMs exhibit 'Lost in the Middle' syndrome\u2014they pay attention to the start and end of a prompt, but ignore the middle.",
+        "how": "Sorts chunks by relevance, then alternates pushing to the front and back of a deque.",
+        "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}",
         "next": [
           12
         ],
@@ -482,10 +534,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3e",
         "name": "Context Packing",
-        "what": "Assembles the final prompt string up to the token limit.",
-        "why": "Prevents context window overflow which causes LLM failure.",
-        "how": "Fills up to 4,096 tokens (3B) or 32,000 tokens (PCC).",
-        "code": "let prompt = ContextPacking.pack(ordered, limit: model.contextWindow)",
+        "what": "Assembles the final context block while strictly adhering to the model's token limit.",
+        "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
+        "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
+        "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}",
         "next": [
           13
         ],
@@ -501,10 +553,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "LoRA Injection (3B)",
-        "what": "Loads Low-Rank Adaptation weights into the base 3B model.",
-        "why": "Specializes the base model for RAG summarization without loading a whole new 3B model.",
-        "how": "Applies the LoRA adapter locally via CoreML.",
-        "code": "try await systemModel.applyAdapter(.ragSpecialized)",
+        "what": "Dynamically loads a Low-Rank Adaptation (LoRA) adapter into the 3B Base Model.",
+        "why": "The base model is generic. The LoRA tunes it specifically for RAG citation generation without needing a separate 3GB model file.",
+        "how": "Uses Apple's MLModel API to map the adapter weights into the base matrix.",
+        "code": "let config = MLModelConfiguration()\nlet adapterURL = URL(fileURLWithPath: \"rag_citation_adapter.mlmodelc\")\ntry config.addParameterWeights(adapterURL)\nlet model = try MLModel(contentsOf: baseModelURL, configuration: config)",
         "next": [
           14,
           15
@@ -520,10 +572,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "Draft Generation",
-        "what": "A tiny 48M parameter model quickly hallucinates a draft sequence.",
-        "why": "Accelerates generation by drafting tokens fast, letting the 3B/20B model only verify them.",
-        "how": "Speculative Decoding.",
-        "code": "let draft = draftModel.generate(prompt)",
+        "what": "Uses a tiny 48M parameter model to rapidly draft candidate tokens.",
+        "why": "Large models are slow at generating tokens one-by-one. Tiny models can guess the next 5 tokens almost instantly.",
+        "how": "Speculative Decoding architecture.",
+        "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification",
         "next": [
           16
         ],
@@ -538,6 +590,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Parallel Verification",
+        "what": "The 3B Base Model evaluates the draft tokens in parallel.",
+        "why": "Evaluating 5 tokens at once is significantly faster than generating them sequentially.",
+        "how": "Calculates logits for the draft sequence. If the logits agree, the tokens are accepted.",
+        "code": "let verificationLogits = try await baseModel.forward(draftTokens)\nlet accepted = verifySequence(draftTokens, against: verificationLogits)\nif !accepted { \n    // Fall back to sequential generation\n}",
         "next": [
           16
         ],
@@ -552,6 +608,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step D",
         "name": "Guided Generation",
+        "what": "Forces the model to output strict JSON or citation schemas.",
+        "why": "LLMs often drift from the requested format. Guided generation blocks invalid tokens at the sampler level.",
+        "how": "Uses a Finite State Machine (FSM) or Regex masking during token selection.",
+        "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)",
         "next": [
           17
         ],
@@ -566,10 +626,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Verification Gates A-I",
-        "what": "A suite of 9 parallel deterministic checks on the LLM's response.",
-        "why": "Prevents hallucinations by enforcing strict source-grounding.",
-        "how": "Checks citation format, entity overlap, and logic negations.",
-        "code": "let results = await VerificationGateService.runAll(response: llmOutput, context: evidence)",
+        "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
+        "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
+        "how": "Extracts nouns/numbers from the answer and verifies their presence in the source text.",
+        "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}",
         "next": [
           18
         ],
@@ -585,6 +645,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Negation & Overlap",
+        "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
+        "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
+        "how": "Uses NLTagger and Dependency Parsing to compare negation modifiers.",
+        "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}",
         "next": [
           19,
           20
@@ -598,10 +662,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Fail",
         "name": "Abstain",
-        "what": "The engine refuses to answer the query.",
-        "why": "The evidence retrieved was insufficient or the LLM output failed verification.",
-        "how": "Returns a fallback UI response.",
-        "code": "throw RAGEngineError.insufficientEvidence",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}",
         "next": [],
         "gridX": 0.5
       },
@@ -614,6 +678,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Pass",
         "name": "Grounded Response",
+        "what": "The engine approves the response for display.",
+        "why": "All verification gates passed.",
+        "how": "Routes the payload to the UI layer.",
+        "code": "ui.render(text: generatedAnswer, citations: resolvedCitations)",
         "next": [
           21
         ],
@@ -626,6 +694,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Final Response",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}",
         "next": [],
         "gridX": 0.5
       }
@@ -669,6 +741,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -685,10 +761,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1",
         "name": "Query Analysis",
-        "what": "Determines query intent (lookup vs complex) using NLP.",
-        "why": "Avoids running expensive generation loops for simple factual lookups.",
-        "how": "Assigns either .standardRetrieval or .thorough mode.",
-        "code": "let mode = QueryExecutionPlanner.determineMode(for: query.text)",
+        "what": "Classifies intent and resolves pronouns.",
+        "why": "Determines if the query is a lookup, procedure, or comparison.",
+        "how": "Uses QueryExecutionPlannerService to build an execution plan.",
+        "code": "let plan = await planner.buildPlan(for: query, profile: profile)",
         "next": [
           2,
           3,
@@ -719,10 +795,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1b",
         "name": "Query Embed",
-        "what": "Generates a 384-dimensional vector representing the query's semantic meaning.",
-        "why": "Necessary for finding contextually similar documents, even if words don't match.",
-        "how": "Runs local CoreML MiniLM-L6-v2 inference.",
-        "code": "let vector = try await embeddingProvider.embed(text: query.text)",
+        "what": "Converts the user's expanded query into a 384-dimensional vector.",
+        "why": "Required to calculate Cosine Similarity against the document chunks in the vector database.",
+        "how": "Runs the query through the same Core ML embedding model used during ingestion.",
+        "code": "let inputTokens = tokenizer.encode(text: expandedQuery)\nlet inputFeatures = try MLMultiArray(inputTokens)\nlet output = try embeddingModel.prediction(input: inputFeatures)\nlet queryVector = output.embeddings.toArray()",
         "next": [
           5
         ],
@@ -737,6 +813,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1c",
         "name": "Keyword Extract",
+        "what": "Extracts raw keywords from the query for the BM25 lexical search.",
+        "why": "BM25 searches fail if fed too many stopwords ('the', 'and', 'is').",
+        "how": "Strips punctuation and stop words.",
+        "code": "let stopWords: Set<String> = [\"the\", \"is\", \"at\", \"which\", \"on\"]\nlet keywords = expandedQuery.components(separatedBy: .whitespaces)\n    .filter { !stopWords.contains($0.lowercased()) }\n    .joined(separator: \" \")",
         "next": [
           6
         ],
@@ -751,10 +831,6 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2a",
         "name": "SIMD4 Vector Search",
-        "what": "Calculates cosine similarity between the query vector and all document vectors.",
-        "why": "SIMD4 instructions accelerate this 4x by computing 4 vectors per clock cycle.",
-        "how": "Metal performance shaders process the BNNS Vector Database.",
-        "code": "let topK = vectorDB.search(queryVector, k: 30, threshold: 0.28)",
         "next": [
           7
         ],
@@ -769,6 +845,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2b",
         "name": "BM25 Search",
+        "what": "Executes the exact keyword lookup against the SQLite FTS5 database.",
+        "why": "Catches exact matches (like IDs or names) that vector search might miss due to semantic drift.",
+        "how": "Runs a MATCH query ordered by the native bm25() function.",
+        "code": "let sql = \"\"\"\n    SELECT chunk_id, bm25(doc_index) as score \n    FROM doc_index \n    WHERE doc_index MATCH ? \n    ORDER BY score LIMIT 30\n\"\"\"\nlet results = try db.query(sql, [keywords])",
         "next": [
           7
         ],
@@ -783,10 +863,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2c",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           8
         ],
@@ -801,10 +881,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3a",
         "name": "TinyBERT Rerank",
-        "what": "A cross-encoder model that scores query-document pairs together.",
-        "why": "Dramatically improves accuracy by evaluating the query and context simultaneously, unlike bi-encoders.",
-        "how": "Passes pairs through a local TinyBERT CoreML model.",
-        "code": "let reranked = try await crossEncoder.rescore(query: query, candidates: fused)",
+        "what": "Uses a Cross-Encoder to rescore the top candidates by analyzing the query and chunk simultaneously.",
+        "why": "Vector search (Bi-Encoder) is fast but misses deep contextual nuance. Cross-Encoders are slow but highly accurate.",
+        "how": "Passes `[CLS] Query [SEP] Chunk [SEP]` to a TinyBERT Core ML model.",
+        "code": "let crossEncoderInput = \"[CLS] \\(query) [SEP] \\(chunk.text) [SEP]\"\nlet features = tokenizer.encode(crossEncoderInput)\nlet prediction = try crossEncoderModel.prediction(input: features)\nlet relevanceScore = prediction.logits[0].floatValue",
         "next": [
           9
         ],
@@ -847,10 +927,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
-        "what": "Reorders evidence chunks so the most relevant ones are at the edges (beginning and end) of the prompt.",
-        "why": "LLMs suffer from 'Lost in the Middle' syndrome, forgetting context placed in the center of long prompts.",
-        "how": "Sorts by relevance, alternates placement [1, 3, 5, 4, 2].",
-        "code": "let ordered = ContextPacking.lostInMiddleReorder(chunks)",
+        "what": "Reorders the assembled chunks so the most relevant evidence is at the beginning and end.",
+        "why": "LLMs exhibit 'Lost in the Middle' syndrome\u2014they pay attention to the start and end of a prompt, but ignore the middle.",
+        "how": "Sorts chunks by relevance, then alternates pushing to the front and back of a deque.",
+        "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}",
         "next": [
           12
         ],
@@ -865,10 +945,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3e",
         "name": "Context Packing",
-        "what": "Assembles the final prompt string up to the token limit.",
-        "why": "Prevents context window overflow which causes LLM failure.",
-        "how": "Fills up to 4,096 tokens (3B) or 32,000 tokens (PCC).",
-        "code": "let prompt = ContextPacking.pack(ordered, limit: model.contextWindow)",
+        "what": "Assembles the final context block while strictly adhering to the model's token limit.",
+        "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
+        "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
+        "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}",
         "next": [
           13
         ],
@@ -883,10 +963,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "NAND Flash Paging",
-        "what": "Streams the 20B model weights directly from the NVMe SSD.",
-        "why": "20B models exceed RAM on most devices. Unified Memory allows paging them in chunks.",
-        "how": "Uses macOS Unified Memory swap architecture.",
-        "code": "// Handled securely by the Apple Silicon kernel.",
+        "what": "Streams the 20B model weights directly from the SSD (NVMe) rather than loading them entirely into unified memory (RAM).",
+        "why": "A 20B model requires ~10GB of RAM. Paging allows it to run on base Model Macs without Out-of-Memory (OOM) crashes.",
+        "how": "Uses Apple's unified memory architecture and mmap() to page active experts.",
+        "code": "let weightBuffer = try MLMultiArray(shape: [shape], dataType: .float16)\n// Weights are mapped, not explicitly loaded\nweightBuffer.withUnsafeMutableBytes { ptr in\n    mmap(ptr.baseAddress, ptr.count, PROT_READ, MAP_SHARED, fd, 0)\n}",
         "next": [
           14
         ],
@@ -902,10 +982,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "MoE Expert Router",
-        "what": "Routes tokens to specific expert subnetworks within the 20B model.",
-        "why": "Only activates ~2.8B parameters per token, saving massive battery and compute.",
-        "how": "Sparse Mixture-of-Experts architecture.",
-        "code": "let experts = moeRouter.selectTop2Experts(for: token)",
+        "what": "Selects which sub-networks (experts) inside the 20B model should process the current token.",
+        "why": "Allows a 20B parameter model to execute with the speed and battery drain of a 2.8B model.",
+        "how": "A gating linear layer outputs probabilities, routing to the top 2 experts.",
+        "code": "let gatingLogits = gatingLayer.forward(hiddenState)\nlet top2Experts = gatingLogits.topK(2)\n\nvar output = zeros()\nfor expert in top2Experts {\n    let expertOut = experts[expert.index].forward(hiddenState)\n    output += expertOut * expert.weight\n}",
         "next": [
           15,
           16
@@ -921,10 +1001,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Draft Generation",
-        "what": "A tiny 48M parameter model quickly hallucinates a draft sequence.",
-        "why": "Accelerates generation by drafting tokens fast, letting the 3B/20B model only verify them.",
-        "how": "Speculative Decoding.",
-        "code": "let draft = draftModel.generate(prompt)",
+        "what": "Uses a tiny 48M parameter model to rapidly draft candidate tokens.",
+        "why": "Large models are slow at generating tokens one-by-one. Tiny models can guess the next 5 tokens almost instantly.",
+        "how": "Speculative Decoding architecture.",
+        "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification",
         "next": [
           17
         ],
@@ -939,6 +1019,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step D",
         "name": "MoE Verification",
+        "what": "The 20B MoE model verifies the draft sequence.",
+        "why": "Combines Speculative Decoding speed with MoE scalability.",
+        "how": "Parallel forward pass through the routed experts.",
+        "code": "let verificationLogits = try await moeModel.forward(draftTokens)",
         "next": [
           17
         ],
@@ -953,6 +1037,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step E",
         "name": "Guided Generation",
+        "what": "Forces the model to output strict JSON or citation schemas.",
+        "why": "LLMs often drift from the requested format. Guided generation blocks invalid tokens at the sampler level.",
+        "how": "Uses a Finite State Machine (FSM) or Regex masking during token selection.",
+        "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)",
         "next": [
           18
         ],
@@ -967,10 +1055,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Verification Gates A-I",
-        "what": "A suite of 9 parallel deterministic checks on the LLM's response.",
-        "why": "Prevents hallucinations by enforcing strict source-grounding.",
-        "how": "Checks citation format, entity overlap, and logic negations.",
-        "code": "let results = await VerificationGateService.runAll(response: llmOutput, context: evidence)",
+        "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
+        "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
+        "how": "Extracts nouns/numbers from the answer and verifies their presence in the source text.",
+        "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}",
         "next": [
           19
         ],
@@ -986,6 +1074,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Negation & Overlap",
+        "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
+        "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
+        "how": "Uses NLTagger and Dependency Parsing to compare negation modifiers.",
+        "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}",
         "next": [
           20,
           21
@@ -999,10 +1091,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Fail",
         "name": "Abstain",
-        "what": "The engine refuses to answer the query.",
-        "why": "The evidence retrieved was insufficient or the LLM output failed verification.",
-        "how": "Returns a fallback UI response.",
-        "code": "throw RAGEngineError.insufficientEvidence",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}",
         "next": [],
         "gridX": 0.5
       },
@@ -1015,6 +1107,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Pass",
         "name": "Grounded Response",
+        "what": "The engine approves the response for display.",
+        "why": "All verification gates passed.",
+        "how": "Routes the payload to the UI layer.",
+        "code": "ui.render(text: generatedAnswer, citations: resolvedCitations)",
         "next": [
           22
         ],
@@ -1027,6 +1123,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Final Response",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}",
         "next": [],
         "gridX": 0.5
       }
@@ -1070,6 +1170,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -1086,10 +1190,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1",
         "name": "Query Analysis",
-        "what": "Determines query intent (lookup vs complex) using NLP.",
-        "why": "Avoids running expensive generation loops for simple factual lookups.",
-        "how": "Assigns either .standardRetrieval or .thorough mode.",
-        "code": "let mode = QueryExecutionPlanner.determineMode(for: query.text)",
+        "what": "Classifies intent and resolves pronouns.",
+        "why": "Determines if the query is a lookup, procedure, or comparison.",
+        "how": "Uses QueryExecutionPlannerService to build an execution plan.",
+        "code": "let plan = await planner.buildPlan(for: query, profile: profile)",
         "next": [
           2,
           3,
@@ -1120,10 +1224,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1b",
         "name": "Query Embed",
-        "what": "Generates a 384-dimensional vector representing the query's semantic meaning.",
-        "why": "Necessary for finding contextually similar documents, even if words don't match.",
-        "how": "Runs local CoreML MiniLM-L6-v2 inference.",
-        "code": "let vector = try await embeddingProvider.embed(text: query.text)",
+        "what": "Converts the user's expanded query into a 384-dimensional vector.",
+        "why": "Required to calculate Cosine Similarity against the document chunks in the vector database.",
+        "how": "Runs the query through the same Core ML embedding model used during ingestion.",
+        "code": "let inputTokens = tokenizer.encode(text: expandedQuery)\nlet inputFeatures = try MLMultiArray(inputTokens)\nlet output = try embeddingModel.prediction(input: inputFeatures)\nlet queryVector = output.embeddings.toArray()",
         "next": [
           5
         ],
@@ -1138,6 +1242,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1c",
         "name": "Keyword Extract",
+        "what": "Extracts raw keywords from the query for the BM25 lexical search.",
+        "why": "BM25 searches fail if fed too many stopwords ('the', 'and', 'is').",
+        "how": "Strips punctuation and stop words.",
+        "code": "let stopWords: Set<String> = [\"the\", \"is\", \"at\", \"which\", \"on\"]\nlet keywords = expandedQuery.components(separatedBy: .whitespaces)\n    .filter { !stopWords.contains($0.lowercased()) }\n    .joined(separator: \" \")",
         "next": [
           6
         ],
@@ -1152,10 +1260,6 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2a",
         "name": "SIMD4 Vector Search",
-        "what": "Calculates cosine similarity between the query vector and all document vectors.",
-        "why": "SIMD4 instructions accelerate this 4x by computing 4 vectors per clock cycle.",
-        "how": "Metal performance shaders process the BNNS Vector Database.",
-        "code": "let topK = vectorDB.search(queryVector, k: 30, threshold: 0.28)",
         "next": [
           7
         ],
@@ -1170,6 +1274,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2b",
         "name": "BM25 Search",
+        "what": "Executes the exact keyword lookup against the SQLite FTS5 database.",
+        "why": "Catches exact matches (like IDs or names) that vector search might miss due to semantic drift.",
+        "how": "Runs a MATCH query ordered by the native bm25() function.",
+        "code": "let sql = \"\"\"\n    SELECT chunk_id, bm25(doc_index) as score \n    FROM doc_index \n    WHERE doc_index MATCH ? \n    ORDER BY score LIMIT 30\n\"\"\"\nlet results = try db.query(sql, [keywords])",
         "next": [
           7
         ],
@@ -1184,10 +1292,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2c",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           8
         ],
@@ -1202,10 +1310,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3a",
         "name": "TinyBERT Rerank",
-        "what": "A cross-encoder model that scores query-document pairs together.",
-        "why": "Dramatically improves accuracy by evaluating the query and context simultaneously, unlike bi-encoders.",
-        "how": "Passes pairs through a local TinyBERT CoreML model.",
-        "code": "let reranked = try await crossEncoder.rescore(query: query, candidates: fused)",
+        "what": "Uses a Cross-Encoder to rescore the top candidates by analyzing the query and chunk simultaneously.",
+        "why": "Vector search (Bi-Encoder) is fast but misses deep contextual nuance. Cross-Encoders are slow but highly accurate.",
+        "how": "Passes `[CLS] Query [SEP] Chunk [SEP]` to a TinyBERT Core ML model.",
+        "code": "let crossEncoderInput = \"[CLS] \\(query) [SEP] \\(chunk.text) [SEP]\"\nlet features = tokenizer.encode(crossEncoderInput)\nlet prediction = try crossEncoderModel.prediction(input: features)\nlet relevanceScore = prediction.logits[0].floatValue",
         "next": [
           9
         ],
@@ -1248,10 +1356,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
-        "what": "Reorders evidence chunks so the most relevant ones are at the edges (beginning and end) of the prompt.",
-        "why": "LLMs suffer from 'Lost in the Middle' syndrome, forgetting context placed in the center of long prompts.",
-        "how": "Sorts by relevance, alternates placement [1, 3, 5, 4, 2].",
-        "code": "let ordered = ContextPacking.lostInMiddleReorder(chunks)",
+        "what": "Reorders the assembled chunks so the most relevant evidence is at the beginning and end.",
+        "why": "LLMs exhibit 'Lost in the Middle' syndrome\u2014they pay attention to the start and end of a prompt, but ignore the middle.",
+        "how": "Sorts chunks by relevance, then alternates pushing to the front and back of a deque.",
+        "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}",
         "next": [
           12
         ],
@@ -1266,10 +1374,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3e",
         "name": "Context Packing",
-        "what": "Assembles the final prompt string up to the token limit.",
-        "why": "Prevents context window overflow which causes LLM failure.",
-        "how": "Fills up to 4,096 tokens (3B) or 32,000 tokens (PCC).",
-        "code": "let prompt = ContextPacking.pack(ordered, limit: model.contextWindow)",
+        "what": "Assembles the final context block while strictly adhering to the model's token limit.",
+        "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
+        "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
+        "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}",
         "next": [
           13
         ],
@@ -1284,10 +1392,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "PCC Escalate",
-        "what": "Routes the query to Apple's Private Cloud Compute.",
-        "why": "The context exceeds 4,096 tokens, requiring the 32K server-side token buffer.",
-        "how": "Establishes a cryptographically verifiable encrypted session.",
-        "code": "let pccSession = try await PCCManager.establishSecureSession()",
+        "what": "Detects that the query requires 32K context and routes away from the local device.",
+        "why": "On-device memory cannot physically support a 32,000 token context window.",
+        "how": "Checks token count and initiates the Private Cloud Compute handshake.",
+        "code": "if contextTokenCount > 4096 {\n    let session = PrivateCloudComputeSession()\n    try await session.authenticate()\n}",
         "next": [
           14
         ],
@@ -1302,6 +1410,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "Secure Payload Transfer",
+        "what": "Encrypts the 32K context window and transmits it to the PCC node.",
+        "why": "Ensures Apple cannot read the user's private documents during cloud inference.",
+        "how": "Uses target diffusion and end-to-end encryption tied to the user's iCloud key.",
+        "code": "let encryptedPayload = try Crypto.encrypt(payload: context, using: pccPublicKey)\nlet request = URLRequest(url: pccEndpoint)\nrequest.httpBody = encryptedPayload\nlet response = try await URLSession.shared.data(for: request)",
         "next": [
           15
         ],
@@ -1316,7 +1428,7 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Cloud GPU Execution",
-        "what": "The server-side MoE executes the inference on Apple Silicon server nodes.",
+        "what": "The server-side MoE (70B+) executes the inference on Apple Silicon server nodes.",
         "why": "Massive compute allows for deep reasoning across 32,000 tokens.",
         "how": "Returns an encrypted stream of tokens.",
         "code": "// (Server-Side Execution)\n// The payload is decrypted in the secure enclave, processed, and streamed back.",
@@ -1334,10 +1446,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Verification Gates A-I",
-        "what": "A suite of 9 parallel deterministic checks on the LLM's response.",
-        "why": "Prevents hallucinations by enforcing strict source-grounding.",
-        "how": "Checks citation format, entity overlap, and logic negations.",
-        "code": "let results = await VerificationGateService.runAll(response: llmOutput, context: evidence)",
+        "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
+        "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
+        "how": "Extracts nouns/numbers from the answer and verifies their presence in the source text.",
+        "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}",
         "next": [
           17
         ],
@@ -1353,6 +1465,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Negation & Overlap",
+        "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
+        "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
+        "how": "Uses NLTagger and Dependency Parsing to compare negation modifiers.",
+        "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}",
         "next": [
           18,
           19
@@ -1366,10 +1482,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Fail",
         "name": "Abstain",
-        "what": "The engine refuses to answer the query.",
-        "why": "The evidence retrieved was insufficient or the LLM output failed verification.",
-        "how": "Returns a fallback UI response.",
-        "code": "throw RAGEngineError.insufficientEvidence",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}",
         "next": [],
         "gridX": 0.5
       },
@@ -1382,6 +1498,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Pass",
         "name": "Grounded Response",
+        "what": "The engine approves the response for display.",
+        "why": "All verification gates passed.",
+        "how": "Routes the payload to the UI layer.",
+        "code": "ui.render(text: generatedAnswer, citations: resolvedCitations)",
         "next": [
           20
         ],
@@ -1394,6 +1514,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Final Response",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}",
         "next": [],
         "gridX": 0.5
       }
@@ -1438,6 +1562,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -1540,10 +1668,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2c",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           8
         ],
@@ -1572,10 +1700,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3b",
         "name": "TinyBERT Rerank",
-        "what": "A cross-encoder model that scores query-document pairs together.",
-        "why": "Dramatically improves accuracy by evaluating the query and context simultaneously, unlike bi-encoders.",
-        "how": "Passes pairs through a local TinyBERT CoreML model.",
-        "code": "let reranked = try await crossEncoder.rescore(query: query, candidates: fused)",
+        "what": "Uses a Cross-Encoder to rescore the top candidates by analyzing the query and chunk simultaneously.",
+        "why": "Vector search (Bi-Encoder) is fast but misses deep contextual nuance. Cross-Encoders are slow but highly accurate.",
+        "how": "Passes `[CLS] Query [SEP] Chunk [SEP]` to a TinyBERT Core ML model.",
+        "code": "let crossEncoderInput = \"[CLS] \\(query) [SEP] \\(chunk.text) [SEP]\"\nlet features = tokenizer.encode(crossEncoderInput)\nlet prediction = try crossEncoderModel.prediction(input: features)\nlet relevanceScore = prediction.logits[0].floatValue",
         "next": [
           10
         ],
@@ -1590,6 +1718,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3c",
         "name": "Sibling Expansion",
+        "what": "Fetches the surrounding text chunks for the highly-ranked candidate chunks.",
+        "why": "A chunk might contain the answer 'Yes, he did', but without the preceding chunk, the LLM won't know who 'he' is.",
+        "how": "Queries the database for `chunk_id - 1` and `chunk_id + 1`.",
+        "code": "func expandContext(chunkIds: [Int]) -> [Chunk] {\n    var expanded: Set<Int> = []\n    for id in chunkIds {\n        expanded.insert(id - 1)\n        expanded.insert(id)\n        expanded.insert(id + 1)\n    }\n    return db.fetchChunks(ids: Array(expanded))\n}",
         "next": [
           11
         ],
@@ -1604,10 +1736,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
-        "what": "Reorders evidence chunks so the most relevant ones are at the edges (beginning and end) of the prompt.",
-        "why": "LLMs suffer from 'Lost in the Middle' syndrome, forgetting context placed in the center of long prompts.",
-        "how": "Sorts by relevance, alternates placement [1, 3, 5, 4, 2].",
-        "code": "let ordered = ContextPacking.lostInMiddleReorder(chunks)",
+        "what": "Reorders the assembled chunks so the most relevant evidence is at the beginning and end.",
+        "why": "LLMs exhibit 'Lost in the Middle' syndrome\u2014they pay attention to the start and end of a prompt, but ignore the middle.",
+        "how": "Sorts chunks by relevance, then alternates pushing to the front and back of a deque.",
+        "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}",
         "next": [
           12
         ],
@@ -1622,10 +1754,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3e",
         "name": "Context Packing",
-        "what": "Assembles the final prompt string up to the token limit.",
-        "why": "Prevents context window overflow which causes LLM failure.",
-        "how": "Fills up to 4,096 tokens (3B) or 32,000 tokens (PCC).",
-        "code": "let prompt = ContextPacking.pack(ordered, limit: model.contextWindow)",
+        "what": "Assembles the final context block while strictly adhering to the model's token limit.",
+        "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
+        "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
+        "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}",
         "next": [
           13
         ],
@@ -1641,10 +1773,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "LoRA Injection (3B)",
-        "what": "Loads Low-Rank Adaptation weights into the base 3B model.",
-        "why": "Specializes the base model for RAG summarization without loading a whole new 3B model.",
-        "how": "Applies the LoRA adapter locally via CoreML.",
-        "code": "try await systemModel.applyAdapter(.ragSpecialized)",
+        "what": "Dynamically loads a Low-Rank Adaptation (LoRA) adapter into the 3B Base Model.",
+        "why": "The base model is generic. The LoRA tunes it specifically for RAG citation generation without needing a separate 3GB model file.",
+        "how": "Uses Apple's MLModel API to map the adapter weights into the base matrix.",
+        "code": "let config = MLModelConfiguration()\nlet adapterURL = URL(fileURLWithPath: \"rag_citation_adapter.mlmodelc\")\ntry config.addParameterWeights(adapterURL)\nlet model = try MLModel(contentsOf: baseModelURL, configuration: config)",
         "next": [
           14,
           15
@@ -1660,10 +1792,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "Draft Generation",
-        "what": "A tiny 48M parameter model quickly hallucinates a draft sequence.",
-        "why": "Accelerates generation by drafting tokens fast, letting the 3B/20B model only verify them.",
-        "how": "Speculative Decoding.",
-        "code": "let draft = draftModel.generate(prompt)",
+        "what": "Uses a tiny 48M parameter model to rapidly draft candidate tokens.",
+        "why": "Large models are slow at generating tokens one-by-one. Tiny models can guess the next 5 tokens almost instantly.",
+        "how": "Speculative Decoding architecture.",
+        "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification",
         "next": [
           16
         ],
@@ -1678,6 +1810,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Parallel Verification",
+        "what": "The 3B Base Model evaluates the draft tokens in parallel.",
+        "why": "Evaluating 5 tokens at once is significantly faster than generating them sequentially.",
+        "how": "Calculates logits for the draft sequence. If the logits agree, the tokens are accepted.",
+        "code": "let verificationLogits = try await baseModel.forward(draftTokens)\nlet accepted = verifySequence(draftTokens, against: verificationLogits)\nif !accepted { \n    // Fall back to sequential generation\n}",
         "next": [
           16
         ],
@@ -1692,6 +1828,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step D",
         "name": "Guided Generation",
+        "what": "Forces the model to output strict JSON or citation schemas.",
+        "why": "LLMs often drift from the requested format. Guided generation blocks invalid tokens at the sampler level.",
+        "how": "Uses a Finite State Machine (FSM) or Regex masking during token selection.",
+        "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)",
         "next": [
           17
         ],
@@ -1706,10 +1846,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Verification Gates A-I",
-        "what": "A suite of 9 parallel deterministic checks on the LLM's response.",
-        "why": "Prevents hallucinations by enforcing strict source-grounding.",
-        "how": "Checks citation format, entity overlap, and logic negations.",
-        "code": "let results = await VerificationGateService.runAll(response: llmOutput, context: evidence)",
+        "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
+        "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
+        "how": "Extracts nouns/numbers from the answer and verifies their presence in the source text.",
+        "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}",
         "next": [
           18
         ],
@@ -1725,6 +1865,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Negation & Overlap",
+        "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
+        "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
+        "how": "Uses NLTagger and Dependency Parsing to compare negation modifiers.",
+        "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}",
         "next": [
           19,
           20
@@ -1738,10 +1882,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Fail",
         "name": "Abstain",
-        "what": "The engine refuses to answer the query.",
-        "why": "The evidence retrieved was insufficient or the LLM output failed verification.",
-        "how": "Returns a fallback UI response.",
-        "code": "throw RAGEngineError.insufficientEvidence",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}",
         "next": [],
         "gridX": 0.5
       },
@@ -1754,6 +1898,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Pass",
         "name": "Synthesized Response",
+        "what": "The final Deep Think response, often spanning multiple paragraphs.",
+        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
+        "how": "Streamed to the UI with multi-document citations.",
+        "code": "ui.renderStream(deepThinkSession.stream)",
         "next": [
           21
         ],
@@ -1766,6 +1914,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Final Response",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}",
         "next": [],
         "gridX": 0.5
       }
@@ -1810,6 +1962,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -1912,10 +2068,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2c",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           8
         ],
@@ -1944,10 +2100,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3b",
         "name": "TinyBERT Rerank",
-        "what": "A cross-encoder model that scores query-document pairs together.",
-        "why": "Dramatically improves accuracy by evaluating the query and context simultaneously, unlike bi-encoders.",
-        "how": "Passes pairs through a local TinyBERT CoreML model.",
-        "code": "let reranked = try await crossEncoder.rescore(query: query, candidates: fused)",
+        "what": "Uses a Cross-Encoder to rescore the top candidates by analyzing the query and chunk simultaneously.",
+        "why": "Vector search (Bi-Encoder) is fast but misses deep contextual nuance. Cross-Encoders are slow but highly accurate.",
+        "how": "Passes `[CLS] Query [SEP] Chunk [SEP]` to a TinyBERT Core ML model.",
+        "code": "let crossEncoderInput = \"[CLS] \\(query) [SEP] \\(chunk.text) [SEP]\"\nlet features = tokenizer.encode(crossEncoderInput)\nlet prediction = try crossEncoderModel.prediction(input: features)\nlet relevanceScore = prediction.logits[0].floatValue",
         "next": [
           10
         ],
@@ -1962,6 +2118,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3c",
         "name": "Sibling Expansion",
+        "what": "Fetches the surrounding text chunks for the highly-ranked candidate chunks.",
+        "why": "A chunk might contain the answer 'Yes, he did', but without the preceding chunk, the LLM won't know who 'he' is.",
+        "how": "Queries the database for `chunk_id - 1` and `chunk_id + 1`.",
+        "code": "func expandContext(chunkIds: [Int]) -> [Chunk] {\n    var expanded: Set<Int> = []\n    for id in chunkIds {\n        expanded.insert(id - 1)\n        expanded.insert(id)\n        expanded.insert(id + 1)\n    }\n    return db.fetchChunks(ids: Array(expanded))\n}",
         "next": [
           11
         ],
@@ -1976,10 +2136,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
-        "what": "Reorders evidence chunks so the most relevant ones are at the edges (beginning and end) of the prompt.",
-        "why": "LLMs suffer from 'Lost in the Middle' syndrome, forgetting context placed in the center of long prompts.",
-        "how": "Sorts by relevance, alternates placement [1, 3, 5, 4, 2].",
-        "code": "let ordered = ContextPacking.lostInMiddleReorder(chunks)",
+        "what": "Reorders the assembled chunks so the most relevant evidence is at the beginning and end.",
+        "why": "LLMs exhibit 'Lost in the Middle' syndrome\u2014they pay attention to the start and end of a prompt, but ignore the middle.",
+        "how": "Sorts chunks by relevance, then alternates pushing to the front and back of a deque.",
+        "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}",
         "next": [
           12
         ],
@@ -1994,10 +2154,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3e",
         "name": "Context Packing",
-        "what": "Assembles the final prompt string up to the token limit.",
-        "why": "Prevents context window overflow which causes LLM failure.",
-        "how": "Fills up to 4,096 tokens (3B) or 32,000 tokens (PCC).",
-        "code": "let prompt = ContextPacking.pack(ordered, limit: model.contextWindow)",
+        "what": "Assembles the final context block while strictly adhering to the model's token limit.",
+        "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
+        "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
+        "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}",
         "next": [
           13
         ],
@@ -2012,10 +2172,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "NAND Flash Paging",
-        "what": "Streams the 20B model weights directly from the NVMe SSD.",
-        "why": "20B models exceed RAM on most devices. Unified Memory allows paging them in chunks.",
-        "how": "Uses macOS Unified Memory swap architecture.",
-        "code": "// Handled securely by the Apple Silicon kernel.",
+        "what": "Streams the 20B model weights directly from the SSD (NVMe) rather than loading them entirely into unified memory (RAM).",
+        "why": "A 20B model requires ~10GB of RAM. Paging allows it to run on base Model Macs without Out-of-Memory (OOM) crashes.",
+        "how": "Uses Apple's unified memory architecture and mmap() to page active experts.",
+        "code": "let weightBuffer = try MLMultiArray(shape: [shape], dataType: .float16)\n// Weights are mapped, not explicitly loaded\nweightBuffer.withUnsafeMutableBytes { ptr in\n    mmap(ptr.baseAddress, ptr.count, PROT_READ, MAP_SHARED, fd, 0)\n}",
         "next": [
           14
         ],
@@ -2031,10 +2191,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "MoE Expert Router",
-        "what": "Routes tokens to specific expert subnetworks within the 20B model.",
-        "why": "Only activates ~2.8B parameters per token, saving massive battery and compute.",
-        "how": "Sparse Mixture-of-Experts architecture.",
-        "code": "let experts = moeRouter.selectTop2Experts(for: token)",
+        "what": "Selects which sub-networks (experts) inside the 20B model should process the current token.",
+        "why": "Allows a 20B parameter model to execute with the speed and battery drain of a 2.8B model.",
+        "how": "A gating linear layer outputs probabilities, routing to the top 2 experts.",
+        "code": "let gatingLogits = gatingLayer.forward(hiddenState)\nlet top2Experts = gatingLogits.topK(2)\n\nvar output = zeros()\nfor expert in top2Experts {\n    let expertOut = experts[expert.index].forward(hiddenState)\n    output += expertOut * expert.weight\n}",
         "next": [
           15,
           16
@@ -2050,10 +2210,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Draft Generation",
-        "what": "A tiny 48M parameter model quickly hallucinates a draft sequence.",
-        "why": "Accelerates generation by drafting tokens fast, letting the 3B/20B model only verify them.",
-        "how": "Speculative Decoding.",
-        "code": "let draft = draftModel.generate(prompt)",
+        "what": "Uses a tiny 48M parameter model to rapidly draft candidate tokens.",
+        "why": "Large models are slow at generating tokens one-by-one. Tiny models can guess the next 5 tokens almost instantly.",
+        "how": "Speculative Decoding architecture.",
+        "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification",
         "next": [
           17
         ],
@@ -2068,6 +2228,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step D",
         "name": "MoE Verification",
+        "what": "The 20B MoE model verifies the draft sequence.",
+        "why": "Combines Speculative Decoding speed with MoE scalability.",
+        "how": "Parallel forward pass through the routed experts.",
+        "code": "let verificationLogits = try await moeModel.forward(draftTokens)",
         "next": [
           17
         ],
@@ -2082,6 +2246,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step E",
         "name": "Guided Generation",
+        "what": "Forces the model to output strict JSON or citation schemas.",
+        "why": "LLMs often drift from the requested format. Guided generation blocks invalid tokens at the sampler level.",
+        "how": "Uses a Finite State Machine (FSM) or Regex masking during token selection.",
+        "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)",
         "next": [
           18
         ],
@@ -2096,10 +2264,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Verification Gates A-I",
-        "what": "A suite of 9 parallel deterministic checks on the LLM's response.",
-        "why": "Prevents hallucinations by enforcing strict source-grounding.",
-        "how": "Checks citation format, entity overlap, and logic negations.",
-        "code": "let results = await VerificationGateService.runAll(response: llmOutput, context: evidence)",
+        "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
+        "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
+        "how": "Extracts nouns/numbers from the answer and verifies their presence in the source text.",
+        "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}",
         "next": [
           19
         ],
@@ -2115,6 +2283,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Negation & Overlap",
+        "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
+        "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
+        "how": "Uses NLTagger and Dependency Parsing to compare negation modifiers.",
+        "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}",
         "next": [
           20,
           21
@@ -2128,10 +2300,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Fail",
         "name": "Abstain",
-        "what": "The engine refuses to answer the query.",
-        "why": "The evidence retrieved was insufficient or the LLM output failed verification.",
-        "how": "Returns a fallback UI response.",
-        "code": "throw RAGEngineError.insufficientEvidence",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}",
         "next": [],
         "gridX": 0.5
       },
@@ -2144,6 +2316,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Pass",
         "name": "Synthesized Response",
+        "what": "The final Deep Think response, often spanning multiple paragraphs.",
+        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
+        "how": "Streamed to the UI with multi-document citations.",
+        "code": "ui.renderStream(deepThinkSession.stream)",
         "next": [
           22
         ],
@@ -2156,6 +2332,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Final Response",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}",
         "next": [],
         "gridX": 0.5
       }
@@ -2200,6 +2380,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -2302,10 +2486,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2c",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           8
         ],
@@ -2334,10 +2518,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3b",
         "name": "TinyBERT Rerank",
-        "what": "A cross-encoder model that scores query-document pairs together.",
-        "why": "Dramatically improves accuracy by evaluating the query and context simultaneously, unlike bi-encoders.",
-        "how": "Passes pairs through a local TinyBERT CoreML model.",
-        "code": "let reranked = try await crossEncoder.rescore(query: query, candidates: fused)",
+        "what": "Uses a Cross-Encoder to rescore the top candidates by analyzing the query and chunk simultaneously.",
+        "why": "Vector search (Bi-Encoder) is fast but misses deep contextual nuance. Cross-Encoders are slow but highly accurate.",
+        "how": "Passes `[CLS] Query [SEP] Chunk [SEP]` to a TinyBERT Core ML model.",
+        "code": "let crossEncoderInput = \"[CLS] \\(query) [SEP] \\(chunk.text) [SEP]\"\nlet features = tokenizer.encode(crossEncoderInput)\nlet prediction = try crossEncoderModel.prediction(input: features)\nlet relevanceScore = prediction.logits[0].floatValue",
         "next": [
           10
         ],
@@ -2352,6 +2536,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3c",
         "name": "Sibling Expansion",
+        "what": "Fetches the surrounding text chunks for the highly-ranked candidate chunks.",
+        "why": "A chunk might contain the answer 'Yes, he did', but without the preceding chunk, the LLM won't know who 'he' is.",
+        "how": "Queries the database for `chunk_id - 1` and `chunk_id + 1`.",
+        "code": "func expandContext(chunkIds: [Int]) -> [Chunk] {\n    var expanded: Set<Int> = []\n    for id in chunkIds {\n        expanded.insert(id - 1)\n        expanded.insert(id)\n        expanded.insert(id + 1)\n    }\n    return db.fetchChunks(ids: Array(expanded))\n}",
         "next": [
           11
         ],
@@ -2366,10 +2554,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3d",
         "name": "Lost-in-Middle",
-        "what": "Reorders evidence chunks so the most relevant ones are at the edges (beginning and end) of the prompt.",
-        "why": "LLMs suffer from 'Lost in the Middle' syndrome, forgetting context placed in the center of long prompts.",
-        "how": "Sorts by relevance, alternates placement [1, 3, 5, 4, 2].",
-        "code": "let ordered = ContextPacking.lostInMiddleReorder(chunks)",
+        "what": "Reorders the assembled chunks so the most relevant evidence is at the beginning and end.",
+        "why": "LLMs exhibit 'Lost in the Middle' syndrome\u2014they pay attention to the start and end of a prompt, but ignore the middle.",
+        "how": "Sorts chunks by relevance, then alternates pushing to the front and back of a deque.",
+        "code": "func lostInMiddleReorder(chunks: [Chunk]) -> [Chunk] {\n    let sorted = chunks.sorted { $0.relevance > $1.relevance }\n    var reordered = [Chunk]()\n    for (index, chunk) in sorted.enumerated() {\n        if index % 2 == 0 {\n            reordered.insert(chunk, at: 0)\n        } else {\n            reordered.append(chunk)\n        }\n    }\n    return reordered\n}",
         "next": [
           12
         ],
@@ -2384,10 +2572,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3e",
         "name": "Context Packing",
-        "what": "Assembles the final prompt string up to the token limit.",
-        "why": "Prevents context window overflow which causes LLM failure.",
-        "how": "Fills up to 4,096 tokens (3B) or 32,000 tokens (PCC).",
-        "code": "let prompt = ContextPacking.pack(ordered, limit: model.contextWindow)",
+        "what": "Assembles the final context block while strictly adhering to the model's token limit.",
+        "why": "If we exceed 4,096 tokens on-device, the Core ML / Foundation Model API will crash.",
+        "how": "Iterates through the reordered chunks, counting tokens, and truncating when the budget is hit.",
+        "code": "var contextString = \"\"\nvar tokenCount = 0\n\nfor chunk in reorderedChunks {\n    let count = tokenizer.count(chunk.text)\n    if tokenCount + count > 3800 { break } // Leave room for query/sys prompt\n    contextString += \"\\n---\\n\\(chunk.text)\"\n    tokenCount += count\n}",
         "next": [
           13
         ],
@@ -2402,10 +2590,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "PCC Escalate",
-        "what": "Routes the query to Apple's Private Cloud Compute.",
-        "why": "The context exceeds 4,096 tokens, requiring the 32K server-side token buffer.",
-        "how": "Establishes a cryptographically verifiable encrypted session.",
-        "code": "let pccSession = try await PCCManager.establishSecureSession()",
+        "what": "Detects that the query requires 32K context and routes away from the local device.",
+        "why": "On-device memory cannot physically support a 32,000 token context window.",
+        "how": "Checks token count and initiates the Private Cloud Compute handshake.",
+        "code": "if contextTokenCount > 4096 {\n    let session = PrivateCloudComputeSession()\n    try await session.authenticate()\n}",
         "next": [
           14
         ],
@@ -2420,6 +2608,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "Secure Payload Transfer",
+        "what": "Encrypts the 32K context window and transmits it to the PCC node.",
+        "why": "Ensures Apple cannot read the user's private documents during cloud inference.",
+        "how": "Uses target diffusion and end-to-end encryption tied to the user's iCloud key.",
+        "code": "let encryptedPayload = try Crypto.encrypt(payload: context, using: pccPublicKey)\nlet request = URLRequest(url: pccEndpoint)\nrequest.httpBody = encryptedPayload\nlet response = try await URLSession.shared.data(for: request)",
         "next": [
           15
         ],
@@ -2434,7 +2626,7 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Cloud GPU Execution",
-        "what": "The server-side MoE executes the inference on Apple Silicon server nodes.",
+        "what": "The server-side MoE (70B+) executes the inference on Apple Silicon server nodes.",
         "why": "Massive compute allows for deep reasoning across 32,000 tokens.",
         "how": "Returns an encrypted stream of tokens.",
         "code": "// (Server-Side Execution)\n// The payload is decrypted in the secure enclave, processed, and streamed back.",
@@ -2452,10 +2644,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Verification Gates A-I",
-        "what": "A suite of 9 parallel deterministic checks on the LLM's response.",
-        "why": "Prevents hallucinations by enforcing strict source-grounding.",
-        "how": "Checks citation format, entity overlap, and logic negations.",
-        "code": "let results = await VerificationGateService.runAll(response: llmOutput, context: evidence)",
+        "what": "Runs 9 parallel rule-based heuristics on the generated answer against the source context.",
+        "why": "LLMs hallucinate. We must cryptographically or heuristically verify that claims made in the answer exist in the provided chunks.",
+        "how": "Extracts nouns/numbers from the answer and verifies their presence in the source text.",
+        "code": "func verifyGroundedness(answer: String, context: String) -> Bool {\n    let answerNumbers = extractNumbers(answer)\n    for num in answerNumbers {\n        guard context.contains(num) else {\n            print(\"Gate E (Numerical Fidelity) FAILED on: \\(num)\")\n            return false\n        }\n    }\n    return true\n}",
         "next": [
           17
         ],
@@ -2471,6 +2663,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Negation & Overlap",
+        "what": "Checks if the model generated a negation ('not', 'never') that contradicts the source context.",
+        "why": "Models often flip the polarity of sentences if they get confused by complex grammar.",
+        "how": "Uses NLTagger and Dependency Parsing to compare negation modifiers.",
+        "code": "let answerPolarity = analyzePolarity(answer)\nlet contextPolarity = analyzePolarity(context)\n\nif answerPolarity == .negative && contextPolarity == .positive {\n    // Flag potential hallucinated contradiction\n    return .abstain\n}",
         "next": [
           18,
           19
@@ -2484,10 +2680,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Fail",
         "name": "Abstain",
-        "what": "The engine refuses to answer the query.",
-        "why": "The evidence retrieved was insufficient or the LLM output failed verification.",
-        "how": "Returns a fallback UI response.",
-        "code": "throw RAGEngineError.insufficientEvidence",
+        "what": "The engine intercepts the response and refuses to answer.",
+        "why": "OpenIntelligence values accuracy over helpfulness. If the verification gates fail, it is better to say 'I don't know'.",
+        "how": "Replaces the output with a pre-canned abstention message.",
+        "code": "if verificationResult == .failed {\n    ui.render(text: \"I could not find a verified answer to your question in the selected documents.\")\n}",
         "next": [],
         "gridX": 0.5
       },
@@ -2500,6 +2696,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Pass",
         "name": "Synthesized Response",
+        "what": "The final Deep Think response, often spanning multiple paragraphs.",
+        "why": "Multi-hop reasoning requires detailed, synthesized explanations.",
+        "how": "Streamed to the UI with multi-document citations.",
+        "code": "ui.renderStream(deepThinkSession.stream)",
         "next": [
           20
         ],
@@ -2512,6 +2712,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Final Response",
+        "what": "Renders the text to the screen with clickable citation markers.",
+        "why": "Users need to trace the AI's claims back to the source PDFs.",
+        "how": "Uses SwiftUI Text with AttributedString attributes.",
+        "code": "var attributedString = AttributedString(answer)\nfor citation in citations {\n    if let range = attributedString.range(of: citation.marker) {\n        attributedString[range].link = URL(string: \"openintel://doc/\\(citation.docId)\")\n    }\n}",
         "next": [],
         "gridX": 0.5
       }
@@ -2556,6 +2760,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -2600,6 +2808,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1c",
         "name": "Semantic Expansion",
+        "what": "Expands sub-queries using a local dictionary of synonyms.",
+        "why": "Catches edge cases where documents use different terminology than the user.",
+        "how": "Appends 2-3 semantic equivalents to the BM25 search string.",
+        "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)",
         "next": [
           4
         ],
@@ -2674,10 +2886,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2d",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           9
         ],
@@ -2706,6 +2918,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3b",
         "name": "Cross-Encoder Rerank",
+        "what": "Deeply scores retrieved chunks against the exact query.",
+        "why": "Vectors only measure semantic distance. Cross-encoders measure logical relevance.",
+        "how": "Passes (Query + Chunk) into a TinyBERT classification head.",
+        "code": "let score = try await crossEncoder.predict([query, chunk])\nchunk.relevance = score",
         "next": [
           11
         ],
@@ -2720,6 +2936,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3c",
         "name": "FlashRank",
+        "what": "A secondary, ultra-fast reranking pass.",
+        "why": "Used to break ties among the top 50 highly-relevant chunks.",
+        "how": "Uses a quantized ranking model.",
+        "code": "let finalRank = try await flashRank.rerank(top50)",
         "next": [
           12
         ],
@@ -2763,10 +2983,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "LoRA Injection (3B)",
-        "what": "Loads Low-Rank Adaptation weights into the base 3B model.",
-        "why": "Specializes the base model for RAG summarization without loading a whole new 3B model.",
-        "how": "Applies the LoRA adapter locally via CoreML.",
-        "code": "try await systemModel.applyAdapter(.ragSpecialized)",
+        "what": "Dynamically loads a Low-Rank Adaptation (LoRA) adapter into the 3B Base Model.",
+        "why": "The base model is generic. The LoRA tunes it specifically for RAG citation generation without needing a separate 3GB model file.",
+        "how": "Uses Apple's MLModel API to map the adapter weights into the base matrix.",
+        "code": "let config = MLModelConfiguration()\nlet adapterURL = URL(fileURLWithPath: \"rag_citation_adapter.mlmodelc\")\ntry config.addParameterWeights(adapterURL)\nlet model = try MLModel(contentsOf: baseModelURL, configuration: config)",
         "next": [
           15,
           16
@@ -2782,10 +3002,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "Draft Generation",
-        "what": "A tiny 48M parameter model quickly hallucinates a draft sequence.",
-        "why": "Accelerates generation by drafting tokens fast, letting the 3B/20B model only verify them.",
-        "how": "Speculative Decoding.",
-        "code": "let draft = draftModel.generate(prompt)",
+        "what": "Uses a tiny 48M parameter model to rapidly draft candidate tokens.",
+        "why": "Large models are slow at generating tokens one-by-one. Tiny models can guess the next 5 tokens almost instantly.",
+        "how": "Speculative Decoding architecture.",
+        "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification",
         "next": [
           17
         ],
@@ -2800,6 +3020,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Parallel Verification",
+        "what": "The 3B Base Model evaluates the draft tokens in parallel.",
+        "why": "Evaluating 5 tokens at once is significantly faster than generating them sequentially.",
+        "how": "Calculates logits for the draft sequence. If the logits agree, the tokens are accepted.",
+        "code": "let verificationLogits = try await baseModel.forward(draftTokens)\nlet accepted = verifySequence(draftTokens, against: verificationLogits)\nif !accepted { \n    // Fall back to sequential generation\n}",
         "next": [
           17
         ],
@@ -2814,6 +3038,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step D",
         "name": "Guided Generation",
+        "what": "Forces the model to output strict JSON or citation schemas.",
+        "why": "LLMs often drift from the requested format. Guided generation blocks invalid tokens at the sampler level.",
+        "how": "Uses a Finite State Machine (FSM) or Regex masking during token selection.",
+        "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)",
         "next": [
           18
         ],
@@ -2828,6 +3056,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Fact-Check Sweep",
+        "what": "Multi-agent fact checking against retrieved context.",
+        "why": "Ensures the generated answer doesn't invent numbers or dates.",
+        "how": "Uses a secondary prompt pass: 'Does this text align with this context?'",
+        "code": "let result = verificationAgent.check(claims, against: context)",
         "next": [
           19
         ],
@@ -2842,6 +3074,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Contradiction Sweep",
+        "what": "Checks if the answer contradicts itself.",
+        "why": "Complex multi-hop reasoning can sometimes lead to conflicting statements.",
+        "how": "Analyzes the polarity of statements in the answer.",
+        "code": "let isConsistent = logicEngine.verifyConsistency(answer)",
         "next": [
           20
         ],
@@ -2856,6 +3092,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5c",
         "name": "Hallucination Pass",
+        "what": "Final check for ungrounded information.",
+        "why": "Catches any external knowledge the LLM hallucinated.",
+        "how": "Ensures every claim has a valid citation marker.",
+        "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}",
         "next": [
           21
         ],
@@ -2868,6 +3108,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Verified Response",
+        "what": "Outputs the final Maximum mode answer.",
+        "why": "Maximum recall, maximum context, maximum verification.",
+        "how": "Render to UI.",
+        "code": "ui.render(text: answer)",
         "next": [],
         "gridX": 0.5
       }
@@ -2912,6 +3156,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -2956,6 +3204,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1c",
         "name": "Semantic Expansion",
+        "what": "Expands sub-queries using a local dictionary of synonyms.",
+        "why": "Catches edge cases where documents use different terminology than the user.",
+        "how": "Appends 2-3 semantic equivalents to the BM25 search string.",
+        "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)",
         "next": [
           4
         ],
@@ -3030,10 +3282,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2d",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           9
         ],
@@ -3062,6 +3314,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3b",
         "name": "Cross-Encoder Rerank",
+        "what": "Deeply scores retrieved chunks against the exact query.",
+        "why": "Vectors only measure semantic distance. Cross-encoders measure logical relevance.",
+        "how": "Passes (Query + Chunk) into a TinyBERT classification head.",
+        "code": "let score = try await crossEncoder.predict([query, chunk])\nchunk.relevance = score",
         "next": [
           11
         ],
@@ -3076,6 +3332,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3c",
         "name": "FlashRank",
+        "what": "A secondary, ultra-fast reranking pass.",
+        "why": "Used to break ties among the top 50 highly-relevant chunks.",
+        "how": "Uses a quantized ranking model.",
+        "code": "let finalRank = try await flashRank.rerank(top50)",
         "next": [
           12
         ],
@@ -3118,10 +3378,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "NAND Flash Paging",
-        "what": "Streams the 20B model weights directly from the NVMe SSD.",
-        "why": "20B models exceed RAM on most devices. Unified Memory allows paging them in chunks.",
-        "how": "Uses macOS Unified Memory swap architecture.",
-        "code": "// Handled securely by the Apple Silicon kernel.",
+        "what": "Streams the 20B model weights directly from the SSD (NVMe) rather than loading them entirely into unified memory (RAM).",
+        "why": "A 20B model requires ~10GB of RAM. Paging allows it to run on base Model Macs without Out-of-Memory (OOM) crashes.",
+        "how": "Uses Apple's unified memory architecture and mmap() to page active experts.",
+        "code": "let weightBuffer = try MLMultiArray(shape: [shape], dataType: .float16)\n// Weights are mapped, not explicitly loaded\nweightBuffer.withUnsafeMutableBytes { ptr in\n    mmap(ptr.baseAddress, ptr.count, PROT_READ, MAP_SHARED, fd, 0)\n}",
         "next": [
           15
         ],
@@ -3137,10 +3397,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "MoE Expert Router",
-        "what": "Routes tokens to specific expert subnetworks within the 20B model.",
-        "why": "Only activates ~2.8B parameters per token, saving massive battery and compute.",
-        "how": "Sparse Mixture-of-Experts architecture.",
-        "code": "let experts = moeRouter.selectTop2Experts(for: token)",
+        "what": "Selects which sub-networks (experts) inside the 20B model should process the current token.",
+        "why": "Allows a 20B parameter model to execute with the speed and battery drain of a 2.8B model.",
+        "how": "A gating linear layer outputs probabilities, routing to the top 2 experts.",
+        "code": "let gatingLogits = gatingLayer.forward(hiddenState)\nlet top2Experts = gatingLogits.topK(2)\n\nvar output = zeros()\nfor expert in top2Experts {\n    let expertOut = experts[expert.index].forward(hiddenState)\n    output += expertOut * expert.weight\n}",
         "next": [
           16,
           17
@@ -3156,10 +3416,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Draft Generation",
-        "what": "A tiny 48M parameter model quickly hallucinates a draft sequence.",
-        "why": "Accelerates generation by drafting tokens fast, letting the 3B/20B model only verify them.",
-        "how": "Speculative Decoding.",
-        "code": "let draft = draftModel.generate(prompt)",
+        "what": "Uses a tiny 48M parameter model to rapidly draft candidate tokens.",
+        "why": "Large models are slow at generating tokens one-by-one. Tiny models can guess the next 5 tokens almost instantly.",
+        "how": "Speculative Decoding architecture.",
+        "code": "let draftTokens = try await tinyModel.generate(count: 5)\n// Forward to base model for verification",
         "next": [
           18
         ],
@@ -3174,6 +3434,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step D",
         "name": "MoE Verification",
+        "what": "The 20B MoE model verifies the draft sequence.",
+        "why": "Combines Speculative Decoding speed with MoE scalability.",
+        "how": "Parallel forward pass through the routed experts.",
+        "code": "let verificationLogits = try await moeModel.forward(draftTokens)",
         "next": [
           18
         ],
@@ -3188,6 +3452,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step E",
         "name": "Guided Generation",
+        "what": "Forces the model to output strict JSON or citation schemas.",
+        "why": "LLMs often drift from the requested format. Guided generation blocks invalid tokens at the sampler level.",
+        "how": "Uses a Finite State Machine (FSM) or Regex masking during token selection.",
+        "code": "let regex = try NSRegularExpression(pattern: \"\\\\[\\\\d+\\\\]\")\nlet sampler = RegexConstrainedSampler(regex: regex)\nlet token = sampler.sample(logits: logits)",
         "next": [
           19
         ],
@@ -3202,6 +3470,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Fact-Check Sweep",
+        "what": "Multi-agent fact checking against retrieved context.",
+        "why": "Ensures the generated answer doesn't invent numbers or dates.",
+        "how": "Uses a secondary prompt pass: 'Does this text align with this context?'",
+        "code": "let result = verificationAgent.check(claims, against: context)",
         "next": [
           20
         ],
@@ -3216,6 +3488,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Contradiction Sweep",
+        "what": "Checks if the answer contradicts itself.",
+        "why": "Complex multi-hop reasoning can sometimes lead to conflicting statements.",
+        "how": "Analyzes the polarity of statements in the answer.",
+        "code": "let isConsistent = logicEngine.verifyConsistency(answer)",
         "next": [
           21
         ],
@@ -3230,6 +3506,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5c",
         "name": "Hallucination Pass",
+        "what": "Final check for ungrounded information.",
+        "why": "Catches any external knowledge the LLM hallucinated.",
+        "how": "Ensures every claim has a valid citation marker.",
+        "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}",
         "next": [
           22
         ],
@@ -3242,6 +3522,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Verified Response",
+        "what": "Outputs the final Maximum mode answer.",
+        "why": "Maximum recall, maximum context, maximum verification.",
+        "how": "Render to UI.",
+        "code": "ui.render(text: answer)",
         "next": [],
         "gridX": 0.5
       }
@@ -3286,6 +3570,10 @@ const DEBUGGER_TRACKS = {
         "badge": "Input",
         "name": "User Query",
         "desc": "User submits query.",
+        "what": "Captures the user's input from the ChatScreen UI.",
+        "why": "The entry point for the entire retrieval pipeline.",
+        "how": "Reads the bound SwiftUI text state.",
+        "code": "struct ChatScreen: View {\n    @State private var query: String = \"\"\n    \n    var body: some View {\n        TextField(\"Ask anything...\", text: $query)\n            .onSubmit { engine.process(query) }\n    }\n}",
         "next": [
           1
         ],
@@ -3330,6 +3618,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 1c",
         "name": "Semantic Expansion",
+        "what": "Expands sub-queries using a local dictionary of synonyms.",
+        "why": "Catches edge cases where documents use different terminology than the user.",
+        "how": "Appends 2-3 semantic equivalents to the BM25 search string.",
+        "code": "let expanded = semanticDictionary.expand(query.keywords)\nquery.keywords.append(contentsOf: expanded)",
         "next": [
           4
         ],
@@ -3404,10 +3696,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 2d",
         "name": "Hybrid RRF",
-        "what": "Fuses lexical (BM25) and semantic (Vector) search results.",
-        "why": "Combines the exact-match precision of BM25 with the conceptual understanding of vectors.",
-        "how": "Applies the Reciprocal Rank Fusion algorithm.",
-        "code": "let fused = ReciprocalRankFusion.merge(vectorResults, lexicalResults)",
+        "what": "Merges the Vector and BM25 results using Reciprocal Rank Fusion.",
+        "why": "Scores from Vector (Cosine Similarity: 0.0-1.0) and BM25 (Arbitrary floats) are incompatible. RRF relies purely on their rank positions.",
+        "how": "Calculates `1 / (k + rank)` for both lists and sums them.",
+        "code": "func reciprocalRankFusion(vectorRanks: [String], bm25Ranks: [String], k: Int = 60) -> [(String, Float)] {\n    var scores: [String: Float] = [:]\n    \n    for (rank, id) in vectorRanks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    for (rank, id) in bm25Ranks.enumerated() {\n        scores[id, default: 0] += 1.0 / Float(k + rank)\n    }\n    \n    return scores.sorted { $0.value > $1.value }\n}",
         "next": [
           9
         ],
@@ -3436,6 +3728,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3b",
         "name": "Cross-Encoder Rerank",
+        "what": "Deeply scores retrieved chunks against the exact query.",
+        "why": "Vectors only measure semantic distance. Cross-encoders measure logical relevance.",
+        "how": "Passes (Query + Chunk) into a TinyBERT classification head.",
+        "code": "let score = try await crossEncoder.predict([query, chunk])\nchunk.relevance = score",
         "next": [
           11
         ],
@@ -3450,6 +3746,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 3c",
         "name": "FlashRank",
+        "what": "A secondary, ultra-fast reranking pass.",
+        "why": "Used to break ties among the top 50 highly-relevant chunks.",
+        "how": "Uses a quantized ranking model.",
+        "code": "let finalRank = try await flashRank.rerank(top50)",
         "next": [
           12
         ],
@@ -3492,10 +3792,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step A",
         "name": "PCC Escalate",
-        "what": "Routes the query to Apple's Private Cloud Compute.",
-        "why": "The context exceeds 4,096 tokens, requiring the 32K server-side token buffer.",
-        "how": "Establishes a cryptographically verifiable encrypted session.",
-        "code": "let pccSession = try await PCCManager.establishSecureSession()",
+        "what": "Detects that the query requires 32K context and routes away from the local device.",
+        "why": "On-device memory cannot physically support a 32,000 token context window.",
+        "how": "Checks token count and initiates the Private Cloud Compute handshake.",
+        "code": "if contextTokenCount > 4096 {\n    let session = PrivateCloudComputeSession()\n    try await session.authenticate()\n}",
         "next": [
           15
         ],
@@ -3510,6 +3810,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step B",
         "name": "Secure Payload Transfer",
+        "what": "Encrypts the 32K context window and transmits it to the PCC node.",
+        "why": "Ensures Apple cannot read the user's private documents during cloud inference.",
+        "how": "Uses target diffusion and end-to-end encryption tied to the user's iCloud key.",
+        "code": "let encryptedPayload = try Crypto.encrypt(payload: context, using: pccPublicKey)\nlet request = URLRequest(url: pccEndpoint)\nrequest.httpBody = encryptedPayload\nlet response = try await URLSession.shared.data(for: request)",
         "next": [
           16
         ],
@@ -3524,7 +3828,7 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step C",
         "name": "Cloud GPU Execution",
-        "what": "The server-side MoE executes the inference on Apple Silicon server nodes.",
+        "what": "The server-side MoE (70B+) executes the inference on Apple Silicon server nodes.",
         "why": "Massive compute allows for deep reasoning across 32,000 tokens.",
         "how": "Returns an encrypted stream of tokens.",
         "code": "// (Server-Side Execution)\n// The payload is decrypted in the secure enclave, processed, and streamed back.",
@@ -3542,6 +3846,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5a",
         "name": "Fact-Check Sweep",
+        "what": "Multi-agent fact checking against retrieved context.",
+        "why": "Ensures the generated answer doesn't invent numbers or dates.",
+        "how": "Uses a secondary prompt pass: 'Does this text align with this context?'",
+        "code": "let result = verificationAgent.check(claims, against: context)",
         "next": [
           18
         ],
@@ -3556,6 +3864,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5b",
         "name": "Contradiction Sweep",
+        "what": "Checks if the answer contradicts itself.",
+        "why": "Complex multi-hop reasoning can sometimes lead to conflicting statements.",
+        "how": "Analyzes the polarity of statements in the answer.",
+        "code": "let isConsistent = logicEngine.verifyConsistency(answer)",
         "next": [
           19
         ],
@@ -3570,6 +3882,10 @@ const DEBUGGER_TRACKS = {
         ],
         "badge": "Step 5c",
         "name": "Hallucination Pass",
+        "what": "Final check for ungrounded information.",
+        "why": "Catches any external knowledge the LLM hallucinated.",
+        "how": "Ensures every claim has a valid citation marker.",
+        "code": "if claim.hasNoCitation() {\n    hallucinationDetected = true\n}",
         "next": [
           20
         ],
@@ -3582,6 +3898,10 @@ const DEBUGGER_TRACKS = {
         "next_ids": [],
         "badge": "Output",
         "name": "Verified Response",
+        "what": "Outputs the final Maximum mode answer.",
+        "why": "Maximum recall, maximum context, maximum verification.",
+        "how": "Render to UI.",
+        "code": "ui.render(text: answer)",
         "next": [],
         "gridX": 0.5
       }
