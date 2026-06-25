@@ -16,7 +16,7 @@ Fascinaiting is the platform node in the ecosystem:
 - **Philosophy:** Two-column breakdown of building real software with AI-assisted orchestration instead of bloated demos.
 - **Product Nodes:** Focused cards for OpenIntelligence and OpenResponses as outbound app/product funnels.
 - **Ecosystem Matrix:** Clear separation between creator, publisher, and platform web properties.
-- **Technical Footer:** Systems status, developer profile, support hub, and privacy architecture links.
+- **Technical Footer:** Systems status, developer profile, support hub, and privacy policy links.
 
 ## Telemetry
 
