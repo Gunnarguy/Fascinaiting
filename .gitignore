@@ -76,3 +76,6 @@ build/
 # Optional local configuration - check if this should be ignored
 # localStorage.json
 
+# Google Ads automation payload
+google_ads_automation_payload/
+
