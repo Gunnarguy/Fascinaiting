@@ -96,19 +96,18 @@ main,
   gap: 0.9rem;
 }
 
-.brand-glyph {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--teal) 0%, var(--cyan) 100%);
-  color: #05070c;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 1.2rem;
-  box-shadow: var(--glow-teal);
+.brand-glyph-image {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 200, 255, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+}
+
+.brand-glyph-image:hover {
+  transform: scale(1.05) translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 200, 255, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .brand-copy {
