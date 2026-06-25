@@ -4,7 +4,7 @@ window.addEventListener('wheel', () => { userInterruptedScroll = true; }, { pass
 window.addEventListener('touchmove', () => { userInterruptedScroll = true; }, { passive: true });
 window.addEventListener('mousedown', () => { userInterruptedScroll = true; }, { passive: true });
 
-const ASSET_VERSION = "20260603d";
+const ASSET_VERSION = "20260625a";
 
 function forceFreshStylesheet() {
   const versionedHref = `styles.css?v=${ASSET_VERSION}`;
@@ -4315,6 +4315,16 @@ function runPipeline() {
       if (hud) {
         const y = hud.getBoundingClientRect().top + window.scrollY - 120;
         window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+
+      // Horizontal autoscroll to current active node
+      const wrapper = document.querySelector('.diagram-canvas-wrapper');
+      const node = document.getElementById(`node-${stepIdx}`);
+      if (wrapper && node) {
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const nodeRect = node.getBoundingClientRect();
+        const newScrollLeft = wrapper.scrollLeft + (nodeRect.left - wrapperRect.left) - (wrapperRect.width / 2) + (nodeRect.width / 2);
+        wrapper.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
       }
     }
 
