@@ -4,7 +4,7 @@ window.addEventListener('wheel', () => { userInterruptedScroll = true; }, { pass
 window.addEventListener('touchmove', () => { userInterruptedScroll = true; }, { passive: true });
 window.addEventListener('mousedown', () => { userInterruptedScroll = true; }, { passive: true });
 
-const ASSET_VERSION = "20260625c";
+const ASSET_VERSION = "20260625d";
 
 function forceFreshStylesheet() {
   const versionedHref = `styles.css?v=${ASSET_VERSION}`;
