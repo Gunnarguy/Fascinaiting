@@ -1581,3 +1581,22 @@ html[data-runtime="ready"] .is-visible {
     box-shadow: inset -20px 0 20px -20px rgba(0, 242, 254, 0.4), inset 0 20px 40px rgba(0, 0, 0, 0.5);
   }
 }
+
+
+/* Pipeline Executing Animation */
+.playground-container.executing {
+  box-shadow: 0 0 40px rgba(0, 242, 254, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 242, 254, 0.3);
+  transition: all 0.5s ease;
+}
+
+@media (max-width: 900px) {
+  .inspector-hud {
+    padding: 1.2rem;
+    margin-top: 1rem;
+    border-radius: 12px;
+    background: rgba(10, 15, 25, 0.95);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  }
+}

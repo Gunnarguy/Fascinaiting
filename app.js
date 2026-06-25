@@ -1,3 +1,9 @@
+
+let userInterruptedScroll = false;
+window.addEventListener('wheel', () => { userInterruptedScroll = true; }, { passive: true });
+window.addEventListener('touchmove', () => { userInterruptedScroll = true; }, { passive: true });
+window.addEventListener('mousedown', () => { userInterruptedScroll = true; }, { passive: true });
+
 const ASSET_VERSION = "20260603d";
 
 function forceFreshStylesheet() {
@@ -4207,6 +4213,8 @@ function updatePlaygroundUI(trackName) {
   const runBtn = document.getElementById("run-pipeline-btn");
   if (runBtn) {
     runBtn.disabled = false;
+      const playgroundCont = document.getElementById('playground');
+      if (playgroundCont) playgroundCont.classList.remove('executing');
     runBtn.textContent = trackName === "ingestion" ? "Run Ingestion" : "Execute Query Pipeline";
   }
 }
@@ -4234,6 +4242,9 @@ function runPipeline() {
   if (!runBtn) return;
 
   isRunning = true;
+  userInterruptedScroll = false;
+  const playgroundCont = document.getElementById('playground');
+  if (playgroundCont) playgroundCont.classList.add('executing');
   runBtn.disabled = true;
   runBtn.textContent = "Executing...";
 
@@ -4288,6 +4299,8 @@ function runPipeline() {
       }
 
       runBtn.disabled = false;
+      const playgroundCont = document.getElementById('playground');
+      if (playgroundCont) playgroundCont.classList.remove('executing');
       runBtn.textContent = activeDebuggerTrack === "ingestion" ? "Run Ingestion" : "Execute Query Pipeline";
 
       // Update connections layout at completion
@@ -4295,7 +4308,16 @@ function runPipeline() {
       return;
     }
 
+    
     // Process current step node highlighting
+    if (!userInterruptedScroll) {
+      const hud = document.getElementById("inspector-hud");
+      if (hud) {
+        const y = hud.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+
     for (let i = 0; i < stepsCount; i++) {
       const node = document.getElementById(`node-${i}`);
       if (!node) continue;
