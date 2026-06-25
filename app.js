@@ -4,7 +4,7 @@ window.addEventListener('wheel', () => { userInterruptedScroll = true; }, { pass
 window.addEventListener('touchmove', () => { userInterruptedScroll = true; }, { passive: true });
 window.addEventListener('mousedown', () => { userInterruptedScroll = true; }, { passive: true });
 
-const ASSET_VERSION = "20260625d";
+const ASSET_VERSION = "20260625e";
 
 function forceFreshStylesheet() {
   const versionedHref = `styles.css?v=${ASSET_VERSION}`;
@@ -4311,12 +4311,6 @@ function runPipeline() {
     
     // Process current step node highlighting
     if (!userInterruptedScroll) {
-      const hud = document.getElementById("inspector-hud");
-      if (hud) {
-        const y = hud.getBoundingClientRect().top + window.scrollY - 120;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
-
       // Horizontal autoscroll to current active node
       const wrapper = document.querySelector('.diagram-canvas-wrapper');
       const node = document.getElementById(`node-${stepIdx}`);
