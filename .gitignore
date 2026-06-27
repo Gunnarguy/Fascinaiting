@@ -79,3 +79,5 @@ build/
 # Google Ads automation payload
 google_ads_automation_payload/
 
+# Google Analytics local credentials
+analytics-key.json
