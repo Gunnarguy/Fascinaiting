@@ -15,12 +15,12 @@
           "Cross-Encoder Reranking",
           "JSON Evidence Threads",
           "Dynamic Deep Think Loops",
-          "Siri RAG Document Shortcuts",
-          "Shortcuts: Compare Documents",
+          "Siri: Ask My Documents",
+          "Shortcuts: Ask My Documents",
           "Built for WWDC 2026 Features",
           "Core AI & PCC RAG Pipeline",
           "Apple Foundation Models RAG",
-          "Siri Ask Document Intent",
+          "Siri: Search My Library",
           "On-Device Apple Intelligence"
         ],
         "descriptions": [
@@ -41,12 +41,12 @@
           "Cross-Encoder Reranking",
           "JSON Evidence Threads",
           "Dynamic Deep Think Loops",
-          "Siri RAG Document Shortcuts",
-          "Shortcuts: Compare Documents",
+          "Siri: Ask My Documents",
+          "Shortcuts: Ask My Documents",
           "Built for WWDC 2026 Features",
           "Core AI & PCC RAG Pipeline",
           "Apple Foundation Models RAG",
-          "Siri Ask Document Intent",
+          "Siri: Search My Library",
           "On-Device Apple Intelligence"
         ],
         "descriptions": [
@@ -67,12 +67,12 @@
           "Cross-Encoder Reranking",
           "JSON Evidence Threads",
           "Dynamic Deep Think Loops",
-          "Siri RAG Document Shortcuts",
-          "Shortcuts: Compare Documents",
+          "Siri: Ask My Documents",
+          "Shortcuts: Ask My Documents",
           "Built for WWDC 2026 Features",
           "Core AI & PCC RAG Pipeline",
           "Apple Foundation Models RAG",
-          "Siri Ask Document Intent",
+          "Siri: Search My Library",
           "On-Device Apple Intelligence"
         ],
         "descriptions": [
@@ -109,16 +109,16 @@
           "text": "SIMD4 GPU Vector Search"
         },
         {
-          "text": "Siri RAG Document Shortcuts"
+          "text": "Siri: Ask My Documents"
         },
         {
           "text": "29-Step Retrieval Pipeline"
         },
         {
-          "text": "Siri Ask Document Intent"
+          "text": "Siri: Search My Library"
         },
         {
-          "text": "Shortcuts: Compare Documents"
+          "text": "Shortcuts: Ask My Documents"
         },
         {
           "text": "Apple Foundation Models RAG"
