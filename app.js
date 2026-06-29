@@ -4490,6 +4490,67 @@ async function fetchRoadmap() {
         <div class="card-date">${dateLabel}</div>
       `;
 
+      // Click to open modal with description
+      card.addEventListener('click', () => {
+        const modal = document.getElementById('roadmap-modal');
+        if (!modal) return;
+        const modalBody = modal.querySelector('.modal-body');
+        
+        // Basic parser for Notion markdown children
+        let rawDesc = item.description || 'No additional details provided.';
+        let htmlDesc = rawDesc
+          .replace(/## (.*)/g, '<h3>$1</h3>')
+          .replace(/### (.*)/g, '<h4>$1</h4>')
+          .replace(/# (.*)/g, '<h2>$1</h2>');
+
+        // Convert bullet points to list items
+        let lines = htmlDesc.split('\n');
+        let inList = false;
+        let finalLines = [];
+        
+        for (let line of lines) {
+          line = line.trim();
+          if (line.startsWith('•') || line.startsWith('*') || line.startsWith('-')) {
+            if (!inList) {
+              finalLines.push('<ul>');
+              inList = true;
+            }
+            finalLines.push(`<li>${line.substring(1).trim()}</li>`);
+          } else {
+            if (inList) {
+              finalLines.push('</ul>');
+              inList = false;
+            }
+            if (line && !line.startsWith('<h')) {
+              finalLines.push(`<p>${line}</p>`);
+            } else if (line) {
+              finalLines.push(line);
+            }
+          }
+        }
+        if (inList) {
+          finalLines.push('</ul>');
+        }
+        
+        htmlDesc = finalLines.join('\n');
+
+        modalBody.innerHTML = `
+          <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; letter-spacing: 0.05em; font-weight: 600;">
+            ${item.component} Component
+          </div>
+          <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; color: #fff;">${item.name}</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem;">
+            <span class="badge ${badgeClass}">${item.priority} Priority</span>
+            <span class="badge ${osBadgeClass}">${item.target_os}</span>
+          </div>
+          <div class="modal-description-content" style="border-top: 1px solid var(--line); padding-top: 1.25rem;">
+            ${htmlDesc}
+          </div>
+        `;
+        
+        modal.style.display = 'flex';
+      });
+
       // Assign to column
       if (item.status === 'In Progress') {
         inProgressCol.appendChild(card);
@@ -4499,6 +4560,25 @@ async function fetchRoadmap() {
         todoCol.appendChild(card);
       }
     });
+
+    // Modal Close Logic
+    const modal = document.getElementById('roadmap-modal');
+    if (modal) {
+      const closeBtn = modal.querySelector('.modal-close');
+      if (closeBtn) {
+        closeBtn.onclick = () => modal.style.display = 'none';
+      }
+      modal.onclick = (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      };
+      document.onkeydown = (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+          modal.style.display = 'none';
+        }
+      };
+    }
   } catch (err) {
     console.error('Failed to load roadmap:', err);
   }

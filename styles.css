@@ -1318,6 +1318,7 @@ html[data-runtime="ready"] .is-visible {
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .roadmap-card::before {
@@ -1619,4 +1620,92 @@ html[data-runtime="ready"] .is-visible {
     border: 1px solid rgba(0, 242, 254, 0.2);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
   }
+}
+
+/* Roadmap Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.modal-content {
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  animation: slideUp 0.3s ease forwards;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  color: var(--fg);
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  color: var(--fg);
+  line-height: 1.6;
+}
+
+.modal-body h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--fg);
+}
+
+.modal-body h3 {
+  font-size: 1.2rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--fg);
+}
+
+.modal-body p {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.modal-body ul {
+  margin-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.modal-body li {
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

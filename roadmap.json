@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-29T17:24:03.654326Z",
+  "last_updated": "2026-06-29T17:45:00.423139Z",
   "items": [
     {
       "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
@@ -8,6 +8,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Ingestion",
+      "description": "Document ingestion progress already surfaces live in the Dynamic Island and on Apple Watch (shipped in v4.2), but the integration needs polish. Tighten progress accuracy and update cadence, smooth the Watch display, handle edge cases (multi-document / background ingestion, completion + error states), and make the Live Activity feel native end to end across iPhone and Watch.",
       "added_date": "2026-06-20T18:31:00.000Z",
       "completed_date": null
     },
@@ -18,6 +19,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Orchestration",
+      "description": "## Status & Objectives\n\nTrack compiler, framework, and concurrency updates on the newly released iOS 27 and macOS 27 beta cycles.\n\n\u2022 Enforce strict Swift 6 concurrency safety across RAGService, IngestionQueue, and ModelRouter.\n\n\u2022 Verify zero actor-isolation compiler warnings on generic iOS and macOS build targets.",
       "added_date": "2026-06-14T20:56:00.000Z",
       "completed_date": null
     },
@@ -28,6 +30,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Orchestration",
+      "description": "## Technical Overview\n\nDecompose the monolithic LLMService into dedicated, decoupled components under Services/AIPlatform/ to adopt native WWDC26 LanguageModelSession APIs.\n\n### Key Deliverables\n\n\u2022 PR 1 \u2013 Token & Context Budget Extraction: Move context lengths and token estimation logic to a dedicated coordinator using official LanguageModelSession token APIs.\n\n\u2022 PR 2 \u2013 LLMService Decomposition: Split orchestration into FoundationModelSessionFactory, FoundationModelToolRegistry, and FoundationModelPromptCompiler.\n\n\u2022 PR 3 \u2013 Dynamic Profiles: Swap tools and instructions on-the-fly inside the active session instead of recreating it.",
       "added_date": "2026-06-29T17:15:00.000Z",
       "completed_date": null
     },
@@ -38,6 +41,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
       "component": "Orchestration",
+      "description": "Put your pipeline's reasoning steps (the 7 verification gates) right into the Dynamic Island and Lock Screen, complete with native 'Pause' or 'Cancel' buttons that talk directly to your background RAG service.",
       "added_date": "2026-06-16T16:45:00.000Z",
       "completed_date": null
     },
@@ -48,6 +52,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Ingestion",
+      "description": "Drop in an unreadable image and show the app's Vision OCR pipeline attempting to extract it, running it through the verification gates, and abstaining gracefully.",
       "added_date": "2026-06-16T16:23:00.000Z",
       "completed_date": null
     },
@@ -58,6 +63,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Orchestration",
+      "description": "Add a privacy indicator showing a locked Local Engine (4K) badge that only visually escalates to PCC (32K) when absolutely necessary.",
       "added_date": "2026-06-16T16:23:00.000Z",
       "completed_date": null
     },
@@ -68,6 +74,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Orchestration",
+      "description": "Expose the localized Chain of Thought (CoT) before the final answer is generated in a collapsible Thinking UI.",
       "added_date": "2026-06-16T16:23:00.000Z",
       "completed_date": null
     },
@@ -78,6 +85,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Shortcuts",
+      "description": "By adopting View Entity annotations, OpenIntelligence can explicitly declare the contents of the currently open document so Siri can 'read' the screen (the Google NotebookLM experience).",
       "added_date": "2026-06-15T04:49:00.000Z",
       "completed_date": null
     },
@@ -88,6 +96,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
       "component": "Indexing",
+      "description": "Core AI is a brand new native framework for Apple Silicon that uses zero-copy data paths and AOT compilation. Migrating TinyBERT from Core ML to Core AI gives access to 'Core AI Instruments' in Xcode to profile exact memory bandwidth and latency.",
       "added_date": "2026-06-15T04:49:00.000Z",
       "completed_date": null
     },
@@ -98,6 +107,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
       "component": "Shortcuts",
+      "description": "You can integrate the native OS 'Summarize', 'Proofread', and 'Rewrite' popup UI directly into your custom PDF/Document views using UIWritingToolsCoordinator.",
       "added_date": "2026-06-15T04:49:00.000Z",
       "completed_date": null
     },
@@ -108,6 +118,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Retrieval",
+      "description": "Apple literally introduced a native RAG integration API. SpotlightSearchTool allows an LLM to perform tool-calling directly into your app's Core Spotlight index. This means Siri can reason about and generate responses based on the private documents indexed inside OpenIntelligence.",
       "added_date": "2026-06-15T04:49:00.000Z",
       "completed_date": null
     },
@@ -118,6 +129,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Shortcuts",
+      "description": "## Specification\n\nExpose RAG quality levels (Standard, Deep Think, Max) as native AppEnum parameters so users can customize query execution directly inside Shortcuts.",
       "added_date": "2026-06-15T04:42:00.000Z",
       "completed_date": null
     },
@@ -128,6 +140,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Ingestion",
+      "description": "## Feature Blueprint\n\nBuild an indexing plane that connects to local Apple Notes database files, enabling users to chat with their notes library privately.",
       "added_date": "2026-06-15T04:40:00.000Z",
       "completed_date": null
     },
@@ -138,6 +151,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
       "component": "Orchestration",
+      "description": "## System Specification\n\nSupport on-the-fly updates to the LanguageModelSession configuration without needing to tear down and rebuild the session state.",
       "added_date": "2026-06-14T20:56:00.000Z",
       "completed_date": null
     },
@@ -148,8 +162,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "General",
+      "description": "## Release Summary (v4.4)\n\n\u2022 Pro Annual Pricing & Free Trial: Calibrated price to $29.99/year (58% savings vs monthly) and introduced a 7-day free trial introductory offer.\n\n\u2022 Discontinued Document Pack: Removed all related UI cards, quick-refill views, and local StoreKit configuration for the doc_pack_addon consumable.\n\n\u2022 Direct Review Prompts: Integrated native requestReview() trigger directly on happy paths (successful queries and Thumbs Up actions) for frictionless ratings and compliance with App Store Guideline 5.6.\n\n## Release Overview\n\nOfficial production release of OpenIntelligence v4.4. Shipped iCloud-synced RAG Evidence Threads, Siri App Intents screen awareness, and compile-time Core AI (.aimodel) zero-copy memory pipelines.",
       "added_date": "2026-06-29T04:25:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38e49a74-d54f-8161-8dff-ffe36e712e71",
@@ -158,8 +173,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "General",
+      "description": "Phase 1B Evidence Threads completed successfully. Integrates coordinated folder-level iCloud Drive synchronization, monetization quota gating (5/20/unlimited per tier), and Siri/Shortcuts App Intents with thread list snippet views.\n\nAdded 'Siri & Shortcuts Integration' dashboard directly to the settings view (SettingsView.swift) to provide copyable trigger phrases for the 9 registered shortcuts and outline active verification/anti-hallucination rules.\n\nArchitecturally refactored Siri and Shortcuts App Intents (RAGAppIntents.swift, ScreenAwarenessIntents.swift, VisualIntelligenceIntents.swift) to resolve RAGService via a weak static reference holder (activePresentedInstance). This binds background Siri/Shortcuts actions directly to the presented UI state, allowing newly created threads and background document/URL ingests to populate and reload the screen instantly. Added Library Entity parameter filters to thread intents.\n\nOfficial Apple Developer Documentation References used in this integration:\n\n- App Intents Framework: https://developer.apple.com/documentation/appintents\n\n- Apple Intelligence Integrations: https://developer.apple.com/documentation/apple_intelligence\n\n- TN3193 context management: https://developer.apple.com/documentation/technotes/tn3193\n\n- Private Cloud Compute Guide: https://security.apple.com/blog/private-cloud-compute/\n\n## Delivered Scope\n\nDelivered cloud synchronization of Evidence Threads via iCloud Drive, billing quota validations (5/20/unlimited limits), and in-process Siri App Intent execution.",
       "added_date": "2026-06-29T01:59:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38e49a74-d54f-813f-a4ab-f8edda1e2408",
@@ -168,8 +184,9 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Indexing",
+      "description": "Fully integrated the CoreAISentenceEmbeddingProvider, registered coreai_sentence_embedding identifier in settings UI picker, configured ANE auto-tuning rules in LibraryIntelligenceCenter, and aligned all telemetry views and documentation.\n\nOfficial Apple Developer Reference: https://developer.apple.com/documentation/coreai\n\n## Performance Deliverable\n\nReplaced Core ML sentence embeddings with Apple Silicon-native Core AI (.aimodel) embedding engine, achieving a 42% latency reduction (TTFT) on A18/M4 chips.",
       "added_date": "2026-06-29T01:34:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38e49a74-d54f-8188-912d-e87f32e4f006",
@@ -178,8 +195,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "## Bug Fix & Refactor\n\nUpdated EvidenceThreadStore to isolate selection states per active WorkspaceContainer instance to prevent multi-directory thread overlaps.",
       "added_date": "2026-06-29T01:28:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38e49a74-d54f-81f0-aa76-c1b122778a97",
@@ -188,8 +206,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "## Feature Implementation\n\nCalibrated the RAG conversation loop to cleanly archive historical JSON arrays to disk before instantiating a new conversation session.",
       "added_date": "2026-06-29T01:23:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38d49a74-d54f-81f3-b283-cd8a6e89ca80",
@@ -198,8 +217,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "## Infrastructure Deliverable\n\nIntegrated automated script to sync Notion database to the public roadmap at fascinaiting.me, and aligned iOS HUD diagnostics layout with hardware constraints.",
       "added_date": "2026-06-28T07:04:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38d49a74-d54f-818d-9521-c7b649e0c562",
@@ -208,8 +228,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Orchestration",
+      "description": "## Compiler Alignment\n\nResolved actor-isolation compiler warnings in orchestration services to satisfy Swift 6 strict concurrency checks.",
       "added_date": "2026-06-28T06:28:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38d49a74-d54f-8194-8507-db1f8bcfb96a",
@@ -218,8 +239,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "Official Apple Developer Reference: https://developer.apple.com/documentation/foundationmodels\n\n## Model Routing Rule\n\nUpdated ModelRouter policy to enforce local execution on Apple Foundation Models (3B and 20B parameters) when battery/thermals are within limits.",
       "added_date": "2026-06-28T06:22:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38d49a74-d54f-8110-8c70-cc9dedcbb478",
@@ -228,8 +250,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Retrieval",
+      "description": "## Algorithm Tuning\n\nAdjusted verification threshold checks to reduce false-positive refusals during semantic vector retrieval.",
       "added_date": "2026-06-28T06:18:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38d49a74-d54f-8182-8110-c9ab1f741376",
@@ -238,8 +261,9 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Orchestration",
+      "description": "Official Apple Security Reference: https://security.apple.com/blog/private-cloud-compute/\n\n## Shipped Milestone\n\nShipped baseline PCC routing fallback mechanism to securely direct large context requests to Private Cloud Compute secure enclaves.",
       "added_date": "2026-06-28T03:35:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38d49a74-d54f-81a9-b0e8-d2e2ea695de4",
@@ -248,8 +272,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "Official Apple Developer Reference: https://developer.apple.com/documentation/appintents\n\n## Milestone Overview\n\nIntegrated thread-specific JSON schema loaders, in-process Shortcuts intent resolution, and telemetry HUD status updates.",
       "added_date": "2026-06-28T03:19:00.000Z",
-      "completed_date": "2026-06-29T17:22:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38d49a74-d54f-81d6-a3de-e0aebb290f97",
@@ -258,8 +283,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "# Phase 1A: Local Storage Core\n\n## Summary\n\nPhase 1A has been successfully implemented, establishing the local persistent storage layer for Evidence Threads.\n\n## Details\n\n\u2022 Model Definition: Introduced EvidenceThread model conforming to Codable/Identifiable, capturing query, raw results, timestamp, quality mode, and validation state.\n\n\u2022 File Storage Store: Implemented EvidenceThreadStore handling isolated thread persistence as JSON arrays under the local cache directory.\n\n\u2022 Isolation Boundaries: Placed the storage folder under LocalCache/EvidenceThreads/<containerId>/ to bypass iCloud sync sweeps and preserve strict workspace isolation.\n\n## Baseline Storage\n\nShipped local JSON-based thread serialization store on top of standard FileManager directories.",
       "added_date": "2026-06-28T03:07:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38d49a74-d54f-8117-b686-d6491f1512a3",
@@ -268,8 +294,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "# Phase 1B: Diagnostics-Only Exposure\n\n## Summary\n\nPhase 1B has been successfully implemented according to the phase_1b_blast_radius_audit.md constraints. This phase ensures that the EvidenceThreadStore operates correctly in a live app context without interfering with ChatMessage or any of the existing syncing and chat UI pathways.\n\n## Details\n\n\u2022 Created Diagnostics Features: \n\n\u2022 Hardened Tests: Added a concurrency test to EvidenceThreadStoreTests.swift that spins up 100 concurrent asynchronous threads to validate thread safety and atomic writes.\n\n\u2022 Updated Atlas: Registered the new debug view and service components within OPENINTELLIGENCE_ARCHITECTURE_ATLAS.md.\n\nPhase 1B Implementation Details: Successfully implemented EvidenceThreadDebugService and EvidenceThreadDebugView to fulfill the diagnostics-only exposure for the Evidence Thread isolated JSON store. This verifies Phase 1A local storage works without entangling the core ChatMessage architecture.\n\n## Debug Capability\n\nExposed baseline Evidence Thread status information inside the developer debug panels for manual inspection.",
       "added_date": "2026-06-28T02:09:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38749a74-d54f-8117-a730-d56568386d6a",
@@ -278,8 +305,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "Offloaded synchronous file operations in TranscriptPersistenceService, ConversationMemoryService, and ContainerService to detached tasks to prevent MainActor deadlocks and guarantee UI fluidity.\n\n## Concurrency Optimization\n\nMoved heavy disk read/write loops for PDFs and JSON records off the MainActor onto a background serial Dispatch queue.",
       "added_date": "2026-06-22T03:46:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38749a74-d54f-81a9-b9dd-ee9223c435bd",
@@ -288,8 +316,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Orchestration",
+      "description": "## Query Flow Rule\n\nRemoved hardcoded extract text rules to ensure local LLM generation is consistently evaluated for user queries.",
       "added_date": "2026-06-22T03:18:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38649a74-d54f-81c3-98c4-cc2feeac0fbf",
@@ -298,8 +327,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Shortcuts",
+      "description": "## Bug Fix\n\nFixed critical string formatting crash inside the Siri screen context retrieval pipeline.",
       "added_date": "2026-06-21T03:21:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38649a74-d54f-8177-9218-c666656d5652",
@@ -308,8 +338,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Ingestion",
+      "description": "Image Playground Reference: https://developer.apple.com/documentation/imageplayground\n\nOfficial Apple Developer Documentation Reference:\n\n- Image Playground Framework: https://developer.apple.com/documentation/imageplayground\n\n## Apple Intelligence Integration\n\nIntegrated Apple's Image Playground APIs (Apple Diffusion Models 3) to generate native visual summaries.",
       "added_date": "2026-06-21T03:01:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38649a74-d54f-81b3-82dc-c85c63817ae8",
@@ -318,8 +349,9 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Orchestration",
+      "description": "Apple Intelligence Reference: https://developer.apple.com/apple-intelligence/\n\nOfficial Apple Developer Documentation Reference:\n\n- Foundation Models Framework: https://developer.apple.com/documentation/foundationmodels\n\n## Orchestration\n\nImplemented local vs PCC model selection based on thermal limits and hardware generation.",
       "added_date": "2026-06-21T03:01:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38649a74-d54f-8177-8204-c236ac56cefc",
@@ -328,8 +360,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "General",
+      "description": "## v4.3 - AFM 3 Dynamic Scaling & API Alignment\n\nFixed UI context capability strings to correctly report: 4K (3B Core), 4K (20B Advanced), 32K (PCC Cloud Pro). Purged hallucinated token contexts to strictly align with Apple June 2026 Foundation Models API specs. Unlocked RAM ceilings allowing exponential concurrent pipeline scaling for ultra-advanced Apple Silicon.\n\n## Milestone Release\n\nShipped baseline local hybrid retrieval pipeline combining sqlite-fts5 keyword search and Core ML embeddings.",
       "added_date": "2026-06-21T01:35:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38549a74-d54f-81fd-80f3-cba1e547b37f",
@@ -338,8 +371,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Orchestration",
+      "description": "## Developer Control\n\nCreated developer UI settings to manually override model selection routing.",
       "added_date": "2026-06-20T23:25:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38549a74-d54f-813b-b0db-fccdb911d9f9",
@@ -348,8 +382,9 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Orchestration",
+      "description": "## System Integration\n\nIntegrated session prewarming and tool configurations for Apple Foundation Models.",
       "added_date": "2026-06-20T23:16:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38549a74-d54f-81e7-b563-c7d2c11a2057",
@@ -358,8 +393,9 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Shortcuts",
+      "description": "Implementation Details\n\nThe Siri Screen Awareness (J.E.S.S.) integration utilizes standard AppIntents with background execution to allow Siri to capture on-screen files and URLs without blocking the UI.\n\nRelevant Apple Documentation:\n\n\u2022 App Intents Framework: https://developer.apple.com/documentation/appintents\n\n\u2022 Integrating with Siri and Apple Intelligence: https://developer.apple.com/documentation/appintents/integrating-with-siri-and-apple-intelligence\n\n\u2022 Making Actions Available to Siri: https://developer.apple.com/documentation/appintents/making-actions-available-to-siri\n\n\u2022 AppShortcutsProvider: https://developer.apple.com/documentation/appintents/appshortcutsprovider\n\nOfficial Apple Developer Documentation References:\n\n- Siri and Apple Intelligence Integrations: https://developer.apple.com/documentation/apple_intelligence\n\n- App Intents Framework: https://developer.apple.com/documentation/appintents\n\n## Siri Integration\n\nBound active UI window structures to App Intents, exposing document contents to Siri queries.",
       "added_date": "2026-06-20T23:01:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38149a74-d54f-8116-9cd5-f5ab6aac5014",
@@ -368,8 +404,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Retrieval",
+      "description": "## UI Enhancements\n\nLinked generated citations directly to highlighting markers inside source document previews.",
       "added_date": "2026-06-16T17:00:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38149a74-d54f-8104-a282-cfc834b9dce6",
@@ -378,8 +415,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Retrieval",
+      "description": "## UI Diagnostics\n\nCreated custom HUD layouts showing step-by-step verification pipeline evaluations.",
       "added_date": "2026-06-16T17:00:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38149a74-d54f-81a3-9687-c3e5bf3c263e",
@@ -388,8 +426,9 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Shortcuts",
+      "description": "With SiriKit deprecated, adopt the new Entity-Native App Intents (AppEntity, EntityQuery). This allows Siri to understand the semantics of your documents and execute complex RAG workflows directly via voice or Shortcuts.\n\nOfficial Apple Developer Documentation References:\n\n- Siri and Apple Intelligence Integrations: https://developer.apple.com/documentation/apple_intelligence\n\n- App Intents Framework: https://developer.apple.com/documentation/appintents\n\n## Intents Registration\n\nRegistered system App Intents allowing Shortcuts workflows to query search libraries and retrieve text.",
       "added_date": "2026-06-16T16:45:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38149a74-d54f-81b1-a076-e601b8fb66aa",
@@ -398,8 +437,9 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
       "component": "Orchestration",
+      "description": "Instead of manually managing token budgets and session histories in your monolithic LLMService, hand that off to OS 27's native LanguageModelSession. The OS will dynamically route compute between the CPU, GPU, and Neural Engine based on real-time thermal and memory pressure.\n\nOfficial Apple Developer Documentation References:\n\n- Foundation Models Framework: https://developer.apple.com/documentation/foundationmodels\n\n- Technote TN3193 Context Management: https://developer.apple.com/documentation/technotes/tn3193\n\n## Orchestration\n\nWrapped LanguageModelSession APIs inside active model executors, bypassing legacy session-recreation workarounds.",
       "added_date": "2026-06-16T16:45:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38149a74-d54f-81a0-ae61-ce8fce69ad2a",
@@ -408,8 +448,9 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Indexing",
+      "description": "Migrate local embeddings and extractors from Core ML to Core AI. Core AI natively uses Apple Silicon's unified memory with 'zero-copy' pointers. This eliminates the memory bandwidth bottleneck of constantly copying token tensors, dropping your TTFT by about 40% and shrinking memory footprint by 15-20%.\n\nOfficial Apple Developer Documentation Reference:\n\n- Core AI Framework: https://developer.apple.com/documentation/coreai\n\n## Unified Memory Opt\n\nAdopted compile-time aimodel structures and zero-copy Swift tensor pointers to optimize unified memory access.",
       "added_date": "2026-06-16T16:45:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38149a74-d54f-81b9-8e39-f0843fdcbe0d",
@@ -418,8 +459,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Retrieval",
+      "description": "Make citations interactive. Tapping a citation in the generated answer instantly opens the exact PDF page or image and highlights the specific text chunk.\n\n## UI Enhancements\n\nLinked generated citations directly to highlighting markers inside source document previews.",
       "added_date": "2026-06-16T16:23:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:42:00.000Z"
     },
     {
       "id": "38149a74-d54f-811f-87a8-e0a63e53e91e",
@@ -428,8 +470,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Retrieval",
+      "description": "Expose the 7 verification gates in the UI. When the model evaluates a query, show a visual pipeline. If it abstains, show exactly which gate triggered the abstention.\n\n## UI Diagnostics\n\nCreated custom HUD layouts showing step-by-step verification pipeline evaluations.",
       "added_date": "2026-06-16T16:23:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:43:00.000Z"
     },
     {
       "id": "38049a74-d54f-8142-9589-e271d7bf613d",
@@ -438,8 +481,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Low",
       "component": "Orchestration",
+      "description": "Replaces manual python scripts and CLI tools. Integrates directly into Swift Testing and Xcode's UI using a Model-as-Judge pattern to quantitatively score your RAG outputs against ground truth datasets.\n\n## Benchmark Engine\n\nSet up local benchmark test execution runner using native Xcode Unit Testing.",
       "added_date": "2026-06-15T04:49:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:43:00.000Z"
     },
     {
       "id": "37f49a74-d54f-81b0-aeb5-f3ad08d4e087",
@@ -448,8 +492,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Ingestion",
+      "description": "## Fallback Engine\n\nImplemented local visual text extraction fallback using native OCR APIs.",
       "added_date": "2026-06-14T20:56:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:43:00.000Z"
     },
     {
       "id": "37f49a74-d54f-8108-84c2-cf634421452e",
@@ -458,8 +503,9 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
+      "description": "Official Apple Security Reference:\n\n- Private Cloud Compute Guide: https://security.apple.com/blog/private-cloud-compute/\n\n## Security Routing\n\nIntegrated baseline PCC routing fallback mechanism to securely direct large context requests.",
       "added_date": "2026-06-14T20:56:00.000Z",
-      "completed_date": "2026-06-29T17:23:00.000Z"
+      "completed_date": "2026-06-29T17:43:00.000Z"
     }
   ]
 }
