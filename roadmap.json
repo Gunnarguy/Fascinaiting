@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-29T17:00:38.337054Z",
+  "last_updated": "2026-06-29T17:15:14.091821Z",
   "items": [
     {
       "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
@@ -17,6 +17,15 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "added_date": "2026-06-14T20:56:00.000Z",
+      "completed_date": null
+    },
+    {
+      "id": "38e49a74-d54f-8148-a006-e73e1b52bd86",
+      "name": "[Orchestration] Phase 2B: LanguageModelSession Orchestration & Refactoring",
+      "status": "To Do",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "High",
+      "added_date": "2026-06-29T17:15:00.000Z",
       "completed_date": null
     },
     {
@@ -201,12 +210,12 @@
     },
     {
       "id": "38d49a74-d54f-8182-8110-c9ab1f741376",
-      "name": "[Orchestration] Phase 2 (Native Private Cloud Compute Integration) Completed",
+      "name": "[Orchestration] Phase 2A: Native Private Cloud Compute Routing (Baseline)",
       "status": "Completed",
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "added_date": "2026-06-28T03:35:00.000Z",
-      "completed_date": "2026-06-29T17:00:00.000Z"
+      "completed_date": "2026-06-29T17:15:00.000Z"
     },
     {
       "id": "38d49a74-d54f-81a9-b0e8-d2e2ea695de4",
@@ -368,7 +377,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "added_date": "2026-06-16T16:23:00.000Z",
-      "completed_date": "2026-06-29T16:59:00.000Z"
+      "completed_date": "2026-06-29T17:00:00.000Z"
     },
     {
       "id": "38149a74-d54f-811f-87a8-e0a63e53e91e",
@@ -377,7 +386,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "added_date": "2026-06-16T16:23:00.000Z",
-      "completed_date": "2026-06-29T16:59:00.000Z"
+      "completed_date": "2026-06-29T17:00:00.000Z"
     },
     {
       "id": "38049a74-d54f-8142-9589-e271d7bf613d",
@@ -386,7 +395,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Low",
       "added_date": "2026-06-15T04:49:00.000Z",
-      "completed_date": "2026-06-29T16:59:00.000Z"
+      "completed_date": "2026-06-29T17:00:00.000Z"
     },
     {
       "id": "37f49a74-d54f-81b0-aeb5-f3ad08d4e087",
@@ -395,7 +404,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "added_date": "2026-06-14T20:56:00.000Z",
-      "completed_date": "2026-06-29T16:59:00.000Z"
+      "completed_date": "2026-06-29T17:00:00.000Z"
     },
     {
       "id": "37f49a74-d54f-8108-84c2-cf634421452e",
@@ -404,7 +413,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "added_date": "2026-06-14T20:56:00.000Z",
-      "completed_date": "2026-06-29T16:59:00.000Z"
+      "completed_date": "2026-06-29T17:00:00.000Z"
     }
   ]
 }
