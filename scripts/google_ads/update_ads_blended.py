@@ -29,7 +29,7 @@ HEADLINES = [
 # Combining Engineering + Utility Descriptions
 DESCRIPTIONS = [
     # Engineering
-    "Inspect the 23-step query loop powered by CoreML embeddings and Apple Foundation Models.",
+    "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models.",
     "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
     # Utility
     "Instantly cross-examine thousands of secure documents without an internet connection.",

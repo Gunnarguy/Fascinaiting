@@ -17,7 +17,7 @@ HEADLINES = [
 ]
 
 DESCRIPTIONS = [
-    "Inspect the 23-step query loop powered by CoreML embeddings and Apple Foundation Models.",
+    "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models.",
     "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
     "Scale dynamically from the 3B Core model to Private Cloud Compute for massive contexts.",
     "Verify answers instantly with exact token packing, BM25 extraction, and cited chunks."
