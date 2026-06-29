@@ -294,37 +294,49 @@
         <div class="capabilities-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
           
           <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-server"></i></div>
+            <div style="color: var(--cyan); font-size: 1.5rem; display: flex; align-items: center;">
+              <svg viewBox="0 0 448 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem;"><path d="M400 96H48C21.5 96 0 117.5 0 144v48c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-48c0-26.5-21.5-48-48-48zm-304 72a16 16 0 1 1 0-32 16 16 0 0 1 0 32zm48 0a16 16 0 1 1 0-32 16 16 0 0 1 0 32zm256-72H48C21.5 288 0 309.5 0 336v48c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-48c0-26.5-21.5-48-48-48zm-304 72a16 16 0 1 1 0-32 16 16 0 0 1 0 32zm48 0a16 16 0 1 1 0-32 16 16 0 0 1 0 32z"/></svg>
+            </div>
             <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">Manual Model Override</h3>
             <p style="color: var(--muted); font-size: 0.9rem;">Dynamically route queries between the on-device 3B Core model, the 20B Advanced model, or offload massive context windows to Apple's Private Cloud Compute.</p>
           </article>
 
           <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fab fa-apple"></i></div>
+            <div style="color: var(--cyan); font-size: 1.5rem; display: flex; align-items: center;">
+              <svg viewBox="0 0 384 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem;"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-48.4-19.1-77.5-19.1-37.9 0-73 21.3-92.4 55.4-39.2 68.9-10 170.6 28 226.3 18.6 27 41.5 57 70.8 55.9 28.5-1.1 39.5-18.3 74-18.3 34.4 0 44.9 18.3 74.8 17.7 30.4-.6 50.1-27 68.7-54.1 21.4-31.2 30-61.4 30.4-63-1-1-65.7-25-66.2-100.6zM277.9 70c15.6-18.9 26.2-45.3 23.3-70-22.3 1-49.3 15-65.3 33.8-14.1 16.2-26.4 43.1-22.9 67.1 24.8 2 50-12 64.9-30.9z"/></svg>
+            </div>
             <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">Universal Apple Silicon</h3>
             <p style="color: var(--muted); font-size: 0.9rem;">Seamlessly synced and optimized across iOS 27 and macOS Golden Gate. A true native Swift engine built for iPhone, iPad, and Mac.</p>
           </article>
 
           <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-shield-alt"></i></div>
+            <div style="color: var(--cyan); font-size: 1.5rem; display: flex; align-items: center;">
+              <svg viewBox="0 0 512 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem;"><path d="M466.5 83.7l-192-80a48.15 48.15 0 0 0-36.9 0l-192 80C20.7 93.7 8 117.7 8 144c0 236.2 119.2 329.8 235.1 364.7a48 48 0 0 0 25.8 0C384.8 473.8 504 380.2 504 144c0-26.3-12.7-50.3-37.5-60.3zM256 464c-92.4-27.2-192-113.8-192-320l192-80v400z"/></svg>
+            </div>
             <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">Citations &amp; Verification</h3>
             <p style="color: var(--muted); font-size: 0.9rem;">Hallucinations are blocked via Verification Gates, and every answer is injected with interactive citations that link directly to the source document.</p>
           </article>
 
           <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-images"></i></div>
+            <div style="color: var(--cyan); font-size: 1.5rem; display: flex; align-items: center;">
+              <svg viewBox="0 0 576 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem;"><path d="M480 416V120c0-26.51-21.49-48-48-48H48c-26.51 0-48 21.49-48 48v296c0 26.51 21.49 48 48 48h384c26.51 0 48-21.49 48-48zM152 168c17.67 0 32 14.33 32 32s-14.33 32-32 32-32-14.33-32-32 14.33-32 32-32zM56 360l72-72 40 40 104-104 120 120H56zm520-224v304c0 26.51-21.49 48-48 48H120c-26.51 0-48-21.49-48-48h432V136H576z"/></svg>
+            </div>
             <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">Multi-Modal Ingestion</h3>
             <p style="color: var(--muted); font-size: 0.9rem;">A native multi-modal pipeline that automatically extracts and generates embeddings from complex PDFs, DOCX files, and raw visual data via Vision framework.</p>
           </article>
 
           <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-microchip"></i></div>
+            <div style="color: var(--cyan); font-size: 1.5rem; display: flex; align-items: center;">
+              <svg viewBox="0 0 512 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem;"><path d="M496 224H448v-32c0-8.8-7.2-16-16-16h-32v-32c0-8.8-7.2-16-16-16h-32V80c0-26.5-21.5-48-48-48H192c-26.5 0-48 21.5-48 48v48h-32c-8.8 0-16 7.2-16 16v32H64c-8.8 0-16 7.2-16 16v32H16c-8.8 0-16 7.2-16 16v64c0 8.8 7.2 16 16 16h32v32c0 8.8 7.2 16 16 16h32v32c0 8.8 7.2 16 16 16h32v48c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48v-48h32c8.8 0 16-7.2 16-16v-32h32c8.8 0 16-7.2 16-16v-32h32c8.8 0 16-7.2 16-16v-64c0-8.8-7.2-16-16-16zm-176-64c8.8 0 16 7.2 16 16v160c0 8.8-7.2 16-16 16H192c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h128zm-32 144v-96h-64v96h64z"/></svg>
+            </div>
             <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">RAPTOR Agentic Loops</h3>
             <p style="color: var(--muted); font-size: 0.9rem;">Stitches together multiple reasoning sessions utilizing the RAPTOR Summary Router to overcome token limits and synthesize exhaustive answers.</p>
           </article>
 
           <article class="capability-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-            <div style="color: var(--cyan); font-size: 1.5rem;"><i class="fas fa-bolt"></i></div>
+            <div style="color: var(--cyan); font-size: 1.5rem; display: flex; align-items: center;">
+              <svg viewBox="0 0 320 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem;"><path d="M296 160H180.6l42.6-129.8C227.2 15 215.7 0 200 0H56C44 0 33.8 8 30.6 19.5L.6 150.7c-3.1 11.5 5.6 22.5 17.5 22.5h115.4L90.8 480.2c-4 12.2 7.5 24.8 20.3 24.8 8.2 0 15.8-4.7 19.3-12.2L299.7 192.5c7.6-16.1-4.1-32.5-19.7-32.5z"/></svg>
+            </div>
             <h3 style="font-family: var(--font-mono); font-size: 1.1rem;">Native Local RAG</h3>
             <p style="color: var(--muted); font-size: 0.9rem;">Powered by SQLite FTS5 and Accelerated by threadgroup-level Metal pipelines across the CPU, GPU, and Neural Engine (ANE).</p>
           </article>
@@ -342,24 +354,24 @@
         <div class="video-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
           <div class="video-wrapper youtube-facade" data-video-id="FfhbrBuB68s" data-video-title="OpenIntelligence iOS Demo 1" style="position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-strong); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <img src="https://img.youtube.com/vi/FfhbrBuB68s/hqdefault.jpg" alt="OpenIntelligence iOS Demo 1" loading="lazy" width="480" height="360">
-            <button class="play-button" aria-label="Play video" type="button"><i class="fab fa-youtube"></i></button>
+            <button class="play-button" aria-label="Play video" type="button"><svg viewBox="0 0 576 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem; display: block;"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.537V174.38L382.48 255.91l-150.335 81.71z"/></svg></button>
           </div>
           <div class="video-wrapper youtube-facade" data-video-id="SUxEpnLDY8A" data-video-title="OpenIntelligence iOS Demo 2" style="position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-strong); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <img src="https://img.youtube.com/vi/SUxEpnLDY8A/hqdefault.jpg" alt="OpenIntelligence iOS Demo 2" loading="lazy" width="480" height="360">
-            <button class="play-button" aria-label="Play video" type="button"><i class="fab fa-youtube"></i></button>
+            <button class="play-button" aria-label="Play video" type="button"><svg viewBox="0 0 576 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem; display: block;"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.537V174.38L382.48 255.91l-150.335 81.71z"/></svg></button>
           </div>
           <div class="video-wrapper youtube-facade" data-video-id="6EmJymIMOR4" data-video-title="OpenIntelligence iOS Demo 3" style="position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-strong); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <img src="https://img.youtube.com/vi/6EmJymIMOR4/hqdefault.jpg" alt="OpenIntelligence iOS Demo 3" loading="lazy" width="480" height="360">
-            <button class="play-button" aria-label="Play video" type="button"><i class="fab fa-youtube"></i></button>
+            <button class="play-button" aria-label="Play video" type="button"><svg viewBox="0 0 576 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem; display: block;"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.537V174.38L382.48 255.91l-150.335 81.71z"/></svg></button>
           </div>
           <div class="video-wrapper youtube-facade" data-video-id="HQGIkXVI0pw" data-video-title="OpenIntelligence macOS Demo" style="position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line-strong); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <img src="https://img.youtube.com/vi/HQGIkXVI0pw/hqdefault.jpg" alt="OpenIntelligence macOS Demo" loading="lazy" width="480" height="360">
-            <button class="play-button" aria-label="Play video" type="button"><i class="fab fa-youtube"></i></button>
+            <button class="play-button" aria-label="Play video" type="button"><svg viewBox="0 0 576 512" fill="currentColor" style="width: 1.5rem; height: 1.5rem; display: block;"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.537V174.38L382.48 255.91l-150.335 81.71z"/></svg></button>
           </div>
         </div>
         <div style="text-align: center; margin-top: 4rem;">
           <a href="https://www.youtube.com/playlist?list=PLG7ayF50szdiUIeF8gm7p4PhzXzQ_wUkR" target="_blank" rel="noopener" class="youtube-btn" data-track="youtube_channel_click" data-track-group="outbound_navigation" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1.5rem; background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 30px; color: #fff; text-decoration: none; font-weight: 600; transition: all 0.2s ease;">
-            <i class="fab fa-youtube" style="color: #ff0000; font-size: 1.2rem;"></i> View More on YouTube
+            <svg viewBox="0 0 576 512" fill="#ff0000" style="width: 1.2rem; height: 1.2rem; display: inline-block; vertical-align: middle;"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.537V174.38L382.48 255.91l-150.335 81.71z"/></svg> View More on YouTube
           </a>
         </div>
       </section>
@@ -694,6 +706,5 @@
     </div>
 
     <script src="app.js?v=20260625e"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   </body>
 </html>
