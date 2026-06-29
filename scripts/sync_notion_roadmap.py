@@ -56,12 +56,17 @@ def fetch_roadmap():
         priority_prop = props.get("Priority", {}).get("select", {})
         priority = priority_prop.get("name", "Low") if priority_prop else "Low"
 
+        # Component
+        comp_prop = props.get("Component", {}).get("select", {})
+        component = comp_prop.get("name", "General") if comp_prop else "General"
+
         items.append({
             "id": page.get("id"),
             "name": name,
             "status": status,
             "target_os": target_os,
             "priority": priority,
+            "component": component,
             "added_date": page.get("created_time"),
             "completed_date": page.get("last_edited_time") if status == "Completed" else None
         })
