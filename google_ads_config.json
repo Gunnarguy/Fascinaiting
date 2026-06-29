@@ -91,28 +91,28 @@
       "asset_group_id": 6724803838,
       "headlines": [
         {
-          "text": "Offline iOS & macOS RAG"
+          "text": "Zero-Hallucination Local RAG"
         },
         {
-          "text": "Offline AI Research Engine"
+          "text": "Inspect the Raw RAG Trace"
         },
         {
-          "text": "Private Local Knowledge Base"
+          "text": "If Fact Missing, It Abstains"
         },
         {
-          "text": "Apple Silicon Optimized RAG"
+          "text": "Bypass Token Constraints"
         },
         {
-          "text": "Secure On-Device Vector RAG"
+          "text": "No Remote API Wrappers"
         },
         {
-          "text": "SwiftUI Agentic RAG Engine"
+          "text": "SIMD4 GPU Vector Search"
         },
         {
           "text": "Reciprocal Rank Fusion RRF"
         },
         {
-          "text": "BNNS-Accelerated Vector RAG"
+          "text": "29-Step Retrieval Pipeline"
         },
         {
           "text": "JSON Evidence Threads"
@@ -123,30 +123,30 @@
       ],
       "long_headlines": [
         {
-          "text": "Private, offline document Q&A and semantic vector search natively on Apple Silicon."
+          "text": "Zero-retention document intelligence that halts speculative answers if facts are missing."
         },
         {
-          "text": "Scale dynamically from the 3B Core model to Private Cloud Compute for massive contexts."
+          "text": "Bypass on-device token limits with multi-step RAPTOR summarization and Metal-driven RRF."
         },
         {
-          "text": "Verify answers instantly with exact token packing, BM25 extraction, and cited chunks."
+          "text": "Inspect model routes, TOPS, and active memory trace live on the Silicon Telemetry HUD."
         }
       ],
       "descriptions": [
         {
-          "text": "Search vast document archives with hardware-accelerated local vector similarity."
+          "text": "A local RAG engine built to halt speculative answers. If a fact is missing, it abstains."
         },
         {
-          "text": "Verify assertions and trace source highlights with secure Private Cloud Compute routing."
+          "text": "Bypass Apple Intelligence token limits. Ingest vast libraries with SIMD4 vector search."
         },
         {
-          "text": "Local SQLite FTS5 and Metal-accelerated embeddings deliver uncompromised search privacy."
+          "text": "No remote wrappers or third-party servers. Your documents never leave Apple Silicon."
         },
         {
-          "text": "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models."
+          "text": "Inspect the 29-step RAG pipeline trace showing active routes and exact citation origins."
         },
         {
-          "text": "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline."
+          "text": "Fuses BM25 matching with vector similarity via Metal compute shaders for 4x faster RAG."
         }
       ],
       "business_names": []
