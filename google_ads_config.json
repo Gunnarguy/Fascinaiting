@@ -17,17 +17,17 @@
           "Dynamic Deep Think Loops",
           "Audit Vast Document Archives",
           "Synthesize Entire Libraries",
-          "Tactical Knowledge Retrieval",
-          "Turn PDFs Into Instant Answers",
-          "Zero-Knowledge Research Engine",
+          "Built for WWDC 2026 Features",
+          "Core AI & PCC RAG Pipeline",
+          "Apple Foundation Models RAG",
           "Cross-Examine Your Own Data",
-          "Deploy Intelligence Anywhere"
+          "On-Device Apple Intelligence"
         ],
         "descriptions": [
           "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models.",
           "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
           "Instantly cross-examine thousands of secure documents without an internet connection.",
-          "Deploy an uncompromised intelligence engine for research, law, or tactical operations."
+          "No remote wrappers. Secure Apple Foundation Models & Private Cloud Compute routing."
         ]
       },
       {
@@ -43,17 +43,17 @@
           "Dynamic Deep Think Loops",
           "Audit Vast Document Archives",
           "Synthesize Entire Libraries",
-          "Tactical Knowledge Retrieval",
-          "Turn PDFs Into Instant Answers",
-          "Zero-Knowledge Research Engine",
+          "Built for WWDC 2026 Features",
+          "Core AI & PCC RAG Pipeline",
+          "Apple Foundation Models RAG",
           "Cross-Examine Your Own Data",
-          "Deploy Intelligence Anywhere"
+          "On-Device Apple Intelligence"
         ],
         "descriptions": [
           "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models.",
           "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
           "Instantly cross-examine thousands of secure documents without an internet connection.",
-          "Deploy an uncompromised intelligence engine for research, law, or tactical operations."
+          "No remote wrappers. Secure Apple Foundation Models & Private Cloud Compute routing."
         ]
       },
       {
@@ -69,17 +69,17 @@
           "Dynamic Deep Think Loops",
           "Audit Vast Document Archives",
           "Synthesize Entire Libraries",
-          "Tactical Knowledge Retrieval",
-          "Turn PDFs Into Instant Answers",
-          "Zero-Knowledge Research Engine",
+          "Built for WWDC 2026 Features",
+          "Core AI & PCC RAG Pipeline",
+          "Apple Foundation Models RAG",
           "Cross-Examine Your Own Data",
-          "Deploy Intelligence Anywhere"
+          "On-Device Apple Intelligence"
         ],
         "descriptions": [
           "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models.",
           "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
           "Instantly cross-examine thousands of secure documents without an internet connection.",
-          "Deploy an uncompromised intelligence engine for research, law, or tactical operations."
+          "No remote wrappers. Secure Apple Foundation Models & Private Cloud Compute routing."
         ]
       }
     ]
@@ -119,6 +119,21 @@
         },
         {
           "text": "Dynamic Deep Think Loops"
+        },
+        {
+          "text": "Apple Foundation Models RAG"
+        },
+        {
+          "text": "On-Device Apple Intelligence"
+        },
+        {
+          "text": "Core AI & PCC RAG Pipeline"
+        },
+        {
+          "text": "Private Cloud Compute Routing"
+        },
+        {
+          "text": "Built for WWDC 2026 Features"
         }
       ],
       "long_headlines": [
@@ -130,6 +145,12 @@
         },
         {
           "text": "Inspect model routes, TOPS, and active memory trace live on the Silicon Telemetry HUD."
+        },
+        {
+          "text": "Leverage WWDC 2026 native APIs for zero-retention, hardware-accelerated document search."
+        },
+        {
+          "text": "Orchestrate secure documents via local Apple Intelligence and Private Cloud Compute."
         }
       ],
       "descriptions": [
@@ -140,7 +161,7 @@
           "text": "Bypass Apple Intelligence token limits. Ingest vast libraries with SIMD4 vector search."
         },
         {
-          "text": "No remote wrappers or third-party servers. Your documents never leave Apple Silicon."
+          "text": "No remote wrappers. Secure Apple Foundation Models & Private Cloud Compute routing."
         },
         {
           "text": "Inspect the 29-step RAG pipeline trace showing active routes and exact citation origins."
