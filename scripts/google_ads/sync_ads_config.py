@@ -67,6 +67,7 @@ def sync_pmax_assets(client, customer_id, pmax_campaign_config):
           asset_group_asset.field_type
         FROM asset_group_asset
         WHERE asset_group.id = {asset_group_id}
+          AND asset_group_asset.status != 'REMOVED'
           AND asset_group_asset.field_type IN ('HEADLINE', 'LONG_HEADLINE', 'DESCRIPTION')
     """
     request = client.get_type("SearchGoogleAdsRequest")

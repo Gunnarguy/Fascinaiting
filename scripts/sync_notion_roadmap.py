@@ -65,8 +65,8 @@ def fetch_roadmap():
             "last_edited": page.get("last_edited_time")
         })
 
-    # Sort items by status: In Progress -> To Do -> Shipped -> Completed
-    status_order = {"In Progress": 0, "To Do": 1, "Shipped": 2, "Completed": 3}
+    # Sort items by status: In Progress -> To Do -> Completed
+    status_order = {"In Progress": 0, "To Do": 1, "Completed": 2}
     items.sort(key=lambda x: status_order.get(x["status"], 99))
 
     output_data = {

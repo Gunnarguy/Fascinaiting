@@ -4444,14 +4444,14 @@ async function fetchRoadmap() {
     
     const inProgressCol = document.querySelector('#roadmap-inprogress .roadmap-cards');
     const todoCol = document.querySelector('#roadmap-todo .roadmap-cards');
-    const shippedCol = document.querySelector('#roadmap-shipped .roadmap-cards');
+    const completedCol = document.querySelector('#roadmap-completed .roadmap-cards');
     
-    if (!inProgressCol || !todoCol || !shippedCol) return;
+    if (!inProgressCol || !todoCol || !completedCol) return;
 
     // Clear loading states
     inProgressCol.innerHTML = '';
     todoCol.innerHTML = '';
-    shippedCol.innerHTML = '';
+    completedCol.innerHTML = '';
 
     data.items.forEach(item => {
       // Create Card
@@ -4475,8 +4475,8 @@ async function fetchRoadmap() {
       // Assign to column
       if (item.status === 'In Progress') {
         inProgressCol.appendChild(card);
-      } else if (item.status === 'Shipped' || item.status === 'Completed') {
-        shippedCol.appendChild(card);
+      } else if (item.status === 'Completed' || item.status === 'Shipped') {
+        completedCol.appendChild(card);
       } else {
         todoCol.appendChild(card);
       }

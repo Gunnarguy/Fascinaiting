@@ -91,84 +91,62 @@
       "asset_group_id": 6724803838,
       "headlines": [
         {
-          "text": "OpenIntelligence iOS",
-          "asset_id": "customers/4509379845/assets/377556026504"
+          "text": "Offline iOS & macOS RAG"
         },
         {
-          "text": "Your Personal AI",
-          "asset_id": "customers/4509379845/assets/377656002511"
+          "text": "Offline AI Research Engine"
         },
         {
-          "text": "The Best AI Assistant",
-          "asset_id": "customers/4509379845/assets/377728365366"
+          "text": "Private Local Knowledge Base"
         },
         {
-          "text": "Download on App Store",
-          "asset_id": "customers/4509379845/assets/377728379541"
+          "text": "Apple Silicon Optimized RAG"
         },
         {
-          "text": "AI Powered Intelligence",
-          "asset_id": "customers/4509379845/assets/377728893237"
+          "text": "Secure On-Device Vector RAG"
         },
         {
-          "text": "SwiftUI Agentic RAG Engine",
-          "asset_id": "customers/4509379845/assets/377851548241"
+          "text": "SwiftUI Agentic RAG Engine"
         },
         {
-          "text": "Reciprocal Rank Fusion RRF",
-          "asset_id": "customers/4509379845/assets/380621934679"
+          "text": "Reciprocal Rank Fusion RRF"
         },
         {
-          "text": "BNNS-Accelerated Vector RAG",
-          "asset_id": "customers/4509379845/assets/380668792860"
+          "text": "BNNS-Accelerated Vector RAG"
         },
         {
-          "text": "JSON Evidence Threads",
-          "asset_id": "customers/4509379845/assets/380668792872"
+          "text": "JSON Evidence Threads"
         },
         {
-          "text": "Dynamic Deep Think Loops",
-          "asset_id": "customers/4509379845/assets/380668792875"
+          "text": "Dynamic Deep Think Loops"
         }
       ],
       "long_headlines": [
         {
-          "text": "Download OpenIntelligence today and unleash AI on your iPhone.",
-          "asset_id": "customers/4509379845/assets/377655462061"
+          "text": "Private, offline document Q&A and semantic vector search natively on Apple Silicon."
         },
         {
-          "text": "Scale dynamically from the 3B Core model to Private Cloud Compute for massive contexts.",
-          "asset_id": "customers/4509379845/assets/380668792884"
+          "text": "Scale dynamically from the 3B Core model to Private Cloud Compute for massive contexts."
         },
         {
-          "text": "Verify answers instantly with exact token packing, BM25 extraction, and cited chunks.",
-          "asset_id": "customers/4509379845/assets/380668792887"
+          "text": "Verify answers instantly with exact token packing, BM25 extraction, and cited chunks."
         }
       ],
       "descriptions": [
         {
-          "text": "OpenIntelligence helps you answer anything instantly.",
-          "asset_id": "customers/4509379845/assets/377556538112"
+          "text": "Search vast document archives with hardware-accelerated local vector similarity."
         },
         {
-          "text": "Experience the next generation of AI right on your iPhone.",
-          "asset_id": "customers/4509379845/assets/377656019296"
+          "text": "Verify assertions and trace source highlights with secure Private Cloud Compute routing."
         },
         {
-          "text": "The ultimate mobile AI assistant.",
-          "asset_id": "customers/4509379845/assets/377728862868"
+          "text": "Local SQLite FTS5 and Metal-accelerated embeddings deliver uncompromised search privacy."
         },
         {
-          "text": "23-step query loop powered by Apple Foundation Models",
-          "asset_id": "customers/4509379845/assets/380603103917"
+          "text": "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models."
         },
         {
-          "text": "Inspect the 23-step query loop powered by CoreML embeddings and Apple Foundation Models.",
-          "asset_id": "customers/4509379845/assets/380668792878"
-        },
-        {
-          "text": "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
-          "asset_id": "customers/4509379845/assets/380668792881"
+          "text": "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline."
         }
       ],
       "business_names": []
