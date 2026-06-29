@@ -1777,6 +1777,10 @@ html[data-runtime="ready"] .is-visible {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   pointer-events: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
 }
 .youtube-facade:hover .play-button {
   background: #ff0000;
