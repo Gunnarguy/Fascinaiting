@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-29T17:45:00.423139Z",
+  "last_updated": "2026-06-29T17:52:11.808349Z",
   "items": [
     {
       "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
@@ -10,17 +10,6 @@
       "component": "Ingestion",
       "description": "Document ingestion progress already surfaces live in the Dynamic Island and on Apple Watch (shipped in v4.2), but the integration needs polish. Tighten progress accuracy and update cadence, smooth the Watch display, handle edge cases (multi-document / background ingestion, completion + error states), and make the Live Activity feel native end to end across iPhone and Watch.",
       "added_date": "2026-06-20T18:31:00.000Z",
-      "completed_date": null
-    },
-    {
-      "id": "37f49a74-d54f-81c5-9fdd-caabf961aa5b",
-      "name": "iOS/macOS 27 Beta Support",
-      "status": "In Progress",
-      "target_os": "iOS/macOS 27+ Only",
-      "priority": "High",
-      "component": "Orchestration",
-      "description": "## Status & Objectives\n\nTrack compiler, framework, and concurrency updates on the newly released iOS 27 and macOS 27 beta cycles.\n\n\u2022 Enforce strict Swift 6 concurrency safety across RAGService, IngestionQueue, and ModelRouter.\n\n\u2022 Verify zero actor-isolation compiler warnings on generic iOS and macOS build targets.",
-      "added_date": "2026-06-14T20:56:00.000Z",
       "completed_date": null
     },
     {
