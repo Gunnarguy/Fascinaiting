@@ -4474,6 +4474,8 @@ async function fetchRoadmap() {
       const osBadgeClass = item.target_os.includes('26.5 Only') ? 'ios-macos-26-5-only' : 
                            item.target_os.includes('27') ? 'ios-macos-27-only' : 'all-26-5-27';
 
+      const componentClass = 'comp-' + item.component.toLowerCase();
+
       const dateLabel = item.status === 'Completed' 
         ? `Completed: ${formatDate(item.completed_date)}`
         : `Added: ${formatDate(item.added_date)}`;
@@ -4483,6 +4485,7 @@ async function fetchRoadmap() {
         <div class="card-meta">
           <span class="badge ${badgeClass}">${item.priority}</span>
           <span class="badge ${osBadgeClass}">${item.target_os.replace('iOS/macOS ', '')}</span>
+          <span class="badge ${componentClass}">${item.component}</span>
         </div>
         <div class="card-date">${dateLabel}</div>
       `;
