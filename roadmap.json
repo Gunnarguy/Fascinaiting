@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-29T17:55:26.742957Z",
+  "last_updated": "2026-06-29T18:00:47.271086Z",
   "items": [
     {
       "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
@@ -32,7 +32,7 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
       "component": "Orchestration",
-      "target_release": "Future Backlog",
+      "target_release": "v4.5 (Phase 2B)",
       "description": "Put your pipeline's reasoning steps (the 7 verification gates) right into the Dynamic Island and Lock Screen, complete with native 'Pause' or 'Cancel' buttons that talk directly to your background RAG service.",
       "added_date": "2026-06-16T16:45:00.000Z",
       "completed_date": null
@@ -44,7 +44,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Ingestion",
-      "target_release": "Future Backlog",
+      "target_release": "v4.5 (Phase 2B)",
       "description": "Drop in an unreadable image and show the app's Vision OCR pipeline attempting to extract it, running it through the verification gates, and abstaining gracefully.",
       "added_date": "2026-06-16T16:23:00.000Z",
       "completed_date": null
@@ -56,7 +56,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Orchestration",
-      "target_release": "Future Backlog",
+      "target_release": "v4.5 (Phase 2B)",
       "description": "Add a privacy indicator showing a locked Local Engine (4K) badge that only visually escalates to PCC (32K) when absolutely necessary.",
       "added_date": "2026-06-16T16:23:00.000Z",
       "completed_date": null
@@ -68,7 +68,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Medium",
       "component": "Orchestration",
-      "target_release": "Future Backlog",
+      "target_release": "v4.5 (Phase 2B)",
       "description": "Expose the localized Chain of Thought (CoT) before the final answer is generated in a collapsible Thinking UI.",
       "added_date": "2026-06-16T16:23:00.000Z",
       "completed_date": null
@@ -128,7 +128,7 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Shortcuts",
-      "target_release": "Future Backlog",
+      "target_release": "v4.2",
       "description": "## Specification\n\nExpose RAG quality levels (Standard, Deep Think, Max) as native AppEnum parameters so users can customize query execution directly inside Shortcuts.",
       "added_date": "2026-06-15T04:42:00.000Z",
       "completed_date": null
@@ -431,7 +431,7 @@
       "target_release": "v4.2",
       "description": "## UI Enhancements\n\nLinked generated citations directly to highlighting markers inside source document previews.",
       "added_date": "2026-06-16T17:00:00.000Z",
-      "completed_date": "2026-06-29T17:55:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "38149a74-d54f-8104-a282-cfc834b9dce6",
@@ -440,10 +440,10 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Retrieval",
-      "target_release": "Future Backlog",
+      "target_release": "v4.2",
       "description": "## UI Diagnostics\n\nCreated custom HUD layouts showing step-by-step verification pipeline evaluations.",
       "added_date": "2026-06-16T17:00:00.000Z",
-      "completed_date": "2026-06-29T17:42:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "38149a74-d54f-81a3-9687-c3e5bf3c263e",
@@ -452,10 +452,10 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Shortcuts",
-      "target_release": "Future Backlog",
+      "target_release": "v4.1",
       "description": "With SiriKit deprecated, adopt the new Entity-Native App Intents (AppEntity, EntityQuery). This allows Siri to understand the semantics of your documents and execute complex RAG workflows directly via voice or Shortcuts.\n\nOfficial Apple Developer Documentation References:\n\n- Siri and Apple Intelligence Integrations: https://developer.apple.com/documentation/apple_intelligence\n\n- App Intents Framework: https://developer.apple.com/documentation/appintents\n\n## Intents Registration\n\nRegistered system App Intents allowing Shortcuts workflows to query search libraries and retrieve text.",
       "added_date": "2026-06-16T16:45:00.000Z",
-      "completed_date": "2026-06-29T17:42:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "38149a74-d54f-81b1-a076-e601b8fb66aa",
@@ -464,10 +464,10 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
       "component": "Orchestration",
-      "target_release": "Future Backlog",
+      "target_release": "v4.1",
       "description": "Instead of manually managing token budgets and session histories in your monolithic LLMService, hand that off to OS 27's native LanguageModelSession. The OS will dynamically route compute between the CPU, GPU, and Neural Engine based on real-time thermal and memory pressure.\n\nOfficial Apple Developer Documentation References:\n\n- Foundation Models Framework: https://developer.apple.com/documentation/foundationmodels\n\n- Technote TN3193 Context Management: https://developer.apple.com/documentation/technotes/tn3193\n\n## Orchestration\n\nWrapped LanguageModelSession APIs inside active model executors, bypassing legacy session-recreation workarounds.",
       "added_date": "2026-06-16T16:45:00.000Z",
-      "completed_date": "2026-06-29T17:42:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "38149a74-d54f-81a0-ae61-ce8fce69ad2a",
@@ -476,10 +476,10 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "component": "Indexing",
-      "target_release": "Future Backlog",
+      "target_release": "v4.1",
       "description": "Migrate local embeddings and extractors from Core ML to Core AI. Core AI natively uses Apple Silicon's unified memory with 'zero-copy' pointers. This eliminates the memory bandwidth bottleneck of constantly copying token tensors, dropping your TTFT by about 40% and shrinking memory footprint by 15-20%.\n\nOfficial Apple Developer Documentation Reference:\n\n- Core AI Framework: https://developer.apple.com/documentation/coreai\n\n## Unified Memory Opt\n\nAdopted compile-time aimodel structures and zero-copy Swift tensor pointers to optimize unified memory access.",
       "added_date": "2026-06-16T16:45:00.000Z",
-      "completed_date": "2026-06-29T17:42:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "38149a74-d54f-81b9-8e39-f0843fdcbe0d",
@@ -488,10 +488,10 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Retrieval",
-      "target_release": "Future Backlog",
+      "target_release": "v4.2",
       "description": "Make citations interactive. Tapping a citation in the generated answer instantly opens the exact PDF page or image and highlights the specific text chunk.\n\n## UI Enhancements\n\nLinked generated citations directly to highlighting markers inside source document previews.",
       "added_date": "2026-06-16T16:23:00.000Z",
-      "completed_date": "2026-06-29T17:42:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "38149a74-d54f-811f-87a8-e0a63e53e91e",
@@ -500,10 +500,10 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Retrieval",
-      "target_release": "Future Backlog",
+      "target_release": "v4.2",
       "description": "Expose the 7 verification gates in the UI. When the model evaluates a query, show a visual pipeline. If it abstains, show exactly which gate triggered the abstention.\n\n## UI Diagnostics\n\nCreated custom HUD layouts showing step-by-step verification pipeline evaluations.",
       "added_date": "2026-06-16T16:23:00.000Z",
-      "completed_date": "2026-06-29T17:43:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "38049a74-d54f-8142-9589-e271d7bf613d",
@@ -512,10 +512,10 @@
       "target_os": "All (26.5 & 27)",
       "priority": "Low",
       "component": "Orchestration",
-      "target_release": "Future Backlog",
+      "target_release": "v4.1",
       "description": "Replaces manual python scripts and CLI tools. Integrates directly into Swift Testing and Xcode's UI using a Model-as-Judge pattern to quantitatively score your RAG outputs against ground truth datasets.\n\n## Benchmark Engine\n\nSet up local benchmark test execution runner using native Xcode Unit Testing.",
       "added_date": "2026-06-15T04:49:00.000Z",
-      "completed_date": "2026-06-29T17:43:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "37f49a74-d54f-81b0-aeb5-f3ad08d4e087",
@@ -524,10 +524,10 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Ingestion",
-      "target_release": "Future Backlog",
+      "target_release": "v4.1",
       "description": "## Fallback Engine\n\nImplemented local visual text extraction fallback using native OCR APIs.",
       "added_date": "2026-06-14T20:56:00.000Z",
-      "completed_date": "2026-06-29T17:43:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     },
     {
       "id": "37f49a74-d54f-8108-84c2-cf634421452e",
@@ -536,10 +536,10 @@
       "target_os": "All (26.5 & 27)",
       "priority": "High",
       "component": "Orchestration",
-      "target_release": "Future Backlog",
+      "target_release": "v4.1",
       "description": "Official Apple Security Reference:\n\n- Private Cloud Compute Guide: https://security.apple.com/blog/private-cloud-compute/\n\n## Security Routing\n\nIntegrated baseline PCC routing fallback mechanism to securely direct large context requests.",
       "added_date": "2026-06-14T20:56:00.000Z",
-      "completed_date": "2026-06-29T17:43:00.000Z"
+      "completed_date": "2026-06-29T18:00:00.000Z"
     }
   ]
 }
