@@ -138,12 +138,20 @@
                 if (interactiveTarget.tagName === 'A') {
                   var href = interactiveTarget.getAttribute('href') || '';
                   if (href.includes('apps.apple.com')) {
-                    gtag('event', 'click_app_store', { link_url: href });
-                    gtag('event', 'conversion', {
-                        'send_to': 'AW-17079810778/41mpCL_A-sMcENr1pNA_',
-                        'value': 1.0,
-                        'currency': 'USD'
-                    });
+                    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+                    var isMac = /Macintosh|MacIntel|MacPPC|Mac68K/.test(navigator.userAgent || navigator.platform);
+                    var isAppleDevice = isIOS || isMac;
+
+                    if (isAppleDevice) {
+                      gtag('event', 'click_app_store', { link_url: href });
+                      gtag('event', 'conversion', {
+                          'send_to': 'AW-17079810778/41mpCL_A-sMcENr1pNA_',
+                          'value': 1.0,
+                          'currency': 'USD'
+                      });
+                    } else {
+                      console.log("Non-Apple device detected. Suppressed conversion trigger.");
+                    }
                   } else if (href.includes('github.com')) {
                     gtag('event', 'click_github', { link_url: href });
                   }
