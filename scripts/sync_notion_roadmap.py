@@ -92,6 +92,10 @@ def fetch_roadmap():
         comp_prop = props.get("Component", {}).get("select", {})
         component = comp_prop.get("name", "General") if comp_prop else "General"
 
+        # Target Release
+        rel_prop = props.get("Target Release", {}).get("select", {})
+        target_release = rel_prop.get("name", "Future Backlog") if rel_prop else "Future Backlog"
+
         description = fetch_page_content(page.get("id"), headers)
 
         items.append({
@@ -101,6 +105,7 @@ def fetch_roadmap():
             "target_os": target_os,
             "priority": priority,
             "component": component,
+            "target_release": target_release,
             "description": description,
             "added_date": page.get("created_time"),
             "completed_date": page.get("last_edited_time") if status == "Completed" else None

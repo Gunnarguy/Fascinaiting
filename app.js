@@ -4475,6 +4475,11 @@ async function fetchRoadmap() {
                            item.target_os.includes('27') ? 'ios-macos-27-only' : 'all-26-5-27';
 
       const componentClass = 'comp-' + item.component.toLowerCase();
+      
+      const releaseClass = 'rel-' + (item.target_release || 'future-backlog').toLowerCase()
+                             .replace(/[^a-z0-9]/g, '-')
+                             .replace(/-+/g, '-')
+                             .replace(/^-|-$/g, '');
 
       const dateLabel = item.status === 'Completed' 
         ? `Completed: ${formatDate(item.completed_date)}`
@@ -4486,6 +4491,7 @@ async function fetchRoadmap() {
           <span class="badge ${badgeClass}">${item.priority}</span>
           <span class="badge ${osBadgeClass}">${item.target_os.replace('iOS/macOS ', '')}</span>
           <span class="badge ${componentClass}">${item.component}</span>
+          <span class="badge ${releaseClass}">${item.target_release}</span>
         </div>
         <div class="card-date">${dateLabel}</div>
       `;
@@ -4536,12 +4542,13 @@ async function fetchRoadmap() {
 
         modalBody.innerHTML = `
           <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; letter-spacing: 0.05em; font-weight: 600;">
-            ${item.component} Component
+            ${item.component} Component &bull; ${item.target_release}
           </div>
           <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; color: #fff;">${item.name}</h2>
           <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem;">
             <span class="badge ${badgeClass}">${item.priority} Priority</span>
             <span class="badge ${osBadgeClass}">${item.target_os}</span>
+            <span class="badge ${releaseClass}">${item.target_release}</span>
           </div>
           <div class="modal-description-content" style="border-top: 1px solid var(--line); padding-top: 1.25rem;">
             ${htmlDesc}
