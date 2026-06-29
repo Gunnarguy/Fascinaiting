@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-28T00:31:32.336533Z",
+  "last_updated": "2026-06-29T00:33:00.061596Z",
   "items": [
     {
       "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
@@ -135,7 +135,7 @@
       "status": "Shipped",
       "target_os": "All",
       "priority": "Low",
-      "last_edited": "2026-06-22T03:46:00.000Z"
+      "last_edited": "2026-06-28T01:57:00.000Z"
     },
     {
       "id": "38749a74-d54f-81a9-b9dd-ee9223c435bd",
@@ -200,6 +200,70 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "High",
       "last_edited": "2026-06-21T03:01:00.000Z"
+    },
+    {
+      "id": "38d49a74-d54f-81f3-b283-cd8a6e89ca80",
+      "name": "Notion Roadmap UI Integration & iOS Silicon HUD Realignment",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-28T07:04:00.000Z"
+    },
+    {
+      "id": "38d49a74-d54f-818d-9521-c7b649e0c562",
+      "name": "Swift 6 Warning Cleanup (RAGService & EvidenceThreadStore)",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "Medium",
+      "last_edited": "2026-06-28T06:28:00.000Z"
+    },
+    {
+      "id": "38d49a74-d54f-8194-8507-db1f8bcfb96a",
+      "name": "Enforce On-Device Model Preference (AFM 3B/20B)",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-28T06:22:00.000Z"
+    },
+    {
+      "id": "38d49a74-d54f-8110-8c70-cc9dedcbb478",
+      "name": "Refine Verification Gates for False-Positive Refusals",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-28T06:18:00.000Z"
+    },
+    {
+      "id": "38d49a74-d54f-8182-8110-c9ab1f741376",
+      "name": "Phase 2 (Native Private Cloud Compute Integration) Completed",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-28T03:35:00.000Z"
+    },
+    {
+      "id": "38d49a74-d54f-81a9-b0e8-d2e2ea695de4",
+      "name": "Phase 1C & 1D (Evidence Thread Integration) Completed",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-28T03:24:00.000Z"
+    },
+    {
+      "id": "38d49a74-d54f-81d6-a3de-e0aebb290f97",
+      "name": "Phase 1A: Local Storage Core",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-28T03:07:00.000Z"
+    },
+    {
+      "id": "38d49a74-d54f-8117-b686-d6491f1512a3",
+      "name": "Phase 1B: Diagnostics-Only Exposure",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "last_edited": "2026-06-28T02:45:00.000Z"
     },
     {
       "id": "38149a74-d54f-8116-9cd5-f5ab6aac5014",
