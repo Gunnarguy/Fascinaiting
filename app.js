@@ -4453,6 +4453,16 @@ async function fetchRoadmap() {
     todoCol.innerHTML = '';
     completedCol.innerHTML = '';
 
+    const formatDate = (dateStr) => {
+      if (!dateStr) return '';
+      try {
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      } catch (e) {
+        return '';
+      }
+    };
+
     data.items.forEach(item => {
       // Create Card
       const card = document.createElement('div');
@@ -4464,12 +4474,17 @@ async function fetchRoadmap() {
       const osBadgeClass = item.target_os.includes('26.5 Only') ? 'ios-macos-26-5-only' : 
                            item.target_os.includes('27') ? 'ios-macos-27-only' : 'all-26-5-27';
 
+      const dateLabel = item.status === 'Completed' 
+        ? `Completed: ${formatDate(item.completed_date)}`
+        : `Added: ${formatDate(item.added_date)}`;
+
       card.innerHTML = `
         <div class="card-name">${item.name}</div>
         <div class="card-meta">
           <span class="badge ${badgeClass}">${item.priority}</span>
           <span class="badge ${osBadgeClass}">${item.target_os.replace('iOS/macOS ', '')}</span>
         </div>
+        <div class="card-date">${dateLabel}</div>
       `;
 
       // Assign to column

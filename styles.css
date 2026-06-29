@@ -1356,6 +1356,16 @@ html[data-runtime="ready"] .is-visible {
   color: var(--muted);
 }
 
+.roadmap-card .card-date {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.75rem;
+  border-top: 1px dashed var(--line);
+  padding-top: 0.5rem;
+  display: block;
+  text-align: right;
+}
+
 .badge {
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
