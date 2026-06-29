@@ -4591,10 +4591,30 @@ async function fetchRoadmap() {
   }
 }
 
+function setupVideoFacades() {
+  document.querySelectorAll(".youtube-facade").forEach((facade) => {
+    facade.addEventListener("click", () => {
+      const videoId = facade.getAttribute("data-video-id");
+      const videoTitle = facade.getAttribute("data-video-title");
+      const iframe = document.createElement("iframe");
+      iframe.setAttribute("src", `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+      iframe.setAttribute("title", videoTitle);
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+      iframe.setAttribute("allowfullscreen", "true");
+      iframe.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
+
+      facade.innerHTML = "";
+      facade.appendChild(iframe);
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setupSmoothRouting();
   setupRevealState();
   initPlayground();
   fetchRoadmap();
+  setupVideoFacades();
   stampRuntimeReady();
 });
