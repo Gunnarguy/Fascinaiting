@@ -15,18 +15,18 @@
           "Cross-Encoder Reranking",
           "JSON Evidence Threads",
           "Dynamic Deep Think Loops",
-          "Audit Vast Document Archives",
-          "Synthesize Entire Libraries",
+          "Siri RAG Document Shortcuts",
+          "Shortcuts-Enabled Local RAG",
           "Built for WWDC 2026 Features",
           "Core AI & PCC RAG Pipeline",
           "Apple Foundation Models RAG",
-          "Cross-Examine Your Own Data",
+          "Siri Ask Document Intent",
           "On-Device Apple Intelligence"
         ],
         "descriptions": [
           "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models.",
           "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
-          "Instantly cross-examine thousands of secure documents without an internet connection.",
+          "Automate private document comparison and library queries using native Siri App Intents.",
           "No remote wrappers. Secure Apple Foundation Models & Private Cloud Compute routing."
         ]
       },
@@ -41,18 +41,18 @@
           "Cross-Encoder Reranking",
           "JSON Evidence Threads",
           "Dynamic Deep Think Loops",
-          "Audit Vast Document Archives",
-          "Synthesize Entire Libraries",
+          "Siri RAG Document Shortcuts",
+          "Shortcuts-Enabled Local RAG",
           "Built for WWDC 2026 Features",
           "Core AI & PCC RAG Pipeline",
           "Apple Foundation Models RAG",
-          "Cross-Examine Your Own Data",
+          "Siri Ask Document Intent",
           "On-Device Apple Intelligence"
         ],
         "descriptions": [
           "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models.",
           "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
-          "Instantly cross-examine thousands of secure documents without an internet connection.",
+          "Automate private document comparison and library queries using native Siri App Intents.",
           "No remote wrappers. Secure Apple Foundation Models & Private Cloud Compute routing."
         ]
       },
@@ -67,18 +67,18 @@
           "Cross-Encoder Reranking",
           "JSON Evidence Threads",
           "Dynamic Deep Think Loops",
-          "Audit Vast Document Archives",
-          "Synthesize Entire Libraries",
+          "Siri RAG Document Shortcuts",
+          "Shortcuts-Enabled Local RAG",
           "Built for WWDC 2026 Features",
           "Core AI & PCC RAG Pipeline",
           "Apple Foundation Models RAG",
-          "Cross-Examine Your Own Data",
+          "Siri Ask Document Intent",
           "On-Device Apple Intelligence"
         ],
         "descriptions": [
           "Inspect the 29-step RAG pipeline powered by CoreML and Apple Foundation Models.",
           "Orchestrate your documents with a transparent, local-first RRF hybrid search pipeline.",
-          "Instantly cross-examine thousands of secure documents without an internet connection.",
+          "Automate private document comparison and library queries using native Siri App Intents.",
           "No remote wrappers. Secure Apple Foundation Models & Private Cloud Compute routing."
         ]
       }
@@ -109,16 +109,16 @@
           "text": "SIMD4 GPU Vector Search"
         },
         {
-          "text": "Reciprocal Rank Fusion RRF"
+          "text": "Siri RAG Document Shortcuts"
         },
         {
           "text": "29-Step Retrieval Pipeline"
         },
         {
-          "text": "JSON Evidence Threads"
+          "text": "Siri Ask Document Intent"
         },
         {
-          "text": "Dynamic Deep Think Loops"
+          "text": "Shortcuts-Enabled Local RAG"
         },
         {
           "text": "Apple Foundation Models RAG"
@@ -138,13 +138,13 @@
       ],
       "long_headlines": [
         {
-          "text": "Zero-retention document intelligence that halts speculative answers if facts are missing."
+          "text": "Automate private document comparison and library queries using native Siri App Intents."
         },
         {
           "text": "Bypass on-device token limits with multi-step RAPTOR summarization and Metal-driven RRF."
         },
         {
-          "text": "Inspect model routes, TOPS, and active memory trace live on the Silicon Telemetry HUD."
+          "text": "List, query, and generate Evidence Threads using Siri App Intents and Apple Shortcuts."
         },
         {
           "text": "Leverage WWDC 2026 native APIs for zero-retention, hardware-accelerated document search."
@@ -161,7 +161,7 @@
           "text": "Bypass Apple Intelligence token limits. Ingest vast libraries with SIMD4 vector search."
         },
         {
-          "text": "No remote wrappers. Secure Apple Foundation Models & Private Cloud Compute routing."
+          "text": "Trigger on-device document summaries, cross-examinations, and searches with Siri voice."
         },
         {
           "text": "Inspect the 29-step RAG pipeline trace showing active routes and exact citation origins."
