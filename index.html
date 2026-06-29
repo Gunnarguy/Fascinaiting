@@ -491,6 +491,92 @@
         </div>
       </section>
 
+      <!-- RELEASE HISTORY / CHANGELOG -->
+      <section class="changelog-section" id="changelog" aria-labelledby="changelog-title" style="padding: 5rem 0; border-top: 1px solid var(--line);">
+        <div class="section-heading" style="margin-bottom: 3rem; text-align: center;">
+          <p class="eyebrow">Product History</p>
+          <h2 id="changelog-title">Version Changelog</h2>
+          <p style="color: var(--muted); max-width: 700px; margin: 1rem auto 0;">Read the official version release log for OpenIntelligence, focusing on user-facing capabilities and system architectural shifts.</p>
+        </div>
+
+        <div class="changelog-timeline" style="max-width: 800px; margin: 3rem auto 0; display: flex; flex-direction: column; gap: 3rem; position: relative;">
+          <!-- Timeline line -->
+          <div class="timeline-line" style="position: absolute; left: 20px; top: 10px; bottom: 10px; width: 2px; background: var(--line); z-index: 1;"></div>
+
+          <!-- v4.4 -->
+          <div class="timeline-item" style="display: flex; gap: 2rem; position: relative; z-index: 2;">
+            <div class="timeline-dot" style="width: 42px; height: 42px; border-radius: 50%; background: rgba(10, 132, 255, 0.1); border: 2px solid #0a84ff; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #0a84ff; flex-shrink: 0;">4.4</div>
+            <div class="timeline-content" style="background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; flex-grow: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 700;">v4.4 Release &mdash; Evidence Threads</h3>
+                <span class="badge rel-v4-4" style="background: rgba(10, 132, 255, 0.1); color: #0a84ff;">June 2026</span>
+              </div>
+              <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">Approved today by Apple App Store review. Introduces persistent iCloud-synchronized research chat sessions, slide-out sidebar, and resolved Swift 6 compiler concurrency checks.</p>
+              <ul style="color: var(--muted); font-size: 0.9rem; margin-left: 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.4rem;">
+                <li><strong>iCloud Evidence Threads</strong>: Persistent conversation sessions saved locally and synced automatically via iCloud Drive.</li>
+                <li><strong>Sidebar Navigation</strong>: Slide-out menu panel for switching, managing, and deleting active chat sessions.</li>
+                <li><strong>Swift 6 Concurrency</strong>: Resolved actor isolation warnings inside key orchestrators.</li>
+                <li><strong>Entitlements Alignment</strong>: 1,000 document upload hard limit for Pro tiers and adjusted Annual subscription to $29.99/year.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- v4.3.1 -->
+          <div class="timeline-item" style="display: flex; gap: 2rem; position: relative; z-index: 2;">
+            <div class="timeline-dot" style="width: 42px; height: 42px; border-radius: 50%; background: rgba(48, 209, 88, 0.1); border: 2px solid #30d158; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #30d158; flex-shrink: 0;">4.3</div>
+            <div class="timeline-content" style="background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; flex-grow: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 700;">v4.3 & v4.3.1 &mdash; AFM 3 Suite & Deadlock Fixes</h3>
+                <span class="badge rel-v4-3-1" style="background: rgba(48, 209, 88, 0.1); color: #30d158;">June 2026</span>
+              </div>
+              <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">Delivered support for third-generation Apple Foundation Models, Siri Screen Awareness AppIntents, and resolved critical MainActor deadlocks during iCloud file locking.</p>
+              <ul style="color: var(--muted); font-size: 0.9rem; margin-left: 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.4rem;">
+                <li><strong>AFM 3 Architecture Routing</strong>: Real-time local vs. cloud routing between 3B Core, 20B Advanced, and Cloud Pro models.</li>
+                <li><strong>Siri Screen Awareness</strong>: Siri background ingestion allows screen files/URLs to load natively into RAG libraries.</li>
+                <li><strong>Image Playground Integration</strong>: Bound native macOS/iOS Image Playground (ADM 3) APIs for visual summary rendering.</li>
+                <li><strong>Thread Concurrency Fixes</strong>: Offloaded synchronous operations and File Coordinator locks to background tasks.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- v4.2 -->
+          <div class="timeline-item" style="display: flex; gap: 2rem; position: relative; z-index: 2;">
+            <div class="timeline-dot" style="width: 42px; height: 42px; border-radius: 50%; background: rgba(255, 159, 10, 0.1); border: 2px solid #ff9f0a; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #ff9f0a; flex-shrink: 0;">4.2</div>
+            <div class="timeline-content" style="background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; flex-grow: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 700;">v4.2 Release &mdash; Liquid Glass Telemetry HUD</h3>
+                <span class="badge rel-v4-2" style="background: rgba(255, 159, 10, 0.1); color: #ff9f0a;">June 2026</span>
+              </div>
+              <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">Rebuilt the RAG telemetry HUD with glassmorphic layouts, hardware sensory haptics, and resizable metrics bottom sheets.</p>
+              <ul style="color: var(--muted); font-size: 0.9rem; margin-left: 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.4rem;">
+                <li><strong>Liquid Glass HUD</strong>: Telemetry overlay styled with <code>.ultraThinMaterial</code> glassmorphism.</li>
+                <li><strong>Dynamic Verification Gates</strong>: Adaptive UI paths tracking 4, 8, or 12 verification gates depending on query modes.</li>
+                <li><strong>Resizable Bottom Sheet</strong>: Fluid iOS sheet that can be manually expanded or collapsed.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- v4.0 & v4.1 -->
+          <div class="timeline-item" style="display: flex; gap: 2rem; position: relative; z-index: 2;">
+            <div class="timeline-dot" style="width: 42px; height: 42px; border-radius: 50%; background: rgba(162, 89, 255, 0.1); border: 2px solid #a259ff; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #a259ff; flex-shrink: 0;">4.0</div>
+            <div class="timeline-content" style="background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; flex-grow: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                <h3 style="font-size: 1.25rem; font-weight: 700;">v4.0 & v4.1 &mdash; Apple Intelligence Milestone</h3>
+                <span class="badge rel-v4-1" style="background: rgba(162, 89, 255, 0.1); color: #a259ff;">June 2026</span>
+              </div>
+              <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.6;">Major milestone release integrating native iOS 26+ FoundationModels APIs, Core AI embeddings, and Metal-accelerated vector search.</p>
+              <ul style="color: var(--muted); font-size: 0.9rem; margin-left: 1.25rem; line-height: 1.6; display: flex; flex-direction: column; gap: 0.4rem;">
+                <li><strong>FoundationModels Integration</strong>: Migrated LLM orchestration to Apple's native system APIs.</li>
+                <li><strong>Private Cloud Compute Routing</strong>: Local 4K context boundaries automatically scale to secure PCC enclaves (32K tokens).</li>
+                <li><strong>Core AI Native Embeddings</strong>: Integrated <code>CoreAISentenceEmbeddingProvider</code> for zero-copy memory layouts on Version 27+ devices.</li>
+                <li><strong>Metal GPU Vector Search</strong>: Threadgroup-level Metal acceleration for 4x faster vector search.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       <!-- ECOSYSTEM / SUPPORT ROUTING -->
       <section class="ecosystem-section" id="support" aria-labelledby="ecosystem-title">
         <div class="section-heading compact">

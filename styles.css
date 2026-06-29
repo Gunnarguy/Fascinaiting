@@ -1718,3 +1718,27 @@ html[data-runtime="ready"] .is-visible {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+/* Responsive Changelog Timeline */
+@media (max-width: 600px) {
+  .changelog-timeline {
+    gap: 2rem !important;
+  }
+  .timeline-line {
+    left: 15px !important;
+  }
+  .timeline-item {
+    gap: 1rem !important;
+  }
+  .timeline-dot {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.8rem !important;
+  }
+  .timeline-content {
+    padding: 1rem !important;
+  }
+  .timeline-content h3 {
+    font-size: 1.1rem !important;
+  }
+}
