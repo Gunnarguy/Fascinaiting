@@ -62,7 +62,8 @@ def fetch_roadmap():
             "status": status,
             "target_os": target_os,
             "priority": priority,
-            "last_edited": page.get("last_edited_time")
+            "added_date": page.get("created_time"),
+            "completed_date": page.get("last_edited_time") if status == "Completed" else None
         })
 
     # Sort items by status: In Progress -> To Do -> Completed
