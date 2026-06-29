@@ -172,5 +172,55 @@
       ],
       "business_names": []
     }
-  }
+  },
+  "sitelinks": [
+    {
+      "text": "App Features",
+      "description1": "Explore OpenIntelligence features.",
+      "description2": "Local AI & Document Query.",
+      "final_url": "https://fascinaiting.me/#features"
+    },
+    {
+      "text": "Pipeline Debugger",
+      "description1": "Inspect the 29-step RAG engine.",
+      "description2": "Understand local data ingestion.",
+      "final_url": "https://fascinaiting.me/#under-the-hood"
+    },
+    {
+      "text": "App Ecosystem",
+      "description1": "Three sites, three jobs.",
+      "description2": "Navigate the entire ecosystem.",
+      "final_url": "https://fascinaiting.me/#support"
+    },
+    {
+      "text": "GitHub Source",
+      "description1": "View the Swift repository.",
+      "description2": "Fully open source architecture.",
+      "final_url": "https://github.com/Gunnarguy/OpenIntelligence"
+    },
+    {
+      "text": "Official Support Hub",
+      "description1": "Get setup help and user guides.",
+      "description2": "Access documentation for local RAG.",
+      "final_url": "https://gunzino.me/openintelligence/"
+    },
+    {
+      "text": "Privacy Policy",
+      "description1": "Verify our zero-retention policy.",
+      "description2": "Your files never leave your device.",
+      "final_url": "https://gunzino.me/openintelligence/privacy/"
+    },
+    {
+      "text": "Download App",
+      "description1": "Get OpenIntelligence for iOS.",
+      "description2": "Run local private AI queries.",
+      "final_url": "https://apps.apple.com/us/app/openintelligence/id6756559175"
+    },
+    {
+      "text": "Developer Portfolio",
+      "description1": "Meet the developer behind the app.",
+      "description2": "View projects, tools, and resume.",
+      "final_url": "https://gunnarguy.me/"
+    }
+  ]
 }
