@@ -98,6 +98,11 @@ def fetch_roadmap():
 
         description = fetch_page_content(page.get("id"), headers)
 
+        completed_prop = props.get("Completed", {}).get("date", {}) if props.get("Completed") else None
+        completed_date = completed_prop.get("start") if completed_prop else None
+        if not completed_date and status == "Completed":
+            completed_date = page.get("last_edited_time")
+
         items.append({
             "id": page.get("id"),
             "name": name,
@@ -108,7 +113,7 @@ def fetch_roadmap():
             "target_release": target_release,
             "description": description,
             "added_date": page.get("created_time"),
-            "completed_date": page.get("last_edited_time") if status == "Completed" else None
+            "completed_date": completed_date
         })
 
     # Sort items by status: In Progress -> To Do -> Completed
