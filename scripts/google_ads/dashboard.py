@@ -62,7 +62,7 @@ css = f"""
         color: {TEXT} !important;
         font-family: 'Outfit', -apple-system, sans-serif !important;
     }}
-    
+
     .block-container {{
         padding: 1.5rem 2rem 3rem !important;
         max-width: 1440px !important;
@@ -94,7 +94,7 @@ css = f"""
         gap: 0.5rem !important;
         padding-top: 1.5rem !important;
     }}
-    
+
     /* Styled Selectbox and Inputs */
     .stSelectbox, .stTextInput {{
         margin-bottom: 1rem;
@@ -321,11 +321,12 @@ st.markdown(css, unsafe_allow_html=True)
 def metric_card(label, value, delta=None, delta_type="up"):
     cls = f"delta-{delta_type}"
     arrow = "↑" if delta_type == "up" else ("↓" if delta_type == "down" else "→")
+    delta_html = f'<div class="metric-delta {cls}">{arrow} {delta}</div>' if delta is not None else ''
     st.markdown(textwrap.dedent(f"""
     <div class="metric-card">
         <div class="metric-label">{label}</div>
         <div class="metric-value">{value}</div>
-        <div class="metric-delta {cls}">{arrow} {delta}</div>
+        {delta_html}
     </div>
     """), unsafe_allow_html=True)
 
@@ -366,12 +367,12 @@ with st.sidebar:
         "Workspace View",
         ["Google Ads Overview", "Google Ads Deep-Dive", "GA4 Traffic & Tech", "GA4 Live Explorer"]
     )
-    
+
     st.markdown("---")
     st.markdown("### Theme & Settings")
     theme_label = "☀️ Light Interface" if IS_DARK else "🌙 Dark Interface"
     st.button(theme_label, on_click=toggle_theme, use_container_width=True)
-    
+
     st.markdown(f"""
     <div style="margin-top: 2rem; padding: 0.75rem; background: {CARD}; border: 1px solid {BORDER}; border-radius: 8px;">
         <span class="indicator indicator-green"></span>
@@ -391,7 +392,7 @@ def get_ads_campaigns():
             client = GoogleAdsClient.load_from_storage(config_path)
             customer_id = "4509379845"
             ga_service = client.get_service("GoogleAdsService")
-            
+
             query = """
                 SELECT
                   campaign.id,
@@ -412,7 +413,7 @@ def get_ads_campaigns():
             search_request.customer_id = customer_id
             search_request.query = query
             response = ga_service.search(request=search_request)
-            
+
             records = []
             for row in response:
                 records.append({
@@ -431,7 +432,7 @@ def get_ads_campaigns():
             return pd.DataFrame(records)
         except Exception:
             pass
-            
+
     # Return Mock Data
     return pd.DataFrame([
         {"id": "23970700798", "name": "OpenIntelligence_Core_V2", "status": "ENABLED", "channel_type": "SEARCH", "bidding": "MAXIMIZE_CONVERSIONS", "budget": 50.0, "impressions": 1820, "clicks": 142, "cost": 2.58, "conversions": 4, "revenue": 120.0},
@@ -447,7 +448,7 @@ def get_ads_adgroups():
             client = GoogleAdsClient.load_from_storage(config_path)
             customer_id = "4509379845"
             ga_service = client.get_service("GoogleAdsService")
-            
+
             query = """
                 SELECT
                   campaign.name,
@@ -465,7 +466,7 @@ def get_ads_adgroups():
             search_request.customer_id = customer_id
             search_request.query = query
             response = ga_service.search(request=search_request)
-            
+
             records = []
             for row in response:
                 records.append({
@@ -481,7 +482,7 @@ def get_ads_adgroups():
             return pd.DataFrame(records)
         except Exception:
             pass
-            
+
     # Mock Data
     return pd.DataFrame([
         {"campaign": "OpenIntelligence_Core_V2", "id": "14882901239", "name": "AI Coding Assistant Ads", "status": "ENABLED", "impressions": 1200, "clicks": 98, "cost": 1.82, "conversions": 3},
@@ -498,7 +499,7 @@ def get_ads_keywords():
             client = GoogleAdsClient.load_from_storage(config_path)
             customer_id = "4509379845"
             ga_service = client.get_service("GoogleAdsService")
-            
+
             query = """
                 SELECT
                   ad_group.name,
@@ -520,7 +521,7 @@ def get_ads_keywords():
             search_request.customer_id = customer_id
             search_request.query = query
             response = ga_service.search(request=search_request)
-            
+
             records = []
             for row in response:
                 records.append({
@@ -540,7 +541,7 @@ def get_ads_keywords():
             return pd.DataFrame(records)
         except Exception:
             pass
-            
+
     # Mock Data
     return pd.DataFrame([
         {"ad_group": "AI Coding Assistant Ads", "keyword": "ai coding assistant", "match_type": "PHRASE", "status": "ENABLED", "quality_score": 8, "ad_relevance": "ABOVE_AVERAGE", "landing_page_exp": "AVERAGE", "expected_ctr": "ABOVE_AVERAGE", "impressions": 850, "clicks": 62, "cost": 1.24, "conversions": 2},
@@ -557,7 +558,7 @@ def get_ads_search_terms():
             client = GoogleAdsClient.load_from_storage(config_path)
             customer_id = "4509379845"
             ga_service = client.get_service("GoogleAdsService")
-            
+
             query = """
                 SELECT
                   search_term_view.search_term,
@@ -572,7 +573,7 @@ def get_ads_search_terms():
             search_request.customer_id = customer_id
             search_request.query = query
             response = ga_service.search(request=search_request)
-            
+
             records = []
             for row in response:
                 records.append({
@@ -586,7 +587,7 @@ def get_ads_search_terms():
             return pd.DataFrame(records)
         except Exception:
             pass
-            
+
     return pd.DataFrame([
         {"search_term": "best free ai assistant for coding", "status": "ADDED", "clicks": 14, "impressions": 120, "cost": 0.28, "conversions": 1},
         {"search_term": "how to speed up developer workflows", "status": "NONE", "clicks": 8, "impressions": 85, "cost": 0.16, "conversions": 0},
@@ -602,7 +603,7 @@ def get_ads_creatives():
             client = GoogleAdsClient.load_from_storage(config_path)
             customer_id = "4509379845"
             ga_service = client.get_service("GoogleAdsService")
-            
+
             query = """
                 SELECT
                   ad_group_ad.ad.id,
@@ -619,7 +620,7 @@ def get_ads_creatives():
             search_request.customer_id = customer_id
             search_request.query = query
             response = ga_service.search(request=search_request)
-            
+
             records = []
             for row in response:
                 records.append({
@@ -634,7 +635,7 @@ def get_ads_creatives():
             return pd.DataFrame(records)
         except Exception:
             pass
-            
+
     return pd.DataFrame([
         {"id": "67394012391", "type": "RESPONSIVE_SEARCH_AD", "status": "ENABLED", "clicks": 82, "impressions": 1100, "cost": 1.45, "conversions": 3},
         {"id": "67394012392", "type": "RESPONSIVE_SEARCH_AD", "status": "PAUSED", "clicks": 16, "impressions": 100, "cost": 0.37, "conversions": 0},
@@ -665,14 +666,14 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
             import google.analytics.data_v1beta
             from google.oauth2 import service_account
             import tempfile
-            
+
             with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as temp_json:
                 temp_json.write(ga_credentials_file.read())
                 temp_json_path = temp_json.name
-                
+
             credentials = service_account.Credentials.from_service_account_file(temp_json_path)
             client = google.analytics.data_v1beta.BetaAnalyticsDataClient(credentials=credentials)
-            
+
             # Historical Trends (30 Days)
             request = google.analytics.data_v1beta.RunReportRequest(
                 property=f"properties/{ga_property_id}",
@@ -694,7 +695,7 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
                     "sessions": int(row.metric_values[2].value),
                 })
             ga_df = pd.DataFrame(ga_records).sort_values("date")
-            
+
             # Realtime Stream
             realtime_req = google.analytics.data_v1beta.RunRealtimeReportRequest(
                 property=f"properties/{ga_property_id}",
@@ -720,7 +721,7 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
                 rt_df = pd.DataFrame(rt_records)
             except Exception:
                 rt_df = pd.DataFrame(columns=["city", "country", "device", "page", "users"])
-                
+
             # Clickstream Tracker
             click_req = google.analytics.data_v1beta.RunReportRequest(
                 property=f"properties/{ga_property_id}",
@@ -729,7 +730,8 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
                     google.analytics.data_v1beta.Dimension(name="linkUrl"),
                     google.analytics.data_v1beta.Dimension(name="linkText"),
                     google.analytics.data_v1beta.Dimension(name="pagePath"),
-                    google.analytics.data_v1beta.Dimension(name="sessionSource")
+                    google.analytics.data_v1beta.Dimension(name="sessionSource"),
+                    google.analytics.data_v1beta.Dimension(name="hostName")
                 ],
                 metrics=[google.analytics.data_v1beta.Metric(name="eventCount")],
                 date_ranges=[google.analytics.data_v1beta.DateRange(start_date="30daysAgo", end_date="today")],
@@ -751,19 +753,21 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
                             "text": row.dimension_values[2].value,
                             "page": row.dimension_values[3].value,
                             "source": row.dimension_values[4].value,
+                            "host": row.dimension_values[5].value,
                             "clicks": int(row.metric_values[0].value)
                         })
                 click_df = pd.DataFrame(click_records).sort_values("clicks", ascending=False)
             except Exception:
-                click_df = pd.DataFrame(columns=["event", "url", "text", "page", "source", "clicks"])
-                
+                click_df = pd.DataFrame(columns=["event", "url", "text", "page", "source", "host", "clicks"])
+
             # User Journey
             journey_req = google.analytics.data_v1beta.RunReportRequest(
                 property=f"properties/{ga_property_id}",
                 dimensions=[
                     google.analytics.data_v1beta.Dimension(name="sessionSourceMedium"),
                     google.analytics.data_v1beta.Dimension(name="landingPagePlusQueryString"),
-                    google.analytics.data_v1beta.Dimension(name="deviceCategory")
+                    google.analytics.data_v1beta.Dimension(name="deviceCategory"),
+                    google.analytics.data_v1beta.Dimension(name="hostName")
                 ],
                 metrics=[
                     google.analytics.data_v1beta.Metric(name="sessions"),
@@ -779,17 +783,19 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
                         "source_medium": row.dimension_values[0].value,
                         "landing_page": row.dimension_values[1].value,
                         "device": row.dimension_values[2].value,
+                        "host": row.dimension_values[3].value,
                         "sessions": int(row.metric_values[0].value),
                         "engagement": float(row.metric_values[1].value)
                     })
                 journey_df = pd.DataFrame(journey_records).sort_values("sessions", ascending=False)
             except Exception:
-                journey_df = pd.DataFrame(columns=["source_medium", "landing_page", "device", "sessions", "engagement"])
-                
+                journey_df = pd.DataFrame(columns=["source_medium", "landing_page", "device", "host", "sessions", "engagement"])
+
             # Page Diagnostics report
             page_req = google.analytics.data_v1beta.RunReportRequest(
                 property=f"properties/{ga_property_id}",
                 dimensions=[
+                    google.analytics.data_v1beta.Dimension(name="hostName"),
                     google.analytics.data_v1beta.Dimension(name="pagePath"),
                     google.analytics.data_v1beta.Dimension(name="pageTitle")
                 ],
@@ -806,8 +812,9 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
                 page_records = []
                 for row in page_resp.rows:
                     page_records.append({
-                        "path": row.dimension_values[0].value,
-                        "title": row.dimension_values[1].value,
+                        "host": row.dimension_values[0].value,
+                        "path": row.dimension_values[1].value,
+                        "title": row.dimension_values[2].value,
                         "views": int(row.metric_values[0].value),
                         "users": int(row.metric_values[1].value),
                         "duration": float(row.metric_values[2].value),
@@ -815,7 +822,7 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
                     })
                 page_df = pd.DataFrame(page_records).sort_values("views", ascending=False)
             except Exception:
-                page_df = pd.DataFrame(columns=["path", "title", "views", "users", "duration", "bounce"])
+                page_df = pd.DataFrame(columns=["host", "path", "title", "views", "users", "duration", "bounce"])
 
             # Tech Profile (OS & Browser)
             tech_req = google.analytics.data_v1beta.RunReportRequest(
@@ -843,7 +850,7 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
                 tech_df = pd.DataFrame(tech_records).sort_values("users", ascending=False)
             except Exception:
                 tech_df = pd.DataFrame(columns=["os", "browser", "users", "sessions"])
-                
+
             # Events Log
             events_req = google.analytics.data_v1beta.RunReportRequest(
                 property=f"properties/{ga_property_id}",
@@ -896,7 +903,7 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
             return True, ga_df, rt_df, click_df, journey_df, tech_df, events_df, page_df, demo_df
         except Exception:
             pass
-            
+
     # Mock GA4 Datasets
     dates = pd.date_range(end=pd.Timestamp.now(), periods=30, freq="D")
     np.random.seed(42)
@@ -904,34 +911,34 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
     mock_users = (mock_views * np.random.uniform(0.3, 0.5, size=30)).astype(int)
     mock_sessions = (mock_views * np.random.uniform(0.4, 0.6, size=30)).astype(int)
     ga_df = pd.DataFrame({"date": dates, "pageviews": mock_views, "activeUsers": mock_users, "sessions": mock_sessions})
-    
+
     rt_df = pd.DataFrame([
         {"city": "New York", "country": "United States", "device": "mobile", "page": "Home | Fascinaiting", "users": 5},
         {"city": "London", "country": "United Kingdom", "device": "desktop", "page": "Pricing | Fascinaiting", "users": 3},
         {"city": "San Francisco", "country": "United States", "device": "mobile", "page": "Home | Fascinaiting", "users": 4},
         {"city": "Berlin", "country": "Germany", "device": "desktop", "page": "Features | Fascinaiting", "users": 2},
     ])
-    
+
     click_df = pd.DataFrame([
-        {"event": "click", "url": "https://apps.apple.com/app/id123456789", "text": "Download on App Store", "page": "/", "source": "google", "clicks": 142},
-        {"event": "click", "url": "https://github.com/gunnarguy/fascinaiting", "text": "View Source", "page": "/", "source": "direct", "clicks": 89},
-        {"event": "click", "url": "mailto:hello@fascinaiting.me", "text": "Contact Us", "page": "/about", "source": "google", "clicks": 12},
+        {"event": "click", "url": "https://apps.apple.com/app/id123456789", "text": "Download on App Store", "page": "/", "host": "fascinaiting.me", "source": "google", "clicks": 142},
+        {"event": "click", "url": "https://github.com/gunnarguy/fascinaiting", "text": "View Source", "page": "/", "host": "fascinaiting.me", "source": "direct", "clicks": 89},
+        {"event": "click", "url": "mailto:hello@fascinaiting.me", "text": "Contact Us", "page": "/about", "host": "fascinaiting.me", "source": "google", "clicks": 12},
     ])
-    
+
     journey_df = pd.DataFrame([
-        {"source_medium": "google / cpc", "landing_page": "/", "device": "mobile", "sessions": 1250, "engagement": 0.65},
-        {"source_medium": "direct / (none)", "landing_page": "/", "device": "desktop", "sessions": 840, "engagement": 0.52},
-        {"source_medium": "twitter / social", "landing_page": "/pricing", "device": "mobile", "sessions": 430, "engagement": 0.41},
-        {"source_medium": "github.com / referral", "landing_page": "/", "device": "desktop", "sessions": 310, "engagement": 0.78},
+        {"source_medium": "google / cpc", "landing_page": "/", "device": "mobile", "host": "fascinaiting.me", "sessions": 1250, "engagement": 0.65},
+        {"source_medium": "direct / (none)", "landing_page": "/", "device": "desktop", "host": "gunnarguy.me", "sessions": 840, "engagement": 0.52},
+        {"source_medium": "twitter / social", "landing_page": "/pricing", "device": "mobile", "host": "fascinaiting.me", "sessions": 430, "engagement": 0.41},
+        {"source_medium": "github.com / referral", "landing_page": "/", "device": "desktop", "host": "gunzino.me", "sessions": 310, "engagement": 0.78},
     ])
-    
+
     tech_df = pd.DataFrame([
         {"os": "iOS", "browser": "Safari", "users": 2150, "sessions": 2980},
         {"os": "macOS", "browser": "Chrome", "users": 1200, "sessions": 1820},
         {"os": "Windows", "browser": "Edge", "users": 850, "sessions": 980},
         {"os": "Android", "browser": "Chrome Mobile", "users": 650, "sessions": 730},
     ])
-    
+
     events_df = pd.DataFrame([
         {"event_name": "page_view", "count": 12490, "users": 4850},
         {"event_name": "session_start", "count": 6210, "users": 4850},
@@ -941,9 +948,11 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
     ])
 
     page_df = pd.DataFrame([
-        {"path": "/", "title": "Home | Fascinaiting", "views": 8450, "users": 3100, "duration": 58.4, "bounce": 0.32},
-        {"path": "/pricing", "title": "Pricing Options | Fascinaiting", "views": 2540, "users": 1120, "duration": 42.1, "bounce": 0.45},
-        {"path": "/features", "title": "Capabilities | Fascinaiting", "views": 1500, "users": 630, "duration": 85.0, "bounce": 0.28},
+        {"host": "fascinaiting.me", "path": "/", "title": "Home | Fascinaiting", "views": 8450, "users": 3100, "duration": 58.4, "bounce": 0.32},
+        {"host": "gunnarguy.me", "path": "/", "title": "Gunnar Guy Portfolio", "views": 5400, "users": 2300, "duration": 72.1, "bounce": 0.28},
+        {"host": "gunzino.me", "path": "/", "title": "Gunzino Home", "views": 1850, "users": 920, "duration": 44.3, "bounce": 0.38},
+        {"host": "fascinaiting.me", "path": "/pricing", "title": "Pricing Options | Fascinaiting", "views": 2540, "users": 1120, "duration": 42.1, "bounce": 0.45},
+        {"host": "fascinaiting.me", "path": "/features", "title": "Capabilities | Fascinaiting", "views": 1500, "users": 630, "duration": 85.0, "bounce": 0.28},
     ])
 
     demo_df = pd.DataFrame([
@@ -952,7 +961,7 @@ def load_ga4_datasets(ga_property_id, ga_credentials_file):
         {"country": "Germany", "city": "Berlin", "language": "de-de", "users": 840},
         {"country": "Canada", "city": "Toronto", "language": "en-ca", "users": 510},
     ])
-    
+
     return False, ga_df, rt_df, click_df, journey_df, tech_df, events_df, page_df, demo_df
 
 # Load GA4 dynamic variables
@@ -969,12 +978,12 @@ is_connected, ga_df, rt_df, click_df, journey_df, tech_df, events_df, page_df, d
 if workspace == "Google Ads Overview":
     st.markdown("## Google Ads Workspace")
     st.markdown("Global overview of marketing budgets and performance channels.")
-    
+
     ads_df = get_ads_campaigns()
-    
+
     # 1. Combined Top KPIs
     kpi_col1, kpi_col2, kpi_col3, kpi_col4 = st.columns(4)
-    
+
     if isinstance(ads_df, pd.DataFrame):
         total_ad_clicks = int(ads_df["clicks"].sum())
         total_ad_spend = float(ads_df["cost"].sum())
@@ -985,7 +994,7 @@ if workspace == "Google Ads Overview":
         total_ad_spend = 0.0
         total_conversions = 0
         total_revenue = 0.0
-        
+
     with kpi_col1:
         metric_card("Google Ads Clicks", f"{total_ad_clicks:,}", "+8.7% vs last week", "up")
     with kpi_col2:
@@ -994,12 +1003,12 @@ if workspace == "Google Ads Overview":
         metric_card("Conversions", f"{total_conversions:,.0f}", "+25.0% vs last week", "up")
     with kpi_col4:
         metric_card("Conversion Value", f"${total_revenue:,.2f}", "+18.2% ROI lift", "up")
-        
+
     st.markdown("<div style='margin-bottom: 1.5rem;'></div>", unsafe_allow_html=True)
-    
+
     # 2. Main charts split
     chart_col1, chart_col2 = st.columns([6, 4])
-    
+
     with chart_col1:
         with st.container(border=True):
             st.markdown('<div class="panel-title">Combined Audience & Traffic Trends</div><div class="panel-subtitle">Dual-axis telemetry tracking pageviews vs active sessions (GA4)</div>', unsafe_allow_html=True)
@@ -1015,7 +1024,7 @@ if workspace == "Google Ads Overview":
                 mode="lines"
             ))
             st.plotly_chart(style_plotly_chart(fig), use_container_width=True, config={"displayModeBar": False})
-        
+
     with chart_col2:
         with st.container(border=True):
             st.markdown('<div class="panel-title">Primary Referral Acquisition</div><div class="panel-subtitle">Top channels driving visits to Fascinaiting</div>', unsafe_allow_html=True)
@@ -1035,7 +1044,7 @@ if workspace == "Google Ads Overview":
             status_badge = "badge-green" if row["status"] == "ENABLED" else "badge-amber"
             ctr = (row["clicks"] / row["impressions"] * 100) if row["impressions"] > 0 else 0
             rows += f"<tr><td><b>{row['name']}</b><br><span style='font-size:10px;color:{TEXT_MUTED};'>ID: {row['id']}</span></td><td><span class='badge {status_badge}'>{row['status']}</span></td><td><span class='badge badge-blue'>{row['channel_type']}</span></td><td>{row['impressions']:,}</td><td>{row['clicks']:,}</td><td><div class='progress-bar-container'><div class='progress-bar-fill' style='width: {min((ctr / max_ctr) * 100, 100) if max_ctr > 0 else 0:.1f}%;'></div></div>&nbsp;&nbsp;{ctr:.2f}%</td><td>${row['cost']:.2f}</td><td>{row['conversions']:.0f}</td></tr>"
-        
+
         table_html = f'<div class="panel-wrap"><div class="panel-title">Active Google Ads Campaigns</div><div class="panel-subtitle">Current status and budget efficiency ratings</div><table class="data-table"><thead><tr><th>Campaign Details</th><th>Status</th><th>Network</th><th>Impressions</th><th>Clicks</th><th>CTR Rating</th><th>Cost</th><th>Conversions</th></tr></thead><tbody>{rows}</tbody></table></div>'
         st.markdown(table_html, unsafe_allow_html=True)
     else:
@@ -1045,16 +1054,16 @@ if workspace == "Google Ads Overview":
 elif workspace == "Google Ads Deep-Dive":
     st.markdown("<h2>Google Ads Campaign Performance</h2>", unsafe_allow_html=True)
     st.markdown("Full segmentation analytics of Ad Groups, Keywords, Search Terms, creatives and regions.")
-    
+
     adgroups_df = get_ads_adgroups()
     kw_df = get_ads_keywords()
     search_df = get_ads_search_terms()
     creatives_df = get_ads_creatives()
     geo_df = get_ads_geo()
     devices_df = get_ads_devices()
-    
+
     t_camp, t_ag, t_kw, t_search, t_creative, t_dev_geo = st.tabs(["🎯 Campaigns", "📦 Ad Groups", "🔑 Keywords", "🖱️ Search Terms", "🖼️ Ad Creatives", "📍 Geography & Devices"])
-    
+
     with t_camp:
         ads_df = get_ads_campaigns()
         if isinstance(ads_df, pd.DataFrame):
@@ -1064,10 +1073,10 @@ elif workspace == "Google Ads Deep-Dive":
                 ctr = (row["clicks"] / row["impressions"] * 100) if row["impressions"] > 0 else 0
                 roas = (row["revenue"] / row["cost"]) if row["cost"] > 0 else 0.0
                 rows += f"<tr><td><b>{row['name']}</b></td><td><span class='badge {status_badge}'>{row['status']}</span></td><td>${row['budget']:.2f}/day</td><td>{row['bidding']}</td><td>{row['impressions']:,}</td><td>{row['clicks']:,}</td><td>{ctr:.2f}%</td><td>${row['cost']:.2f}</td><td>{row['conversions']:.0f}</td><td>{roas:.2f}x</td></tr>"
-            
+
             table_html = f'<div class="panel-wrap"><div class="panel-title">Campaign Budgets & ROAS Details</div><div class="panel-subtitle">Comprehensive financial efficiency parameters</div><table class="data-table"><thead><tr><th>Campaign</th><th>Status</th><th>Budget</th><th>Bidding Strategy</th><th>Impr.</th><th>Clicks</th><th>CTR</th><th>Cost</th><th>Conversions</th><th>ROAS</th></tr></thead><tbody>{rows}</tbody></table></div>'
             st.markdown(table_html, unsafe_allow_html=True)
-            
+
     with t_ag:
         ag_rows = ""
         for idx, row in adgroups_df.iterrows():
@@ -1075,10 +1084,10 @@ elif workspace == "Google Ads Deep-Dive":
             ctr = (row["clicks"] / row["impressions"] * 100) if row["impressions"] > 0 else 0
             cpc = (row["cost"] / row["clicks"]) if row["clicks"] > 0 else 0.0
             ag_rows += f"<tr><td><b>{row['name']}</b><br><span style='font-size:10px;color:{TEXT_MUTED};'>{row['campaign']}</span></td><td><span class='badge {status_badge}'>{row['status']}</span></td><td>{row['impressions']:,}</td><td>{row['clicks']:,}</td><td>{ctr:.2f}%</td><td>${cpc:.2f}</td><td>${row['cost']:.2f}</td><td>{row['conversions']:.0f}</td></tr>"
-        
+
         ag_table = f'<div class="panel-wrap"><div class="panel-title">Ad Group Breakdown</div><div class="panel-subtitle">Operational delivery metrics across campaign groups</div><table class="data-table"><thead><tr><th>Ad Group</th><th>Status</th><th>Impr.</th><th>Clicks</th><th>CTR</th><th>Avg CPC</th><th>Spend</th><th>Conversions</th></tr></thead><tbody>{ag_rows}</tbody></table></div>'
         st.markdown(ag_table, unsafe_allow_html=True)
-        
+
     with t_kw:
         kw_rows = ""
         max_ctr = max([(r['clicks']/r['impressions']*100) if r['impressions']>0 else 0 for _, r in kw_df.iterrows()]) if not kw_df.empty else 1
@@ -1087,10 +1096,10 @@ elif workspace == "Google Ads Deep-Dive":
             ctr = (row["clicks"] / row["impressions"] * 100) if row["impressions"] > 0 else 0
             cpc = (row["cost"] / row["clicks"]) if row["clicks"] > 0 else 0.0
             kw_rows += f"<tr><td><b>\"{row['keyword']}\"</b><br><span style='font-size:10px;color:{TEXT_MUTED};'>{row['match_type']}</span></td><td><span class='badge {status_badge}'>{row['status']}</span></td><td><span class='badge badge-blue'>{row['quality_score']}/10</span></td><td><span style='font-size:11px;'>Relevance: <b>{row['ad_relevance']}</b><br>Landing Page: <b>{row['landing_page_exp']}</b></span></td><td>{row['impressions']:,}</td><td>{row['clicks']:,}</td><td><div class='progress-bar-container'><div class='progress-bar-fill' style='width: {min((ctr / max_ctr) * 100, 100) if max_ctr > 0 else 0:.1f}%;'></div></div>&nbsp;&nbsp;{ctr:.2f}%</td><td>${cpc:.2f}</td><td>${row['cost']:.2f}</td><td>{row['conversions']:.0f}</td></tr>"
-        
+
         kw_table = f'<div class="panel-wrap"><div class="panel-title">Active Keywords Telemetry & Quality Score</div><div class="panel-subtitle">Detailed Quality Scores and search relevance ratings</div><table class="data-table"><thead><tr><th>Keyword</th><th>Status</th><th>Quality Score</th><th>Quality Diagnostics</th><th>Impressions</th><th>Clicks</th><th>CTR Rating</th><th>Avg CPC</th><th>Spend</th><th>Conversions</th></tr></thead><tbody>{kw_rows}</tbody></table></div>'
         st.markdown(kw_table, unsafe_allow_html=True)
-        
+
     with t_search:
         s_rows = ""
         for idx, row in search_df.iterrows():
@@ -1098,7 +1107,7 @@ elif workspace == "Google Ads Deep-Dive":
             ctr = (row["clicks"] / row["impressions"] * 100) if row["impressions"] > 0 else 0
             cpc = (row["cost"] / row["clicks"]) if row["clicks"] > 0 else 0.0
             s_rows += f"<tr><td><b>\"{row['search_term']}\"</b></td><td><span class='badge {status_badge}'>{row['status']}</span></td><td>{row['impressions']:,}</td><td>{row['clicks']:,}</td><td>{ctr:.2f}%</td><td>${cpc:.2f}</td><td>${row['cost']:.2f}</td><td>{row['conversions']:.0f}</td></tr>"
-            
+
         s_table = f'<div class="panel-wrap"><div class="panel-title">Search Terms Report</div><div class="panel-subtitle">Exact queries entered by users leading to impressions</div><table class="data-table"><thead><tr><th>Search Query</th><th>Match Status</th><th>Impr.</th><th>Clicks</th><th>CTR</th><th>Avg CPC</th><th>Spend</th><th>Conversions</th></tr></thead><tbody>{s_rows}</tbody></table></div>'
         st.markdown(s_table, unsafe_allow_html=True)
 
@@ -1109,7 +1118,7 @@ elif workspace == "Google Ads Deep-Dive":
             ctr = (row["clicks"] / row["impressions"] * 100) if row["impressions"] > 0 else 0
             cpc = (row["cost"] / row["clicks"]) if row["clicks"] > 0 else 0.0
             c_rows += f"<tr><td><b>Ad ID: {row['id']}</b><br><span style='font-size:10px;color:{TEXT_MUTED};'>{row['type']}</span></td><td><span class='badge {status_badge}'>{row['status']}</span></td><td>{row['impressions']:,}</td><td>{row['clicks']:,}</td><td>{ctr:.2f}%</td><td>${cpc:.2f}</td><td>${row['cost']:.2f}</td><td>{row['conversions']:.0f}</td></tr>"
-            
+
         c_table = f'<div class="panel-wrap"><div class="panel-title">Ad Creative Performance</div><div class="panel-subtitle">Drill down into individual text/responsive ad copies</div><table class="data-table"><thead><tr><th>Ad Creative</th><th>Status</th><th>Impr.</th><th>Clicks</th><th>CTR</th><th>Avg CPC</th><th>Spend</th><th>Conversions</th></tr></thead><tbody>{c_rows}</tbody></table></div>'
         st.markdown(c_table, unsafe_allow_html=True)
 
@@ -1121,16 +1130,16 @@ elif workspace == "Google Ads Deep-Dive":
             for idx, row in devices_df.iterrows():
                 ctr = (row["clicks"] / row["impressions"] * 100) if row["impressions"] > 0 else 0
                 dev_rows += f"<tr><td><b>{row['device']}</b></td><td>{row['impressions']:,}</td><td>{row['clicks']:,}</td><td><div class='progress-bar-container'><div class='progress-bar-fill' style='width: {min((ctr / max_ctr) * 100, 100) if max_ctr > 0 else 0:.1f}%;'></div></div>&nbsp;&nbsp;{ctr:.2f}%</td><td>${row['cost']:.2f}</td></tr>"
-                
+
             dev_table = f'<div class="panel-wrap"><div class="panel-title">Device Delivery Matrix</div><div class="panel-subtitle">Audience splits across core platforms</div><table class="data-table"><thead><tr><th>Device Category</th><th>Impressions</th><th>Clicks</th><th>CTR Metric</th><th>Spend</th></tr></thead><tbody>{dev_rows}</tbody></table></div>'
             st.markdown(dev_table, unsafe_allow_html=True)
-            
+
         with g_col2:
             geo_rows = ""
             for idx, row in geo_df.iterrows():
                 ctr = (row["clicks"] / row["impressions"] * 100) if row["impressions"] > 0 else 0
                 geo_rows += f"<tr><td>📍 <b>{row['country']}</b></td><td>{row['impressions']:,}</td><td>{row['clicks']:,}</td><td>{ctr:.2f}%</td><td>${row['cost']:.2f}</td><td>{row['conversions']:.0f}</td></tr>"
-                
+
             geo_table = f'<div class="panel-wrap"><div class="panel-title">Geographic Targeting</div><div class="panel-subtitle">Delivery results categorized by client location</div><table class="data-table"><thead><tr><th>Country / Region</th><th>Impr.</th><th>Clicks</th><th>CTR</th><th>Spend</th><th>Conversions</th></tr></thead><tbody>{geo_rows}</tbody></table></div>'
             st.markdown(geo_table, unsafe_allow_html=True)
 
@@ -1138,25 +1147,46 @@ elif workspace == "Google Ads Deep-Dive":
 elif workspace == "GA4 Traffic & Tech":
     st.markdown("<h2>Technology & Journey Diagnostics</h2>", unsafe_allow_html=True)
     st.markdown("Telemetry profiles focusing on visitor device stacks, page layouts, and referral pathways.")
-    
+
     t_pages, t_tech, t_acquisition = st.tabs(["📄 Page Diagnostics", "💻 System & Client Tech", "🧭 Acquisition & Journeys"])
-    
+
     with t_pages:
+        # Domain Traffic Breakdown
+        if "host" in page_df.columns and not page_df.empty:
+            domain_traffic = page_df.groupby("host").agg({
+                "views": "sum",
+                "users": "sum"
+            }).reset_index().sort_values("views", ascending=False)
+
+            st.markdown("<div style='margin-bottom: 0.5rem;'></div>", unsafe_allow_html=True)
+            dom_cols = st.columns(len(domain_traffic))
+            for i, (_, d_row) in enumerate(domain_traffic.iterrows()):
+                with dom_cols[i % len(dom_cols)]:
+                    metric_card(
+                        label=f"Domain: {d_row['host']}",
+                        value=f"{d_row['views']:,} Views",
+                        delta=f"{d_row['users']:,} Users",
+                        delta_type="up"
+                    )
+            st.markdown("<div style='margin-bottom: 1.5rem;'></div>", unsafe_allow_html=True)
+
         p_rows = ""
         for idx, row in page_df.iterrows():
-            p_rows += f"<tr><td><b>{row['path']}</b><br><span style='font-size:10px;color:{TEXT_MUTED};'>{row['title']}</span></td><td>{row['views']:,}</td><td>{row['users']:,}</td><td>{row['duration']:.1f}s</td><td>{row['bounce']*100:.1f}%</td></tr>"
-            
+            host = row.get("host", "")
+            full_path = f"<span style='color:{ACCENT};'>{host}</span>{row['path']}" if host else row['path']
+            p_rows += f"<tr><td><b>{full_path}</b><br><span style='font-size:10px;color:{TEXT_MUTED};'>{row['title']}</span></td><td>{row['views']:,}</td><td>{row['users']:,}</td><td>{row['duration']:.1f}s</td><td>{row['bounce']*100:.1f}%</td></tr>"
+
         p_table = f'<div class="panel-wrap"><div class="panel-title">Full Page Performance Diagnostics</div><div class="panel-subtitle">Volume and visitor engagement details mapped per page path</div><table class="data-table"><thead><tr><th>Page Path</th><th>Pageviews</th><th>Active Users</th><th>Avg Engagement Duration</th><th>Bounce Rate</th></tr></thead><tbody>{p_rows}</tbody></table></div>'
         st.markdown(p_table, unsafe_allow_html=True)
-        
+
     with t_tech:
         tech_rows = ""
         for idx, row in tech_df.iterrows():
             tech_rows += f"<tr><td><b>{row['os']}</b></td><td>{row['browser']}</td><td>{row['users']:,}</td><td>{row['sessions']:,}</td></tr>"
-            
+
         tech_table = f'<div class="panel-wrap"><div class="panel-title">System & Client Tech Matrix</div><div class="panel-subtitle">Client OS and browser engine splits (30d)</div><table class="data-table"><thead><tr><th>Operating System</th><th>Browser</th><th>Unique Users</th><th>Total Sessions</th></tr></thead><tbody>{tech_rows}</tbody></table></div>'
         st.markdown(tech_table, unsafe_allow_html=True)
-        
+
     with t_acquisition:
         col_pie, col_click = st.columns([5, 5])
         with col_pie:
@@ -1173,45 +1203,60 @@ elif workspace == "GA4 Traffic & Tech":
             )])
             st.plotly_chart(style_plotly_chart(fig_pie), use_container_width=True, config={"displayModeBar": False})
             st.markdown("</div>", unsafe_allow_html=True)
-            
+
         with col_click:
             click_rows = ""
             for idx, row in click_df.iterrows():
                 disp_url = str(row['url'])
                 if len(disp_url) > 40:
                     disp_url = disp_url[:37] + "..."
-                click_rows += f"<tr><td><b>{row['text']}</b><br><span style='font-size: 10px; color: {TEXT_MUTED};'>{disp_url}</span></td><td>{row['page']}</td><td><span class='badge badge-blue'>{row['source']}</span></td><td><b>{row['clicks']}</b></td></tr>"
-                
+                host = row.get("host", "")
+                full_page = f"<span style='color:{ACCENT};'>{host}</span>{row['page']}" if host else row['page']
+                click_rows += f"<tr><td><b>{row['text']}</b><br><span style='font-size: 10px; color: {TEXT_MUTED};'>{disp_url}</span></td><td>{full_page}</td><td><span class='badge badge-blue'>{row['source']}</span></td><td><b>{row['clicks']}</b></td></tr>"
+
             click_table = f'<div class="panel-wrap"><div class="panel-title">Clickstream & Outbound Anchors</div><div class="panel-subtitle">Top external redirects clicked by your audience</div><table class="data-table"><thead><tr><th>Anchor Info</th><th>Trigger Page</th><th>Acquisition Source</th><th>Clicks</th></tr></thead><tbody>{click_rows}</tbody></table></div>'
             st.markdown(click_table, unsafe_allow_html=True)
+
+        # Top Landing Pages table below the main columns
+        st.markdown("<div style='margin-top: 1.5rem;'></div>", unsafe_allow_html=True)
+
+        journey_rows = ""
+        for idx, row in journey_df.head(10).iterrows():
+            host = row.get("host", "")
+            full_landing = f"<span style='color:{ACCENT};'>{host}</span>{row['landing_page']}" if host else row['landing_page']
+            engagement_pct = row['engagement'] * 100 if row['engagement'] <= 1.0 else row['engagement']
+            journey_rows += f"<tr><td><b>{full_landing}</b></td><td><span class='badge badge-blue'>{row['source_medium']}</span></td><td><b>{row['sessions']:,}</b></td><td>{engagement_pct:.1f}%</td></tr>"
+
+        journey_table = f'<div class="panel-wrap"><div class="panel-title">Top Entry Landings & Traffic Channels</div><div class="panel-subtitle">First landing touchpoints mapped by domain and source</div><table class="data-table"><thead><tr><th>Landing Page URL</th><th>Source / Medium</th><th>Sessions</th><th>Engagement Rate</th></tr></thead><tbody>{journey_rows}</tbody></table></div>'
+        st.markdown(journey_table, unsafe_allow_html=True)
 
 # ----------------- WORKSPACE 4: LIVE EXPLORER -----------------
 elif workspace == "GA4 Live Explorer":
     st.markdown("<h2>Telemetry Events Log & Live Stream</h2>", unsafe_allow_html=True)
     st.markdown("Monitoring all interaction telemetry tags and active visitors geographic locations.")
-    
+
     t_rt, t_events, t_demo = st.tabs(["🔴 Live User Stream", "⚡ Interaction Events", "📍 Geographic & Demographics"])
-    
+
     with t_rt:
         geo_rows = ""
         for idx, row in rt_df.iterrows():
             geo_rows += f"<tr><td>📍 <b>{row['city']}, {row['country']}</b></td><td>{row['device']}</td><td>📄 {row['page']}</td><td><span class='badge badge-blue'>{row['users']} active</span></td></tr>"
-            
+
         geo_table = f'<div class="panel-wrap"><div class="panel-title">Active Geographic Telemetry</div><div class="panel-subtitle">Real-time geographical tracking stream</div><table class="data-table"><thead><tr><th>Location</th><th>Device</th><th>Page</th><th>Metric</th></tr></thead><tbody>{geo_rows}</tbody></table></div>'
         st.markdown(geo_table, unsafe_allow_html=True)
-        
+
     with t_events:
         ev_rows = ""
         for idx, row in events_df.iterrows():
             ev_rows += f"<tr><td><b><code>{row['event_name']}</code></b></td><td>{row['count']:,}</td><td>{row['users']:,}</td><td>{(row['count']/row['users']):.1f}</td></tr>"
-            
+
         ev_table = f'<div class="panel-wrap"><div class="panel-title">Interaction Telemetry Index</div><div class="panel-subtitle">Total occurrences of client events (30d)</div><table class="data-table"><thead><tr><th>Event Tag</th><th>Total Triggers</th><th>Unique Users</th><th>Triggers / User</th></tr></thead><tbody>{ev_rows}</tbody></table></div>'
         st.markdown(ev_table, unsafe_allow_html=True)
-        
+
     with t_demo:
         d_rows = ""
         for idx, row in demo_df.iterrows():
             d_rows += f"<tr><td>📍 <b>{row['city']}, {row['country']}</b></td><td><code>{row['language']}</code></td><td><b>{row['users']:,}</b></td></tr>"
-            
+
         d_table = f'<div class="panel-wrap"><div class="panel-title">Geographical & Language Demographics</div><div class="panel-subtitle">Unique visitors (30d) grouped by regional profile settings</div><table class="data-table"><thead><tr><th>Client City / Country</th><th>Language Setting</th><th>Unique Visitors</th></tr></thead><tbody>{d_rows}</tbody></table></div>'
         st.markdown(d_table, unsafe_allow_html=True)
