@@ -1,16 +1,16 @@
 {
-  "last_updated": "2026-06-30T00:32:29.489958Z",
+  "last_updated": "2026-07-01T00:33:40.933673Z",
   "items": [
     {
-      "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
-      "name": "Refine Document Ingestion Live Activity (Dynamic Island + Apple Watch)",
-      "status": "In Progress",
+      "id": "261bc2c3-0bce-40da-a822-3476b6b92e6a",
+      "name": "Accelerate Document Ingestion Without Sacrificing Accuracy",
+      "status": "To Do",
       "target_os": "All (26.5 & 27)",
-      "priority": "Medium",
+      "priority": "High",
       "component": "Ingestion",
-      "target_release": "v4.3",
-      "description": "Document ingestion progress already surfaces live in the Dynamic Island and on Apple Watch (shipped in v4.2), but the integration needs polish. Tighten progress accuracy and update cadence, smooth the Watch display, handle edge cases (multi-document / background ingestion, completion + error states), and make the Live Activity feel native end to end across iPhone and Watch.",
-      "added_date": "2026-06-20T18:31:00.000Z",
+      "target_release": "v4.5 (Phase 2B)",
+      "description": "## Technical Overview\n\nLarge-document ingestion is too slow and unstable.  A 542-page car manual took upwards of 30 minutes and crashed at roughly page 450 before completing.  Goal: dramatically cut ingestion time and eliminate the large-document crash while holding or improving every accuracy metric (chunk quality, embedding fidelity, retrieval precision/recall, citation correctness).\n\n### Problem Signals\n\n\u2022 542-page PDF crashed near page ~450 (likely memory pressure / unbounded accumulation during parse + embed).\n\n\u2022 End-to-end ingestion exceeded 30 minutes for a single large document.\n\n\u2022 No graceful resume or partial-progress recovery after a crash.\n\n### Key Deliverables\n\n\u2022 Profile the pipeline (parse, chunk, embed, index) to find the dominant time sink and the memory growth that triggers the crash.\n\n\u2022 Stream and batch pages instead of loading the whole document into memory; cap peak memory with autorelease/back-pressure so large PDFs no longer OOM.\n\n\u2022 Parallelize embedding generation (concurrent batches / background tasks) while keeping the MainActor free.\n\n\u2022 Add checkpointing so a failed or interrupted ingest can resume instead of restarting.\n\n\u2022 Validate against the evaluations framework to confirm accuracy is held or improved after speedups (no regressions in retrieval or citation quality).\n\n### Acceptance Criteria\n\n\u2022 The 542-page car manual ingests fully without crashing.\n\n\u2022 Ingestion time for large documents is materially reduced (target: well under the current 30+ minutes).\n\n\u2022 All accuracy metrics match or beat the pre-optimization baseline.",
+      "added_date": "2026-06-30T21:30:00.000Z",
       "completed_date": null
     },
     {
@@ -156,6 +156,18 @@
       "description": "## System Specification\n\nSupport on-the-fly updates to the LanguageModelSession configuration without needing to tear down and rebuild the session state.",
       "added_date": "2026-06-14T20:56:00.000Z",
       "completed_date": null
+    },
+    {
+      "id": "bf1141dc-b26c-4b13-9502-0e0bb82c19d7",
+      "name": "Overhaul Ingestion Live Activity & Widgets (Apple Watch Polish)",
+      "status": "Completed",
+      "target_os": "All (26.5 & 27)",
+      "priority": "Medium",
+      "component": "Ingestion",
+      "target_release": "v4.5 (Phase 2B)",
+      "description": "## Technical Overview\n\nThe document-ingestion Live Activity already surfaces on the Apple Watch, which is a great touch, but the Watch presentation looks rough and the widgets need both a visual and functional overhaul.  Make the Activity feature look polished and behave reliably across iPhone (Dynamic Island / Lock Screen) and Apple Watch.\n\n### Problem Signals\n\n\u2022 Live Activity renders poorly on Apple Watch (layout, sizing, legibility).\n\n\u2022 Widget visuals feel unrefined and inconsistent with the rest of the app.\n\n### Key Deliverables\n\n\u2022 Redesign the Watch Live Activity layout for the small screen: clean progress display, readable typography, proper sizing.\n\n\u2022 Refine the Dynamic Island and Lock Screen presentations so the whole Activity family feels native and consistent.\n\n\u2022 Improve functional behavior: accurate progress, smooth update cadence, and correct completion + error states.\n\n\u2022 Handle edge cases such as multi-document and background ingestion without stale or broken Activity UI.",
+      "added_date": "2026-06-30T21:30:00.000Z",
+      "completed_date": "2026-06-30"
     },
     {
       "id": "38e49a74-d54f-81de-8f63-cb73021000a2",
@@ -420,6 +432,18 @@
       "description": "Implementation Details\n\nThe Siri Screen Awareness (J.E.S.S.) integration utilizes standard AppIntents with background execution to allow Siri to capture on-screen files and URLs without blocking the UI.\n\nRelevant Apple Documentation:\n\n\u2022 App Intents Framework: https://developer.apple.com/documentation/appintents\n\n\u2022 Integrating with Siri and Apple Intelligence: https://developer.apple.com/documentation/appintents/integrating-with-siri-and-apple-intelligence\n\n\u2022 Making Actions Available to Siri: https://developer.apple.com/documentation/appintents/making-actions-available-to-siri\n\n\u2022 AppShortcutsProvider: https://developer.apple.com/documentation/appintents/appshortcutsprovider\n\nOfficial Apple Developer Documentation References:\n\n- Siri and Apple Intelligence Integrations: https://developer.apple.com/documentation/apple_intelligence\n\n- App Intents Framework: https://developer.apple.com/documentation/appintents\n\n## Siri Integration\n\nBound active UI window structures to App Intents, exposing document contents to Siri queries.",
       "added_date": "2026-06-20T23:01:00.000Z",
       "completed_date": "2026-06-29T16:59:00.000+00:00"
+    },
+    {
+      "id": "02f0254a-b680-4560-ab23-1fa731fa7060",
+      "name": "Refine Document Ingestion Live Activity (Dynamic Island + Apple Watch)",
+      "status": "Completed",
+      "target_os": "All (26.5 & 27)",
+      "priority": "Medium",
+      "component": "Ingestion",
+      "target_release": "v4.3",
+      "description": "Document ingestion progress already surfaces live in the Dynamic Island and on Apple Watch (shipped in v4.2), but the integration needs polish. Tighten progress accuracy and update cadence, smooth the Watch display, handle edge cases (multi-document / background ingestion, completion + error states), and make the Live Activity feel native end to end across iPhone and Watch.",
+      "added_date": "2026-06-20T18:31:00.000Z",
+      "completed_date": "2026-06-30"
     },
     {
       "id": "38149a74-d54f-8116-9cd5-f5ab6aac5014",
