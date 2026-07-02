@@ -1,16 +1,16 @@
 {
-  "last_updated": "2026-07-01T00:33:40.933673Z",
+  "last_updated": "2026-07-02T00:33:00.214606Z",
   "items": [
     {
-      "id": "261bc2c3-0bce-40da-a822-3476b6b92e6a",
-      "name": "Accelerate Document Ingestion Without Sacrificing Accuracy",
+      "id": "39049a74-d54f-8110-83b1-f84f2231d275",
+      "name": "Universal UI and Local App-Level Localization",
       "status": "To Do",
       "target_os": "All (26.5 & 27)",
-      "priority": "High",
-      "component": "Ingestion",
-      "target_release": "v4.5 (Phase 2B)",
-      "description": "## Technical Overview\n\nLarge-document ingestion is too slow and unstable.  A 542-page car manual took upwards of 30 minutes and crashed at roughly page 450 before completing.  Goal: dramatically cut ingestion time and eliminate the large-document crash while holding or improving every accuracy metric (chunk quality, embedding fidelity, retrieval precision/recall, citation correctness).\n\n### Problem Signals\n\n\u2022 542-page PDF crashed near page ~450 (likely memory pressure / unbounded accumulation during parse + embed).\n\n\u2022 End-to-end ingestion exceeded 30 minutes for a single large document.\n\n\u2022 No graceful resume or partial-progress recovery after a crash.\n\n### Key Deliverables\n\n\u2022 Profile the pipeline (parse, chunk, embed, index) to find the dominant time sink and the memory growth that triggers the crash.\n\n\u2022 Stream and batch pages instead of loading the whole document into memory; cap peak memory with autorelease/back-pressure so large PDFs no longer OOM.\n\n\u2022 Parallelize embedding generation (concurrent batches / background tasks) while keeping the MainActor free.\n\n\u2022 Add checkpointing so a failed or interrupted ingest can resume instead of restarting.\n\n\u2022 Validate against the evaluations framework to confirm accuracy is held or improved after speedups (no regressions in retrieval or citation quality).\n\n### Acceptance Criteria\n\n\u2022 The 542-page car manual ingests fully without crashing.\n\n\u2022 Ingestion time for large documents is materially reduced (target: well under the current 30+ minutes).\n\n\u2022 All accuracy metrics match or beat the pre-optimization baseline.",
-      "added_date": "2026-06-30T21:30:00.000Z",
+      "priority": "Medium",
+      "component": "UI",
+      "target_release": "v4.6",
+      "description": "",
+      "added_date": "2026-07-01T17:45:00.000Z",
       "completed_date": null
     },
     {
@@ -50,18 +50,6 @@
       "completed_date": null
     },
     {
-      "id": "38149a74-d54f-815a-8d73-d53fa3398e1c",
-      "name": "PCC Escalation Transparency UI",
-      "status": "To Do",
-      "target_os": "All (26.5 & 27)",
-      "priority": "Medium",
-      "component": "Orchestration",
-      "target_release": "v4.5 (Phase 2B)",
-      "description": "Add a privacy indicator showing a locked Local Engine (4K) badge that only visually escalates to PCC (32K) when absolutely necessary.",
-      "added_date": "2026-06-16T16:23:00.000Z",
-      "completed_date": null
-    },
-    {
       "id": "38149a74-d54f-81d6-b065-f74b4e5039bf",
       "name": "Local Deep Think Tracing UI",
       "status": "To Do",
@@ -82,18 +70,6 @@
       "component": "Shortcuts",
       "target_release": "Future Backlog",
       "description": "By adopting View Entity annotations, OpenIntelligence can explicitly declare the contents of the currently open document so Siri can 'read' the screen (the Google NotebookLM experience).",
-      "added_date": "2026-06-15T04:49:00.000Z",
-      "completed_date": null
-    },
-    {
-      "id": "38049a74-d54f-813f-bf66-c1cdc4062c27",
-      "name": "Migrate TinyBERT to Core AI Framework",
-      "status": "To Do",
-      "target_os": "iOS/macOS 27+ Only",
-      "priority": "Medium",
-      "component": "Indexing",
-      "target_release": "Future Backlog",
-      "description": "Core AI is a brand new native framework for Apple Silicon that uses zero-copy data paths and AOT compilation. Migrating TinyBERT from Core ML to Core AI gives access to 'Core AI Instruments' in Xcode to profile exact memory bandwidth and latency.",
       "added_date": "2026-06-15T04:49:00.000Z",
       "completed_date": null
     },
@@ -122,18 +98,6 @@
       "completed_date": null
     },
     {
-      "id": "38049a74-d54f-81b1-b0a0-da47386fc905",
-      "name": "Refine Shortcut Functionality (v4.2)",
-      "status": "To Do",
-      "target_os": "All (26.5 & 27)",
-      "priority": "High",
-      "component": "Shortcuts",
-      "target_release": "v4.2",
-      "description": "## Specification\n\nExpose RAG quality levels (Standard, Deep Think, Max) as native AppEnum parameters so users can customize query execution directly inside Shortcuts.",
-      "added_date": "2026-06-15T04:42:00.000Z",
-      "completed_date": null
-    },
-    {
       "id": "38049a74-d54f-8135-abc9-c44bb6a53371",
       "name": "Apple Notes Integration (NotebookLM Style)",
       "status": "To Do",
@@ -152,10 +116,34 @@
       "target_os": "iOS/macOS 27+ Only",
       "priority": "Medium",
       "component": "Orchestration",
-      "target_release": "Future Backlog",
+      "target_release": "v4.6",
       "description": "## System Specification\n\nSupport on-the-fly updates to the LanguageModelSession configuration without needing to tear down and rebuild the session state.",
       "added_date": "2026-06-14T20:56:00.000Z",
       "completed_date": null
+    },
+    {
+      "id": "39049a74-d54f-8131-818d-ceb6d5ef7942",
+      "name": "Private Cloud Compute Entitlement Fallback",
+      "status": "Completed",
+      "target_os": "All",
+      "priority": "High",
+      "component": "Orchestration",
+      "target_release": "Future Backlog",
+      "description": "",
+      "added_date": "2026-07-01T22:11:00.000Z",
+      "completed_date": "2026-07-01"
+    },
+    {
+      "id": "39049a74-d54f-810b-bcca-dad0618ffddc",
+      "name": "Migrate to Rust-Backed swift-tokenizers",
+      "status": "Completed",
+      "target_os": "All (26.5 & 27)",
+      "priority": "High",
+      "component": "Indexing",
+      "target_release": "v4.5 (Phase 2B)",
+      "description": "",
+      "added_date": "2026-07-01T16:36:00.000Z",
+      "completed_date": "2026-07-01T17:04:00.000Z"
     },
     {
       "id": "bf1141dc-b26c-4b13-9502-0e0bb82c19d7",
@@ -168,6 +156,18 @@
       "description": "## Technical Overview\n\nThe document-ingestion Live Activity already surfaces on the Apple Watch, which is a great touch, but the Watch presentation looks rough and the widgets need both a visual and functional overhaul.  Make the Activity feature look polished and behave reliably across iPhone (Dynamic Island / Lock Screen) and Apple Watch.\n\n### Problem Signals\n\n\u2022 Live Activity renders poorly on Apple Watch (layout, sizing, legibility).\n\n\u2022 Widget visuals feel unrefined and inconsistent with the rest of the app.\n\n### Key Deliverables\n\n\u2022 Redesign the Watch Live Activity layout for the small screen: clean progress display, readable typography, proper sizing.\n\n\u2022 Refine the Dynamic Island and Lock Screen presentations so the whole Activity family feels native and consistent.\n\n\u2022 Improve functional behavior: accurate progress, smooth update cadence, and correct completion + error states.\n\n\u2022 Handle edge cases such as multi-document and background ingestion without stale or broken Activity UI.",
       "added_date": "2026-06-30T21:30:00.000Z",
       "completed_date": "2026-06-30"
+    },
+    {
+      "id": "261bc2c3-0bce-40da-a822-3476b6b92e6a",
+      "name": "Accelerate Document Ingestion Without Sacrificing Accuracy",
+      "status": "Completed",
+      "target_os": "All (26.5 & 27)",
+      "priority": "High",
+      "component": "Ingestion",
+      "target_release": "v4.5 (Phase 2B)",
+      "description": "## Technical Overview\n\nLarge-document ingestion is too slow and unstable.  A 542-page car manual took upwards of 30 minutes and crashed at roughly page 450 before completing.  Goal: dramatically cut ingestion time and eliminate the large-document crash while holding or improving every accuracy metric (chunk quality, embedding fidelity, retrieval precision/recall, citation correctness).\n\n### Problem Signals\n\n\u2022 542-page PDF crashed near page ~450 (likely memory pressure / unbounded accumulation during parse + embed).\n\n\u2022 End-to-end ingestion exceeded 30 minutes for a single large document.\n\n\u2022 No graceful resume or partial-progress recovery after a crash.\n\n### Key Deliverables\n\n\u2022 Profile the pipeline (parse, chunk, embed, index) to find the dominant time sink and the memory growth that triggers the crash.\n\n\u2022 Stream and batch pages instead of loading the whole document into memory; cap peak memory with autorelease/back-pressure so large PDFs no longer OOM.\n\n\u2022 Parallelize embedding generation (concurrent batches / background tasks) while keeping the MainActor free.\n\n\u2022 Add checkpointing so a failed or interrupted ingest can resume instead of restarting.\n\n\u2022 Validate against the evaluations framework to confirm accuracy is held or improved after speedups (no regressions in retrieval or citation quality).\n\n### Acceptance Criteria\n\n\u2022 The 542-page car manual ingests fully without crashing.\n\n\u2022 Ingestion time for large documents is materially reduced (target: well under the current 30+ minutes).\n\n\u2022 All accuracy metrics match or beat the pre-optimization baseline.\n\n### Resolution Details & Race Condition Fix\n\n\u2022 Resolved a critical race condition where WorkspaceSyncService background file sweeps deleted active ingestion files. Fixed by mutating storageRelativePath in IngestionItem on managed copy, propagating it to the local ingestion_queue.json, and adding a 15-minute file modification age check to protect active processing threads.",
+      "added_date": "2026-06-30T21:30:00.000Z",
+      "completed_date": "2026-07-01"
     },
     {
       "id": "38e49a74-d54f-81de-8f63-cb73021000a2",
@@ -201,7 +201,7 @@
       "priority": "High",
       "component": "Indexing",
       "target_release": "v4.4",
-      "description": "Fully integrated the CoreAISentenceEmbeddingProvider, registered coreai_sentence_embedding identifier in settings UI picker, configured ANE auto-tuning rules in LibraryIntelligenceCenter, and aligned all telemetry views and documentation.\n\nOfficial Apple Developer Reference: https://developer.apple.com/documentation/coreai\n\n## Performance Deliverable\n\nReplaced Core ML sentence embeddings with Apple Silicon-native Core AI (.aimodel) embedding engine, achieving a 42% latency reduction (TTFT) on A18/M4 chips.",
+      "description": "Fully integrated the CoreAISentenceEmbeddingProvider, registered coreai_sentence_embedding identifier in settings UI picker, configured ANE auto-tuning rules in LibraryIntelligenceCenter, and aligned all telemetry views and documentation.\n\nOfficial Apple Developer Reference: https://developer.apple.com/documentation/coreai\n\n## Performance Deliverable\n\nReplaced Core ML sentence embeddings with Apple Silicon-native Core AI (.aimodel) embedding engine, achieving a 42% latency reduction (TTFT) on A18/M4 chips.\n\n## iOS 27 Picker Availability Fix\n\n\u2022 Resolved a selection race condition where asynchronous model compilation caused isAvailable checks to fail during settings sheet presentation. Implemented shared-instance caching of CoreAISentenceEmbeddingProvider, added an awaitable readiness gate, and added clean compile-time/runtime diagnostics warnings in the picker card.",
       "added_date": "2026-06-29T01:34:00.000Z",
       "completed_date": "2026-06-29T16:58:00.000+00:00"
     },
@@ -506,6 +506,18 @@
       "completed_date": "2026-06-29T16:59:00.000+00:00"
     },
     {
+      "id": "38149a74-d54f-815a-8d73-d53fa3398e1c",
+      "name": "PCC Escalation Transparency UI",
+      "status": "Completed",
+      "target_os": "All (26.5 & 27)",
+      "priority": "Medium",
+      "component": "Orchestration",
+      "target_release": "v4.5 (Phase 2B)",
+      "description": "Add a privacy indicator showing a locked Local Engine (4K) badge that only visually escalates to PCC (32K) when absolutely necessary.",
+      "added_date": "2026-06-16T16:23:00.000Z",
+      "completed_date": "2026-07-01T15:35:00.000-07:00"
+    },
+    {
       "id": "38149a74-d54f-81b9-8e39-f0843fdcbe0d",
       "name": "Interactive Citation-to-Source Highlighting",
       "status": "Completed",
@@ -540,6 +552,30 @@
       "description": "Replaces manual python scripts and CLI tools. Integrates directly into Swift Testing and Xcode's UI using a Model-as-Judge pattern to quantitatively score your RAG outputs against ground truth datasets.\n\n## Benchmark Engine\n\nSet up local benchmark test execution runner using native Xcode Unit Testing.",
       "added_date": "2026-06-15T04:49:00.000Z",
       "completed_date": "2026-06-29T16:59:00.000+00:00"
+    },
+    {
+      "id": "38049a74-d54f-813f-bf66-c1cdc4062c27",
+      "name": "Migrate TinyBERT to Core AI Framework",
+      "status": "Completed",
+      "target_os": "iOS/macOS 27+ Only",
+      "priority": "Medium",
+      "component": "Indexing",
+      "target_release": "Future Backlog",
+      "description": "Core AI is a brand new native framework for Apple Silicon that uses zero-copy data paths and AOT compilation. Migrating TinyBERT from Core ML to Core AI gives access to 'Core AI Instruments' in Xcode to profile exact memory bandwidth and latency.",
+      "added_date": "2026-06-15T04:49:00.000Z",
+      "completed_date": "2026-07-01T03:12:00.000Z"
+    },
+    {
+      "id": "38049a74-d54f-81b1-b0a0-da47386fc905",
+      "name": "Refine Shortcut Functionality (v4.2)",
+      "status": "Completed",
+      "target_os": "All (26.5 & 27)",
+      "priority": "High",
+      "component": "Shortcuts",
+      "target_release": "v4.2",
+      "description": "## Specification\n\nExpose RAG quality levels (Standard, Deep Think, Max) as native AppEnum parameters so users can customize query execution directly inside Shortcuts.",
+      "added_date": "2026-06-15T04:42:00.000Z",
+      "completed_date": "2026-07-01T03:12:00.000Z"
     },
     {
       "id": "37f49a74-d54f-81b0-aeb5-f3ad08d4e087",
